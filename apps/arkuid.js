@@ -19,14 +19,22 @@ export class SKLandUid extends plugin {
 				},
                 {
 					reg: `^${rulePrefix}信息$`,
-					fnc: 'get_user_info'
+					fnc: 'getUserInfo'
+				},
+                {
+					reg: `^${rulePrefix}我的cred$`,
+					fnc: 'myCred'
+				},
+                {
+					reg: `^${rulePrefix}删除cred$`,
+					fnc: 'delCred'
 				}
 			]
 		})
         this.bindUser = {}
 	}
 
-    async get_user_info() {
+    async getUserInfo() {
         let sklUser = new SKLandUser(this.e.user_id)
         if(!await sklUser.getUser()) {
             await this.reply('未绑定森空岛cred，请先绑定后再使用功能')
@@ -84,6 +92,36 @@ export class SKLandUid extends plugin {
             logger.mark(`绑定失败，响应:${JSON.stringify(res)}`)
             await this.reply(`绑定失败，请检查cred`)
         }
+    }
+
+    async myCred() {
+        if (this.e.isGroup) {
+            await this.reply('请私聊操作')
+            return
+        }
+
+        let sklUser = new SKLandUser(this.e.user_id)
+        if(!await sklUser.getUser()) {
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能')
+            return true
+        }
+        await this.reply(sklUser.cred)
+    }
+
+    async delCred() {
+        if (this.e.isGroup) {
+            await this.reply('请私聊操作')
+            return
+        }
+
+        let sklUser = new SKLandUser(this.e.user_id)
+        if(!await sklUser.getUser()) {
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能')
+            return true
+        }
+        await redis.del(`ARKNIGHTS:USER:${this.e.user_id}`)
+        await this.reply('删除成功')
+        return true
     }
 
 

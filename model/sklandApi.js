@@ -27,7 +27,11 @@ export default class sklandApi {
                     url: `${api_host}api/v1/game/attendance`,
                     body: { uid: this.uid, gameId: 1 }
                 },
-
+                /* 签到信息查询 */
+                attendance_query: {
+                    url: `${api_host}api/v1/game/attendance`,
+                    query: `uid=${this.uid}&gameId=1`
+                },
 
              }
          }
