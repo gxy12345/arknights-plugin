@@ -64,7 +64,9 @@ export class SKLandUid extends plugin {
     }
 
     async receiveCred() {
-        // if (!this.bindUser[this.e.user_id]) return false;
+        if (this.e.isGroup) {
+            return
+        }
         logger.mark(JSON.stringify(this.e.message))
         let skl_cred = this.e.message[0].text
         await this.reply(`cred: ${skl_cred}，校验中...`)
