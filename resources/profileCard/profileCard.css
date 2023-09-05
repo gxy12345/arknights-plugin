@@ -1,0 +1,139 @@
+/* style.css */
+
+/* 新增样式用于背景图容器 */
+.background {
+    background: url('./img/arknights_bg1.jpg');
+    background-size: cover;
+    backdrop-filter: blur(10px); /* 添加毛玻璃效果，可以根据需要调整模糊程度 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 将背景图置于底层 */
+  }
+
+.body {
+    width: 1256px;
+    height: 837px;
+  }
+  
+  /* 设置表格容器的宽度为100% */
+  .table-container {
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: rgba(42, 50, 61, 0.7); /* 背景色的透明度可以根据需要调整 */
+    color: rgba(189, 188, 191, 1);
+    padding: 20px;
+    border-radius: 8px;
+    width: 1256px;
+    height: 837px;
+  }
+  
+  /* 定义自定义表格样式 */
+  .custom-table {
+    width: 100%;
+    table-layout: fixed;
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    border-radius: 8px;
+  }
+  
+  /* 控制表格中的行高为第一个行高的二分之一 */
+  .custom-table tbody tr:not(:first-child) {
+    height: 50%;
+  }
+  
+  /* 新增样式用于进度条容器 */
+  .progress-container {
+    width: 100%;
+    height: 5px;
+    background-color: rgba(63, 75, 91, 1);
+    position: relative;
+    border-radius: 8px;
+    margin-top: 5px;
+  }
+  
+  /* 设置进度条样式 */
+  .progress-bar {
+    height: 100%;
+    background-color: rgba(136, 190, 203, 1);
+  }
+  
+  /* 设置进度条文本的样式 */
+  .progress-text {
+    margin-top: 5px;
+  }
+  
+  /* 新增样式用于显示当前时间 */
+  .current-time {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  /* 对图片进行样式修饰，添加边框 */
+  .custom-table img {
+    border: 1px solid rgba(136, 190, 203, 1);
+    border-radius: 50%;
+    padding: 5px;
+  }
+  
+  /* 调整表格单元格内文字的对齐方式 */
+  .custom-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+  }
+  
+  /* 修改第一行的内容放大一倍 */
+  .table-container .custom-table tbody tr:first-child td {
+    font-size: 1.2em;
+  }
+  
+  /* 修改线索1234567的字符亮度 */
+  /* .table-container .custom-table tbody tr:nth-child(4) td span:nth-child(1),
+  .table-container .custom-table tbody tr:nth-child(4) td span:nth-child(2),
+  .table-container .custom-table tbody tr:nth-child(4) td span:nth-child(3) {
+    filter: brightness(100%);
+  }
+  
+  .table-container .custom-table tbody tr:nth-child(4) td span:nth-child(4),
+  .table-container .custom-table tbody tr:nth-child(4) td span:nth-child(5),
+  .table-container .custom-table tbody tr:nth-child(4) td span:nth-child(6),
+  .table-container .custom-table tbody tr:nth-child(4) td span:nth-child(7) {
+    filter: brightness(50%);
+  } */
+  
+  /* 给博士名字体高度添加注释并修改字体颜色和字体 */
+  .title-text {
+    font-weight: bold; /* 增加字体粗度 */
+    font-size: 45px; /* 修改字体高度为45px */
+    color: rgba(189, 188, 191, 1); /* 修改字体颜色为rgba(189, 188, 191, 1) */
+    text-align: left; /* 左对齐文本 */
+    font-family: "Helvetica Neue", sans-serif; /* 设置字体 */
+  }
+  
+  /* 修改等级文本字体高度和颜色以及字体 */
+  .level-text {
+    font-size: 20px; /* 修改字体高度为20px */
+    color:#99CCFF; /* 修改字体颜色为#99CCFF */
+    text-align: left; /* 左对齐文本 */
+    font-family: "Times New Roman", serif; /* 设置字体 */
+  }
+  
+  /* 修改UID文本字体高度和颜色以及字体 */
+  .uid-text {
+    font-size: 20px; /* 修改字体高度为20px */
+    color:#A8A8A8; /* 修改字体颜色为#A8A8A8 */
+    text-align: left; /* 左对齐文本 */
+    font-family: "Arial", sans-serif; /* 设置字体 */
+  }
+  
+  /* 给自定义文本样式添加注释并修改字体高度和颜色以及字体 */
+  .custom-text {
+    font-size: 27px; /* 修改字体高度为27px */
+    color: rgba(189, 188, 191, 1); /* 修改字体颜色为rgba(189, 188, 191, 1) */
+    font-family: "Verdana", sans-serif; /* 设置字体 */
+  }
+  

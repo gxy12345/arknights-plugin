@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- 导入外部CSS样式表 -->
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}profileCard/profileCard.css">
+</head>
+
+<body>
+  <!-- 背景图容器 -->
+  <div class="background">
+    <!-- 表格容器 -->
+    <div class="table-container">
+      <!-- 自定义表格样式 -->
+      <table class="custom-table">
+        <!-- 列宽度设置 -->
+        <colgroup>
+          <col style="width: 33.33%;">
+          <col style="width: 33.33%;">
+          <col style="width: 33.33%;">
+        </colgroup>
+        <tbody>
+          <!-- 第一行 -->
+          <tr>
+            <td colspan="3">
+              <!-- 内嵌表格用于显示图片、博士名和等级 -->
+              <table>
+                <tr>
+                  <!-- 图片显示 -->
+                  <td rowspan="2"><img src="{{user_info.avatar_url}}" alt="Logo" width="100" height="100"></td>
+                  <td>
+                    <!-- 博士名和等级显示 -->
+                    <span class="title-text">{{user_info.name}}</span><br>
+                    <span class="level-text">Lv.{{user_info.level}}</span> 
+                    <span class="uid-text">UID:{{user_info.uid}}</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!-- 第二行 -->
+          <tr>
+            <!-- 入职时间显示 -->
+            <td>入职时间<br><span class="custom-text">{{user_info.reg_date}}</span></td>
+            <!-- 已苏醒天数和时间显示 -->
+            <td>已苏醒天数<br><span class="custom-text">{{user_info.days_before_now}}天</span></td>
+            <!-- 作战进度显示 -->
+            <td>作战进度<br><span class="custom-text">{{user_info.main_progress}}</span></td>
+          </tr>
+        <!-- 第三行 -->
+        <tr>
+          <!-- 显示家具保有量 -->
+          <td>家具保有量<br><span class="custom-text">{{user_info.funi_num}}</span></td>
+          <!-- 显示干员招募数 -->
+          <td>干员招募数<br><span class="custom-text">{{user_info.char_num}}</span></td>
+          <!-- 显示时装拥有数 -->
+          <td>时装拥有数<br><span class="custom-text">{{user_info.skin_num}}</span></td>
+        </tr>
+        <!-- 第四行 -->
+        <tr>
+          <!-- 显示理智和进度条 -->
+          <td colspan="1">
+            <div>
+              理智<br><span class="custom-text">{{game_info.ap_current}}/{{game_info.ap_total}}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{game_info.ap_rate}}%;"></div>
+            </div>
+          </td>
+          <!-- 显示无人机和进度条 -->
+          <td>
+            <div>
+              无人机<br><span class="custom-text">{{game_info.uav_current}}/{{game_info.uav_total}}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{game_info.uav_rate}}%;"></div>
+            </div>
+          </td>
+          <!-- 显示线索和进度条 -->
+          <td>
+            <div>
+              线索<br>
+              <!-- <span class="custom-text">①</span>
+              <span class="custom-text">②</span>
+              <span class="custom-text">③</span>
+              <span class="custom-text">④</span>
+              <span class="custom-text">⑤</span>
+              <span class="custom-text">⑥</span>
+              <span class="custom-text">⑦</span> -->
+              {{@cule_status}}
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{game_info.clue_rate}}%;"></div>
+            </div>
+          </td>
+        </tr>
+        <!-- 第五行 -->
+        <tr>
+          <!-- 显示日常任务进度 -->
+          <td>
+            <div>
+              日常<br><span class="custom-text">{{game_info.daily_current}}/{{game_info.daily_total}}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{game_info.daily_rate}}%;"></div>
+            </div>
+          </td>
+          <!-- 显示周常任务进度 -->
+          <td>
+            <div>
+              周常<br><span class="custom-text">{{game_info.weekly_current}}/{{game_info.weekly_total}}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{game_info.weekly_rate}}%;"></div>
+            </div>
+          </td>
+          <!-- 显示公招进度 -->
+          <td>
+            <div>
+              公开招募<br><span class="custom-text">{{game_info.recruit_finish}}/{{game_info.recruit_total}}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{game_info.recruit_rate}}%;"></div>
+            </div>
+          </td>
+        </tr>
+        <!-- 第六行 -->
+        <tr>
+          <!-- 显示保全派驻和进度条 -->
+          <td>
+            <div>
+              保全-增补条<br><span class="custom-text">{{game_info.tower_lower_current}}/{{game_info.tower_lower_total}}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{game_info.tower_lower_rate}}%;"></div>
+            </div>
+          </td>
+          <!-- 显示保全派驻和进度条 -->
+          <td>
+            <div>
+              保全-增补仪<br><span class="custom-text">{{game_info.tower_higher_current}}/{{game_info.tower_higher_total}}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{game_info.tower_higher_rate}}%;"></div>
+            </div>
+          </td>
+          <!-- 显示剿灭作战进度 -->
+          <td>
+            <div>
+              剿灭作战<br><span class="custom-text">{{game_info.campaign_current}}/{{game_info.campaign_total}}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{game_info.campaign_rate}}%;"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
+</html>
