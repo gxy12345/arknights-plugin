@@ -68,15 +68,15 @@ export class Profile extends plugin {
         game_info.uav_rate = Math.round(game_info.uav_current/game_info.uav_total*100)
         // 线索
         const findClue = (clue) => {
-            return game_data.building.meeting.clue.board.find(item => item == clue) ? 'rgba(189, 188, 191, 1)' : 'gray';
+            return game_data.building.meeting.clue.board.find(item => item == clue) ? '100' : '50';
         };
-        let cule_status = `<span class="custom-text" style="color: ${findClue('RHINE')}">①</span>
-        <span class="custom-text" style="color: ${findClue('PENGUIN')}">②</span>
-        <span class="custom-text" style="color: ${findClue('BLACKSTEEL')}">③</span>
-        <span class="custom-text" style="color: ${findClue('URSUS')}">④</span>
-        <span class="custom-text" style="color: ${findClue('GLASGOW')}">⑤</span>
-        <span class="custom-text" style="color: ${findClue('KJERAG')}">⑥</span>
-        <span class="custom-text" style="color: ${findClue('RHODES')}">⑦</span>
+        let cule_status = `<span class="custom-text" style="filter: brightness(${findClue('RHINE')}%)">①</span>
+        <span class="custom-text" style="filter: brightness(${findClue('PENGUIN')}%)">②</span>
+        <span class="custom-text" style="filter: brightness(${findClue('BLACKSTEEL')}%)">③</span>
+        <span class="custom-text" style="filter: brightness(${findClue('URSUS')}%)">④</span>
+        <span class="custom-text" style="filter: brightness(${findClue('GLASGOW')}%)">⑤</span>
+        <span class="custom-text" style="filter: brightness(${findClue('KJERAG')}%)">⑥</span>
+        <span class="custom-text" style="filter: brightness(${findClue('RHODES')}%)">⑦</span>
         `
         game_info.clue_rate = Math.round(game_data.building.meeting.clue.board.length/7*100)
         // 日常
