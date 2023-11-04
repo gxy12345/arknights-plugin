@@ -13,7 +13,7 @@ export class Profile extends plugin {
 			priority: 100,
 			rule: [
 				{
-					reg: `^${rulePrefix}博士卡片$`,
+					reg: `^${rulePrefix}(博士卡片|便签|卡片)$`,
 					fnc: 'profileCard'
 				},
 			]
@@ -24,7 +24,7 @@ export class Profile extends plugin {
     async profileCard() {
         let sklUser = new SKLandUser(this.e.user_id)
         if(!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return true
         }
 

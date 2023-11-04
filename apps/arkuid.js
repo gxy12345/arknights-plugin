@@ -4,6 +4,8 @@ import { Cfg, Version, Common, Data } from '../components/index.js'
 import { rulePrefix } from '../utils/common.js'
 import SKLandRequest from '../model/sklandReq.js'
 import SKLandUser from '../model/sklandUser.js'
+import setting from '../utils/setting.js'
+
 
 export class SKLandUid extends plugin {
 	constructor() {
@@ -28,16 +30,21 @@ export class SKLandUid extends plugin {
                 {
 					reg: `^${rulePrefix}删除cred$`,
 					fnc: 'delCred'
+				},
+                {
+					reg: `^${rulePrefix}cred帮助$`,
+					fnc: 'credHelp'
 				}
 			]
 		})
+        this.help_setting = setting.getConfig('help')
         this.bindUser = {}
 	}
 
     async getUserInfo() {
         let sklUser = new SKLandUser(this.e.user_id)
         if(!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return true
         }
 
@@ -104,7 +111,7 @@ export class SKLandUid extends plugin {
 
         let sklUser = new SKLandUser(this.e.user_id)
         if(!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return true
         }
         await this.reply(sklUser.cred)
@@ -118,12 +125,20 @@ export class SKLandUid extends plugin {
 
         let sklUser = new SKLandUser(this.e.user_id)
         if(!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return true
         }
         await redis.del(`ARKNIGHTS:USER:${this.e.user_id}`)
         await this.reply('删除成功')
         return true
+    }
+
+    async credHelp() {
+        if (!this.help_setting?.cred_help_doc) {
+            logger.mark(`未配置cred帮助文档`)
+        }
+        let msg = `森空岛cred获取帮助：${this.help_setting.cred_help_doc}`
+        await this.reply(msg)
     }
 
 
