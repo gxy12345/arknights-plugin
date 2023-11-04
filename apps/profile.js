@@ -68,7 +68,7 @@ export class Profile extends plugin {
         game_info.uav_rate = Math.round(game_info.uav_current/game_info.uav_total*100)
         // 线索
         const findClue = (clue) => {
-            return game_data.building.meeting.clue.board.find(item => item == clue) ? '100' : '50';
+            return game_data.building.meeting.clue.board.find(item => item == clue) ? '100' : '60';
         };
         let cule_status = `<span class="custom-text" style="filter: brightness(${findClue('RHINE')}%)">①</span>
         <span class="custom-text" style="filter: brightness(${findClue('PENGUIN')}%)">②</span>
