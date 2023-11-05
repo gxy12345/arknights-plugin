@@ -8,42 +8,42 @@ import setting from '../utils/setting.js'
 
 
 export class SKLandUid extends plugin {
-	constructor() {
-		super({
-			name: '[arknights-plugin]绑定相关',
-			dsc: '森空岛账号信息管理',
-			event: 'message',
-			priority: 100,
-			rule: [
-				{
-					reg: `^${rulePrefix}绑定$`,
-					fnc: 'bindSKland'
-				},
+    constructor() {
+        super({
+            name: '[arknights-plugin]绑定相关',
+            dsc: '森空岛账号信息管理',
+            event: 'message',
+            priority: 100,
+            rule: [
                 {
-					reg: `^${rulePrefix}信息$`,
-					fnc: 'getUserInfo'
-				},
+                    reg: `^${rulePrefix}绑定$`,
+                    fnc: 'bindSKland'
+                },
                 {
-					reg: `^${rulePrefix}我的cred$`,
-					fnc: 'myCred'
-				},
+                    reg: `^${rulePrefix}信息$`,
+                    fnc: 'getUserInfo'
+                },
                 {
-					reg: `^${rulePrefix}删除cred$`,
-					fnc: 'delCred'
-				},
+                    reg: `^${rulePrefix}我的cred$`,
+                    fnc: 'myCred'
+                },
                 {
-					reg: `^${rulePrefix}cred帮助$`,
-					fnc: 'credHelp'
-				}
-			]
-		})
+                    reg: `^${rulePrefix}删除cred$`,
+                    fnc: 'delCred'
+                },
+                {
+                    reg: `^${rulePrefix}cred帮助$`,
+                    fnc: 'credHelp'
+                }
+            ]
+        })
         this.help_setting = setting.getConfig('help')
         this.bindUser = {}
-	}
+    }
 
     async getUserInfo() {
         let sklUser = new SKLandUser(this.e.user_id)
-        if(!await sklUser.getUser()) {
+        if (!await sklUser.getUser()) {
             await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return true
         }
@@ -110,7 +110,7 @@ export class SKLandUid extends plugin {
         }
 
         let sklUser = new SKLandUser(this.e.user_id)
-        if(!await sklUser.getUser()) {
+        if (!await sklUser.getUser()) {
             await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return true
         }
@@ -124,7 +124,7 @@ export class SKLandUid extends plugin {
         }
 
         let sklUser = new SKLandUser(this.e.user_id)
-        if(!await sklUser.getUser()) {
+        if (!await sklUser.getUser()) {
             await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return true
         }

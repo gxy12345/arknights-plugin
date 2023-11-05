@@ -5,37 +5,37 @@ import common from '../../../lib/common/common.js'
 
 
 export class SKLandAttendance extends plugin {
-	constructor() {
-		super({
-			name: '[arknights-plugin]签到',
-			dsc: '森空岛签到',
-			event: 'message',
-			priority: 50,
-			rule: [
-				{
-					reg: `^${rulePrefix}签到$`,
-					fnc: 'attendance'
-				},
+    constructor() {
+        super({
+            name: '[arknights-plugin]签到',
+            dsc: '森空岛签到',
+            event: 'message',
+            priority: 50,
+            rule: [
+                {
+                    reg: `^${rulePrefix}签到$`,
+                    fnc: 'attendance'
+                },
                 {
                     reg: `^${rulePrefix}(全部签到|签到任务)$`,
                     permission: 'master',
                     fnc: 'attendance_task'
                 },
-			]
-		})
+            ]
+        })
         this.setting = setting.getConfig('sign')
 
         this.task = {
             cron: this.setting.auto_sign_cron,
             name: '森空岛签到任务',
             fnc: () => this.attendance_task()
-          }
+        }
         this.bindUser = {}
-	}
+    }
 
     async attendance() {
         let sklUser = new SKLandUser(this.e.user_id)
-        if(!await sklUser.getUser()) {
+        if (!await sklUser.getUser()) {
             await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return true
         }
@@ -66,7 +66,7 @@ export class SKLandAttendance extends plugin {
         let fail_count = 0
 
         logger.mark(`[方舟插件][签到任务]签到任务开始`)
-        if (is_manual){
+        if (is_manual) {
             await this.e.reply('签到任务开始')
 
         }
@@ -75,7 +75,7 @@ export class SKLandAttendance extends plugin {
             let user_id = key.replace(/ARKNIGHTS:USER:/g, '');
             let sklUser = new SKLandUser(user_id)
             await common.sleep(2000)
-            if(!await sklUser.getUser()) {
+            if (!await sklUser.getUser()) {
                 logger.mark(`[方舟插件][签到任务]${user_id} cred校验失效`)
                 fail_count += 1
                 continue
@@ -96,7 +96,7 @@ export class SKLandAttendance extends plugin {
             }
         }
         logger.mark(`[方舟插件][签到任务]任务完成：${keys.length}个\n已签：${signed_count}个\n成功：${success_count}个\n失败：${fail_count}个`)
-        if (is_manual){
+        if (is_manual) {
             let msg = `森空岛签到任务完成：${keys.length}个\n已签：${signed_count}个\n成功：${success_count}个\n失败：${fail_count}个`
             await this.e.reply(msg)
 

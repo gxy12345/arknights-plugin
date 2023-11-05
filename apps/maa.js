@@ -7,47 +7,47 @@ import { task_type_map, get_task_name } from '../utils/maaConstant.js'
 
 
 export class MAAControl extends plugin {
-	constructor() {
-		super({
-			name: '[arknights-plugin]MAA远程控制',
-			dsc: 'MAA远程控制',
-			event: 'message',
-			priority: 50,
-			rule: [
-				{
-					reg: `^${rulePrefix}(MAA|Maa|maa)帮助$`,
-					fnc: 'maa_help'
-				},
+    constructor() {
+        super({
+            name: '[arknights-plugin]MAA远程控制',
+            dsc: 'MAA远程控制',
+            event: 'message',
+            priority: 50,
+            rule: [
                 {
-					reg: `^${rulePrefix}(我的)?(MAA|Maa|maa)$`,
-					fnc: 'my_maa'
-				},
+                    reg: `^${rulePrefix}(MAA|Maa|maa)帮助$`,
+                    fnc: 'maa_help'
+                },
                 {
-					reg: `^${rulePrefix}(MAA|Maa|maa)绑定设备$`,
-					fnc: 'maa_bind_device'
-				},
+                    reg: `^${rulePrefix}(我的)?(MAA|Maa|maa)$`,
+                    fnc: 'my_maa'
+                },
                 {
-					reg: `^${rulePrefix}(MAA|Maa|maa)查询任务$`,
-					fnc: 'maa_get_task'
-				},
+                    reg: `^${rulePrefix}(MAA|Maa|maa)绑定设备$`,
+                    fnc: 'maa_bind_device'
+                },
                 {
-					reg: `^${rulePrefix}(MAA|Maa|maa)清空任务$`,
-					fnc: 'maa_clear_task'
-				},
+                    reg: `^${rulePrefix}(MAA|Maa|maa)查询任务$`,
+                    fnc: 'maa_get_task'
+                },
                 {
-					reg: `^${rulePrefix}(MAA|Maa|maa)(.)+$`,
-					fnc: 'maa_set_task'
-				},
+                    reg: `^${rulePrefix}(MAA|Maa|maa)清空任务$`,
+                    fnc: 'maa_clear_task'
+                },
+                {
+                    reg: `^${rulePrefix}(MAA|Maa|maa)(.)+$`,
+                    fnc: 'maa_set_task'
+                },
 
-			]
-		})
+            ]
+        })
         this.setting = setting.getConfig('maa')
         this.bindUser = {}
-	}
+    }
 
     async check_skluser() {
         let sklUser = new SKLandUser(this.e.user_id)
-        if(!await sklUser.getUser()) {
+        if (!await sklUser.getUser()) {
             await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return false
         }
@@ -84,7 +84,7 @@ export class MAAControl extends plugin {
         if (maaConf.device) msg += `\ndevice: ${maaConf.device}`
         if (maaConf.maa_api) {
             let check_res = await maaConf.maa_api.check_user()
-            msg += `\n设备校验状态: ${check_res ? '通过': '未通过'}`
+            msg += `\n设备校验状态: ${check_res ? '通过' : '未通过'}`
         }
         await this.e.reply(msg)
         return true
@@ -142,16 +142,16 @@ export class MAAControl extends plugin {
         let tasks = []
         // 停止任务优先级大于其他，且互斥
         if (match.includes("停止任务")) {
-            let task_item = {type: task_type_map["停止任务"]}
+            let task_item = { type: task_type_map["停止任务"] }
             tasks.push(task_item)
-        // 一键长草为其他任务的全集，故跳过其他
+            // 一键长草为其他任务的全集，故跳过其他
         } else if (match.includes("一键长草")) {
-            let task_item = {type: task_type_map["一键长草"]}
+            let task_item = { type: task_type_map["一键长草"] }
             tasks.push(task_item)
-        // 其他任务
+            // 其他任务
         } else {
             for (let task_name of match) {
-                let task_item = {type: task_type_map[task_name]}
+                let task_item = { type: task_type_map[task_name] }
                 tasks.push(task_item)
             }
         }

@@ -1,7 +1,7 @@
 import setting from '../utils/setting.js'
 
-export default class MAAControlAPI{
-    constructor(user, device, option={}) {
+export default class MAAControlAPI {
+    constructor(user, device, option = {}) {
         this.user = user
         this.setting = setting.getConfig('maa')
         this.device = device
@@ -13,18 +13,18 @@ export default class MAAControlAPI{
         }
     }
 
-    async request_maa_api(url, method, body={}, query='') {
+    async request_maa_api(url, method, body = {}, query = '') {
         let req_url = url
         let param = {
             timeout: 10000,
             method: method,
         }
-        if (body && method=='post') {
+        if (body && method == 'post') {
             param.body = JSON.stringify(body)
-            param.headers = {'Content-Type': 'application/json'}
+            param.headers = { 'Content-Type': 'application/json' }
 
         } else {
-            req_url +=`?${query}`
+            req_url += `?${query}`
         }
         let response = {}
         logger.mark(`[MAA API]请求接口-${method}:${req_url}`)

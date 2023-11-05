@@ -2,7 +2,7 @@ import sklandApi from "./sklandApi.js"
 import SKLandRequest from "./sklandReq.js"
 
 export default class SKLandUser {
-    constructor (user_id, option={}) {
+    constructor(user_id, option = {}) {
         this.user_id = user_id
         this.uid = 0
         this.cred = ''

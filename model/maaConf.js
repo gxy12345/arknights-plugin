@@ -1,8 +1,8 @@
 import SKLandUser from "./sklandUser.js"
 import MAAControlAPI from "./maaApi.js"
 
-export default class MAAConf{
-    constructor (user_id, option={}) {
+export default class MAAConf {
+    constructor(user_id, option = {}) {
         this.user_id = user_id
         this.user = null
         this.device = null

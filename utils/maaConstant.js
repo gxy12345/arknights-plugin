@@ -11,8 +11,8 @@ export const task_type_map = {
 
 export function get_task_name(value) {
     for (let key in task_type_map) {
-      if (task_type_map[key] === value) {
-        return key;
-      }
+        if (task_type_map[key] === value) {
+            return key;
+        }
     }
-  }
+}
