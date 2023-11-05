@@ -2,13 +2,18 @@ import sklandApi from "./sklandApi.js"
 import SKLandRequest from "./sklandReq.js"
 
 export default class SKLandUser {
-    constructor (user_id) {
+    constructor (user_id, option={}) {
         this.user_id = user_id
         this.uid = 0
         this.cred = ''
         this.name = ''
         this.level = 1
         this.sklReq = null
+
+        this.option = {
+            log: true,
+            ...option
+        }
     }
 
     async getUser() {

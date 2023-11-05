@@ -1,8 +1,5 @@
 # MAA远程控制总开关
 maa_control_toggle: false
-# MAA获取task API
-maa_get_task_api: 
-# MAA下发task API
-maa_set_task_api:
-# MAA检查user API
-maa_check_user_api:
+# MAA API host
+# 构建镜像：https://hub.docker.com/repository/docker/windoge/maa-control-api/general
+maa_api_host:

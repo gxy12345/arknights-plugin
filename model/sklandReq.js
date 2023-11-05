@@ -12,7 +12,7 @@ export default class SKLandRequest {
         this.option = {
             log: true,
             ...option
-          }
+        }
       }
 
       getUrl (type, data = {}) {
@@ -59,7 +59,7 @@ export default class SKLandRequest {
           }
           if (body) {
             param.method = 'post'
-            param.body = body
+            param.body = JSON.stringify(body)
           } else {
             param.method = 'get'
           }

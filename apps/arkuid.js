@@ -47,7 +47,7 @@ export class SKLandUid extends plugin {
             await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
             return true
         }
-
+        await sklUser.updateUser()
         let res = await sklUser.sklReq.getData('user_info')
         if (res?.code === 0 && res?.message === 'OK') {
             let skl_user_info = res.data.user

@@ -3,6 +3,7 @@ import SKLandUser from '../model/sklandUser.js'
 import MAAConf from '../model/maaConf.js'
 import setting from '../utils/setting.js'
 import common from '../../../lib/common/common.js'
+import { task_type_map, get_task_name } from '../utils/maaConstant.js'
 
 
 export class MAAControl extends plugin {
@@ -14,28 +15,28 @@ export class MAAControl extends plugin {
 			priority: 50,
 			rule: [
 				{
-					reg: `^${rulePrefix}MAA帮助$`,
+					reg: `^${rulePrefix}(MAA|Maa|maa)帮助$`,
 					fnc: 'maa_help'
 				},
                 {
-					reg: `^${rulePrefix}我的MAA$`,
+					reg: `^${rulePrefix}(我的)?(MAA|Maa|maa)$`,
 					fnc: 'my_maa'
 				},
                 {
-					reg: `^${rulePrefix}MAA绑定设备(.+)$`,
+					reg: `^${rulePrefix}(MAA|Maa|maa)绑定设备$`,
 					fnc: 'maa_bind_device'
 				},
                 {
-					reg: `^${rulePrefix}MAA发布任务$`,
-					fnc: 'maa_set_task'
-				},
-                {
-					reg: `^${rulePrefix}MAA查询任务$`,
+					reg: `^${rulePrefix}(MAA|Maa|maa)查询任务$`,
 					fnc: 'maa_get_task'
 				},
                 {
-					reg: `^${rulePrefix}MAA清空任务$`,
+					reg: `^${rulePrefix}(MAA|Maa|maa)清空任务$`,
 					fnc: 'maa_clear_task'
+				},
+                {
+					reg: `^${rulePrefix}(MAA|Maa|maa)(.)+$`,
+					fnc: 'maa_set_task'
 				},
 
 			]
@@ -54,13 +55,25 @@ export class MAAControl extends plugin {
     }
 
     async maa_help() {
+        if (!this.setting.maa_control_toggle) {
+            return false
+        }
         let sklUser = await this.check_skluser()
         if (!sklUser) {
             return true
         }
+        let msg = `1.启动MAA，进入设置-远程控制`
+        msg += `\n2.获取任务端点填写：${this.setting.maa_api_host}/maa/get_task`
+        msg += `\n3.汇报任务端点填写：${this.setting.maa_api_host}/maa/report_task`
+        msg += `\n4.用户标识符填写：${sklUser.uid} (为唯一标识符，无法与其他人共用)`
+        msg += `\n5.发送指令【/MAA绑定设备】`
+        await this.reply(msg)
     }
 
     async my_maa() {
+        if (!this.setting.maa_control_toggle) {
+            return false
+        }
         let sklUser = await this.check_skluser()
         if (!sklUser) {
             return true
@@ -70,50 +83,147 @@ export class MAAControl extends plugin {
         let msg = `MAA配置信息：\nuser: ${maaConf.user}`
         if (maaConf.device) msg += `\ndevice: ${maaConf.device}`
         if (maaConf.maa_api) {
-            let check_res = maaConf.maa_api.check_user()
-            msg += `\n校验状态: ${check_res ? '通过': '未通过'}`
+            let check_res = await maaConf.maa_api.check_user()
+            msg += `\n设备校验状态: ${check_res ? '通过': '未通过'}`
         }
-        await this.reply(msg)
+        await this.e.reply(msg)
         return true
     }
 
     async maa_bind_device() {
+        if (!this.setting.maa_control_toggle) {
+            return false
+        }
         let sklUser = await this.check_skluser()
         if (!sklUser) {
             return true
         }
-        let received_msg = this.e.msg
-        let match = `^${rulePrefix}MAA绑定设备(.+)$`.exec(received_msg)
-        if (match) {
-            logger.mark(`match: ${match[1]}`)
-            let maaConf = new MAAConf(this.e.user_id)
-            await maaConf.setDevice(match[1])
-            await this.e.reply(`绑定MAA设备成功，设备:${match[1]}`)
+        let maaConf = new MAAConf(this.e.user_id)
+        await maaConf.getConf()
+        let device = await maaConf.maa_api.get_device()
+        if (!device) {
+            await this.e.reply(`绑定MAA设备失败`)
             return true
         }
-        await this.e.reply(`绑定MAA设备失败`)
+        await maaConf.setDevice(device)
+        await this.e.reply(`绑定MAA设备成功\ndevice:${device}`)
+        let msg = `MAA模块指令如下：`
+        msg += `\n【/MAA】查询当前绑定情况`
+        msg += `\n【/MAA+任务名称】下发任务`
+        msg += `\n【/MAA查询任务】查询已下发任务的状态`
+        msg += `\n【/MAA清空任务】清空任务列表（不会停止MAA当前执行的任务）`
+        await this.e.reply(msg)
         return true
     }
 
     async maa_set_task() {
+        if (!this.setting.maa_control_toggle) {
+            return false
+        }
         let sklUser = await this.check_skluser()
         if (!sklUser) {
             return true
         }
+        let maaConf = new MAAConf(this.e.user_id)
+        await maaConf.getConf()
+        if (!maaConf.device && maaConf.maa_api) {
+            await this.e.reply(`未绑定设备，请使用 /MAA绑定设备 绑定后再使用`)
+            return true
+        }
+        if (!await maaConf.maa_api.check_user()) {
+            await this.e.reply(`device已失效，请重新绑定`)
+            return true
+        }
+        let match = this.e.msg.match(/(一键长草|自动公招|刷理智|获取信用|基建换班|领取奖励|自动肉鸽|停止任务)/g)
+        logger.mark(`[MAA]匹配任务列表: ${match}`)
+        if (!match) {
+            return false
+        }
+        let tasks = []
+        // 停止任务优先级大于其他，且互斥
+        if (match.includes("停止任务")) {
+            let task_item = {type: task_type_map["停止任务"]}
+            tasks.push(task_item)
+        // 一键长草为其他任务的全集，故跳过其他
+        } else if (match.includes("一键长草")) {
+            let task_item = {type: task_type_map["一键长草"]}
+            tasks.push(task_item)
+        // 其他任务
+        } else {
+            for (let task_name of match) {
+                let task_item = {type: task_type_map[task_name]}
+                tasks.push(task_item)
+            }
+        }
+        let res_tasks = await maaConf.maa_api.set_task(tasks)
+        if (res_tasks) {
+            await this.e.reply(`MAA任务下发成功`)
+            return true
+        }
+        await this.e.reply(`MAA任务下发失败，请检查日志`)
+        return true
+
     }
 
     async maa_get_task() {
+        if (!this.setting.maa_control_toggle) {
+            return false
+        }
         let sklUser = await this.check_skluser()
         if (!sklUser) {
             return true
         }
+        let maaConf = new MAAConf(this.e.user_id)
+        await maaConf.getConf()
+        if (!maaConf.device && maaConf.maa_api) {
+            await this.e.reply(`未绑定设备，请使用 /MAA绑定设备 绑定后再使用`)
+            return true
+        }
+        if (!await maaConf.maa_api.check_user()) {
+            await this.e.reply(`device已失效，请重新绑定`)
+            return true
+        }
+        let res_tasks = await maaConf.maa_api.get_task()
+        if (!res_tasks || res_tasks.length == 0) {
+            await this.e.reply(`未获取到当前设备的任务信息`)
+            return true
+        }
+        let msg = "当前运行任务："
+        logger.mark(`任务响应 ${JSON.stringify(res_tasks)}`)
+        for (let task_item of res_tasks) {
+            let task_name = get_task_name(task_item.type)
+            let task_status = task_item.status == "SUCCESS" ? "已完成" : "未完成"
+            msg += `\n${task_name} - ${task_status}`
+        }
+        await this.e.reply(msg)
+        return true
     }
 
     async maa_clear_task() {
+        if (!this.setting.maa_control_toggle) {
+            return false
+        }
         let sklUser = await this.check_skluser()
         if (!sklUser) {
             return true
         }
+        let maaConf = new MAAConf(this.e.user_id)
+        await maaConf.getConf()
+        if (!maaConf.device && maaConf.maa_api) {
+            await this.e.reply(`未绑定设备，请使用 /MAA绑定设备 绑定后再使用`)
+            return true
+        }
+        if (!await maaConf.maa_api.check_user()) {
+            await this.e.reply(`device已失效，请重新绑定`)
+            return true
+        }
+        let res_tasks = await maaConf.maa_api.set_task([])
+        if (res_tasks && res_tasks.length == 0) {
+            await this.e.reply(`MAA任务清空成功`)
+            return true
+        }
+        await this.e.reply(`MAA任务清空失败，请检查日志`)
+        return true
     }
 
 }
