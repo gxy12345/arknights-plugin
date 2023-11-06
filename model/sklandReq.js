@@ -59,7 +59,7 @@ export default class SKLandRequest {
     }
     if (body) {
       param.method = 'post'
-      param.body = JSON.stringify(body)
+      param.body = body
     } else {
       param.method = 'get'
     }
