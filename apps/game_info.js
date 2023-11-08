@@ -38,7 +38,7 @@ export class SKLandGameInfo extends plugin {
     async ap() {
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
 
@@ -59,7 +59,7 @@ export class SKLandGameInfo extends plugin {
     async building() {
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
 
@@ -68,7 +68,7 @@ export class SKLandGameInfo extends plugin {
     async recruit() {
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
 
@@ -77,7 +77,7 @@ export class SKLandGameInfo extends plugin {
     async campaign() {
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
 
@@ -96,7 +96,7 @@ export class SKLandGameInfo extends plugin {
     async routine() {
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
 

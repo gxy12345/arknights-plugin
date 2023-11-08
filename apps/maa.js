@@ -27,7 +27,7 @@ export class MAAControl extends plugin {
                     fnc: 'maa_bind_device'
                 },
                 {
-                    reg: `^${rulePrefix}(MAA|Maa|maa)查询任务$`,
+                    reg: `^${rulePrefix}(MAA|Maa|maa)(查询任务|任务状态|运行状态)$`,
                     fnc: 'maa_get_task'
                 },
                 {
@@ -48,7 +48,7 @@ export class MAAControl extends plugin {
     async check_skluser() {
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return false
         }
         return sklUser

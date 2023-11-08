@@ -44,7 +44,7 @@ export class SKLandUid extends plugin {
     async getUserInfo() {
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
         await sklUser.updateUser()
@@ -111,7 +111,7 @@ export class SKLandUid extends plugin {
 
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
         await this.reply(sklUser.cred)
@@ -125,7 +125,7 @@ export class SKLandUid extends plugin {
 
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
         await redis.del(`ARKNIGHTS:USER:${this.e.user_id}`)
