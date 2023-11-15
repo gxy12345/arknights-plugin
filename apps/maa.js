@@ -27,12 +27,16 @@ export class MAAControl extends plugin {
                     fnc: 'maa_bind_device'
                 },
                 {
-                    reg: `^${rulePrefix}(MAA|Maa|maa)查询任务$`,
+                    reg: `^${rulePrefix}(MAA|Maa|maa)(查询任务|任务状态|运行状态)$`,
                     fnc: 'maa_get_task'
                 },
                 {
                     reg: `^${rulePrefix}(MAA|Maa|maa)清空任务$`,
                     fnc: 'maa_clear_task'
+                },
+                {
+                    reg: `^${rulePrefix}(MAA|Maa|maa)设置关卡(.)+$`,
+                    fnc: 'maa_set_stage'
                 },
                 {
                     reg: `^${rulePrefix}(MAA|Maa|maa)(.)+$`,
@@ -48,7 +52,7 @@ export class MAAControl extends plugin {
     async check_skluser() {
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return false
         }
         return sklUser
@@ -110,6 +114,7 @@ export class MAAControl extends plugin {
         let msg = `MAA模块指令如下：`
         msg += `\n【/MAA】查询当前绑定情况`
         msg += `\n【/MAA+任务名称】下发任务`
+        msg += `\n【/MAA设置关卡+关卡名】设置刷理智关卡）`
         msg += `\n【/MAA查询任务】查询已下发任务的状态`
         msg += `\n【/MAA清空任务】清空任务列表（不会停止MAA当前执行的任务）`
         await this.e.reply(msg)
@@ -161,6 +166,46 @@ export class MAAControl extends plugin {
             return true
         }
         await this.e.reply(`MAA任务下发失败，请检查日志`)
+        return true
+
+    }
+
+    async maa_set_stage() {
+        if (!this.setting.maa_control_toggle) {
+            return false
+        }
+        let sklUser = await this.check_skluser()
+        if (!sklUser) {
+            return true
+        }
+        let maaConf = new MAAConf(this.e.user_id)
+        await maaConf.getConf()
+        if (!maaConf.device && maaConf.maa_api) {
+            await this.e.reply(`未绑定设备，请使用 /MAA绑定设备 绑定后再使用`)
+            return true
+        }
+        if (!await maaConf.maa_api.check_user()) {
+            await this.e.reply(`device已失效，请重新绑定`)
+            return true
+        }
+        let changed_msg = this.e.msg.replace(/#|\/|方舟|明日方舟|arknights|方舟插件|MAA|Maa|maa|设置关卡/g, "")
+        if (changed_msg === "") {
+            return false
+        }
+        let stage_name = changed_msg
+        let tasks = []
+        let task_item = {
+            type: "Settings-Stage1",
+            params: stage_name
+        }
+        tasks.push(task_item)
+        
+        let res_tasks = await maaConf.maa_api.set_task(tasks)
+        if (res_tasks) {
+            await this.e.reply(`MAA设置指令下发成功`)
+            return true
+        }
+        await this.e.reply(`MAA设置指令下发失败，请检查日志`)
         return true
 
     }

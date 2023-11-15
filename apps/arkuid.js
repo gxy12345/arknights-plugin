@@ -38,13 +38,12 @@ export class SKLandUid extends plugin {
             ]
         })
         this.help_setting = setting.getConfig('help')
-        this.bindUser = {}
     }
 
     async getUserInfo() {
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
         await sklUser.updateUser()
@@ -66,7 +65,7 @@ export class SKLandUid extends plugin {
             await this.reply('请私聊绑定')
             return
         }
-        await this.reply(`请发送森空岛cred`)
+        await this.reply(`请发送森空岛cred(SK_OAUTH_CRED_KEY)`)
         this.setContext('receiveCred')
     }
 
@@ -76,13 +75,14 @@ export class SKLandUid extends plugin {
         }
         logger.mark(JSON.stringify(this.e.message))
         let skl_cred = this.e.message[0].text
-        await this.reply(`cred: ${skl_cred}，校验中...`)
+        await this.reply(`cred: ${skl_cred}, 校验中...`)
         await this.checkCred(skl_cred)
         this.finish('receiveCred')
     }
 
     async checkCred(cred) {
-        let sklReq = new SKLandRequest(0, cred)
+        let sklReq = new SKLandRequest(0, cred, '')
+        await sklReq.refreshToken()
         let res = await sklReq.getData('user_info')
         logger.mark(JSON.stringify(res))
         if (res?.code == 0 && res?.message === 'OK') {
@@ -111,7 +111,7 @@ export class SKLandUid extends plugin {
 
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
         await this.reply(sklUser.cred)
@@ -125,7 +125,7 @@ export class SKLandUid extends plugin {
 
         let sklUser = new SKLandUser(this.e.user_id)
         if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 #cred帮助 查看获取方法')
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
         }
         await redis.del(`ARKNIGHTS:USER:${this.e.user_id}`)
