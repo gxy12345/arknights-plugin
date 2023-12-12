@@ -32,6 +32,10 @@ export default class sklandApi {
                     url: `${api_host}api/v1/game/attendance`,
                     query: `uid=${this.uid}&gameId=1`
                 },
+                /* 刷新token */
+                refresh: {
+                    url: `${api_host}api/v1/auth/refresh`,
+                },
 
             }
         }

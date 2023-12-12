@@ -1,9 +1,12 @@
+import { json } from "stream/consumers"
 import sklandApi from "./sklandApi.js"
+import crypto from "node:crypto"
 
 export default class SKLandRequest {
-  constructor(uid, cred, option = {}) {
+  constructor(uid, cred, token = '', option = {}) {
     this.uid = uid
     this.cred = cred
+    this.token = token
     this.server = 'cn'
     this.sklandApi = new sklandApi(this.uid, this.server)
     /** 5分钟缓存 */
@@ -21,28 +24,80 @@ export default class SKLandRequest {
 
     let { url, query = '', body = '', sign = '' } = urlMap[type]
 
-    if (query) url += `?${query}`
-    if (body) body = JSON.stringify(body)
+    let url_obj = new URL(url)
+    let path = url_obj.pathname
+    let query_or_body = ''
 
-    let headers = this.getHeaders()
-
+    if (query) {
+      url += `?${query}`
+      query_or_body = query
+    }
+    if (body) {
+      body = JSON.stringify(body)
+      query_or_body = body
+    }
+    let headers = this.getHeaders(path, query_or_body)
+    logger.mark(`[森空岛接口][getUrl] ${JSON.stringify(headers)}`)
     return { url, headers, body }
   }
 
-  getHeaders() {
-    const skl_headers = {
+  async refreshToken() {
+    let res = await this.getData('refresh')
+    logger.mark(JSON.stringify(res))
+    if (res?.code == 0 && res?.message === 'OK') {
+      this.token = res.data.token
+      await redis.set(`ARKNIGHTS:SKL_TOKEN:${this.cred}`, this.token, { EX: this.cacheCd })
+      logger.mark(`[森空岛接口]刷新token成功`)
+    }
+  }
+
+  generateSign(token, path, query_or_body) {
+    let t = Math.floor(Date.now() / 1000)
+    let header_for_sign = {
+      'platform': '2',
+      'timestamp': t.toString(),
+      'dId': 'B244E093-E6DA-4C77-9C4F-394E77970750',
+      'vName': '1.3.0'
+    }
+    // let token = Buffer.from(skl_token, 'utf-8')
+    let header_ca = JSON.parse(JSON.stringify(header_for_sign));
+    let header_ca_str = JSON.stringify(header_ca);
+    let s = path + query_or_body + t + header_ca_str
+    let hex_s = crypto.createHmac('SHA256', token).update(s, 'utf-8').digest('hex');
+    let md5 = crypto.createHash('MD5').update(hex_s, 'utf-8').digest('hex');
+    logger.mark(`sign md5: ${md5}`)
+    return {sign: md5, timestamp: t.toString()}
+  }
+
+  getHeaders(path, query_or_body) {
+    let sign_obj = this.generateSign(this.token, path, query_or_body)
+    logger.mark(`sign obj: ${JSON.stringify(sign_obj)}`)
+    let skl_headers = {
       os: `iOS`,
       platform: 2,
       'Accept-Language': 'zh-Hans-CN;q=1.0',
-      'User-Agent': `Skland/1.0.1 (com.hypergryph.skland; build:100001018; iOS 16.3.0) Alamofire/5.7.1`,
+      'User-Agent': `Skland/1.3.0 (com.hypergryph.skland; build:100300047; iOS 16.3.0) Alamofire/5.7.1`,
+      'dId': 'B244E093-E6DA-4C77-9C4F-394E77970750',
       'Content-Type': 'application/json',
-      vName: '1.0.1',
-      language: 'zh-hans-CN'
+      vCode: 100300047,
+      vName: '1.3.0',
+      language: 'zh-hans-CN',
+      sign: sign_obj.sign,
+      timestamp: sign_obj.timestamp
     }
     return skl_headers
   }
 
   async getData(type, data = {}, cached = false) {
+    if (type !== 'refresh') {
+      let cached_token = await redis.get(`ARKNIGHTS:SKL_TOKEN:${this.cred}`)
+      if (cached_token) {
+        this.token = cached_token
+      } else {
+        await this.refreshToken()
+      }
+    }
+
     let { url, headers, body } = this.getUrl(type, data)
     if (!url) return false
 
@@ -74,11 +129,11 @@ export default class SKLandRequest {
 
     if (!response.ok) {
       logger.error(`[森空岛接口][${type}][${this.uid}] ${response.status} ${response.statusText}`)
-      // logger.error(`[森空岛接口][${type}][${this.uid}] ${body}`)
-      // logger.error(`[森空岛接口][${type}][${this.uid}] ${JSON.stringify(await response.json())}`)
+      logger.error(`[森空岛接口][${type}][${this.uid}] ${body}`)
+      const error_res = await response.json()
+      logger.error(`[森空岛接口][${type}][${this.uid}] ${JSON.stringify(error_res)}`)
       // 已签到场景
       if (response.status == 403) {
-        const error_res = await response.json()
         if (error_res.code == 10001) {
           logger.mark(`[森空岛接口][已签到][${this.uid}] ${JSON.stringify(error_res)}`)
           return error_res

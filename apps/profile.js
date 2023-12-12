@@ -1,9 +1,10 @@
 import moment from 'moment'
 import { rulePrefix } from '../utils/common.js'
 import SKLandUser from '../model/sklandUser.js'
-import { getAvatarUrl } from '../model/imgApi.js'
+import { getAvatarUrl , getSkinAvatarUrl } from '../model/imgApi.js'
 import runtimeRender from '../utils/runtimeRender.js'
 
+const _path = process.cwd();
 export class Profile extends plugin {
     constructor() {
         super({
@@ -45,7 +46,14 @@ export class Profile extends plugin {
         let user_info = {}
         let game_info = {}
         // 角色信息
-        user_info.avatar_url = getAvatarUrl(game_data.status.avatar.id)
+        let avatar_type = game_data.status.avatar.type
+        let avatar_id = game_data.status.avatar.id
+
+        if (avatar_type && avatar_id) {
+            user_info.avatar_url = avatar_type == "ICON" ? getAvatarUrl(game_data.status.avatar.id) : getSkinAvatarUrl(game_data.status.avatar.id)
+        } else {
+            user_info.avatar_url = `file://${_path}/plugins/arknights-plugin/resources/profileCard/default_avatar.png`
+        }
         user_info.name = game_data.status.name
         user_info.level = game_data.status.level
         user_info.uid = game_data.status.uid

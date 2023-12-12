@@ -38,7 +38,6 @@ export class SKLandUid extends plugin {
             ]
         })
         this.help_setting = setting.getConfig('help')
-        this.bindUser = {}
     }
 
     async getUserInfo() {
@@ -66,7 +65,7 @@ export class SKLandUid extends plugin {
             await this.reply('请私聊绑定')
             return
         }
-        await this.reply(`请发送森空岛cred`)
+        await this.reply(`请发送森空岛cred(SK_OAUTH_CRED_KEY)`)
         this.setContext('receiveCred')
     }
 
@@ -76,13 +75,14 @@ export class SKLandUid extends plugin {
         }
         logger.mark(JSON.stringify(this.e.message))
         let skl_cred = this.e.message[0].text
-        await this.reply(`cred: ${skl_cred}，校验中...`)
+        await this.reply(`cred: ${skl_cred}, 校验中...`)
         await this.checkCred(skl_cred)
         this.finish('receiveCred')
     }
 
     async checkCred(cred) {
-        let sklReq = new SKLandRequest(0, cred)
+        let sklReq = new SKLandRequest(0, cred, '')
+        await sklReq.refreshToken()
         let res = await sklReq.getData('user_info')
         logger.mark(JSON.stringify(res))
         if (res?.code == 0 && res?.message === 'OK') {
