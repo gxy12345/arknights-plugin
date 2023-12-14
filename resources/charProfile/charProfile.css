@@ -1,0 +1,242 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 840px;
+    height: 560px;
+    font-family: Arial, sanserif;
+    background-image: url("./Bg_rhodes_day.png");
+    background-size: cover;
+    /* background-position: center; */
+    background-repeat: no-repeat;
+}
+
+.avatar-container {
+    flex-grow: 0;
+    margin-left: 10px;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    width: 740px;
+    height: 420px;
+    padding: 25px;
+    margin-bottom: 15px;
+    margin-left: 35px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(4px);
+}
+
+.profile-pic {
+    width: 120px;
+    height: 240px;
+    /* border-radius: 50%; */
+    margin-right: 25px;
+}
+
+.evolve-pic {
+    width: 50px;
+    height: 30px;
+    margin-bottom: 3px;
+}
+
+.rarity-pic {
+    margin-bottom: 5px;
+}
+
+.potential-pic {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 3px;
+}
+
+.info {
+    flex-grow: 1;
+}
+
+.name {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 1px rgba(230, 230, 230, 0.8);
+}
+
+.info-value {
+    font-size: 25px;
+    font-weight: bold;
+    color: #ffffffe7;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.username {
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.sub-infos {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sub-infos-equip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.sub-infos-item {
+    align-items: center;
+    margin-right: 10px;
+}
+
+.icons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.icon {
+    width: 33.33%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.class-icon {
+    width: 33.33%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.small-icon {
+    width: 20%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.icon i {
+    color: #555;
+}
+
+.skill-pic {
+    width: 60px;
+    height: 60px;
+}
+
+.equip-pic {
+    width: 80px;
+    height: 80px;
+}
+
+.class-pic {
+    width: 100px;
+    height: 50px;
+    margin-left: 5px;
+}
+
+.icon-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.container-title {
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px 1px rgba(230, 230, 230, 0.8);
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.icon-description {
+    font-size: 14px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px black;
+    margin-top: 2px;
+}
+
+.icon-description-blank {
+    font-size: 14px;
+    color: #3b3a3a;
+    margin-bottom: 5px;
+}
+
+
+.skill-container {
+    position: relative;
+    display: inline-block;
+}
+
+.skill-container img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 2px solid rgba(81, 185, 255, 0.945);
+    border-radius: 1px;
+}
+
+.skill-container::after {
+    content: "E";
+    color: #ffffffe7;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(81, 185, 255, 0.945);
+    transform: translate(50%, -50%);
+    border-radius: 50%;
+}
+
+.equip-detail-container {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 5px;
+    margin-bottom: 8px;
+}
+
+.equip-description {
+    font-size: 13px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px black;
+    margin-bottom: 2px;
+}
+
+.create-by-text {
+    font-size: 12px;
+    font-family: 'Arial';
+    color: #ffffffe7;
+    /* color: #f0eaca; */
+    text-align: center;
+}
+
+.equip-image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 50px;
+}
+
+.equip-image {
+    position: absolute;
+}

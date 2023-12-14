@@ -130,3 +130,4 @@ dist
 .pnp.*
 
 .config/
+.DS_Store

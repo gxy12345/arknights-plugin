@@ -52,7 +52,7 @@ export class Profile extends plugin {
         if (avatar_type && avatar_id) {
             user_info.avatar_url = avatar_type == "ICON" ? getAvatarUrl(game_data.status.avatar.id) : getSkinAvatarUrl(game_data.status.avatar.id)
         } else {
-            user_info.avatar_url = `file://${_path}/plugins/arknights-plugin/resources/profileCard/default_avatar.png`
+            user_info.avatar_url = `../../../../../plugins/arknights-plugin/resources/profileCard/img/default_avatar.png`
         }
         user_info.name = game_data.status.name
         user_info.level = game_data.status.level

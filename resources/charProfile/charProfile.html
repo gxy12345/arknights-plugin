@@ -1,0 +1,94 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}charProfile/charProfile.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="card">
+    <div class="avatar-container">
+        <img class="profile-pic"
+            src="{{basic_info.protrait}}">
+        <div class="icons">
+            <div class="icon">
+                <img class="class-pic" src="{{pluResPath}}charProfile/icons/class_{{basic_info.class}}.png">
+            </div>
+        </div>
+        <img class="rarity-pic" src="{{pluResPath}}charProfile/icons/rarity_{{basic_info.rarity}}.png">
+    </div>
+
+    <div class="info">
+        <div class="name">{{basic_info.char_name}}</div>
+        <div class="sub-infos">
+            <div class="small-icon">
+                <img class="potential-pic" src="{{pluResPath}}charProfile/icons/potential_rank_{{basic_info.potentialRank}}.png">
+                <div class="icon-description">潜能等级</div>
+            </div>
+            <div class="small-icon">
+                <img class="evolve-pic" src="{{pluResPath}}charProfile/icons/evolve_phase_{{basic_info.evolvePhase}}.png">
+                <div class="icon-description">精英等级</div>
+            </div>
+            <div class="small-icon">
+                <div class="info-value">{{basic_info.level}}</div>
+                <div class="icon-description">干员等级</div>
+            </div>
+            <div class="small-icon">
+                <div class="info-value">{{basic_info.favorPercent}}</div>
+                <div class="icon-description">信赖度</div>
+            </div>
+        </div>
+        <div class="sub-infos">
+            <div class="container-title">技能等级</div>
+        </div>
+        <div class="icons">
+            {{if basic_info.rarity > 1}}
+            {{each skill_info skill_item idx}}
+            {{if skill_item.is_default}}
+            <div class="icon">
+                <div class="skill-container">
+                    <img class="skill-pic" src="{{skill_item.skill_icon}}">
+                </div>
+                <div class="icon-description">{{skill_item.level_text}}</div>
+            </div>
+            {{else}}
+            <div class="icon">
+                <img class="skill-pic" src="{{skill_item.skill_icon}}">
+                <div class="icon-description">{{skill_item.level_text}}</div>
+            </div>
+            {{/if}}
+            {{/each}}
+            {{else}}
+            <div class="icon-description-blank">NO DATA</div>
+            {{/if}}
+        </div>
+        <div class="sub-infos">
+            <div class="container-title">模组信息</div>
+        </div>
+        {{if equip_info.is_active}}
+        <div class="sub-infos-equip">
+            <div class="sub-infos-equip">
+                <!-- <img class="skill-pic" src="{{equip_info.equip_icon}}"> -->
+                <div class="equip-image-container">
+                    <img class="equip-image" src="{{equip_info.shining_icon}}">
+                    <img class="equip-image" src="{{equip_info.type_icon}}">
+                </div>
+
+                <div class="equip-detail-container">
+                    <div class="equip-description">{{equip_info.type_name}}</div>
+                    <div class="equip-description">{{equip_info.name}}</div>
+                    <div class="equip-description">LV.{{equip_info.level}}</div>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <div class="sub-infos">
+            <div class="icon-description-blank">NO DATA</div>
+        </div>
+        {{/if}}
+
+    </div>
+</div>
+<div class="create-by-text">
+    {{@sys.createdby}}
+</div>
+{{/block}}
