@@ -2,7 +2,7 @@
 基于森空岛API开发的Yunzai Bot插件，缓慢填坑中
 
 
-### 安装方法
+## 安装方法
 yunzai根目录运行以下命令
 ```
 git clone https://github.com/gxy12345/arknights-plugin.git ./plugins/arknights-plugin/
