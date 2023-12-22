@@ -8,6 +8,26 @@ const _path = process.cwd();
 const valid_tags = ['特种干员', '近战位', '输出', '生存', '近卫干员', '支援', '支援机械', '狙击干员', '远程位', '位移', '减速', '术师干员', '新手', '先锋干员',
     '费用回复', '群攻', '医疗干员', '治疗', '控场', '快速复活', '重装干员', '防护', '爆发', '辅助干员', '削弱', '召唤', '高级资深干员', '资深干员']
 
+const replace_tag_keywords = {
+    '近卫': '近卫干员',
+    '重装': '重装干员',
+    '辅助': '辅助干员',
+    '狙击': '狙击干员',
+    '先锋': '先锋干员',
+    '术师': '术师干员',
+    '术士': '术师干员',
+    '特种': '特种干员',
+    '医疗': '医疗干员',
+    '近战': '近战位',
+    '远程': '远程位',
+    '高资': '高级资深干员',
+    '资深': '资深干员',
+    '高级资深': '高级资深干员',
+    '机械': '支援机械',
+    '快活': '快速复活',
+    '回费': '费用回复',
+}
+
 export class CharProfile extends plugin {
     constructor() {
         super({
@@ -134,6 +154,9 @@ export class CharProfile extends plugin {
         result['1'] = oneStarLimited;
         // result['normal'] = normal;
 
+        logger.mark(`[方舟插件][公招查询]${JSON.stringify(result)}`)
+        logger.mark(`[方舟插件][公招查询]${JSON.stringify(normal)}`)
+
         return result;
     }
 
@@ -215,7 +238,13 @@ export class CharProfile extends plugin {
 
     get_tags(inputString) {
         const keywords = inputString.split(/[ ,，]+/);
-        const tags = keywords.filter(keyword => valid_tags.includes(keyword));
+        const replaced_keyword = keywords.map(str => {
+            if (replace_tag_keywords.hasOwnProperty(str)) {
+              return replace_tag_keywords[str];
+            }
+            return str;
+          });
+        const tags = replaced_keyword.filter(keyword => valid_tags.includes(keyword));
         return tags;
     }
 
