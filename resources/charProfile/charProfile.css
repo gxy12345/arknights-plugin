@@ -8,7 +8,7 @@ body {
     height: 560px;
     font-family: Arial, sanserif;
     background-image: url("./Bg_rhodes_day.png");
-    background-size: cover;
+    background-size: 1344px 896px;
     /* background-position: center; */
     background-repeat: no-repeat;
 }
