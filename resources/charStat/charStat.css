@@ -1,0 +1,118 @@
+body {
+margin: 0;
+padding: 0;
+background-image: url("./bg.jpg"); /* 替换为你的背景图片路径 */
+background-size: cover;
+background-position: center;
+font-family: Arial, sans-serif;
+}
+
+.container {
+width: 90%;
+margin: 30px auto;
+padding: 15px;
+background-color: rgba(0, 0, 0, 0.5);
+backdrop-filter: blur(10px);
+border-radius: 10px;
+color: #fff;
+}
+
+h1 {
+text-align: center;
+color: #fff;
+}
+
+.description {
+text-align: center;
+margin-bottom: 20px;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+
+th, td {
+padding: 10px;
+text-align: center;
+border: 1px solid #fff;
+}
+
+th {
+background-color: #333;
+}
+
+td.age {
+background-color: rgba(0, 0, 0, 0.8);
+}
+
+td.char-name-5 {
+    background-color: rgb(255, 143, 5);
+}
+
+td.char-name-4 {
+    background-color: rgba(245, 196, 110, 0.995);
+}
+
+td.char-name-3 {
+    background-color: rgb(195, 101, 236);
+}
+
+td.char-name-2 {
+    background-color: rgba(65, 191, 255, 0.924);
+}
+
+td.char-name-1 {
+    background-color: rgba(126, 246, 132, 0.699);
+}
+
+td.char-name-0 {
+    background-color: rgb(151, 151, 151);
+}
+
+td.skill-normal {
+    background-color: rgba(65, 191, 255, 0.924);
+}
+
+td.skill-m1 {
+    background-color: rgb(195, 101, 236);
+}
+
+td.skill-m2 {
+    background-color: rgba(245, 196, 110, 0.995);
+}
+
+td.skill-m3 {
+    background-color: rgb(255, 143, 5);
+}
+
+.evolvePhase img {
+    max-width: 60px;
+    max-height: 30px;
+}
+
+.potentialRank img {
+    max-width: 30px;
+    max-height: 30px;
+}
+
+td.occupation {
+background-color: rgba(65, 191, 255, 0.924);
+}
+
+td.gender {
+background-color: rgba(0, 0, 0, 0.6);
+}
+
+.footer {
+text-align: center;
+margin-top: 20px;
+}
+
+.create-by-text {
+    font-size: 12px;
+    font-family: 'Arial';
+    color: #ffffffe7;
+    text-align: center;
+}

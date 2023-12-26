@@ -1,0 +1,51 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}charStat/charStat.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="container">
+    <h1>{{profession_name}}练度统计</h1>
+    <div class="description">
+        <p>{{user_info.name}}  UID:{{user_info.uid}}</p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>干员名称</th>
+                <th>精英阶段</th>
+                <th>等级</th>
+                <th>潜能</th>
+                <th>技能1</th>
+                <th>技能2</th>
+                <th>技能3</th>
+                <th>模组</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{each sorted_char_list char idx}}
+            <tr>
+                <td>{{(page_num-1) * page_size + idx + 1}}</td>
+                <td class="char-name-{{char.rarity}}">{{char.name}}</td>
+                <td class="evolvePhase"><img src="{{pluResPath}}charProfile/icons/evolve_phase_{{char.evolvePhase}}.png" alt="精英阶段"></td>
+                <td>LV.{{char.level}}</td>
+                <td class="potentialRank"><img src="{{pluResPath}}charProfile/icons/potential_rank_{{char.potentialRank}}.png" alt="潜能"></td>
+
+                <td class="skill-{{char.skill_text[0].tag}}">{{char.skill_text[0].text}}</td>
+                <td class="skill-{{char.skill_text[1].tag}}">{{char.skill_text[1].text}}</td>
+                <td class="skill-{{char.skill_text[2].tag}}">{{char.skill_text[2].text}}</td>
+                <td>{{char.equip_text}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="footer">
+        <p>当前每页最多显示{{page_size}}条干员数据，可以使用“/{{profession_name}}练度统计+数字”进行分页查看</p>
+    </div>
+</div>
+<div class="create-by-text">
+    {{@sys.createdby}}
+</div>
+{{/block}}
