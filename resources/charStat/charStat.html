@@ -6,7 +6,7 @@
 
 {{block 'main'}}
 <div class="container">
-    <h1>{{profession_name}}练度统计</h1>
+    <h1>{{filter_info.rarity_name}}{{filter_info.profession_name}}练度统计</h1>
     <div class="description">
         <p>{{user_info.name}}  UID:{{user_info.uid}}</p>
     </div>
@@ -42,7 +42,7 @@
         </tbody>
     </table>
     <div class="footer">
-        <p>当前每页最多显示{{page_size}}条干员数据，可以使用“/{{profession_name}}练度统计+数字”进行分页查看</p>
+        <p>当前每页最多显示{{page_size}}条干员数据，可以使用“/{{filter_info.rarity_name}}{{filter_info.profession_name}}练度统计+数字”进行分页查看</p>
     </div>
 </div>
 <div class="create-by-text">

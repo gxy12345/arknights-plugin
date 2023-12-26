@@ -1,13 +1,10 @@
-import fs from "fs";
-import YAML from 'yaml'
 import { rulePrefix } from '../utils/common.js'
 import SKLandUser from '../model/sklandUser.js'
 import constant from "../components/constant.js";
-import { getSkinPortraitUrl, getSkillIconUrl, getEquipTypeIconUrl, getEquipIconUrl, getEquipTypeShiningUrl } from '../model/imgApi.js'
+import setting from '../utils/setting.js';
 import runtimeRender from '../utils/runtimeRender.js'
 
 const _path = process.cwd();
-const page_size = 50
 
 export class CharProfile extends plugin {
     constructor() {
@@ -18,12 +15,13 @@ export class CharProfile extends plugin {
             priority: 1000,
             rule: [
                 {
-                    reg: `^${rulePrefix}(${constant.charData.profession_list.join('|')})?练度(列表|统计)([0-9]*)$`,
+                    reg: `^${rulePrefix}(${constant.charData.rarity_keywords.join('|')})?(${constant.charData.profession_list.join('|')})?练度(列表|统计)([0-9]*)$`,
                     fnc: 'charStat'
                 },
             ]
         })
         this.bindUser = {}
+        this.setting = setting.getConfig('game_info')
     }
 
     async charStat() {
@@ -32,17 +30,28 @@ export class CharProfile extends plugin {
             return false
         }
         await this.reply(`开始获取练度信息，请稍等`)
-        let reg = new RegExp(`^${rulePrefix}(${constant.charData.profession_list.join('|')})?练度(列表|统计)([0-9]*)$`)
+        let reg = new RegExp(`^${rulePrefix}(${constant.charData.rarity_keywords.join('|')})?(${constant.charData.profession_list.join('|')})?练度(列表|统计)([0-9]*)$`)
         let match = reg.exec(this.e.msg)
-        let profession_filter = null
-        let profession_name = ""
-        if (match[4]) {
-            profession_filter = constant.charData.profession_map[match[4]]
-            profession_name = match[4]
+        let filter_info = {
+            profession_filter: null,
+            profession_name: "",
+            rarity_filter: null,
+            rarity_name: ""
         }
-        let page_num = match[6] || 1
-        logger.mark(`[方舟插件][练度统计]profession_filter: ${profession_filter}`)
-        logger.mark(`[方舟插件][练度统计]page_num: ${page_num}`)
+
+        if (match[4]) {
+            filter_info.rarity_filter = constant.charData.rarity_keywords_map[match[4]]
+            filter_info.rarity_name = match[4]
+        }
+        if (match[5]) {
+            filter_info.profession_filter = constant.charData.profession_map[match[5]]
+            filter_info.profession_name = match[5]
+        }
+        let page_num = match[7] || 1
+        // logger.mark(`[方舟插件][练度统计]profession_filter: ${profession_filter}`)
+        // logger.mark(`[方舟插件][练度统计]page_num: ${page_num}`)
+        let page_size = this.setting?.char_stat_page_size || 30
+
 
         let res = await sklUser.sklReq.getData('game_player_info')
         if (res?.code !== 0 || res?.message !== 'OK') {
@@ -52,17 +61,18 @@ export class CharProfile extends plugin {
         }
         let res_data = res.data
 
-        let sorted_char_list = this.getSortedCharList(res_data, profession_filter, null, page_num)
+        let sorted_char_list = this.getSortedCharList(res_data, filter_info.profession_filter, filter_info.rarity_filter, page_num, page_size)
         if (sorted_char_list.length == 0) {
             await this.reply(`查询结果为空，请检查命令`)
             return true
         }
         // logger.mark(`[方舟插件][练度统计]sorted: ${JSON.stringify(sorted_char_list)}`)
+
         await runtimeRender(this.e, 'charStat/charStat.html', {
             sorted_char_list: sorted_char_list,
             page_num: page_num,
             page_size, page_size,
-            profession_name: profession_name,
+            filter_info: filter_info,
             user_info: sklUser,
         }, {
             scale: 1.6
@@ -70,12 +80,12 @@ export class CharProfile extends plugin {
         return true
     }
 
-    getSortedCharList(data, profession_filter = null, rarity_filter = null, page_num = 1) {
+    getSortedCharList(data, profession_filter = null, rarity_filter = null, page_num = 1, page_size=30) {
         let char_map = data.charInfoMap
         let char_data = data.chars
         let equip_map = data.equipmentInfoMap
-        logger.mark(`[方舟插件][练度统计]getSortedCharList-profession_filter: ${profession_filter}`)
-        logger.mark(`[方舟插件][练度统计]getSortedCharList- page_num: ${page_num}`)
+        // logger.mark(`[方舟插件][练度统计]getSortedCharList-profession_filter: ${profession_filter}`)
+        // logger.mark(`[方舟插件][练度统计]getSortedCharList- page_num: ${page_num}`)
 
         let combinedArray = char_data.map(char => {
             let { charId, defaultEquipId, skills, mainSkillLvl, ...rest } = char;
@@ -118,6 +128,10 @@ export class CharProfile extends plugin {
 
             return char;
         });
+
+        if (rarity_filter) {
+            combinedArray = combinedArray.filter(char => char.rarity === rarity_filter)
+        }
 
         if (profession_filter) {
             combinedArray = combinedArray.filter(char => char.profession === profession_filter)

@@ -47,7 +47,7 @@ export class CharProfile extends plugin {
 
         if (result_msg !== '') {
             await this.reply(result_msg)
-            // ߆加       } else {
+        } else {
             await this.reply(`当前tag组合为三星tag`)
         }
 

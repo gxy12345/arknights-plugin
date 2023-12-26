@@ -10,10 +10,10 @@ font-family: Arial, sans-serif;
 .container {
 width: 90%;
 margin: 30px auto;
-padding: 15px;
+padding: 20px;
 background-color: rgba(0, 0, 0, 0.5);
 backdrop-filter: blur(10px);
-border-radius: 10px;
+border-radius: 14px;
 color: #fff;
 }
 
@@ -24,6 +24,8 @@ color: #fff;
 
 .description {
 text-align: center;
+font-size: 22px;
+margin-top: 20px;
 margin-bottom: 20px;
 }
 
@@ -41,7 +43,17 @@ border: 1px solid #fff;
 
 th {
 background-color: #333;
+font-size: 24px;
+font-weight: bold;
+text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
+
+td {
+    background-color: #333;
+    font-size: 24px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+    
 
 td.age {
 background-color: rgba(0, 0, 0, 0.8);
@@ -107,11 +119,11 @@ background-color: rgba(0, 0, 0, 0.6);
 
 .footer {
 text-align: center;
-margin-top: 20px;
+margin-top: 22px;
 }
 
 .create-by-text {
-    font-size: 12px;
+    font-size: 20px;
     font-family: 'Arial';
     color: #ffffffe7;
     text-align: center;
