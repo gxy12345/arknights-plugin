@@ -6,9 +6,16 @@
 
 {{block 'main'}}
 <div class="container">
-    <h1>{{filter_info.rarity_name}}{{filter_info.profession_name}}练度统计</h1>
-    <div class="description">
-        <p>{{user_info.name}}  UID:{{user_info.uid}}</p>
+    <h1 class="title">{{filter_info.rarity_name}}{{filter_info.profession_name}}练度统计</h1>
+    <div class="header">
+        <div class="header-content">
+            <p class="description">共计 {{total_num}} 名干员</p>
+            <p class="description">数据更新时间:{{update_time_str}}</p>
+        </div>
+        <div class="multi-line">
+            <p class="description">Dr.{{user_info.name}}</p>
+            <p class="description">UID:{{user_info.uid}}</p>
+        </div>
     </div>
     <table>
         <thead>
@@ -29,9 +36,11 @@
             <tr>
                 <td>{{(page_num-1) * page_size + idx + 1}}</td>
                 <td class="char-name-{{char.rarity}}">{{char.name}}</td>
-                <td class="evolvePhase"><img src="{{pluResPath}}charProfile/icons/evolve_phase_{{char.evolvePhase}}.png" alt="精英阶段"></td>
+                <td class="evolvePhase"><img src="{{pluResPath}}charProfile/icons/evolve_phase_{{char.evolvePhase}}.png"
+                        alt="精英阶段"></td>
                 <td>LV.{{char.level}}</td>
-                <td class="potentialRank"><img src="{{pluResPath}}charProfile/icons/potential_rank_{{char.potentialRank}}.png" alt="潜能"></td>
+                <td class="potentialRank"><img
+                        src="{{pluResPath}}charProfile/icons/potential_rank_{{char.potentialRank}}.png" alt="潜能"></td>
 
                 <td class="skill-{{char.skill_text[0].tag}}">{{char.skill_text[0].text}}</td>
                 <td class="skill-{{char.skill_text[1].tag}}">{{char.skill_text[1].text}}</td>

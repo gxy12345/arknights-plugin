@@ -42,7 +42,8 @@ export class SKLandGameInfo extends plugin {
             return true
         }
 
-        let res = await sklUser.sklReq.getData('game_player_info')
+        // let res = await sklUser.sklReq.getData('game_player_info')
+        let res = await sklUser.getGamePlayerInfo()
         if (res?.code === 0 && res?.message === 'OK') {
             let ap_status = res.data.status.ap
             let revovery_time = ap_status.completeRecoveryTime > 0 ? moment.unix(ap_status.completeRecoveryTime).format('YYYY-MM-DD HH:mm') : '-'
@@ -81,7 +82,8 @@ export class SKLandGameInfo extends plugin {
             return true
         }
 
-        let res = await sklUser.sklReq.getData('game_player_info')
+        // let res = await sklUser.sklReq.getData('game_player_info')
+        let res = await sklUser.getGamePlayerInfo()
         if (res?.code === 0 && res?.message === 'OK') {
             let campaign_status = res.data.campaign
 
@@ -100,7 +102,8 @@ export class SKLandGameInfo extends plugin {
             return true
         }
 
-        let res = await sklUser.sklReq.getData('game_player_info')
+        // let res = await sklUser.sklReq.getData('game_player_info')
+        let res = await sklUser.getGamePlayerInfo()
         if (res?.code === 0 && res?.message === 'OK') {
             let routine_status = res.data.routine
 

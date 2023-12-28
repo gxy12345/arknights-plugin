@@ -1,51 +1,79 @@
 body {
-margin: 0;
-padding: 0;
-background-image: url("./bg.jpg"); /* 替换为你的背景图片路径 */
-background-size: cover;
-background-position: center;
-font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("./bg.jpg");
+    /* 替换为你的背景图片路径 */
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
 }
 
 .container {
-width: 90%;
-margin: 30px auto;
-padding: 20px;
-background-color: rgba(0, 0, 0, 0.5);
-backdrop-filter: blur(10px);
-border-radius: 14px;
-color: #fff;
+    width: 90%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header-content {
+    margin-left: 25px;
+}
+
+.title {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+
+.multi-line {
+    width: 30%;
 }
 
 h1 {
-text-align: center;
-color: #fff;
+    margin-left: 25px;
+    margin-top: 15px;
+    font-size: 36px;
+    text-align: left;
+    color: #fff;
 }
 
 .description {
-text-align: center;
-font-size: 22px;
-margin-top: 20px;
-margin-bottom: 20px;
+    text-align: left;
+    font-size: 22px;
+    margin-top: 5px;
+    margin-bottom: 15px;
 }
 
 table {
-width: 100%;
-border-collapse: collapse;
-margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-th, td {
-padding: 10px;
-text-align: center;
-border: 1px solid #fff;
+th,
+td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #fff;
 }
 
 th {
-background-color: #333;
-font-size: 24px;
-font-weight: bold;
-text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+    background-color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 td {
@@ -53,10 +81,10 @@ td {
     font-size: 24px;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
-    
+
 
 td.age {
-background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 td.char-name-5 {
@@ -109,17 +137,9 @@ td.skill-m3 {
     max-height: 30px;
 }
 
-td.occupation {
-background-color: rgba(65, 191, 255, 0.924);
-}
-
-td.gender {
-background-color: rgba(0, 0, 0, 0.6);
-}
-
 .footer {
-text-align: center;
-margin-top: 22px;
+    text-align: center;
+    margin-top: 22px;
 }
 
 .create-by-text {

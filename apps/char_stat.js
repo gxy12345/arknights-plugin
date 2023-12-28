@@ -53,23 +53,27 @@ export class CharProfile extends plugin {
         let page_size = this.setting?.char_stat_page_size || 30
 
 
-        let res = await sklUser.sklReq.getData('game_player_info')
-        if (res?.code !== 0 || res?.message !== 'OK') {
+        // let res = await sklUser.sklReq.getData('game_player_info')
+        let res = await sklUser.getGamePlayerInfo()
+
+        if (!res) {
             logger.mark(`user info失败，响应:${JSON.stringify(res)}`)
             await this.reply(`查询失败，请检查cred或稍后再试`)
             return true
         }
         let res_data = res.data
-
-        let sorted_char_list = this.getSortedCharList(res_data, filter_info.profession_filter, filter_info.rarity_filter, page_num, page_size)
-        if (sorted_char_list.length == 0) {
+        let update_time = new Date(Number(res.timestamp)*1000)
+        let sorted_result = this.getSortedCharList(res_data, filter_info.profession_filter, filter_info.rarity_filter, page_num, page_size)
+        let sorted_char_list = sorted_result.chars
+        if (sorted_result.total == 0) {
             await this.reply(`查询结果为空，请检查命令`)
             return true
         }
-        // logger.mark(`[方舟插件][练度统计]sorted: ${JSON.stringify(sorted_char_list)}`)
 
         await runtimeRender(this.e, 'charStat/charStat.html', {
             sorted_char_list: sorted_char_list,
+            total_num: sorted_result.total,
+            update_time_str: update_time.toLocaleString(),
             page_num: page_num,
             page_size, page_size,
             filter_info: filter_info,
@@ -137,6 +141,7 @@ export class CharProfile extends plugin {
             combinedArray = combinedArray.filter(char => char.profession === profession_filter)
         }
         let sortedArray = combinedArray.sort(this.sortCharList);
+        let length = sortedArray.length
 
         try {
             sortedArray = this.paginateArray(sortedArray, page_num, page_size)
@@ -144,7 +149,10 @@ export class CharProfile extends plugin {
             logger.mark(`[方舟插件][练度统计]分页失败，msg:${error}`)
             return [];
         }
-        return sortedArray;
+        return {
+            total: length,
+            chars: sortedArray
+        };
     }
 
     sortCharList(a, b) {

@@ -29,13 +29,14 @@ export class Profile extends plugin {
             return true
         }
 
-        let game_res = await sklUser.sklReq.getData('game_player_info')
+        // let game_res = await sklUser.sklReq.getData('game_player_info')
+        let game_res = await sklUser.getGamePlayerInfo()
         let user_res = await sklUser.sklReq.getData('user_info')
         if (game_res?.code === 0 && game_res?.message === 'OK' && user_res?.code === 0 && user_res?.message === 'OK') {
             return await this.generate_profile_card(game_res.data, user_res.data)
         } else {
             logger.mark(`user info失败，响应:${JSON.stringify(user_res)}`)
-            logger.mark(`user info失败，响应:${JSON.stringify(game_res)}`)
+            logger.mark(`game info失败，响应:${JSON.stringify(game_res)}`)
             await this.reply(`查询失败，请检查cred或稍后再试`)
         }
         return true

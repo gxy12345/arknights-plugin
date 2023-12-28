@@ -16,7 +16,7 @@ export class CharProfile extends plugin {
             priority: 500,
             rule: [
                 {
-                    reg: `^${rulePrefix}公招(计算|查询)(.)+$`,
+                    reg: `^${rulePrefix}公招(计算|查询)?(.)+$`,
                     fnc: 'recruit_calc'
                 },
             ]
@@ -33,7 +33,8 @@ export class CharProfile extends plugin {
         if (!await sklUser.getUser()) {
             result_msg = this.resultToStr(result)
         } else {
-            let res = await sklUser.sklReq.getData('game_player_info')
+            // let res = await sklUser.sklReq.getData('game_player_info')
+            let res = await sklUser.getGamePlayerInfo()
             //未绑定森空岛
             if (res?.code !== 0 || res?.message !== 'OK') {
                 result_msg = this.resultToStr(result)

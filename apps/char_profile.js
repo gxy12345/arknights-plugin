@@ -34,12 +34,15 @@ export class CharProfile extends plugin {
         if (!await sklUser.getUser()) {
             return false
         }
-        let res = await sklUser.sklReq.getData('game_player_info')
-        if (res?.code !== 0 || res?.message !== 'OK') {
+        // let res = await sklUser.sklReq.getData('game_player_info')
+        let res = await sklUser.getGamePlayerInfo()
+
+        if (!res) {
             logger.mark(`user info失败，响应:${JSON.stringify(res)}`)
             await this.reply(`查询失败，请检查cred或稍后再试`)
             return true
         }
+        
         char_name = this.get_name_from_nickname(char_name)
         let meta_info_list = Object.values(res.data.charInfoMap)
         let char_info_list = res.data.chars

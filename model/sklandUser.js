@@ -46,4 +46,19 @@ export default class SKLandUser {
             logger.mark(`cred已失效, uid:${this.uid}`)
         }
     }
+
+    async getGamePlayerInfo() {
+        const cached_game_info = await redis.get(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}`)
+        if (cached_game_info) {
+            logger.mark(`[方舟插件][GameInfo]使用${this.user_id}的缓存数据`)
+            return JSON.parse(cached_game_info)
+        }
+        let res = await this.sklReq.getData('game_player_info')
+        if (res?.code == 0 && res?.message === 'OK') {
+            await redis.set(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}`, JSON.stringify(res), { EX: 300 })
+            return res
+        } else {
+            return null
+        }
+    }
 }
