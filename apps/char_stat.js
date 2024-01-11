@@ -133,11 +133,11 @@ export class CharProfile extends plugin {
             return char;
         });
 
-        if (rarity_filter) {
+        if (rarity_filter != null) {
             combinedArray = combinedArray.filter(char => char.rarity === rarity_filter)
         }
 
-        if (profession_filter) {
+        if (profession_filter != null) {
             combinedArray = combinedArray.filter(char => char.profession === profession_filter)
         }
         let sortedArray = combinedArray.sort(this.sortCharList);
