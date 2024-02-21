@@ -188,7 +188,7 @@ export class MAAControl extends plugin {
             await this.e.reply(`device已失效，请重新绑定`)
             return true
         }
-        let changed_msg = this.e.msg.replace(/#|\/|方舟|明日方舟|arknights|方舟插件|MAA|Maa|maa|设置关卡/g, "")
+        let changed_msg = this.e.msg.replace(/#|\/|方舟|明日方舟|arknights|方舟插件|~|～|MAA|Maa|maa|设置关卡/g, "")
         if (changed_msg === "") {
             return false
         }

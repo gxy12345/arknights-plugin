@@ -51,13 +51,13 @@ export default class SKLandRequest {
     }
   }
 
-  generateSign(token, path, query_or_body) {
+  generateSign(token, path, query_or_body, did) {
     let t = Math.floor(Date.now() / 1000)
     let header_for_sign = {
       'platform': '2',
       'timestamp': t.toString(),
-      'dId': 'B244E093-E6DA-4C77-9C4F-394E77970750',
-      'vName': '1.3.0'
+      'dId': did,
+      'vName': '1.9.0'
     }
     // let token = Buffer.from(skl_token, 'utf-8')
     let header_ca = JSON.parse(JSON.stringify(header_for_sign));
@@ -70,17 +70,18 @@ export default class SKLandRequest {
   }
 
   getHeaders(path, query_or_body) {
-    let sign_obj = this.generateSign(this.token, path, query_or_body)
+    let did = crypto.randomUUID()
+    let sign_obj = this.generateSign(this.token, path, query_or_body, did)
     logger.mark(`sign obj: ${JSON.stringify(sign_obj)}`)
     let skl_headers = {
       os: `iOS`,
       platform: 2,
       'Accept-Language': 'zh-Hans-CN;q=1.0',
       'User-Agent': `Skland/1.3.0 (com.hypergryph.skland; build:100300047; iOS 16.3.0) Alamofire/5.7.1`,
-      'dId': 'B244E093-E6DA-4C77-9C4F-394E77970750',
+      'dId': did,
       'Content-Type': 'application/json',
-      vCode: 100300047,
-      vName: '1.3.0',
+      vCode: 100900052,
+      vName: '1.9.0',
       language: 'zh-hans-CN',
       sign: sign_obj.sign,
       timestamp: sign_obj.timestamp
