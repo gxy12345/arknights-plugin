@@ -32,7 +32,7 @@ export class SKLandUid extends plugin {
                     fnc: 'delCred'
                 },
                 {
-                    reg: `^${rulePrefix}cred帮助$`,
+                    reg: `^${rulePrefix}(cred|绑定)帮助$`,
                     fnc: 'credHelp'
                 }
             ]
@@ -137,7 +137,7 @@ export class SKLandUid extends plugin {
         if (!this.help_setting?.cred_help_doc) {
             logger.mark(`未配置cred帮助文档`)
         }
-        let msg = `森空岛cred获取帮助：${this.help_setting.cred_help_doc}`
+        let msg = `森空岛cred获取帮助：${this.help_setting.cred_help_doc}\n获取后请私聊bot，发送"/绑定（~绑定）完成绑定"`
         await this.reply(msg)
     }
 
