@@ -139,7 +139,7 @@ export class MAAControl extends plugin {
             await this.e.reply(`device已失效，请重新绑定`)
             return true
         }
-        let match = this.e.msg.match(/(一键长草|自动公招|刷理智|获取信用|基建换班|领取奖励|自动肉鸽|停止任务)/g)
+        let match = this.e.msg.match(/(一键长草|自动公招|刷理智|获取信用|基建换班|领取奖励|自动肉鸽|停止任务|开始唤醒)/g)
         logger.mark(`[MAA]匹配任务列表: ${match}`)
         if (!match) {
             return false
@@ -189,6 +189,7 @@ export class MAAControl extends plugin {
             return true
         }
         let changed_msg = this.e.msg.replace(/#|\/|方舟|明日方舟|arknights|方舟插件|~|～|MAA|Maa|maa|设置关卡/g, "")
+        changed_msg = changed_msg.replace(/^\s+|\s+$/g, "")
         if (changed_msg === "") {
             return false
         }
