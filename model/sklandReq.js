@@ -65,14 +65,14 @@ export default class SKLandRequest {
     let s = path + query_or_body + t + header_ca_str
     let hex_s = crypto.createHmac('SHA256', token).update(s, 'utf-8').digest('hex');
     let md5 = crypto.createHash('MD5').update(hex_s, 'utf-8').digest('hex');
-    logger.mark(`sign md5: ${md5}`)
+    logger.debug(`sign md5: ${md5}`)
     return {sign: md5, timestamp: t.toString()}
   }
 
   getHeaders(path, query_or_body) {
     let did = crypto.randomUUID()
     let sign_obj = this.generateSign(this.token, path, query_or_body, did)
-    logger.mark(`sign obj: ${JSON.stringify(sign_obj)}`)
+    logger.debug(`sign obj: ${JSON.stringify(sign_obj)}`)
     let skl_headers = {
       os: `iOS`,
       platform: 2,

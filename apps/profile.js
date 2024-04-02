@@ -99,13 +99,13 @@ export class Profile extends plugin {
         const isRecruitFinish = (recruit_item) => {
             if (recruit_item.state != 2) return false
             let current_ts = moment().valueOf()
-            logger.mark(`current_ts: ${current_ts} finish_ts: ${recruit_item.finishTs}`)
+            logger.debug(`current_ts: ${current_ts} finish_ts: ${recruit_item.finishTs}`)
             return recruit_item.finishTs < current_ts && recruit_item.finishTs > 0
         };
         game_info.recruit_finish = game_data.recruit.filter(function (recruit_item) {
             if (recruit_item.state != 2) return false
             let current_ts = moment().valueOf()
-            logger.mark(`current_ts: ${current_ts} finish_ts: ${recruit_item.finishTs}`)
+            logger.debug(`current_ts: ${current_ts} finish_ts: ${recruit_item.finishTs}`)
             return recruit_item.finishTs < current_ts && recruit_item.finishTs > 0
         }).length
         game_info.recruit_total = game_data.recruit.filter(function (item) { return item.state != 0 }).length
@@ -122,9 +122,9 @@ export class Profile extends plugin {
         game_info.campaign_total = game_data.campaign.reward.total
         game_info.campaign_rate = Math.round(game_info.campaign_current / game_info.campaign_total * 100)
 
-        logger.mark(`user_info: ${JSON.stringify(user_info)}`)
-        logger.mark(`game_info: ${JSON.stringify(game_info)}`)
-        logger.mark(`clue: ${cule_status}`)
+        logger.debug(`user_info: ${JSON.stringify(user_info)}`)
+        logger.debug(`game_info: ${JSON.stringify(game_info)}`)
+        logger.debug(`clue: ${cule_status}`)
 
         await runtimeRender(this.e, 'profileCard/profileCard.html', {
             user_info: user_info,

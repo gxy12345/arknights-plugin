@@ -125,9 +125,9 @@ class NewPuppeteer {
 
   async launch () {
     if (this.browser) return this.browser
-    logger.mark('[Yenai-Plugin]Puppeteer launching')
+    logger.mark('[Arknights-Plugin]Puppeteer launching')
     // if (!puppeteer) {
-    //   logger.error(`[Yenai-Plugin][Puppeteer]缺少依赖项，请执行 ${logger.red('pnpm add puppeteer-extra puppeteer-extra-plugin-stealth -w')}`)
+    //   logger.error(`[Arknights-Plugin][Puppeteer]缺少依赖项，请执行 ${logger.red('pnpm add puppeteer-extra puppeteer-extra-plugin-stealth -w')}`)
     //   return false
     // }
     this.browser = await puppeteer.launch(this.config).catch((err) => {
@@ -139,13 +139,13 @@ class NewPuppeteer {
       }
     })
     if (!this.browser) {
-      logger.error('[Yenai-Plugin]puppeteer launching error')
+      logger.error('[Arknights-Plugin]puppeteer launching error')
       return false
     }
-    logger.mark('[Yenai-Plugin]Puppeteer launched')
+    logger.mark('[Arknights-Plugin]Puppeteer launched')
     /** 监听Chromium实例是否断开 */
     this.browser.on('disconnected', (e) => {
-      logger.error('[Yenai-Plugin]Chromium实例关闭或崩溃！')
+      logger.error('[Arknights-Plugin]Chromium实例关闭或崩溃！')
       this.browser = false
     })
 
@@ -195,7 +195,7 @@ class NewPuppeteer {
             await this.browser.close().catch((err) => logger.error(err))
           }
           this.browser = false
-          logger.mark('[Yenai-Plugin]puppeteer 关闭重启...')
+          logger.mark('[Arknights-Plugin]puppeteer 关闭重启...')
         }, 100)
       }
     }

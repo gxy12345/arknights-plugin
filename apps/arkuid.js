@@ -2,6 +2,7 @@ import lodash from 'lodash'
 import fs from 'fs'
 import { Cfg, Version, Common, Data } from '../components/index.js'
 import { rulePrefix } from '../utils/common.js'
+import hypergryphAPI from '../model/hypergryphApi.js'
 import SKLandRequest from '../model/sklandReq.js'
 import SKLandUser from '../model/sklandUser.js'
 import setting from '../utils/setting.js'
@@ -28,11 +29,15 @@ export class SKLandUid extends plugin {
                     fnc: 'myCred'
                 },
                 {
-                    reg: `^${rulePrefix}删除cred$`,
+                    reg: `^${rulePrefix}我的token$`,
+                    fnc: 'myToken'
+                },
+                {
+                    reg: `^${rulePrefix}删除(cred|token)$`,
                     fnc: 'delCred'
                 },
                 {
-                    reg: `^${rulePrefix}(cred|绑定)帮助$`,
+                    reg: `^${rulePrefix}(token|cred|绑定)帮助$`,
                     fnc: 'credHelp'
                 }
             ]
@@ -65,7 +70,7 @@ export class SKLandUid extends plugin {
             await this.reply('请私聊绑定')
             return
         }
-        await this.reply(`请发送森空岛cred(SK_OAUTH_CRED_KEY)`)
+        await this.reply(`请发送森空岛cred(SK_OAUTH_CRED_KEY)或token`)
         this.setContext('receiveCred')
     }
 
@@ -73,18 +78,28 @@ export class SKLandUid extends plugin {
         if (this.e.isGroup) {
             return
         }
-        logger.mark(JSON.stringify(this.e.message))
-        let skl_cred = this.e.message[0].text
-        await this.reply(`cred: ${skl_cred}, 校验中...`)
-        await this.checkCred(skl_cred)
-        this.finish('receiveCred')
+        logger.debug(JSON.stringify(this.e.message))
+        let received_msg = this.e.message[0].text
+        // token
+        if (received_msg.length == 24) {
+            await this.reply(`token: ${received_msg}, 校验中...`)
+            await this.checkToken(received_msg)
+            this.finish('receiveCred')
+        } else if (received_msg.length == 32) {
+            await this.reply(`cred: ${received_msg}, 校验中...`)
+            await this.checkCred(received_msg)
+            this.finish('receiveCred')
+        } else {
+            await this.reply(`请发送有效的token或cred，获取方式可以发送【~cred帮助】查看`)
+            this.finish('receiveCred')
+        }
     }
 
-    async checkCred(cred) {
+    async checkCred(cred, used_token=null) {
         let sklReq = new SKLandRequest(0, cred, '')
         await sklReq.refreshToken()
         let res = await sklReq.getData('user_info')
-        logger.mark(JSON.stringify(res))
+        logger.debug(JSON.stringify(res))
         if (res?.code == 0 && res?.message === 'OK') {
             let skl_user_info = res.data.user
             let game_user_info = res.data.gameStatus
@@ -95,12 +110,25 @@ export class SKLandUid extends plugin {
                 name: game_user_info.name,
                 uid: game_user_info.uid
             }
+            if (used_token) {
+                cached_info.token = used_token
+            }
             await redis.set(`ARKNIGHTS:USER:${user}`, JSON.stringify(cached_info))
             await this.reply(`获取信息成功!\n森空岛昵称:${skl_user_info.nickname}\n游戏昵称:${game_user_info.name}\n游戏等级:${game_user_info.level}`)
         } else {
             logger.mark(`绑定失败，响应:${JSON.stringify(res)}`)
             await this.reply(`绑定失败，请检查cred`)
         }
+    }
+
+    async checkToken(token) {
+        let cred = await hypergryphAPI.getCredByToken(token)
+        if (!cred) {
+            logger.debug(`new cred：${cred}`)
+            await this.reply(`绑定失败，请检查token`)
+            return true
+        }
+        await this.checkCred(cred, token)
     }
 
     async myCred() {
@@ -115,6 +143,22 @@ export class SKLandUid extends plugin {
             return true
         }
         await this.reply(sklUser.cred)
+    }
+
+    async myToken() {
+        if (this.e.isGroup) {
+            await this.reply('请私聊操作')
+            return
+        }
+
+        let sklUser = new SKLandUser(this.e.user_id)
+        if (!await sklUser.getUser()) {
+            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
+            return true
+        }
+        if (sklUser.token){
+            await this.reply(sklUser.token)
+        }
     }
 
     async delCred() {

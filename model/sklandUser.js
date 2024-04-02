@@ -1,11 +1,13 @@
 import sklandApi from "./sklandApi.js"
 import SKLandRequest from "./sklandReq.js"
+import hypergryphAPI from "./hypergryphApi.js"
 
 export default class SKLandUser {
     constructor(user_id, option = {}) {
         this.user_id = user_id
         this.uid = 0
         this.cred = ''
+        this.token = null
         this.name = ''
         this.level = 1
         this.sklReq = null
@@ -23,11 +25,32 @@ export default class SKLandUser {
         this.cred = user_info.cred
         this.name = user_info.name
         this.uid = user_info.uid
+        this.token = user_info?.token || null
         this.sklReq = new SKLandRequest(this.uid, this.cred)
+
+        if (this.token) {
+            logger.mark(`账号已绑定token，使用token更新cred`)
+            await this.updateCredByToken()
+        }
+        return true
+    }
+
+    async updateCredByToken() {
+        if (!this.token || this.token == '') {
+            return null
+        }
+        let new_cred = await hypergryphAPI.getCredByToken(this.token)
+        if (new_cred) {
+            this.cred = new_cred
+        }
         return true
     }
 
     async updateUser() {
+        if (this.token) {
+            logger.mark(`账号已绑定token，使用token更新cred`)
+            await this.updateCredByToken()
+        }
         let res = await this.sklReq.getData('user_info')
         if (res?.code == 0 && res?.message === 'OK') {
             let skl_user_info = res.data.user
@@ -39,7 +62,8 @@ export default class SKLandUser {
                 cred: this.cred,
                 skl_name: skl_user_info.nickname,
                 name: this.name,
-                uid: this.uid
+                uid: this.uid,
+                token: this.token
             }
             await redis.set(`ARKNIGHTS:USER:${this.user_id}`, JSON.stringify(cached_info))
         } else {
