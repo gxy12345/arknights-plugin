@@ -37,6 +37,10 @@ export class SKLandUid extends plugin {
                     fnc: 'delCred'
                 },
                 {
+                    reg: `^${rulePrefix}刷新cred$`,
+                    fnc: 'refreshCred'
+                },
+                {
                     reg: `^${rulePrefix}(token|cred|绑定)帮助$`,
                     fnc: 'credHelp'
                 }
@@ -106,7 +110,7 @@ export class SKLandUid extends plugin {
             let user = this.e.user_id
             let cached_info = {
                 cred: cred,
-                skl_name: skl_user_info.nickname,
+                // skl_name: skl_user_info.nickname,
                 name: game_user_info.name,
                 uid: game_user_info.uid
             }
@@ -175,6 +179,21 @@ export class SKLandUid extends plugin {
         await redis.del(`ARKNIGHTS:USER:${this.e.user_id}`)
         await this.reply('删除成功')
         return true
+    }
+
+    async refreshCred() {
+        let sklUser = new SKLandUser(this.e.user_id)
+        await sklUser.getUser()
+        if (!sklUser.token) {
+            await this.reply('未绑定token，无法使用此功能')
+            return true
+        }
+        let refresh_result = await sklUser.updateUser()
+        if (refresh_result) {
+            await this.reply('刷新cred成功')
+        } else {
+            await this.reply('刷新cred失败')
+        }
     }
 
     async credHelp() {

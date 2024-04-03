@@ -77,7 +77,7 @@ let hypergryphAPI = {
             return null
         }
         let cred = res.data.cred
-        logger.debug(`获取到cred:${cred}`)
+        logger.mark(`获取到cred:${cred}`)
         return cred
     }
 }
