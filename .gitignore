@@ -131,3 +131,4 @@ dist
 
 .config/
 .DS_Store
+.resources/help/theme

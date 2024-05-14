@@ -52,7 +52,7 @@ export default class SKLandRequest {
   }
 
   generateSign(token, path, query_or_body, did) {
-    let t = Math.floor(Date.now() / 1000)
+    let t = Math.floor(Date.now() / 1000 - 1)
     let header_for_sign = {
       'platform': '2',
       'timestamp': t.toString(),

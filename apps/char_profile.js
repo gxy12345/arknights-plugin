@@ -117,7 +117,8 @@ export class CharProfile extends plugin {
         await runtimeRender(this.e, 'charProfile/charProfile.html', {
             basic_info: basic_info,
             skill_info: skill_info,
-            equip_info: equip_info
+            equip_info: equip_info,
+            user_info: sklUser
         }, {
             scale: 1.6
         })

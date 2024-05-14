@@ -50,6 +50,8 @@ body {
     margin-bottom: 5px;
 }
 
+
+
 .potential-pic {
     width: 30px;
     height: 30px;
@@ -218,6 +220,15 @@ body {
     color: #ffffff;
     text-shadow: 1px 1px 2px black;
     margin-bottom: 2px;
+}
+
+.user-description {
+    font-size: 10px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px black;
+    margin-bottom: 2px;
+    margin-right: 10px;
+    text-align: center;
 }
 
 .create-by-text {

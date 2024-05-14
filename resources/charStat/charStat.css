@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url("./bg.jpg");
+    background-image: url("./bg.png");
     /* 替换为你的背景图片路径 */
     background-size: cover;
     background-position: center;
