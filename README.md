@@ -49,13 +49,19 @@ pnpm i
 <details><summary>展开/收起</summary>
 
 * `/便签` 森空岛个人信息一图流
+<img src="https://github.com/gxy12345/arknights-plugin/assets/13727139/34cef041-a69c-4441-b05d-d2b6ce9194f8" width="50%" height="50%">
+
 * `/理智` 通过森空岛接口查询理智
 * `/剿灭` 通过森空岛接口查询剿灭周常
 * `/日常` `/周常` 通过森空岛接口查询周常完成
 * `/签到` 森空岛签到（支持自动签到，需在sign.yaml配置文件中修改开关）
 * `/叔叔`、`/玛恩纳` 查看干员练度卡片
+<img src="https://github.com/gxy12345/arknights-plugin/assets/13727139/d351cda3-d0c4-48c7-b1da-87a51647f701" width="50%" height="50%">
+
 * `/公招查询 支援 远程位` 公招查询，同时在结果中标记干员持有情况
 * `/练度统计` `/近卫练度统计` 基于森空岛API查询干员练度汇总
+<img src="https://github.com/gxy12345/arknights-plugin/assets/13727139/40fbf472-6eb9-4f76-b373-948dd2835715" width="50%" height="50%">
+
 
 </details>
 
