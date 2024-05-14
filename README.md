@@ -7,8 +7,16 @@
 
 ## 安装方法
 yunzai根目录运行以下命令
+
+github:
 ```
 git clone https://github.com/gxy12345/arknights-plugin.git ./plugins/arknights-plugin/
+pnpm i
+```
+
+gitee:
+```
+git clone https://gitee.com/windoge/arknights-plugin.git ./plugins/arknights-plugin/
 pnpm i
 ```
 
@@ -16,23 +24,30 @@ pnpm i
 ## 当前功能
 
 
-注：由于微信端机器人无法识别"/",以下命令的"/"均可以使用"~"或“#方舟插件”替换
+注：由于机器所部署的平台差异或者其他插件的占用，可能出现无法识别"/",以下所有命令的"/"均可以使用"~"或“#方舟插件”替换
 
 
 ### 插件基本命令
-* `#方舟插件更新` `/更新` 更新插件
-* `/帮助` 打开帮助菜单
+* `#方舟插件更新` `/更新` `~更新` 更新插件
+* `#方舟插件帮助` `/帮助` `~帮助` 打开帮助菜单
 
 
 ### 森空岛cred管理
+<details><summary>展开/收起</summary>
+
 * `/绑定cred` 绑定森空岛cred
 * `/删除cred` 删除已绑定的森空岛cred
 * `/我的cred` 查询已绑定的森空岛cred
 * `/我的token` 查询已绑定的token
 * `/cred帮助` 查询森空岛cred获取帮助文档
 
+</details>
+
+
 
 ### 基本信息查询
+<details><summary>展开/收起</summary>
+
 * `/便签` 森空岛个人信息一图流
 * `/理智` 通过森空岛接口查询理智
 * `/剿灭` 通过森空岛接口查询剿灭周常
@@ -42,13 +57,20 @@ pnpm i
 * `/公招查询 支援 远程位` 公招查询，同时在结果中标记干员持有情况
 * `/练度统计` `/近卫练度统计` 基于森空岛API查询干员练度汇总
 
+</details>
 
 ### MAA远程控制
-该模块需要配合一个[MAA远控API服务](https://github.com/gxy12345/maa_control_api)，需要在maa.yaml配置文件中修改配置信息后使用
+该模块需要配合一个[MAA远控API服务](https://github.com/gxy12345/maa_control_api)，在maa.yaml配置文件中修改配置信息后使用
+
+
+<details><summary>展开/收起</summary>
+
 * `/MAA帮助` 查看绑定帮助
 * `/我的MAA` 查看已绑定的设备
 * `/MAA+(指令)` 下发MAA任务
 * `/MAA任务状态`  查询已下发的任务状态
+
+</details>
 
 
 ## 致谢
