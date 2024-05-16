@@ -57,6 +57,13 @@ export class CharProfile extends plugin {
             } catch (e) {
                 return false
             }
+        } else if (char_name === '阿米娅（医疗）') {
+            meta_info = meta_info_list[meta_info_list.findIndex(item => (item.name == '阿米娅' && item.profession == 'MEDIC'))]
+            try {
+                char_info = char_info_list[char_info_list.findIndex(item => item.charId == meta_info.id)]
+            } catch (e) {
+                return false
+            }
         } else {
             meta_info = meta_info_list[meta_info_list.findIndex(item => item.name == char_name)]
             try {

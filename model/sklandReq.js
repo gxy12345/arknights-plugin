@@ -9,8 +9,8 @@ export default class SKLandRequest {
     this.token = token
     this.server = 'cn'
     this.sklandApi = new sklandApi(this.uid, this.server)
-    /** 5分钟缓存 */
-    this.cacheCd = 300
+    this.timestamp = null
+    this.cacheCd = 3
 
     this.option = {
       log: true,
@@ -46,13 +46,19 @@ export default class SKLandRequest {
     logger.mark(JSON.stringify(res))
     if (res?.code == 0 && res?.message === 'OK') {
       this.token = res.data.token
+      this.timestamp = res?.timestamp
       await redis.set(`ARKNIGHTS:SKL_TOKEN:${this.cred}`, this.token, { EX: this.cacheCd })
       logger.mark(`[森空岛接口]刷新token成功`)
     }
   }
 
   generateSign(token, path, query_or_body, did) {
-    let t = Math.floor(Date.now() / 1000 - 1)
+    let t
+    if (this.timestamp) {
+      t = this.timestamp
+    } else {
+      t = Math.floor(Date.now() / 1000)
+    }
     let header_for_sign = {
       'platform': '2',
       'timestamp': t.toString(),

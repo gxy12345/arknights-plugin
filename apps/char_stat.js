@@ -110,6 +110,11 @@ export class CharProfile extends plugin {
             ]
             if (char_map.hasOwnProperty(charId)) {
                 let { name, profession, rarity, ...map_rest } = char_map[charId];
+                if (name === '阿米娅') {
+                    if (profession==='CASTER') name = '阿米娅(术师)'
+                    if (profession==='WARRIOR') name = '阿米娅(近卫)'
+                    if (profession==='MEDIC') name = '阿米娅(医疗)'
+                }
                 for (var i = 0; i < skills.length; i++) {
                     if (skills[i].specializeLevel > 0) {
                         skill_text[i].text = `专精${skills[i].specializeLevel}`
