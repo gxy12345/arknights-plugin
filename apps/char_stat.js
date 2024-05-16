@@ -15,7 +15,7 @@ export class CharProfile extends plugin {
             priority: 1000,
             rule: [
                 {
-                    reg: `^${rulePrefix}(${constant.charData.rarity_keywords.join('|')})?(${constant.charData.profession_list.join('|')})?练度(列表|统计)([0-9]*)$`,
+                    reg: `^${rulePrefix}(${constant.charData.rarity_keywords.join('|')})?(${constant.charData.profession_list.join('|')})?练度(列表|统计|查询)([0-9]*)$`,
                     fnc: 'charStat'
                 },
             ]
@@ -30,7 +30,7 @@ export class CharProfile extends plugin {
             return false
         }
         await this.reply(`开始获取练度信息，请稍等`)
-        let reg = new RegExp(`^${rulePrefix}(${constant.charData.rarity_keywords.join('|')})?(${constant.charData.profession_list.join('|')})?练度(列表|统计)([0-9]*)$`)
+        let reg = new RegExp(`^${rulePrefix}(${constant.charData.rarity_keywords.join('|')})?(${constant.charData.profession_list.join('|')})?练度(列表|统计|查询)([0-9]*)$`)
         let match = reg.exec(this.e.msg)
         let filter_info = {
             profession_filter: null,
