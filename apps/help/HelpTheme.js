@@ -4,7 +4,7 @@ import { Data } from '../../components/index.js'
 
 let HelpTheme = {
   async getThemeCfg (theme, exclude) {
-    let dirPath = './plugins/StarRail-plugin/resources/help/theme/'
+    let dirPath = './plugins/arknights-plugin/resources/help/theme/'
     let ret = []
     let names = []
     let dirs = fs.readdirSync(dirPath)
