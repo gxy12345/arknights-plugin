@@ -7,7 +7,7 @@ function getPrefix() {
         case 1:
             return '((#|/)?(方舟|明日方舟|arknights|方舟插件)|\/|\\\/|/|~|～)'
         case 2:
-            return '((#|/)?(方舟|明日方舟|arknights)|\/|\\\/|/|~|～)'
+            return '((#|/)?(方舟插件|明日方舟|arknights)|\/|\\\/|/|~|～)'
         case 3:
             return '((#|/)?|\/|\\\/|/|~|～)'
     }
