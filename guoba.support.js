@@ -39,6 +39,21 @@ export function supportGuoba () {
         }
       },
       {
+        field: 'common.prefix_mode',
+        label: '插件命令前缀',
+        bottomHelpMessage: '修改插件命令前缀,修改后重启生效',
+        component: 'Select',
+        required: true,
+        componentProps: {
+          options: [
+            {label: '完整模式(最泛用的匹配模式，支持最多前缀匹配)', value: 1},
+            {label: '兼容模式(防止和其他方舟相关插件冲突，移除了“#方舟插件”）', value: 2},
+            {label: '简洁模式(只使用"/"和“~”进行匹配)', value: 3},
+          ],
+          placeholder: '选择模式',
+        },
+      },
+      {
         field: 'game_info.char_stat_page_size',
         label: '练度统计每页数量',
         bottomHelpMessage: '/练度统计 指令每页数量上限',

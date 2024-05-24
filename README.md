@@ -35,7 +35,7 @@ pnpm i
 ### 森空岛cred管理
 <details><summary>展开/收起</summary>
 
-* `/绑定cred` 绑定森空岛cred
+* `/绑定` 绑定森空岛cred
 * `/删除cred` 删除已绑定的森空岛cred
 * `/我的cred` 查询已绑定的森空岛cred
 * `/我的token` 查询已绑定的token
