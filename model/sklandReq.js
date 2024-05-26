@@ -137,10 +137,10 @@ export default class SKLandRequest {
     if (!response.ok) {
       logger.error(`[森空岛接口][${type}][${this.uid}] ${response.status} ${response.statusText}`)
       logger.error(`[森空岛接口][${type}][${this.uid}] ${body}`)
-      const error_res = await response.json()
-      logger.error(`[森空岛接口][${type}][${this.uid}] ${JSON.stringify(error_res)}`)
+
       // 已签到场景
       if (response.status == 403) {
+        const error_res = await response.json()
         if (error_res.code == 10001) {
           logger.mark(`[森空岛接口][已签到][${this.uid}] ${JSON.stringify(error_res)}`)
           return error_res

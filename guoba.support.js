@@ -48,7 +48,7 @@ export function supportGuoba () {
           options: [
             {label: '完整模式(最泛用的匹配模式，支持最多前缀匹配)', value: 1},
             {label: '兼容模式(防止和其他方舟相关插件冲突，移除了“#方舟”前缀）', value: 2},
-            {label: '简洁模式(只使用"/"和“~”进行匹配)', value: 3},
+            // {label: '简洁模式(只使用"/"和“~”进行匹配)', value: 3},
           ],
           placeholder: '选择模式',
         },
@@ -63,6 +63,18 @@ export function supportGuoba () {
           min: 20,
           max: 200,
           placeholder: '请输入20-200数字'
+        }
+      },
+      {
+        field: 'game_info.max_announce',
+        label: '公告显示数量上限',
+        bottomHelpMessage: '/公告列表 显示公告数量上限',
+        component: 'InputNumber',
+        required: true,
+        componentProps: {
+          min: 3,
+          max: 10,
+          placeholder: '3-10数字'
         }
       },
       {
