@@ -60,8 +60,15 @@ pnpm i
 
 * `/公招查询 支援 远程位` 公招查询，同时在结果中标记干员持有情况
 * `/练度统计` `/近卫练度统计` 基于森空岛API查询干员练度汇总
-<img src="https://github.com/gxy12345/arknights-plugin/assets/13727139/40fbf472-6eb9-4f76-b373-948dd2835715" width="50%" height="50%">
+<img src="https://github.com/gxy12345/arknights-plugin/assets/13727139/40fbf472-6eb9-4f76-b373-948dd2835715" width="40%" height="40%">
 
+* `/练度分析` `/BOX分析` 分析BOX练度数据，仅供娱乐
+<img src="https://github.com/gxy12345/arknights-plugin/assets/13727139/8d4b1613-d9b9-47c6-8ba7-d4c744e68709" width="40%" height="40%">
+
+* `/刷图推荐` `/材料掉率` 从一图流获取材料掉率表
+* `/公告` `/公告列表` 查询官方发布的公告
+* `/公告1` `/公告2` 查看具体的公告内容
+<img src="https://github.com/gxy12345/arknights-plugin/assets/13727139/c9e85590-f336-4db0-b3a6-ba858015e678" width="40%" height="40%">
 
 </details>
 

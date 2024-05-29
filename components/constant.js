@@ -54,6 +54,130 @@ let charData = {
 
 }
 
+let gameData = {
+    material_list: [
+        "环烃聚质", "研磨石", "转质盐组", "扭转醇", "褐素纤维", "轻锰矿", "固源岩组", "凝胶", "糖组", "RMA70-12",
+        "半自然溶剂", "酮凝集组", "化合切削液", "全新装置", "炽合金", "聚酸酯组", "晶体元件", "异铁组",
+    ],
+
+    daily_resource: [
+        {
+            code: "LS",
+            name: "作战记录",
+            day: [1, 2, 3, 4, 5, 6, 7]
+        },
+        {
+            code: "CE",
+            name: "龙门币",
+            day: [2, 4, 6, 7]
+        },
+        {
+            code: "AP",
+            name: "采购凭证",
+            day: [1, 4, 6, 7]
+        },
+        {
+            code: "SK",
+            name: "碳素",
+            day: [1, 3, 5, 6]
+        },
+        {
+            code: "CA",
+            name: "技巧概要",
+            day: [2, 3, 5, 7]
+        },
+        {
+            code: "PRA",
+            name: "固若金汤",
+            day: [1, 4, 5, 7],
+        },
+        {
+            code: "PRB",
+            name: "摧枯拉朽",
+            day: [1, 2, 5, 6],
+        },
+        {
+            code: "PRC",
+            name: "势不可当",
+            day: [3, 4, 6, 7],
+        },
+        {
+            code: "PRD",
+            name: "身先士卒",
+            day: [2, 3, 6, 7],
+        }
+    ],
+
+    analysis_rule: [
+        // 1星
+        {
+            level_evo0: 6,
+            level_evo1: 6,
+            specialize: [0, 0, 0, 0],
+            equip: [0, 0, 0],
+            potential: 1,
+            max_score: 21,
+        },
+        // 2星
+        {
+            level_evo0: 6,
+            level_evo1: 6,
+            specialize: [0, 0, 0, 0],
+            equip: [0, 0, 0],
+            potential: 1,
+            max_score: 21,
+        },
+        // 3星
+        {
+            level_evo0: 10,
+            level_evo1: 10,
+            specialize: [0, 0, 0, 0],
+            equip: [0, 0, 0],
+            potential: 1,
+            max_score: 59.5,
+        },
+        // 4星
+        {
+            level_evo0: 10,
+            level_evo1: 40,
+            specialize: [0, 5, 10, 15],
+            equip: [0, 10, 20],
+            potential: 1,
+            max_score: 192,
+        },
+        // 5星
+        {
+            level_evo0: 10,
+            level_evo1: 45,
+            specialize: [0, 10, 20, 30],
+            equip: [0, 25, 40],
+            potential: 2,
+            max_score: 272,
+        },
+        // 6星
+        {
+            level_evo0: 10,
+            level_evo1: 50,
+            specialize: [0, 20, 40, 60],
+            equip: [0, 40, 60],
+            potential: 4,
+            max_score: 477,
+        },
+    ],
+
+    analysis_rank: {
+        C: 500,
+        B: 1500,
+        A: 4500,
+        S: 9500,
+        SS: 14000,
+        SSS: 25000,
+        ACE: 36000,
+        MAX: 48000
+    },
+}
+
 export default {
     charData,
+    gameData,
 }

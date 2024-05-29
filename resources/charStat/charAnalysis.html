@@ -1,0 +1,115 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}charStat/charAnalysis.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="content-container">
+    <div class="profile">
+        <img src="{{user_info.avatar_url}}" alt="Profile">
+        <div class="info">
+            <h2>{{user_info.name}}</h2>
+            <div class="info-container">
+                <div class="w3-tag w3-round w3-indigo" style="margin:10px">UID: {{user_info.uid}}</div>
+                <div class="w3-tag w3-round w3-purple" style="margin:10px">LV.{{user_info.level}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-container">
+    <div class="root-container">
+        <div class="rating-container">
+            <div class="rating-item-container">
+                {{@score_content}}
+                <div class="desc-text">BOX整体得分</div>
+            </div>
+            <div class="rating-item-container">
+                {{@rank_content}}
+                <div class="desc-text">得分评级</div>
+            </div>
+            <div class="tags-container">
+                {{each tag_list tag_item idx}}
+                <div class="w3-tag w3-round w3-deep-orange" style="margin:10px">{{tag_item}}</div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="info-text">本插件的评分根据账号养成的数值数据计算，不关注角色的实际强度，只能侧面反应玩家的养成投入情况，仅供娱乐。</div>
+    </div>
+</div>
+
+<div class="content-container">
+    <div class="root-container">
+        <div class="container-title">职业分支分析</div>
+        <div class="analysis-card-container">
+            {{each player_analysis_result.profession analysis_item idx}}
+            <div class="analysis-card">
+                <div class="analysis-item-container">
+                    <img src="{{pluResPath}}/gameData/class/Class_{{analysis_item.analysis_name}}.png" alt="class icon">
+                    <div class="title">{{analysis_item.analysis_name}}</div>
+                </div>
+                <div class="analysis-item-container">
+                    <div class="data">{{analysis_item.evo2_count}}/{{analysis_item.count}}</div>
+                    <div class="desc-text">精二比例</div>
+                </div>
+                <div class="analysis-item-container">
+                    <div class="data">{{analysis_item.specialize_count}}</div>
+                    <div class="desc-text">专三技能</div>
+                </div>
+                <div class="analysis-item-container">
+                    <div class="data">{{analysis_item.score.toFixed()}}</div>
+                    <div class="desc-text">分支得分</div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<!-- 第四个部分 -->
+<div class="content-container">
+    <div class="root-container">
+        <div class="container-title">稀有度分析</div>
+        <div class="analysis-card-container-fourth">
+            {{each player_analysis_result.rarity analysis_item idx}}
+            <div class="analysis-card">
+                <div class="analysis-item-container">
+                    <div class="title">{{analysis_item.analysis_name}}干员</div>
+                    <img class="rarity-img" src="{{pluResPath}}/gameData/rarity/星级_{{analysis_item.analysis_name}}.png"
+                        alt="rarity icon">
+                </div>
+                <div class="analysis-item-container">
+                    <div class="data">{{analysis_item.evo2_count}}</div>
+                    <div class="desc-text">精二数量</div>
+                </div>
+                <div class="analysis-item-container">
+                    <div class="data">{{analysis_item.top_count}}</div>
+                    <div class="desc-text">满级数量</div>
+                </div>
+                <div class="analysis-item-container">
+                    <div class="data">{{analysis_item.top_favor}}</div>
+                    <div class="desc-text">满好感</div>
+                </div>
+                <div class="analysis-item-container">
+                    <div class="data">{{analysis_item.count}}</div>
+                    <div class="desc-text">持有数量</div>
+                </div>
+                <div class="analysis-item-container">
+                    <div class="data">{{analysis_item.specialize_count}}</div>
+                    <div class="desc-text">专三技能</div>
+                </div>
+                <div class="analysis-item-container">
+                    <div class="data">{{analysis_item.score.toFixed()}}</div>
+                    <div class="desc-text">分支得分</div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<div class="create-by-text">
+    {{@sys.createdby}}
+</div>
+{{/block}} 

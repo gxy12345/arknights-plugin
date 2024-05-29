@@ -1,0 +1,63 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}announce/announce.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="header">
+    <div class="title">公告列表</div>
+    <div class="content-desc-text">当前日期：{{current_time}}</div>
+</div>
+
+<div class="content-container">
+    <div class="content-container-title">今日材料</div>
+    <div class="daily-icon-container">
+        {{each daily_list daily_item idx}}
+        <div class="icon">
+            <img src="{{pluResPath}}gameData/daily/{{daily_item.code}}.png">
+            <p>{{daily_item.name}}</p>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+<div class="content-container">
+    <div class="content-container-title">官方通知</div>
+    {{each announce_list announce_item idx}}
+    <div class="item">
+        <div class="item-idx">#{{idx+1}}</div>
+        <div class="item-icon">
+            {{if announce_item.group === 'ACTIVITY' && announce_item?.type === 'survey' }}
+            <span class="w3-tag w3-padding w3-round-xlarge w3-green w3-center">
+                问卷</br>
+                SURVEY
+            </span>
+            {{else if announce_item.group === 'ACTIVITY'}}
+            <span class="w3-tag w3-padding w3-round-xlarge w3-blue w3-center">
+                活动</br>
+                ACTIVITY
+            </span>
+            {{else}}
+            <span class="w3-tag w3-padding w3-round-xlarge w3-red w3-center">
+                系统</br>
+                SYSTEM
+            </span>
+            {{/if}}
+        </div>
+        <div class="item-info">
+            <div class="announce-desc">{{announce_item.month}}月{{announce_item.day}}日</div>
+            <div class="announce-title">{{announce_item.title}}</div>
+        </div>
+    </div>
+    {{/each}}
+    <div class="content-desc-text">可以发送"/公告+序号"来查看具体的公告内容</div>
+</div>
+
+<div class="text-container">
+    <div class="create-by-text">
+        {{@sys.createdby}}
+    </div>
+</div>
+{{/block}}

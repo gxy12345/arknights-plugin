@@ -1,0 +1,51 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}material/material.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="text-container">
+    <div class="title-text">材料掉率一图流</div>
+</div>
+
+<div class="material-container">
+    {{each rcmd_result_list item idx}}
+    <div class="material-card">
+        <div class="material-image" style="background-image: url('{{pluResPath}}/gameData/material/{{item.itemType}}.png');"></div>
+        <div class="material-info">
+            <h3>{{item.itemType}}</h3>
+            <table>
+                <tr>
+                    <tr>
+                        <td>关卡名</td>
+                        <td>材料掉率</td>
+                        <td>SPM</td>
+                        <td>综合效率</td>
+                    </tr>
+                </tr>
+                {{each item.stageResultList stage idx}}
+                <tr>
+                    <td>{{stage.stageCode}}</td>
+                    <td>{{(stage.knockRating*100).toFixed(2)}}%</td>
+                    <td>{{stage.spm}}</td>
+                    <td>{{(stage.stageEfficiency*100).toFixed(2)}}%</td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+    {{/each}}
+</div>
+
+<div class="data-source-container">
+    <div>数据来源：ytl.viktorlab.cn</div>
+    <div>更新时间：{{updateTime}}</div>
+</div>
+
+<div class="text-container">
+    <div class="create-by-text">
+        {{@sys.createdby}}
+    </div>
+</div>
+{{/block}}

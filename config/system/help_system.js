@@ -32,7 +32,7 @@ export const helpList = [
         icon: 1,
         title: '/cred帮助',
         desc: '绑定帮助'
-      },{
+      }, {
         icon: 2,
         title: '/绑定',
         desc: '绑定森空岛账号'
@@ -66,6 +66,11 @@ export const helpList = [
         title: '/练度统计 /练度统计2',
         desc: '干员练度统计，支持分页'
       }, {
+        icon: 13,
+        title: '/练度分析 /BOX分析',
+        desc: '分析BOX以及评分，仅供娱乐'
+      },
+      {
         icon: 8,
         title: '/先锋练度统计 /六星练度统计',
         desc: '筛选后的练度统计，支持分页'
@@ -77,6 +82,18 @@ export const helpList = [
         icon: 81,
         title: '/公招查询+[TAG列表]',
         desc: '例:/公招查询 高资 输出 辅助'
+      }, {
+        icon: 15,
+        title: '/公告 /公告列表',
+        desc: '查询鹰角官方发布的公告'
+      }, {
+        icon: 15,
+        title: '/公告1 /公告2',
+        desc: '查看公告列表中的具体公告内容'
+      }, {
+        icon: 14,
+        title: '/材料掉率 /刷图推荐',
+        desc: '从一图流获取材料掉率图'
       }
     ]
   }, {

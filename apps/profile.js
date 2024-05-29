@@ -69,11 +69,12 @@ export class Profile extends plugin {
 
         // 理智
         game_info.ap_total = game_data.status.ap.max
-        game_info.ap_current = game_data.status.ap.current > game_data.status.ap.max ? game_data.status.ap.max : game_data.status.ap.current
+        game_info.ap_current = game_data.status.ap.max - Math.ceil((game_data.status.ap.completeRecoveryTime - Date.now() / 1000) / 360)
+        game_info.ap_current = game_info.ap_current > game_data.status.ap.max ? game_data.status.ap.max : game_data.status.ap.current
         game_info.ap_rate = Math.round(game_info.ap_current / game_info.ap_total * 100)
         // 无人机
         game_info.uav_total = game_data.building.labor.maxValue
-        game_info.uav_current = game_data.building.labor.value
+        game_info.uav_current = Math.min(Math.round((Date.now() / 1000 - game_data.building.labor.lastUpdateTime) / 360 + game_data.building.labor.value), game_info.uav_total)
         game_info.uav_rate = Math.round(game_info.uav_current / game_info.uav_total * 100)
         // 线索
         const findClue = (clue) => {
