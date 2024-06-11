@@ -273,6 +273,8 @@ export class CharStat extends plugin {
         let top_tag_list = []
         if (player_score_data.general.top_tag_list.length > 3) {
             top_tag_list = this.randomTags(player_score_data.general.top_tag_list, 3)
+        } else {
+            top_tag_list = player_score_data.general.top_tag_list
         }
         if (top_tag_list.length > 0) {
             tag_list = [...tag_list, ...top_tag_list]
