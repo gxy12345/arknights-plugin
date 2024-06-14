@@ -1,0 +1,209 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}calculate/calculate.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="main-container">
+    <h2>养成目标</h2>
+    <div class="target-container">
+        <div class="target-big">
+            <div class="char-profile">
+                <img src="{{char_data.avatar_url}}" alt="Profile">
+                <div class="char-info">
+                    <h2>{{char_data.name}}</h2>
+                    <div class="char-info-container">
+                        <div class="w3-tag w3-round w3-large w3-indigo" style="margin:10px">{{char_data.profession}}
+                        </div>
+                        <div class="w3-tag w3-round w3-large w3-purple" style="margin:10px">{{char_data.rarity + 1}}星
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="target-big">
+            <div class="target-item-container">
+                <div class="target">精英{{target.evo.current}} LV.{{target.level.current}} → 精英{{target.evo.target}}
+                    LV.{{target.level.target}}</div>
+                <div class="desc-text">等级目标</div>
+            </div>
+        </div>
+        <div class="target-small">
+            <div class="target-item-container">
+                {{if !target.skill1.err }}
+                <div class="target">LV.{{target.skill1.current}} → LV.{{target.skill1.target}}</div>
+                {{else}}
+                <div class="target">{{target.skill1.err}}</div>
+                {{/if}}
+                <div class="desc-text">技能1
+                    {{if target.skill1.name}}
+                    </br>[{{target.skill1.name}}]
+                    {{else}}
+                    </br>[无数据]
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="target-small">
+            <div class="target-item-container">
+                {{if !target.skill2.err }}
+                <div class="target">LV.{{target.skill2.current}} → LV.{{target.skill2.target}}</div>
+                {{else}}
+                <div class="target">{{target.skill2.err}}</div>
+                {{/if}}
+                <div class="desc-text">技能2
+                    {{if target.skill2.name}}
+                    </br>[{{target.skill2.name}}]
+                    {{else}}
+                    </br>[无数据]
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="target-small">
+            <div class="target-item-container">
+                {{if !target.skill3.err }}
+                <div class="target">LV.{{target.skill3.current}} → LV.{{target.skill3.target}}</div>
+                {{else}}
+                <div class="target">{{target.skill3.err}}</div>
+                {{/if}}
+                <div class="desc-text">技能3
+                    {{if target.skill3.name}}
+                    </br>[{{target.skill3.name}}]
+                    {{else}}
+                    </br>[无数据]
+                    {{/if}}</div>
+            </div>
+        </div>
+        <div class="target-small">
+            <div class="target-item-container">
+                {{if !target.equip1.err }}
+                <div class="target">LV.{{target.equip1.current}} → LV.{{target.equip1.target}}</div>
+                {{else}}
+                <div class="target">{{target.equip1.err}}</div>
+                {{/if}}
+                <div class="desc-text">模组1
+                    {{if target.equip1.name}}
+                    </br>[{{target.equip1.name}}]
+                    {{else}}
+                    </br>[无数据]
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="target-small">
+            <div class="target-item-container">
+                {{if !target.equip2.err }}
+                <div class="target">LV.{{target.equip2.current}} → LV.{{target.equip2.target}}</div>
+                {{else}}
+                <div class="target">{{target.equip2.err}}</div>
+                {{/if}}
+                <div class="desc-text">模组2
+                    {{if target.equip2.name}}
+                    </br>[{{target.equip2.name}}]
+                    {{else}}
+                    </br>[无数据]
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="target-small">
+            <div class="target-item-container">
+                {{if !target.equip3.err }}
+                <div class="target">LV.{{target.equip3.current}} → LV.{{target.equip3.target}}</div>
+                {{else}}
+                <div class="target">{{target.equip3.err}}</div>
+                {{/if}}
+                <div class="desc-text">模组3
+                    {{if target.equip3.name}}
+                    </br>[{{target.equip3.name}}]
+                    {{else}}
+                    </br>[无数据]
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-container">
+    {{if cal_result.total_materials.length == 0 && cal_result.exp == 0 && cal_result.cash == 0}}
+    <h2>当前已完成养成目标！</h2>
+    {{else}}
+    <h2>养成资源统计</h2>
+
+    {{if cal_result.exp > 0 || cal_result.cash > 0 }}
+    <div class="sub-container">
+        <h3>基础资源消耗</h3>
+        <div class="tag-list">
+            <span class="w3-tag w3-round w3-xlarge w3-purple w3-padding-large">龙门币 × {{cal_result.cash}}</span>
+            <span class="w3-tag w3-round w3-xlarge w3-purple w3-padding-large">经验值 × {{cal_result.exp}}</span>
+        </div>
+    </div>
+    {{/if}}
+
+    {{if cal_result.evo_materials.length > 0 }}
+    <div class="sub-container">
+        <h3>精英化材料</h3>
+        <div class="tag-list">
+            {{each cal_result.evo_materials item idx}}
+            <span class="w3-tag w3-round w3-xlarge w3-{{item.rarity_color}} w3-padding-large">{{item.name}} ×
+                {{item.count}}</span>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    {{if cal_result.skill_materials.length > 0 }}
+    <div class="sub-container">
+        <h3>技能养成材料</h3>
+        <div class="tag-list">
+            {{each cal_result.skill_materials item idx}}
+            <span class="w3-tag w3-round w3-xlarge w3-{{item.rarity_color}} w3-padding-large">{{item.name}} ×
+                {{item.count}}</span>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    {{if cal_result.mod_materials.length > 0 }}
+    <div class="sub-container">
+        <h3>模组养成材料</h3>
+        <div class="tag-list">
+            {{each cal_result.mod_materials item idx}}
+            <span class="w3-tag w3-round w3-xlarge w3-{{item.rarity_color}} w3-padding-large">{{item.name}} ×
+                {{item.count}}</span>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+    {{/if}}
+</div>
+
+{{if lack_result.materials.length > 0 || lack_result.exp > 0 || lack_result.cash > 0 }}
+<div class="main-container">
+    <h2>缺少资源统计</h2>
+
+    <div class="sub-container">
+        <div class="tag-list">
+            {{if lack_result.cash > 0}}
+            <span class="w3-tag w3-round w3-xlarge w3-purple w3-padding-large">龙门币 × {{lack_result.cash}}</span>
+            {{/if}}
+            {{if lack_result.exp > 0}}
+            <span class="w3-tag w3-round w3-xlarge w3-purple w3-padding-large">经验值 × {{lack_result.exp}}</span>
+            {{/if}}
+            {{each lack_result.materials item idx}}
+            <span class="w3-tag w3-round w3-xlarge w3-{{item.rarity_color}} w3-padding-large">{{item.name}} ×
+                {{item.lackCount}}</span>
+            {{/each}}
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<div class="create-by-text">
+    {{@sys.createdby}}
+</div>
+{{/block}} 

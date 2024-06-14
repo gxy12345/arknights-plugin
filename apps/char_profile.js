@@ -1,7 +1,4 @@
-import moment from 'moment'
-import fs from "fs";
-import YAML from 'yaml'
-import { rulePrefix } from '../utils/common.js'
+import { rulePrefix, get_name_from_nickname } from '../utils/common.js'
 import SKLandUser from '../model/sklandUser.js'
 import { getSkinPortraitUrl, getSkillIconUrl, getEquipTypeIconUrl, getEquipIconUrl, getEquipTypeShiningUrl } from '../model/imgApi.js'
 import runtimeRender from '../utils/runtimeRender.js'
@@ -43,7 +40,7 @@ export class CharProfile extends plugin {
             return true
         }
         
-        char_name = this.get_name_from_nickname(char_name)
+        char_name = get_name_from_nickname(char_name)
         let meta_info_list = Object.values(res.data.charInfoMap)
         let char_info_list = res.data.chars
         let equip_map = res.data.equipmentInfoMap
@@ -137,23 +134,5 @@ export class CharProfile extends plugin {
     get_char_info(char_name, char_info) {
         return char_info[char_info.findIndex(item => item.name == char_name)]
     }
-
-    get_name_from_nickname(nickname) {
-        let buffer = fs.readFileSync(`${_path}/plugins/arknights-plugin/resources/charProfile/nickname.yaml`, 'utf8');
-        let nickname_data = YAML.parse(buffer)
-
-        let find_key = (value, inNickname = (a, b) => a.includes(b)) => {
-            return Object.keys(nickname_data).find(k => inNickname(nickname_data[k], value))
-        }
-        let full_name = find_key(nickname)
-        if (Bot?.logger?.debug) {
-            Bot.logger.debug(`别名匹配结果: ${full_name}`)
-        } else {
-            console.log(`别名匹配结果: ${full_name}`)
-        }
-        if (full_name === undefined) return nickname
-        return full_name
-    }
-
 
 }

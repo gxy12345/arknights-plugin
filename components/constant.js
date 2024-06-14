@@ -52,6 +52,12 @@ let charData = {
         '1星': 0
     },
 
+    amiya_ids: {
+        '阿米娅': 'char_002_amiya',
+        '阿米娅（近卫）': 'char_1001_amiya2',
+        '阿米娅（医疗）': 'char_1037_amiya3'
+    }
+
 }
 
 let gameData = {
