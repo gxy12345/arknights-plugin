@@ -1,14 +1,16 @@
 body {
-    margin: 0;
-    padding: 0;
-    background-image: url("./bg.png");
-    /* 替换为你的背景图片路径 */
-    background-size: cover;
-    background-position: center;
+    width: 1240px;
     font-family: Arial, sans-serif;
 }
 
 .container {
+    width: 1240px;
+    height: auto;
+    background: url("./bg.jpg") #333333 left top;
+    background-size: 1240px auto;
+}
+
+.main-container {
     width: 90%;
     margin: 30px auto;
     padding: 20px;

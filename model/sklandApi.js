@@ -36,7 +36,20 @@ export default class sklandApi {
                 refresh: {
                     url: `${api_host}api/v1/auth/refresh`,
                 },
-
+                /* 养成计算-干员养成材料 */
+                cal_character: {
+                    url: `${api_host}api/v1/game/cultivate/character`,
+                    query: `characterId=${data.characterId}`
+                },
+                /* 养成计算-通用信息查询 */
+                cal_info: {
+                    url: `${api_host}api/v1/game/cultivate/info`,
+                },
+                /* 养成计算-玩家信息查询 */
+                cal_player: {
+                    url: `${api_host}api/v1/game/cultivate/player`,
+                    query: `uid=${this.uid}`
+                },
             }
         }
 

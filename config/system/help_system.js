@@ -79,7 +79,7 @@ export const helpList = [
         title: '/签到',
         desc: '手动进行森空岛签到'
       }, {
-        icon: 81,
+        icon: 86,
         title: '/公招查询+[TAG列表]',
         desc: '例:/公招查询 高资 输出 辅助'
       }, {
@@ -94,6 +94,14 @@ export const helpList = [
         icon: 14,
         title: '/材料掉率 /刷图推荐',
         desc: '从一图流获取材料掉率图'
+      }, {
+        icon: 81,
+        title: '/养成计算+[TAG列表]',
+        desc: '例:/养成计算 推王 2 90 7 10 7'
+      }, {
+        icon: 81,
+        title: '/养成计算',
+        desc: '不输入tag时可以获取命令帮助'
       }
     ]
   }, {
