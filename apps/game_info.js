@@ -46,9 +46,11 @@ export class SKLandGameInfo extends plugin {
         let res = await sklUser.getGamePlayerInfo()
         if (res?.code === 0 && res?.message === 'OK') {
             let ap_status = res.data.status.ap
+            ap_status.ap_current = ap_status.max - Math.ceil((ap_status.completeRecoveryTime - Date.now() / 1000) / 360)
+            ap_status.ap_current = ap_status.ap_current > ap_status.max ? ap_status.max : ap_status.ap_current
             let revovery_time = ap_status.completeRecoveryTime > 0 ? moment.unix(ap_status.completeRecoveryTime).format('YYYY-MM-DD HH:mm') : '-'
 
-            await this.reply(`理智: ${ap_status.current}/${ap_status.max}\n预计恢复时间: ${revovery_time}`)
+            await this.reply(`理智: ${ap_status.ap_current}/${ap_status.max}\n预计恢复时间: ${revovery_time}`)
         } else {
             logger.mark(`user info失败，响应:${JSON.stringify(res)}`)
             await this.reply(`查询失败，请检查cred或稍后再试`)
