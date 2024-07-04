@@ -319,6 +319,7 @@ export class MAAControl extends plugin {
                     clearInterval(intervalId);
                     let msg = segment.image('base64://' + result)
                     await this.e.reply(msg)
+                    await maaConf.maa_api.set_task([])
                     return true
                 } else if (retries >= 6) {
                     clearInterval(intervalId);
@@ -375,6 +376,7 @@ export class MAAControl extends plugin {
                     clearInterval(intervalId);
                     let msg = segment.image('base64://' + result)
                     await this.e.reply(msg)
+                    await maaConf.maa_api.set_task([])
                     return true
                 } else if (retries >= 6) {
                     clearInterval(intervalId);
