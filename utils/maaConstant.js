@@ -8,7 +8,10 @@ export const task_type_map = {
     "领取奖励": "LinkStart-Mission",
     "自动肉鸽": "LinkStart-AutoRoguelike",
     "停止任务": "StopTask",
-    "设置关卡": "Settings-Stage1"
+    "设置关卡": "Settings-Stage1",
+    "截图": "CaptureImageNow",
+    "单抽": "Toolbox-GachaOnce",
+    "十连抽": "Toolbox-GachaTenTimes",
 }
 
 export function get_task_name(value) {

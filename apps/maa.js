@@ -39,6 +39,14 @@ export class MAAControl extends plugin {
                     fnc: 'maa_set_stage'
                 },
                 {
+                    reg: `^${rulePrefix}(MAA|Maa|maa)截图$`,
+                    fnc: 'maa_capture'
+                },
+                {
+                    reg: `^${rulePrefix}(MAA|Maa|maa)(抽卡|单抽|十连抽|十连)$`,
+                    fnc: 'maa_gacha'
+                },
+                {
                     reg: `^${rulePrefix}(MAA|Maa|maa)(.)+$`,
                     fnc: 'maa_set_task'
                 },
@@ -117,6 +125,8 @@ export class MAAControl extends plugin {
         msg += `\n【/MAA设置关卡+关卡名】设置刷理智关卡）`
         msg += `\n【/MAA查询任务】查询已下发任务的状态`
         msg += `\n【/MAA清空任务】清空任务列表（不会停止MAA当前执行的任务）`
+        msg += `\n【/MAA截图】立即进行截图并显示`
+        msg += `\n【/MAA单抽 /MAA十连抽】让MAA帮你抽卡（是真的抽卡！）`
         await this.e.reply(msg)
         return true
     }
@@ -200,7 +210,7 @@ export class MAAControl extends plugin {
             params: stage_name
         }
         tasks.push(task_item)
-        
+
         let res_tasks = await maaConf.maa_api.set_task(tasks)
         if (res_tasks) {
             await this.e.reply(`MAA设置指令下发成功`)
@@ -235,7 +245,7 @@ export class MAAControl extends plugin {
             return true
         }
         let msg = "当前运行任务："
-        logger.mark(`任务响应 ${JSON.stringify(res_tasks)}`)
+        logger.debug(`任务响应 ${JSON.stringify(res_tasks)}`)
         for (let task_item of res_tasks) {
             let task_name = get_task_name(task_item.type)
             let task_status = task_item.status == "SUCCESS" ? "已完成" : "未完成"
@@ -270,6 +280,131 @@ export class MAAControl extends plugin {
         }
         await this.e.reply(`MAA任务清空失败，请检查日志`)
         return true
+    }
+
+    async maa_capture() {
+        if (!this.setting.maa_control_toggle) {
+            return false
+        }
+        let sklUser = await this.check_skluser()
+        if (!sklUser) {
+            return true
+        }
+        let maaConf = new MAAConf(this.e.user_id)
+        await maaConf.getConf()
+        if (!maaConf.device && maaConf.maa_api) {
+            await this.e.reply(`未绑定设备，请使用 /MAA绑定设备 绑定后再使用`)
+            return true
+        }
+        if (!await maaConf.maa_api.check_user()) {
+            await this.e.reply(`device已失效，请重新绑定`)
+            return true
+        }
+        let tasks = []
+        let task_item = { type: task_type_map["截图"] }
+        tasks.push(task_item)
+        let res_tasks = await maaConf.maa_api.set_task(tasks)
+        if (res_tasks) {
+            await this.e.reply(`MAA任务下发成功`)
+        } else {
+            await this.e.reply(`MAA任务下发失败，请检查日志`)
+            return true
+        }
+        let retries = 0;
+        return new Promise(() => {
+            const intervalId = setInterval(async () => {
+                let result = await this.get_capture();
+
+                if (result !== false) {
+                    clearInterval(intervalId);
+                    let msg = segment.image('base64://' + result)
+                    await this.e.reply(msg)
+                    return true
+                } else if (retries >= 6) {
+                    clearInterval(intervalId);
+                    await this.e.reply(`获取截图超时`)
+                    return true
+                }
+
+                retries++;
+            }, 5000);
+        });
+    }
+
+    async maa_gacha() {
+        if (!this.setting.maa_control_toggle) {
+            return false
+        }
+        let sklUser = await this.check_skluser()
+        if (!sklUser) {
+            return true
+        }
+        let maaConf = new MAAConf(this.e.user_id)
+        await maaConf.getConf()
+        if (!maaConf.device && maaConf.maa_api) {
+            await this.e.reply(`未绑定设备，请使用 /MAA绑定设备 绑定后再使用`)
+            return true
+        }
+        if (!await maaConf.maa_api.check_user()) {
+            await this.e.reply(`device已失效，请重新绑定`)
+            return true
+        }
+        let tasks = []
+        if (this.e.msg.includes('单抽') || this.e.msg.includes('抽卡')) {
+            tasks.push({ type: task_type_map["单抽"] })
+        }
+        if (this.e.msg.includes('十连抽') || this.e.msg.includes('十连')) {
+            logger.mark('MAA发布十连抽')
+            tasks.push({ type: task_type_map["十连抽"] })
+        }
+        tasks.push({ type: 'CaptureImage' })
+
+        let res_tasks = await maaConf.maa_api.set_task(tasks)
+        if (res_tasks) {
+            await this.e.reply(`MAA任务下发成功`)
+        } else {
+            await this.e.reply(`MAA任务下发失败，请检查日志`)
+            return true
+        }
+        let retries = 0;
+        return new Promise(() => {
+            const intervalId = setInterval(async () => {
+                let result = await this.get_capture();
+
+                if (result !== false) {
+                    clearInterval(intervalId);
+                    let msg = segment.image('base64://' + result)
+                    await this.e.reply(msg)
+                    return true
+                } else if (retries >= 6) {
+                    clearInterval(intervalId);
+                    await this.e.reply(`获取截图超时`)
+                    return true
+                }
+
+                retries++;
+            }, 5000);
+        });
+    }
+
+    async get_capture() {
+        let sklUser = await this.check_skluser()
+        if (!sklUser) {
+            return false
+        }
+        let maaConf = new MAAConf(this.e.user_id)
+        await maaConf.getConf()
+        let res_tasks = await maaConf.maa_api.get_task()
+        if (!res_tasks || res_tasks.length == 0) {
+            return false
+        }
+        // logger.debug(`任务响应 ${JSON.stringify(res_tasks)}`)
+        for (let task_item of res_tasks) {
+            if ((task_item.type === 'CaptureImageNow' || task_item.type === 'CaptureImage') && task_item.status === "SUCCESS" && task_item.result) {
+                return task_item.result
+            }
+        }
+        return false
     }
 
 }
