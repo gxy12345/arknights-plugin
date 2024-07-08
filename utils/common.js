@@ -14,9 +14,8 @@ function getPrefix() {
             return '((#|/)?(方舟|明日方舟|arknights|方舟插件)|\/|\\\/|/|~|～)'
         case 2:
             return '((#|/)?(方舟插件|明日方舟|arknights)|\/|\\\/|/|~|～)'
-        // 因为有bug，暂时移除
-        // case 3:
-        //     return '((#|/)?|\/|\\\/|/|~|～)'
+        case 3:
+            return '((#|/)?(方舟插件|明日方舟|arknights)|\/|\\\/|/)'
         default:
             return '((#|/)?(方舟|明日方舟|arknights|方舟插件)|\/|\\\/|/|~|～)'
     }
