@@ -5,7 +5,7 @@ import runtimeRender from '../utils/runtimeRender.js'
 
 const _path = process.cwd();
 const cache_key = 'ARKNIGHTS:WEB_DATA:MATERIAL'
-const ytl_api = 'https://backend.yituliu.cn/stage/result?expCoefficient=0.625&sampleSize=300'
+const ytl_api = 'https://backend.yituliu.cn/stage/result?expCoefficient=0.633&sampleSize=300'
 
 export class Material extends plugin {
     constructor() {
