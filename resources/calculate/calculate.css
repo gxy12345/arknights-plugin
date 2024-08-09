@@ -1,13 +1,14 @@
   /* Global styles */
   body {
       transform: scale(1);
-      font-family: Arial, sans-serif;
+      font-family: "ARK", Arial, sans-serif;
       width: 1100px;
   }
 
   .container {
       width: 1000px;
       height: auto;
+      font-family: "ARK", Arial, sans-serif;
       background-color: rgba(118, 140, 153, 0.8);
       /* background: url("./bg.jpg") #333333 left top no-repeat;
       background-size: 1000px auto;
@@ -15,15 +16,21 @@
   }
 
   .main-container {
-    background-color: rgba(255, 255, 255, 0.75);
+      font-family: "ARK", Arial, sans-serif;
+      background-color: rgba(255, 255, 255, 0.75);
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
       padding: 30px;
       margin: 15px 15px 30px 15px;
   }
 
+  .main-container h2 {
+      font-family: "ARK", Arial, sans-serif;
+  }
+
   h2 {
       font-size: 36px;
+      font-family: "ARK", Arial, sans-serif;
       text-align: center;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
@@ -92,6 +99,7 @@
   }
 
   .sub-container h3 {
+      font-family: "ARK", Arial, sans-serif;
       font-size: 25px;
       text-align: center;
       margin-bottom: 10px;

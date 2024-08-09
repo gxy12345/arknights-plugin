@@ -11,6 +11,22 @@
   font-family: "YS";
   src: url("./font/YS.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "ARK-EN";
+  src: url("./font/BENDER.OTF") format("truetype");
+}
+
+@font-face {
+  font-family: "ARK-Title";
+  src: url("./font/SourceHanSerifCN-Heavy-4.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "ARK";
+  src: url("./font/SourceHanSansSC-Normal.otf") format("truetype");
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -18,7 +34,7 @@
 }
 
 body {
-  font-family: "SR", sans-serif;
+  font-family: "ARK", "SR", sans-serif;
   transform: scale(1.4);
   transform-origin: 0 0;
   font-size: 18px;

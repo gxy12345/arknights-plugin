@@ -116,23 +116,23 @@
 .constant-text {
   font-size: 30px; /* 修改字体高度为27px */
   color: rgba(188, 190, 192, 1); /* 修改字体颜色为rgba(188, 188, 188, 0.8) */
-  font-family: "Verdana", sans-serif; /* 设置字体 */
+  font-family: "ARK", sans-serif; /* 设置字体 */
 }
 
 /* 修改变量的文本样式的class */
 .custom-text {
-  font-size: 40px; /* 修改字体高度为27px */
+  font-size: 36px; /* 修改字体高度为27px */
   color: rgba(141, 208, 255, 1); /* 修改字体颜色为rgba(200, 200, 200, 1) */
-  font-family: "Verdana", sans-serif; /* 设置字体 */
+  font-family: "ARK-EN", "ARK", sans-serif; /* 设置字体 */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
 }
 
 /* 修改线索的文本样式的class */
 .clue-text {
-  font-size: 30px; /* 修改字体高度为27px */
+  font-size: 28px; /* 修改字体高度为27px */
   line-height: 44px; /* 设置行高为33px，保持行间距不变 */
   color: rgba(141, 208, 250, 1); /* 修改字体颜色为rgba(200, 200, 200, 1) */
-  font-family: "Times New Roman", sans-serif; /* 设置字体 */
+  font-family: "ARK", sans-serif; /* 设置字体 */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
 }
 
@@ -144,29 +144,29 @@
 /* 给博士名字体高度添加注释并修改字体颜色和字体 */
 .title-text {
   font-weight: bold; /* 增加字体粗度 */
-  font-size: 77px; /* 修改字体高度为45px */
+  font-size: 55px; /* 修改字体高度为45px */
   color: rgba(255, 255, 255, 1); /* 修改字体颜色为rgba(189, 188, 191, 1) */
   text-align: left; /* 左对齐文本 */
-  font-family: "Helvetica Neue", sans-serif; /* 设置字体 */
+  font-family: "ARK-Title", sans-serif; /* 设置字体 */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
 }
 
 /* 修改等级文本字体高度和颜色以及字体 */
 .level-text {
-  font-size: 50px; /* 修改字体高度为20px */
+  font-size: 35px; /* 修改字体高度为20px */
   color: rgba(252, 196, 200, 0.88); /* 修改字体颜色为#99CCFF */
   text-align: left; /* 左对齐文本 */
-  font-family: "Times New Roman", serif; /* 设置字体 */
+  font-family: "ARK-EN", serif; /* 设置字体 */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
   margin-right: 10px; /* 在 "Lv.120" 的右侧添加 10px 的右边距 */
 }
 
 /* 修改UID文本字体高度和颜色以及字体 */
 .uid-text {
-  font-size: 30px; /* 修改字体高度为20px */
+  font-size: 25px; /* 修改字体高度为20px */
   color: #A8A8A8; /* 修改字体颜色为#A8A8A8 */
   text-align: left; /* 左对齐文本 */
-  font-family: "Arial", sans-serif; /* 设置字体 */
+  font-family: "ARK-EN", sans-serif; /* 设置字体 */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
   margin-left: 10px; /* 在 "UID:1919810" 的左侧添加 10px 的左边距 */
 }
@@ -181,6 +181,6 @@
   font-family: 'Arial';
   /* color: #f0eaca; */
   text-align: center;
-  margin-top: 30px;
+  margin-top: 40px;
   padding-bottom: 15px;
 }

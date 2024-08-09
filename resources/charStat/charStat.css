@@ -1,6 +1,6 @@
 body {
     width: 1240px;
-    font-family: Arial, sans-serif;
+    font-family: "ARK", Arial, sans-serif;
 }
 
 .container {
@@ -34,8 +34,9 @@ body {
 }
 
 .title {
-    font-size: 36px;
-    margin-bottom: 40px;
+    font-family: "ARK-Title", Arial, sanserif;
+    font-size: 40px;
+    margin-bottom: 30px;
 }
 
 

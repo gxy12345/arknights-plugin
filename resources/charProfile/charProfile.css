@@ -6,7 +6,7 @@ body {
     align-items: center;
     width: 840px;
     height: 560px;
-    font-family: Arial, sanserif;
+    font-family: "ARK", Arial, sanserif;
     background-image: url("./Bg_rhodes_day.png");
     background-size: 1344px 896px;
     /* background-position: center; */
@@ -66,14 +66,16 @@ body {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
+    font-family: "ARK-Title", Arial, sanserif;
     text-shadow: 1px 1px 1px rgba(230, 230, 230, 0.8);
 }
 
 .info-value {
     font-size: 25px;
+    font-family: "ARK-EN", Arial, sanserif;
     font-weight: bold;
     color: #ffffffe7;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     margin-top: 4px;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
@@ -159,6 +161,7 @@ body {
 
 .container-title {
     font-weight: bold;
+    font-family: "ARK-Title", Arial, sanserif;
     font-size: 18px;
     text-shadow: 1px 1px 1px rgba(230, 230, 230, 0.8);
     margin-bottom: 5px;
@@ -174,6 +177,7 @@ body {
 
 .icon-description-blank {
     font-size: 14px;
+    font-family: "ARK-EN", Arial, sanserif;
     color: #3b3a3a;
     margin-bottom: 5px;
 }
@@ -194,6 +198,7 @@ body {
 
 .skill-container::after {
     content: "E";
+    font-size: 15px;
     color: #ffffffe7;
     position: absolute;
     top: 0;

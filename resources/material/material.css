@@ -3,10 +3,9 @@ body {
 }
 
 .title-text {
-    font-weight: bold;
     font-size: 45px;
     text-align: center;
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "ARK-Title", sans-serif;
     margin-top: 10px;
     margin-bottom: 10px;
     color: #000;
@@ -49,6 +48,7 @@ body {
 }
 
 .material-info h3 {
+    font-family: "ARK-Title", sans-serif;
     margin-top: 10px;
 }
 

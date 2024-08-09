@@ -1,6 +1,6 @@
 body {
     width: 1240px;
-    font-family: Arial, sans-serif;
+    font-family: "ARK", sans-serif;
 }
 
 .container {
@@ -45,7 +45,12 @@ body {
     flex-direction: column;
 }
 
+.info h2{
+    font-family: "ARK", sans-serif;
+}
+
 .info-text {
+    font-family: "ARK", sans-serif;
     font-size: 20px;
     text-align: center;
     margin-top: 10px;
@@ -57,6 +62,7 @@ body {
 }
 
 .rating {
+    font-family: "ARK-EN", sans-serif;
     font-size: 48px;
     font-weight: bold;
 }
@@ -150,21 +156,21 @@ body {
 
 .rating-item-container .rating {
     font-size: 72px;
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "ARK", sans-serif;
     font-weight: bold;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 .rating-container .rating {
     font-size: 72px;
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "ARK", sans-serif;
     font-weight: bold;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 .rating-item-container .desc-text {
     font-size: 24px;
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "ARK", sans-serif;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
     margin-top: 15px;
     margin-bottom: 5px;
@@ -190,14 +196,14 @@ body {
 
 .analysis-item-container .data {
     font-size: 40px;
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "ARK-EN", sans-serif;
     font-weight: bold;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 .analysis-item-container .desc-text {
     font-size: 24px;
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "ARK", sans-serif;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
     margin-top: 15px;
     margin-bottom: 5px;
@@ -206,7 +212,7 @@ body {
 .analysis-item-container .title {
     font-size: 40px;
     font-weight: bold;
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "ARK-Title", sans-serif;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
     margin-top: 15px;
     margin-bottom: 5px;
@@ -224,12 +230,13 @@ body {
     justify-content: flex-start;
     flex-wrap: wrap;
     margin-left: 30px;
+    font-family: "ARK" ,Arial, sans-serif;
 }
 
 .container-title {
     font-size: 40px;
     font-weight: bold;
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "ARK-Title", sans-serif;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
     margin-top: 10px;
     margin-bottom: 20px;
