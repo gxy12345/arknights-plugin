@@ -17,6 +17,10 @@ export default class sklandApi {
                 user_info: {
                     url: `${api_host}api/v1/user`,
                 },
+                /* binding list */
+                binding: {
+                    url: `${api_host}api/v1/game/player/binding`,
+                },
                 /* 游戏详情 */
                 game_player_info: {
                     url: `${api_host}api/v1/game/player/info`,

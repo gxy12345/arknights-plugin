@@ -56,16 +56,35 @@ export class SKLandUid extends plugin {
             return true
         }
         await sklUser.updateUser()
-        let res = await sklUser.sklReq.getData('user_info')
-        if (res?.code === 0 && res?.message === 'OK') {
-            let skl_user_info = res.data.user
-            let game_user_info = res.data.gameStatus
-            await this.reply(`森空岛昵称:${skl_user_info.nickname}\n游戏昵称:${game_user_info.name}\n游戏等级:${game_user_info.level}\n干员数量:${game_user_info.charCnt}\n家具数量:${game_user_info.furnitureCnt}\n皮肤数量:${game_user_info.skinCnt}`)
+        let res = await sklReq.getData('binding')
+        logger.mark(`binding res: ${JSON.stringify(res)}`)
+        if (res?.code == 0 && res?.message === 'OK') {
+            let bindingList = res.data.list
+            for (let bindingItem of bindingList) {
+                if (bindingItem.appCode === 'arknights') {
+                    let gameNickname = bindingItem.bindingList[0].nickName
+                    let gameUid = bindingItem.defaultUid
+                    let gameChannel = bindingItem.bindingList[0].channelName
+                    let cached_info = {
+                        cred: cred,
+                        name: gameNickname,
+                        uid: gameUid
+                    }
+                    if (used_token) {
+                        cached_info.token = used_token
+                    }
+                    await redis.set(`ARKNIGHTS:USER:${user}`, JSON.stringify(cached_info))
+                    await this.reply(`游戏昵称:${gameNickname}\n服务器:${gameChannel}\nUID:${gameUid}`)
+                    return true
+                }
+            }
+            await this.reply(`未找到明日方舟的绑定信息`)
+            return false
+
         } else {
-            logger.mark(`user info失败，响应:${JSON.stringify(res)}`)
-            await this.reply(`查询失败，请检查cred或稍后再试`)
+            await this.reply(`查询信息失败，请检查cred`)
+            return false
         }
-        return true
     }
 
 
@@ -102,26 +121,37 @@ export class SKLandUid extends plugin {
     async checkCred(cred, used_token=null) {
         let sklReq = new SKLandRequest(0, cred, '')
         await sklReq.refreshToken()
-        let res = await sklReq.getData('user_info')
-        logger.debug(JSON.stringify(res))
+        // let res = await sklReq.getData('user_info')
+        let res = await sklReq.getData('binding')
+        logger.debug(`binding res: ${JSON.stringify(res)}`)
         if (res?.code == 0 && res?.message === 'OK') {
-            let skl_user_info = res.data.user
-            let game_user_info = res.data.gameStatus
+            let bindingList = res.data.list
             let user = this.e.user_id
-            let cached_info = {
-                cred: cred,
-                // skl_name: skl_user_info.nickname,
-                name: game_user_info.name,
-                uid: game_user_info.uid
+            for (let bindingItem of bindingList) {
+                if (bindingItem.appCode === 'arknights') {
+                    let gameNickname = bindingItem.bindingList[0].nickName
+                    let gameUid = bindingItem.defaultUid
+                    let gameChannel = bindingItem.bindingList[0].channelName
+                    let cached_info = {
+                        cred: cred,
+                        name: gameNickname,
+                        uid: gameUid
+                    }
+                    if (used_token) {
+                        cached_info.token = used_token
+                    }
+                    await redis.set(`ARKNIGHTS:USER:${user}`, JSON.stringify(cached_info))
+                    await this.reply(`获取信息成功!\n游戏昵称:${gameNickname}\n服务器:${gameChannel}\nUID:${gameUid}`)
+                    return true
+                }
             }
-            if (used_token) {
-                cached_info.token = used_token
-            }
-            await redis.set(`ARKNIGHTS:USER:${user}`, JSON.stringify(cached_info))
-            await this.reply(`获取信息成功!\n森空岛昵称:${skl_user_info.nickname}\n游戏昵称:${game_user_info.name}\n游戏等级:${game_user_info.level}`)
+            await this.reply(`未找到明日方舟的绑定信息`)
+            return false
+
         } else {
             logger.mark(`绑定失败，响应:${JSON.stringify(res)}`)
             await this.reply(`绑定失败，请检查cred`)
+            return false
         }
     }
 

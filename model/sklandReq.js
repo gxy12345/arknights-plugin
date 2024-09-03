@@ -37,7 +37,7 @@ export default class SKLandRequest {
       query_or_body = body
     }
     let headers = this.getHeaders(path, query_or_body)
-    logger.mark(`[森空岛接口][getUrl] ${JSON.stringify(headers)}`)
+    logger.mark(`[森空岛接口][getUrl] url: ${url}  headers: ${JSON.stringify(headers)}`)
     return { url, headers, body }
   }
 
@@ -60,10 +60,10 @@ export default class SKLandRequest {
       t = Math.floor(Date.now() / 1000)
     }
     let header_for_sign = {
-      'platform': '2',
+      'platform': '1',
       'timestamp': t.toString(),
-      'dId': did,
-      'vName': '1.9.0'
+      'dId': '',
+      'vName': '1.21.0'
     }
     // let token = Buffer.from(skl_token, 'utf-8')
     let header_ca = JSON.parse(JSON.stringify(header_for_sign));
@@ -80,14 +80,14 @@ export default class SKLandRequest {
     let sign_obj = this.generateSign(this.token, path, query_or_body, did)
     logger.debug(`sign obj: ${JSON.stringify(sign_obj)}`)
     let skl_headers = {
-      os: `iOS`,
-      platform: 2,
-      'Accept-Language': 'zh-Hans-CN;q=1.0',
-      'User-Agent': `Skland/1.3.0 (com.hypergryph.skland; build:100300047; iOS 16.3.0) Alamofire/5.7.1`,
-      'dId': did,
+      'User-Agent': 'Skland/1.21.0 (com.hypergryph.skland; build:102100065; iOS 17.6.0; ) Alamofire/5.7.1',
+      'Accept-Encoding': 'gzip',
+      'Connection': 'close',
       'Content-Type': 'application/json',
-      vCode: 100900052,
-      vName: '1.9.0',
+      platform: 1,
+      'Accept-Language': 'zh-Hans-CN;q=1.0',
+      'dId': '',
+      vName: '1.21.0',
       language: 'zh-hans-CN',
       sign: sign_obj.sign,
       timestamp: sign_obj.timestamp

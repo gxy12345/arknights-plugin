@@ -66,15 +66,23 @@ export default class SKLandUser {
             logger.mark(`账号已绑定token，使用token更新cred`)
             await this.updateCredByToken()
         }
-        let res = await this.sklReq.getData('user_info')
+        // let res = await this.sklReq.getData('user_info')
+        let res = await sklReq.getData('binding')
         if (res?.code == 0 && res?.message === 'OK') {
-            let skl_user_info = res.data.user
-            let game_user_info = res.data.gameStatus
-            this.uid = game_user_info.uid
-            this.name = game_user_info.name
-
-            await this.saveUser()
-            return true
+            let bindingList = res.data.list
+            for (let bindingItem of bindingList) {
+                if (bindingItem.appCode === 'arknights') {
+                    let gameNickname = bindingItem.bindingList[0].nickName
+                    let gameUid = bindingItem.defaultUid
+                    let gameChannel = bindingItem.bindingList[0].channelName
+                    this.uid = gameUid
+                    this.name = gameNickname
+                    await this.saveUser()
+                    return true
+                }
+            }
+            logger.mark(`获取角色信息失败，列表未找到明日方舟信息`)
+            return false
         } else {
             logger.mark(`cred已失效, uid:${this.uid}`)
             return false

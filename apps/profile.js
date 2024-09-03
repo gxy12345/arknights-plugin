@@ -34,6 +34,16 @@ export class Profile extends plugin {
         let user_res = await sklUser.sklReq.getData('user_info')
         if (game_res?.code === 0 && game_res?.message === 'OK' && user_res?.code === 0 && user_res?.message === 'OK') {
             return await this.generate_profile_card(game_res.data, user_res.data)
+        }else if (game_res?.code === 0 && game_res?.message === 'OK') {
+            // user info接口405的情况下，展示N/A
+            let naUserData = {
+                gameStatus: {
+                    furnitureCnt: 'N/A',
+                    charCnt: 'N/A',
+                    skinCnt: 'N/A'
+                }
+            }
+            return await this.generate_profile_card(game_res.data, naUserData)
         } else {
             logger.mark(`user info失败，响应:${JSON.stringify(user_res)}`)
             logger.mark(`game info失败，响应:${JSON.stringify(game_res)}`)
