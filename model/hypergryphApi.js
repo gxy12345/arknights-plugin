@@ -18,7 +18,7 @@ let hypergryphAPI = {
             timeout: 10000,
             method: 'post',
             headers: {
-                'User-Agent': 'Skland/1.5.1 (com.hypergryph.skland; build:100501001; Android 34; ) Okhttp/4.11.0',
+                'User-Agent': 'Skland/1.21.0 (com.hypergryph.skland; build:102100065; iOS 17.6.0; ) Alamofire/5.7.1',
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(req_body)
