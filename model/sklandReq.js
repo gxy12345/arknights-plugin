@@ -82,7 +82,6 @@ export default class SKLandRequest {
     let skl_headers = {
       'User-Agent': 'Skland/1.21.0 (com.hypergryph.skland; build:102100065; iOS 17.6.0; ) Alamofire/5.7.1',
       'Accept-Encoding': 'gzip',
-      'Connection': 'close',
       'Content-Type': 'application/json',
       platform: 1,
       'Accept-Language': 'zh-Hans-CN;q=1.0',
@@ -130,7 +129,7 @@ export default class SKLandRequest {
     try {
       response = await fetch(url, param)
     } catch (error) {
-      logger.error(error.toString())
+      logger.error(`fetch error：  ${error.toString()}`)
       return false
     }
 
