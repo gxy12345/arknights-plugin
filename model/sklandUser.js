@@ -67,7 +67,7 @@ export default class SKLandUser {
             await this.updateCredByToken()
         }
         // let res = await this.sklReq.getData('user_info')
-        let res = await sklReq.getData('binding')
+        let res = await this.sklReq.getData('binding')
         if (res?.code == 0 && res?.message === 'OK') {
             let bindingList = res.data.list
             for (let bindingItem of bindingList) {
