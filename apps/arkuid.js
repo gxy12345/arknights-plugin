@@ -157,11 +157,11 @@ export class SKLandUid extends plugin {
 
     async checkToken(token) {
         let cred = await hypergryphAPI.getCredByToken(token)
+        if (cred === "405") {
+            await this.reply(`当前服务无法使用token登录，请尝试使用cred`)
+            return true
+        }
         if (!cred) {
-            if (cred === "405") {
-                await this.reply(`当前服务无法使用token登录，请尝试使用cred`)
-                return true
-            }
             logger.debug(`new cred：${cred}`)
             await this.reply(`绑定失败，请检查token`)
             return true
