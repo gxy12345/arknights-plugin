@@ -69,6 +69,10 @@ let hypergryphAPI = {
                 const error_res = await response.json()
                 logger.mark(`[CRED API][参数错误] ${JSON.stringify(error_res)}`)
             }
+            if (response.status == 405) {
+                logger.mark(`[CRED API][405] 当前服务暂时无法使用token，请更换IP或使用cred`)
+                return "405"
+            }
             return false
         }
         res = await response.json()
