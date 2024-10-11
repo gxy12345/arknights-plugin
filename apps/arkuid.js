@@ -132,7 +132,7 @@ export class SKLandUid extends plugin {
                     let gameNickname = bindingItem.bindingList[0].nickName
                     let gameUid = bindingItem.defaultUid
                     if (!gameUid) {
-                        gameUid = bindingItem.uid
+                        gameUid = bindingItem.bindingList[0].uid
                     }
                     let gameChannel = bindingItem.bindingList[0].channelName
                     let cached_info = {
