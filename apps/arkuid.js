@@ -131,6 +131,9 @@ export class SKLandUid extends plugin {
                 if (bindingItem.appCode === 'arknights') {
                     let gameNickname = bindingItem.bindingList[0].nickName
                     let gameUid = bindingItem.defaultUid
+                    if (!gameUid) {
+                        gameUid = bindingItem.uid
+                    }
                     let gameChannel = bindingItem.bindingList[0].channelName
                     let cached_info = {
                         cred: cred,
