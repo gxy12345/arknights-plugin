@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "moment": "^2.30.1"
+    "moment": "^2.30.1",
+    "jsdom": "^25.0.1"
   },
   "devDependencies": {},
   "keywords": [

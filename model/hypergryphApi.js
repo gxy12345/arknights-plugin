@@ -1,6 +1,8 @@
+import { createDeviceId } from '../utils/common.js'
+
 const BindAPI = {
     OAUTH_API: 'https://as.hypergryph.com/user/oauth2/v2/grant',
-    CRED_API: 'https://zonai.skland.com/api/v1/user/auth/generate_cred_by_code'
+    CRED_API: 'https://zonai.skland.com/web/v1/user/auth/generate_cred_by_code'
 }
 
 
@@ -58,6 +60,16 @@ let hypergryphAPI = {
             code: code
         }
         param.body = JSON.stringify(req_body)
+        param.headers = {
+            'content-type': 'application/json',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
+            'referer': 'https://www.skland.com/',
+            'origin': 'https://www.skland.com',
+            'dId': await createDeviceId(),
+            'platform': '3',
+            'timestamp': `${Math.floor(Date.now() / 1000)}`,
+            'vName': '1.0.0',
+        }
 
 
         try {
