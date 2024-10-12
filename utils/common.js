@@ -60,7 +60,7 @@ export function profession_eng_to_name(eng_name) {
 
 export function createDeviceId() {
     // @ts-expect-error ignore
-    const sdkJsPath = path.resolve(import.meta.dirname, './sm.sdk.js')
+    const sdkJsPath = path.resolve(_path, './plugins/arknights-plugin/utils/sm.sdk.js')
     return new Promise((resolve) => {
         const dom = new JSDOM(
             '',
