@@ -17,7 +17,7 @@ let hypergryphAPI = {
             token: token
         }
         let param = {
-            timeout: 10000,
+            timeout: 25000,
             method: 'post',
             headers: {
                 'User-Agent': 'Skland/1.21.0 (com.hypergryph.skland; build:102100065; iOS 17.6.0; ) Alamofire/5.7.1',

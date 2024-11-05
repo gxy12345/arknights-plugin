@@ -16,7 +16,7 @@ export default class MAAControlAPI {
     async request_maa_api(url, method, body = {}, query = '') {
         let req_url = url
         let param = {
-            timeout: 10000,
+            timeout: 25000,
             method: method,
         }
         if (body && method == 'post') {

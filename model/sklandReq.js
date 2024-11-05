@@ -116,7 +116,7 @@ export default class SKLandRequest {
 
     let param = {
       headers,
-      timeout: 10000
+      timeout: 25000
     }
     if (body) {
       param.method = 'post'

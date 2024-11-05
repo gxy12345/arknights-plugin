@@ -68,7 +68,7 @@ export class Material extends plugin {
             return JSON.parse(cacheData)
         }
         let param = {
-            timeout: 10000,
+            timeout: 25000,
             method: 'get',
         }
         let response = {}
