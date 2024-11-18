@@ -11,7 +11,7 @@ export class help extends plugin {
 			name: '[arknights-plugin]帮助',
 			dsc: '方舟插件帮助',
 			event: 'message',
-			priority: 100,
+			priority: 10,
 			rule: [
 				{
 					reg: `^${rulePrefix}帮助$`,
