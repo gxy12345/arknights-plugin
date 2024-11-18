@@ -23,7 +23,7 @@ export class CharProfile extends plugin {
     }
 
     async charProfile() {
-        let char_name = this.e.msg.replace(/#|\/|方舟|明日方舟|arknights|方舟插件|~|～/g, "")
+        let char_name = this.e.msg.replace(/#|\/|方舟|明日方舟|arknights|方舟插件|插件|~|～/g, "")
         if (char_name === "") {
             return false
         }
