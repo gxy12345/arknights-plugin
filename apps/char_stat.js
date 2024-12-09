@@ -30,7 +30,8 @@ export class CharStat extends plugin {
     }
 
     async charStat() {
-        let sklUser = new SKLandUser(this.e.user_id)
+        let uid = this.e.at || this.e.user_id
+        let sklUser = new SKLandUser(uid)
         if (!await sklUser.getUser()) {
             return false
         }
@@ -90,7 +91,8 @@ export class CharStat extends plugin {
     }
 
     async charAnalysis() {
-        let sklUser = new SKLandUser(this.e.user_id)
+        let uid = this.e.at || this.e.user_id
+        let sklUser = new SKLandUser(uid)
         if (!await sklUser.getUser()) {
             return false
         }

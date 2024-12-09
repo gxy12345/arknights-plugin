@@ -27,11 +27,11 @@ export class CharProfile extends plugin {
         if (char_name === "") {
             return false
         }
-        let sklUser = new SKLandUser(this.e.user_id)
+        let uid = this.e.at || this.e.user_id
+        let sklUser = new SKLandUser(uid)
         if (!await sklUser.getUser()) {
             return false
         }
-        // let res = await sklUser.sklReq.getData('game_player_info')
         let res = await sklUser.getGamePlayerInfo()
 
         if (!res) {

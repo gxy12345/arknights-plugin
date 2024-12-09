@@ -23,7 +23,8 @@ export class Profile extends plugin {
     }
 
     async profileCard() {
-        let sklUser = new SKLandUser(this.e.user_id)
+        let uid = this.e.at || this.e.user_id
+        let sklUser = new SKLandUser(uid)
         if (!await sklUser.getUser()) {
             await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
             return true
