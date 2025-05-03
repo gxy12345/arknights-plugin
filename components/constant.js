@@ -147,7 +147,7 @@ let gameData = {
             level_evo0: 10,
             level_evo1: 40,
             specialize: [0, 5, 10, 15],
-            equip: [0, 10, 20],
+            equip: [5, 10, 20],
             potential: 1,
             max_score: 192,
         },
@@ -156,7 +156,7 @@ let gameData = {
             level_evo0: 10,
             level_evo1: 45,
             specialize: [0, 10, 20, 30],
-            equip: [0, 25, 40],
+            equip: [10, 25, 40],
             potential: 2,
             max_score: 272,
         },
@@ -165,21 +165,21 @@ let gameData = {
             level_evo0: 10,
             level_evo1: 50,
             specialize: [0, 20, 40, 60],
-            equip: [0, 40, 60],
+            equip: [15, 40, 65],
             potential: 4,
             max_score: 477,
         },
     ],
 
     analysis_rank: {
-        C: 500,
-        B: 1500,
-        A: 4500,
-        S: 9500,
-        SS: 14000,
-        SSS: 25000,
-        ACE: 36000,
-        MAX: 48000
+        C: 750,
+        B: 2000,
+        A: 6000,
+        S: 12000,
+        SS: 18000,
+        SSS: 30000,
+        ACE: 46000,
+        MAX: 64000
     },
 }
 

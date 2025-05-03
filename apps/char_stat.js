@@ -162,7 +162,7 @@ export class CharStat extends plugin {
                 },
             ]
             if (char_map.hasOwnProperty(charId)) {
-                let { name, profession, rarity, ...map_rest } = char_map[charId];
+                let { name, profession, ...map_rest } = char_map[charId];
                 if (name === '阿米娅') {
                     if (profession === 'CASTER') name = '阿米娅(术师)'
                     if (profession === 'WARRIOR') name = '阿米娅(近卫)'
@@ -183,9 +183,9 @@ export class CharStat extends plugin {
                         let equip_level = char.equip[char.equip.findIndex(item => item.id == char.defaultEquipId)].level
                         equip_text = `${typeIcon} LV.${equip_level}`
                     }
-                    return { charId, name, rarity, profession, defaultEquipId, skills, typeIcon, equip_text, skill_text, mainSkillLvl, ...rest, ...map_rest };
+                    return { charId, name, profession, defaultEquipId, skills, typeIcon, equip_text, skill_text, mainSkillLvl, ...rest, ...map_rest };
                 }
-                return { charId, name, rarity, profession, defaultEquipId, equip_text, skills, skill_text, ...rest, mainSkillLvl, ...map_rest };
+                return { charId, name, profession, defaultEquipId, equip_text, skills, skill_text, ...rest, mainSkillLvl, ...map_rest };
             }
 
             return char;
@@ -432,6 +432,9 @@ export class CharStat extends plugin {
 
         // 模组
         for (let equip of char_data.equip) {
+            if (equip.locked) {
+                continue
+            }
             score += constant.gameData.analysis_rule[char_data.rarity].equip[equip.level - 1]
         }
 
