@@ -72,7 +72,7 @@ export class Profile extends plugin {
         user_info.level = game_data.status.level
         user_info.uid = game_data.status.uid
         user_info.reg_date = moment.unix(game_data.status.registerTs).format('YYYY-MM-DD')
-        user_info.days_before_now = moment().diff(moment.unix(game_data.status.registerTs), 'day')
+        user_info.days_before_now = moment().diff(moment.unix(game_data.status.registerTs), 'day') + 1
         user_info.main_progress = game_data.status.mainStageProgress || '全部完成'
 
         // 角色家具皮肤数量

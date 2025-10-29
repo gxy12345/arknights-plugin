@@ -24,7 +24,7 @@ export function supportGuoba () {
     // 配置项信息
     configInfo: {
       // 配置项 schemas
-      schemas: [{
+      schemas: [      {
         component: 'Divider',
         label: '通用设置'
       },
@@ -47,8 +47,8 @@ export function supportGuoba () {
         componentProps: {
           options: [
             {label: '完整模式(最泛用的匹配模式，支持最多前缀匹配)', value: 1},
-            {label: '兼容模式1(防止和其他方舟相关插件冲突，移除了“#方舟”前缀）', value: 2},
-            {label: '兼容模式2(防止和鸣潮插件冲突，移除了“~”前缀）', value: 3},
+            {label: '兼容模式1(防止和其他方舟相关插件冲突，移除了"#方舟"前缀）', value: 2},
+            {label: '兼容模式2(防止和鸣潮插件冲突，移除了"~"前缀）', value: 3},
             {label: '兼容模式3(兼容模式1+2）', value: 4},
           ],
           placeholder: '选择模式',
@@ -78,6 +78,56 @@ export function supportGuoba () {
           placeholder: '3-10数字'
         }
       },
+      {
+        component: 'Divider',
+        label: '别名管理权限设置'
+      },
+      {
+        field: 'nickname.add_permission',
+        label: '添加别名权限',
+        bottomHelpMessage: '设置谁可以使用/添加别名命令',
+        component: 'Select',
+        required: true,
+        componentProps: {
+          options: [
+            {label: '所有人', value: 'all'},
+            {label: '仅主人', value: 'master'},
+            {label: '关闭', value: 'off'},
+          ],
+          placeholder: '选择权限',
+        },
+      },
+      {
+        field: 'nickname.view_permission',
+        label: '查看别名权限',
+        bottomHelpMessage: '设置谁可以使用/查看别名命令',
+        component: 'Select',
+        required: true,
+        componentProps: {
+          options: [
+            {label: '所有人', value: 'all'},
+            {label: '仅主人', value: 'master'},
+            {label: '关闭', value: 'off'},
+          ],
+          placeholder: '选择权限',
+        },
+      },
+      {
+        field: 'nickname.delete_permission',
+        label: '删除别名权限',
+        bottomHelpMessage: '设置谁可以使用/删除别名命令',
+        component: 'Select',
+        required: true,
+        componentProps: {
+          options: [
+            {label: '所有人', value: 'all'},
+            {label: '仅主人', value: 'master'},
+            {label: '关闭', value: 'off'},
+          ],
+          placeholder: '选择权限',
+        },
+      },
+
       {
         component: 'Divider',
         label: '签到设置'
@@ -116,6 +166,22 @@ export function supportGuoba () {
         required: true,
         componentProps: {
           placeholder: '请输入MAA Host'
+        }
+      },
+      {
+        component: 'Divider',
+        label: '抽卡记录设置'
+      },
+      {
+        field: 'gacha.days_range',
+        label: '抽卡记录展示天数',
+        bottomHelpMessage: '设置抽卡记录展示的时间范围（天数）',
+        component: 'InputNumber',
+        required: true,
+        componentProps: {
+          min: 30,
+          max: 365,
+          placeholder: '请输入30-365数字'
         }
       }
       ],

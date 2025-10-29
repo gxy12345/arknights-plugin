@@ -1,0 +1,193 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}gacha/gacha.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="gacha-body">
+    <div class="gacha-container">
+        <div class="header">
+            <div class="avatar-section">
+                <div class="avatar-wrapper">
+                    <img src="{{status.avatar.url}}" class="avatar" />
+                </div>
+                <div class="user-info">
+                    <h1 class="nickname">{{character.nickname}}</h1>
+                    <div class="badges">
+                        <div class="server-badge">
+                            <span class="server-text">{{if character.channel_master_id === '1'}}官服{{else}}B服{{/if}}</span>
+                        </div>
+                        <div class="level-badge">
+                            <span class="level-text">LV.{{status.level}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-card">
+            <div class="stats-header">
+                <div class="title-badge">统计信息（最近{{days_range}}天）</div>
+            </div>
+            <div class="stats-content">
+                <div class="stat-item">
+                    <span class="stat-title">限定</span>
+                    <div class="stat-value">
+                        {{record.limit_total_pulls}}<span class="unit">抽</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="stat-details">
+                        <div class="detail-item">
+                            <span class="detail-value">{{record.limit_total_six}} / <span class="spook">{{record.limit_six_spook}}</span></span>
+                            <span class="detail-label">出卡数/<span class="spook">歪</span></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-value">{{record.limit_six_avg}}</span>
+                            <span class="detail-label">UP平均</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-title">常驻</span>
+                    <div class="stat-value">
+                        {{record.norm_total_pulls}}<span class="unit">抽</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="stat-details">
+                        <div class="detail-item">
+                            <span class="detail-value">{{record.norm_total_six}} / <span class="spook">{{record.norm_six_spook}}</span></span>
+                            <span class="detail-label">出卡数/<span class="spook">歪</span></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-value">{{record.norm_six_avg}}</span>
+                            <span class="detail-label">UP平均</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-title">中坚</span>
+                    <div class="stat-value">
+                        {{record.doub_total_pulls}}<span class="unit">抽</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="stat-details">
+                        <div class="detail-item">
+                            <span class="detail-value">{{record.doub_total_six}} / <span class="spook">{{record.doub_six_spook}}</span></span>
+                            <span class="detail-label">出卡数/<span class="spook">歪</span></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-value">{{record.doub_six_avg}}</span>
+                            <span class="detail-label">UP平均</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pity-card">
+            <div class="pity-item">
+                <span class="pity-label">限定已垫</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{record.limit_pity}}%"></div>
+                    <span class="progress-text">{{record.limit_pity}}/99</span>
+                </div>
+                <span class="pity-rate">当前概率{{if record.limit_pity > 50}}{{2 + (record.limit_pity - 50) * 2}}{{else}}2{{/if}}%</span>
+            </div>
+            <div class="pity-item">
+                <span class="pity-label">常驻已垫</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{record.norm_pity}}%"></div>
+                    <span class="progress-text">{{record.norm_pity}}/99</span>
+                </div>
+                <span class="pity-rate">当前概率{{if record.norm_pity > 50}}{{2 + (record.norm_pity - 50) * 2}}{{else}}2{{/if}}%</span>
+            </div>
+            <div class="pity-item">
+                <span class="pity-label">中坚已垫</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{record.doub_pity}}%"></div>
+                    <span class="progress-text">{{record.doub_pity}}/99</span>
+                </div>
+                <span class="pity-rate">当前概率{{if record.doub_pity > 50}}{{2 + (record.doub_pity - 50) * 2}}{{else}}2{{/if}}%</span>
+            </div>
+        </div>
+
+        {{each record.pools pool}}
+        <div class="pool-card">
+            <div class="pool-header">
+                <div class="pool-info">
+                    <span class="pool-name">{{pool.gachaPoolName}}</span>
+                    {{if pool.up_six_chars && pool.up_six_chars.length > 0}}
+                    <div class="up-chars">
+                        {{each pool.up_six_chars charId}}
+                        <img src="https://web.hycdn.cn/arknights/game/assets/char_skin/avatar/{{charId}}%231.png" class="char-avatar" />
+                        {{/each}}
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="pool-total">
+                    {{pool.poolTotalPulls}}<span class="unit-sm">抽</span>
+                </div>
+            </div>
+            <div class="pool-content">
+                {{each pool.records rec}}
+                {{each rec.pulls pull}}
+                {{if pull.rarity === 5}}
+                <div class="pull-item">
+                    <div class="pull-char">
+                        <img src="https://web.hycdn.cn/arknights/game/assets/char_skin/avatar/{{pull.char_id}}%231.png" class="pull-avatar" />
+                        <div class="pull-date">{{rec.gacha_ts_str}}</div>
+                    </div>
+                    <div class="pull-info">
+                        <div class="pull-bar-wrapper">
+                            {{if pull.pity_count >= 60}}
+                            <div class="pull-bar red-bar" style="width: {{Math.min(10 + pull.pity_count, 110)}}%">
+                                <span class="pull-count">{{pull.pity_count}} 抽</span>
+                            </div>
+                            {{else if pull.pity_count >= 35}}
+                            <div class="pull-bar yellow-bar" style="width: {{Math.min(10 + pull.pity_count, 110)}}%">
+                                <span class="pull-count">{{pull.pity_count}} 抽</span>
+                            </div>
+                            {{else}}
+                            <div class="pull-bar green-bar" style="width: {{Math.min(10 + pull.pity_count, 110)}}%">
+                                <span class="pull-count">{{pull.pity_count}} 抽</span>
+                            </div>
+                            {{/if}}
+                            {{if pull.pity_count <= 10}}
+                            <div class="luck-badge lucky">
+                                <span>超欧</span>
+                            </div>
+                            {{else if pull.pity_count >= 60}}
+                            <div class="luck-badge unlucky">
+                                <span>超非</span>
+                            </div>
+                            {{/if}}
+                            {{if pull.is_off_banner}}
+                            <div class="luck-badge off-banner">
+                                <span>歪</span>
+                            </div>
+                            {{/if}}
+                        </div>
+                        {{if pull.five_stars_list && pull.five_stars_list.length > 0}}
+                        <div class="five-stars">
+                            {{each pull.five_stars_list fsCharId}}
+                            <img src="https://web.hycdn.cn/arknights/game/assets/char_skin/avatar/{{fsCharId}}%231.png" class="five-star-avatar" />
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+                {{/if}}
+                {{/each}}
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+
+        <div class="logo">
+            {{@sys.createdby}}
+        </div>
+    </div>
+</div>
+{{/block}}
+

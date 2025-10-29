@@ -1,0 +1,198 @@
+body {
+    width: 2000px;
+    font-family: "ARK", Arial, sans-serif;
+}
+
+.container {
+    width: 2000px;
+    height: auto;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 20px 0;
+}
+
+.main-container {
+    width: 90%;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    color: #fff;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.title {
+    font-family: "ARK-Title", Arial, sans-serif;
+    font-size: 48px;
+    margin: 0;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.subtitle {
+    font-size: 36px;
+    color: #ffa500;
+}
+
+.user-info {
+    text-align: right;
+}
+
+.description {
+    font-size: 22px;
+    margin: 5px 0;
+    color: #fff;
+}
+
+.description.small {
+    font-size: 18px;
+    color: #ccc;
+    margin-top: 10px;
+}
+
+.rogue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rogue-item {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    height: 300px;
+}
+
+.rogue-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.rogue-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.rogue-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    display: block;
+}
+
+.rogue-name-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    padding: 15px 20px;
+    z-index: 2;
+}
+
+.rogue-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.rogue-stats {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    padding: 20px 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px 10px;
+    align-content: center;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0.92));
+    z-index: 1;
+}
+
+.stat-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px 12px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stat-label {
+    font-size: 22px;
+    color: #bbb;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 32px;
+    color: #ffa500;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.stat-value.fraction {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.numerator {
+    font-size: 32px;
+}
+
+.fraction-line {
+    font-size: 28px;
+    color: #fff;
+}
+
+.denominator {
+    font-size: 32px;
+}
+
+.create-by-text {
+    font-size: 20px;
+    font-family: 'Arial';
+    color: #ffffffe7;
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .rogue-stats {
+        width: 100%;
+        position: relative;
+        grid-template-columns: repeat(2, 1fr);
+        background: rgba(0, 0, 0, 0.85);
+    }
+    
+    .rogue-item {
+        height: auto;
+    }
+}
+

@@ -1,0 +1,467 @@
+@import url('../common/common.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.gacha-body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background-color: #303030;
+    color: white;
+    width: calc(100% + 30px);
+    overflow-x: visible;
+    margin: -20px -15px -10px -15px;
+    padding: 0;
+}
+
+.gacha-container {
+    width: 100%;
+    padding: 20px;
+    background-color: #303030;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+/* Header */
+.header {
+    padding: 16px 24px;
+}
+
+.avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar-wrapper {
+    width: 75px;
+    height: 75px;
+}
+
+.avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nickname {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.badges {
+    display: flex;
+    gap: 8px;
+}
+
+.server-badge {
+    width: 60px;
+    height: 28px;
+    background-color: rgba(35, 186, 252, 0.8);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(35, 186, 252, 0.3);
+}
+
+.server-text {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.level-badge {
+    min-width: 60px;
+    height: 28px;
+    background-color: rgba(48, 182, 62, 0.8);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(48, 182, 62, 0.3);
+    padding: 0 8px;
+}
+
+.level-text {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Stats Card */
+.stats-card {
+    width: 100%;
+    background-color: #151515;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+
+.stats-header {
+    margin-bottom: 16px;
+}
+
+.title-badge {
+    background-color: #01CC9D;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 8px 16px;
+    border-radius: 0 5px 5px 0;
+    display: inline-block;
+}
+
+.stats-content {
+    display: flex;
+    gap: 16px;
+}
+
+.stat-item {
+    flex: 1;
+    background-color: #333333;
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-title {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    color: white;
+    font-weight: bold;
+    font-size: 48px;
+    margin-bottom: 8px;
+}
+
+.unit {
+    font-size: 20px;
+}
+
+.divider {
+    width: 75%;
+    height: 3px;
+    background-color: #3E3E3E;
+    border-radius: 9999px;
+    margin: 8px 0;
+}
+
+.stat-details {
+    display: flex;
+    gap: 4px;
+    padding-top: 12px;
+    width: 100%;
+}
+
+.detail-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-value {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.spook {
+    color: #C04855;
+}
+
+.detail-label {
+    color: white;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+/* Pity Card */
+.pity-card {
+    width: 100%;
+    background-color: #3F3F3F;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+
+.pity-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 0;
+}
+
+.pity-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.progress-bar {
+    position: relative;
+    width: 150px;
+    height: 24px;
+    background-color: #343434;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #01CC9D 0%, #30B63E 100%);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.pity-rate {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: bold;
+    font-size: 18px;
+    padding: 2px 16px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+}
+
+/* Pool Card */
+.pool-card {
+    width: 100%;
+    background-color: #3F3F3F;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+
+.pool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #5A5A5A;
+    margin-bottom: 16px;
+}
+
+.pool-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.pool-name {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.pool-date {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 18px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.up-chars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.char-avatar {
+    width: 24px;
+    height: 24px;
+    background-color: #646464;
+    border-radius: 4px;
+}
+
+.pool-total {
+    flex-shrink: 0;
+    height: 48px;
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #146ACF;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px 0 0 5px;
+    margin-right: -16px;
+}
+
+.unit-sm {
+    font-size: 20px;
+}
+
+.pool-content {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/* Pull Item */
+.pull-item {
+    display: flex;
+    align-items: flex-start;
+    padding-right: 16px;
+    margin-bottom: 8px;
+}
+
+.pull-char {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pull-avatar {
+    width: 48px;
+    height: 48px;
+    background-color: #646464;
+    border-radius: 4px;
+}
+
+.pull-date {
+    width: 48px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.pull-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-left: 16px;
+    margin-top: -4px;
+}
+
+.pull-bar-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.pull-bar {
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    min-width: 10%;
+}
+
+.green-bar {
+    background: linear-gradient(90deg, rgba(48, 182, 62, 0.8) 0%, rgba(48, 182, 62, 0.4) 100%);
+}
+
+.yellow-bar {
+    background: linear-gradient(90deg, rgba(255, 193, 7, 0.8) 0%, rgba(255, 193, 7, 0.4) 100%);
+}
+
+.red-bar {
+    background: linear-gradient(90deg, rgba(239, 104, 83, 0.8) 0%, rgba(239, 104, 83, 0.4) 100%);
+}
+
+.pull-count {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.luck-badge {
+    height: 16px;
+    margin-left: 8px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+.luck-badge.lucky {
+    background-color: #30B63E;
+}
+
+.luck-badge.unlucky {
+    background-color: #ef6853;
+}
+
+.luck-badge.off-banner {
+    background-color: #dc143c;
+}
+
+.luck-badge span {
+    color: white;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.five-stars {
+    display: flex;
+    gap: 4px;
+    margin-left: 16px;
+    height: 24px;
+    flex-wrap: wrap;
+}
+
+.five-star-avatar {
+    width: 24px;
+    height: 24px;
+    background-color: #646464;
+    border-radius: 4px;
+}
+
+/* Logo */
+.logo {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    padding: 20px 0;
+    margin-top: 10px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    padding: 16px 0;
+}
+

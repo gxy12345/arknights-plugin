@@ -1,0 +1,84 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}gacha/gachaAnalysis.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="analysis-body">
+    <div class="analysis-container">
+        <div class="header">
+            <div class="title">抽卡分析</div>
+            <div class="user-section">
+                <img src="{{status.avatar.url}}" class="avatar" />
+                <div class="user-info">
+                    <div class="nickname">{{character.nickname}}</div>
+                    <div class="badges">
+                        <div class="server-badge">
+                            <span>{{if character.channel_master_id === '1'}}官服{{else}}B服{{/if}}</span>
+                        </div>
+                        <div class="level-badge">
+                            <span>LV.{{status.level}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stats-row">
+                <div class="stat-item stat-flex-1">
+                    <div class="stat-label">总抽卡数</div>
+                    <div class="stat-value">{{analysis.total_pulls}}<span class="unit">抽</span></div>
+                </div>
+                <div class="stat-item stat-flex-1">
+                    <div class="stat-label">平均六星抽数</div>
+                    <div class="stat-value">{{analysis.avg_six_star_pulls}}<span class="unit">抽</span></div>
+                </div>
+                <div class="stat-item stat-flex-2">
+                    <div class="stat-label">抽卡评价</div>
+                    <div class="stat-value evaluation-color">{{analysis.evaluation}}</div>
+                </div>
+            </div>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-label">UP六星数</div>
+                    <div class="stat-value up-color">{{analysis.up_six_star}}<span class="unit">个</span></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">总六星数</div>
+                    <div class="stat-value">{{analysis.total_six_star}}<span class="unit">个</span></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">UP六星占比</div>
+                    <div class="stat-value up-color">{{analysis.up_six_star_rate}}<span class="unit">%</span></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">平均UP抽数</div>
+                    <div class="stat-value">{{analysis.avg_up_pulls}}<span class="unit">抽</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chars-section">
+            <div class="section-title">六星角色总览</div>
+            <div class="chars-grid">
+                {{each analysis.six_star_chars char}}
+                <div class="char-item">
+                    <div class="char-avatar-wrapper">
+                        <img src="https://web.hycdn.cn/arknights/game/assets/char_skin/avatar/{{char.char_id}}%231.png" class="char-avatar" />
+                        <div class="char-count">{{char.count}}</div>
+                    </div>
+                    <div class="char-name">{{char.char_name}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="logo">
+            {{@sys.createdby}}
+        </div>
+    </div>
+</div>
+{{/block}}
+
