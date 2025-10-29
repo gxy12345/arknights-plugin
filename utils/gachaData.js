@@ -407,14 +407,14 @@ export default class GachaData {
         // 评价等级（基于平均六星抽数）
         const avgPulls = parseFloat(avgSixStarPulls)
         let evaluation = '欧非守恒'
-        if (avgPulls <= 16) evaluation = '至尊欧皇'
-        else if (avgPulls <= 20) evaluation = '大欧皇'
-        else if (avgPulls <= 25) evaluation = '欧皇'
-        else if (avgPulls <= 30) evaluation = '欧洲人'
-        else if (avgPulls <= 35) evaluation = '欧非守恒'
-        else if (avgPulls <= 38) evaluation = '非洲人'
-        else if (avgPulls <= 43) evaluation = '非酋'
-        else if (avgPulls <= 48) evaluation = '大非酋'
+        if (avgPulls <= 18) evaluation = '至尊欧皇'
+        else if (avgPulls <= 22) evaluation = '大欧皇'
+        else if (avgPulls <= 27) evaluation = '欧皇'
+        else if (avgPulls <= 33) evaluation = '欧洲人'
+        else if (avgPulls <= 39) evaluation = '欧非守恒'
+        else if (avgPulls <= 45) evaluation = '非洲人'
+        else if (avgPulls <= 50) evaluation = '非酋'
+        else if (avgPulls <= 56) evaluation = '大非酋'
         else evaluation = '超级非酋'
 
         return {

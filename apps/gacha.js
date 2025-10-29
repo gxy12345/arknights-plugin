@@ -43,7 +43,7 @@ export class Gacha extends plugin {
 
         // 检查是否有token（抽卡记录需要token）
         if (!sklUser.token) {
-            await this.reply('抽卡记录功能需要绑定token，请发送 /绑定token 进行绑定')
+            await this.reply('抽卡记录功能需要绑定token，请发送 /绑定 并使用token进行绑定, 或是使用 /扫码绑定 进行绑定')
             return true
         }
 
@@ -114,7 +114,7 @@ export class Gacha extends plugin {
             const records = await gachaData.loadUserRecords(uid, sklUser.uid)
             
             // 获取配置的天数范围
-            const config = setting.getConfig()
+            const config = setting.getConfig('gacha')
             const daysRange = config?.gacha?.days_range || 180
 
             // 按时间范围过滤
@@ -158,7 +158,7 @@ export class Gacha extends plugin {
 
         // 检查是否有token（抽卡分析需要token）
         if (!sklUser.token) {
-            await this.reply('抽卡分析功能需要绑定token，请发送 /绑定token 进行绑定')
+            await this.reply('抽卡记录功能需要绑定token，请发送 /绑定 并使用token进行绑定, 或是使用 /扫码绑定 进行绑定')
             return true
         }
 

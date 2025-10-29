@@ -1,5 +1,6 @@
 import lodash from 'lodash'
 import fs from 'fs'
+import QRCode from 'qrcode'
 import { Cfg, Version, Common, Data } from '../components/index.js'
 import { rulePrefix } from '../utils/common.js'
 import hypergryphAPI from '../model/hypergryphApi.js'
@@ -19,6 +20,10 @@ export class SKLandUid extends plugin {
                 {
                     reg: `^${rulePrefix}绑定$`,
                     fnc: 'bindSKland'
+                },
+                {
+                    reg: `^${rulePrefix}扫码绑定$`,
+                    fnc: 'scanQRBind'
                 },
                 {
                     reg: `^${rulePrefix}信息$`,
@@ -239,6 +244,101 @@ export class SKLandUid extends plugin {
         }
         let msg = `森空岛cred获取帮助：${this.help_setting.cred_help_doc}\n获取后请私聊bot，发送"/绑定"（或"~绑定"）完成绑定`
         await this.reply(msg)
+    }
+
+    /**
+     * 扫码绑定森空岛账号
+     */
+    async scanQRBind() {
+        if (this.e.isGroup) {
+            await this.reply('请私聊进行扫码绑定')
+            return
+        }
+
+        await this.reply('正在生成二维码，请稍候...')
+
+        // 获取 scanId
+        let scanId = await hypergryphAPI.getScanId()
+        if (!scanId) {
+            await this.reply('获取二维码失败，请稍后重试')
+            return
+        }
+
+        // 生成二维码 URL
+        let scanUrl = `hypergryph://scan_login?scanId=${scanId}`
+        logger.mark(`扫码URL: ${scanUrl}`)
+
+        try {
+            // 生成二维码图片
+            let qrCodeBuffer = await QRCode.toBuffer(scanUrl, {
+                width: 300,
+                margin: 2,
+                errorCorrectionLevel: 'M'
+            })
+
+            // 发送二维码和提示信息
+            let msg = [
+                '请使用森空岛APP扫描二维码进行绑定。',
+                '二维码有效时间为2分钟。',
+                '⚠️ 请不要扫描他人的登录二维码！',
+                segment.image(qrCodeBuffer)
+            ]
+            await this.reply(msg)
+
+            // 轮询检查扫码状态（最多100秒，每2秒检查一次）
+            let maxAttempts = 50
+            let scanCode = null
+
+            for (let i = 0; i < maxAttempts; i++) {
+                // 等待2秒
+                await this.sleep(2000)
+
+                scanCode = await hypergryphAPI.getScanStatus(scanId)
+                if (scanCode) {
+                    logger.mark(`用户已扫码，scanCode: ${scanCode}`)
+                    break
+                }
+            }
+
+            if (!scanCode) {
+                await this.reply('二维码已超时，请重新获取并扫码')
+                return
+            }
+
+            // 通过 scanCode 获取 token
+            await this.reply('检测到扫码，正在获取信息...')
+            let token = await hypergryphAPI.getTokenByScanCode(scanCode)
+            if (!token) {
+                await this.reply('获取token失败，请重试')
+                return
+            }
+
+            // 使用 token 获取 cred 并绑定
+            let cred = await hypergryphAPI.getCredByToken(token)
+            if (cred === "405") {
+                await this.reply(`当前服务无法使用token登录，请尝试使用cred`)
+                return
+            }
+            if (!cred) {
+                await this.reply(`绑定失败，无法获取cred`)
+                return
+            }
+
+            // 验证并保存绑定信息
+            await this.checkCred(cred, token)
+
+        } catch (error) {
+            logger.error(`扫码绑定出错: ${error}`)
+            await this.reply('扫码绑定过程出现错误，请稍后重试')
+        }
+    }
+
+    /**
+     * 休眠指定毫秒数
+     * @param {number} ms - 毫秒数
+     */
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
     }
 
 
