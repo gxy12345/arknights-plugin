@@ -11,15 +11,15 @@ export class nickname extends plugin {
       priority: 10,
       rule: [
         {
-          reg: `^${rulePrefix}添加别名\\s*(.*)$`,
+          reg: `^${rulePrefix}(添加|新增|增加)别名\\s*(.*)$`,
           fnc: 'addNickname'
         },
         {
-          reg: `^${rulePrefix}查看别名\\s*(.*)$`,
+          reg: `^${rulePrefix}(查看|查询)别名\\s*(.*)$`,
           fnc: 'viewNickname'
         },
         {
-          reg: `^${rulePrefix}删除别名\\s*(.*)$`,
+          reg: `^${rulePrefix}(删除|移除)别名\\s*(.*)$`,
           fnc: 'deleteNickname'
         }
       ]
