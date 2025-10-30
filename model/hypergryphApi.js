@@ -2,11 +2,135 @@ import { createDeviceId } from '../utils/common.js'
 
 const BindAPI = {
     OAUTH_API: 'https://as.hypergryph.com/user/oauth2/v2/grant',
-    CRED_API: 'https://zonai.skland.com/web/v1/user/auth/generate_cred_by_code'
+    CRED_API: 'https://zonai.skland.com/web/v1/user/auth/generate_cred_by_code',
+    SCAN_LOGIN_API: 'https://as.hypergryph.com/general/v1/gen_scan/login',
+    SCAN_STATUS_API: 'https://as.hypergryph.com/general/v1/scan_status',
+    TOKEN_BY_SCAN_CODE_API: 'https://as.hypergryph.com/user/auth/v1/token_by_scan_code'
 }
 
+const APP_CODE = '4ca99fa6b56cc2ba'
 
 let hypergryphAPI = {
+    /**
+     * 获取扫码登录的 scanId
+     * @returns {Promise<string|null>} 返回 scanId 或 null
+     */
+    async getScanId() {
+        let req_body = {
+            appCode: APP_CODE
+        }
+        let param = {
+            timeout: 25000,
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(req_body)
+        }
+
+        let response = {}
+        try {
+            response = await fetch(BindAPI.SCAN_LOGIN_API, param)
+        } catch (error) {
+            logger.error(`[获取扫码ID]${error.toString()}`)
+            return null
+        }
+
+        if (!response.ok) {
+            logger.error(`[获取扫码ID]${response.status} ${response.statusText}`)
+            return null
+        }
+
+        let res = await response.json()
+        if (res?.status !== 0 || res?.msg !== 'OK') {
+            logger.error(`[获取扫码ID]${JSON.stringify(res)}`)
+            return null
+        }
+
+        let scanId = res.data.scanId
+        logger.mark(`获取到扫码ID: ${scanId}`)
+        return scanId
+    },
+
+    /**
+     * 检查扫码状态
+     * @param {string} scanId - 扫码ID
+     * @returns {Promise<string|null>} 返回 scanCode 或 null（未扫码或超时）
+     */
+    async getScanStatus(scanId) {
+        let param = {
+            timeout: 25000,
+            method: 'get'
+        }
+
+        let url = `${BindAPI.SCAN_STATUS_API}?scanId=${scanId}`
+        
+        let response = {}
+        try {
+            response = await fetch(url, param)
+        } catch (error) {
+            logger.debug(`[检查扫码状态]${error.toString()}`)
+            return null
+        }
+
+        if (!response.ok) {
+            logger.debug(`[检查扫码状态]${response.status} ${response.statusText}`)
+            return null
+        }
+
+        let res = await response.json()
+        if (res?.status !== 0) {
+            // 未扫码时会返回非0状态，这是正常的
+            return null
+        }
+
+        let scanCode = res.data.scanCode
+        logger.mark(`获取到扫码Code: ${scanCode}`)
+        return scanCode
+    },
+
+    /**
+     * 通过 scanCode 获取 token
+     * @param {string} scanCode - 扫码Code
+     * @returns {Promise<string|null>} 返回 token 或 null
+     */
+    async getTokenByScanCode(scanCode) {
+        let req_body = {
+            scanCode: scanCode
+        }
+        let param = {
+            timeout: 25000,
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(req_body)
+        }
+
+        let response = {}
+        try {
+            response = await fetch(BindAPI.TOKEN_BY_SCAN_CODE_API, param)
+        } catch (error) {
+            logger.error(`[通过ScanCode获取Token]${error.toString()}`)
+            return null
+        }
+
+        if (!response.ok) {
+            logger.error(`[通过ScanCode获取Token]${response.status} ${response.statusText}`)
+            return null
+        }
+
+        let res = await response.json()
+        if (res?.status !== 0 || res?.msg !== 'OK') {
+            logger.error(`[通过ScanCode获取Token]${JSON.stringify(res)}`)
+            return null
+        }
+
+        let token = res.data.token
+        logger.mark(`获取到Token: ${token}`)
+        return token
+    },
+
     async getCredByToken(token) {
         if (!token || token == '') {
             return null

@@ -1,0 +1,252 @@
+@import url('../common/common.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.recruit-body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background-color: #303030;
+    color: white;
+    width: calc(100% + 30px);
+    overflow-x: visible;
+    margin: -20px -15px -10px -15px;
+    padding: 0;
+}
+
+.recruit-container {
+    width: 100%;
+    padding: 20px;
+    background-color: #303030;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+/* 顶部标题 */
+.header {
+    padding: 16px 0;
+}
+
+.title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.main-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.mode-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 16px;
+    background-color: rgba(100, 100, 100, 0.5);
+    border-radius: 8px;
+    align-self: flex-start;
+}
+
+.mode-text {
+    color: white;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+/* Tag组合卡片 */
+.combo-card {
+    background-color: rgba(50, 50, 50, 0.8);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Tag标签区域 */
+.tags-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    background-color: rgba(35, 186, 252, 0.8);
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(35, 186, 252, 0.3);
+}
+
+/* 干员列表区域 - 网格布局，一行5个 */
+.operators-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.operator-item {
+    display: flex;
+    flex-direction: row; /* 左右布局：左边头像，右边信息 */
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background-color: rgba(60, 60, 60, 0.5);
+    border-radius: 8px;
+    width: calc(20% - 10px); /* 一行5个：100% / 5 - gap */
+    box-sizing: border-box;
+}
+
+/* 干员头像 */
+.operator-avatar {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    background-color: rgba(100, 100, 100, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding: 4px;
+    word-break: break-all;
+}
+
+/* 干员信息 - 垂直布局 */
+.operator-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0; /* 允许文本截断 */
+}
+
+.operator-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.operator-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+}
+
+.stars {
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+/* 星级颜色 - 与练度统计对齐 */
+.rarity-1 {
+    background-color: rgba(151, 151, 151, 0.6);
+    color: #fff;
+}
+
+.rarity-2 {
+    background-color: rgba(126, 246, 132, 0.6);
+    color: #fff;
+}
+
+.rarity-3 {
+    background-color: rgba(65, 191, 255, 0.6);
+    color: #fff;
+}
+
+.rarity-4 {
+    background-color: rgba(195, 101, 236, 0.6);
+    color: #fff;
+}
+
+.rarity-5 {
+    background-color: rgba(245, 196, 110, 0.6);
+    color: #fff;
+}
+
+.rarity-6 {
+    background-color: rgba(255, 143, 5, 0.6);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 143, 5, 0.4);
+}
+
+.profession {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* 特殊标签 */
+.special-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.tag-new,
+.tag-max {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.tag-new {
+    background-color: rgba(48, 182, 62, 0.8);
+    color: white;
+    box-shadow: 0 2px 6px rgba(48, 182, 62, 0.3);
+}
+
+.tag-max {
+    background-color: rgba(255, 193, 7, 0.8);
+    color: #333;
+    box-shadow: 0 2px 6px rgba(255, 193, 7, 0.3);
+}
+
+/* 底部logo */
+.logo {
+    text-align: center;
+    padding: 16px 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+}
+

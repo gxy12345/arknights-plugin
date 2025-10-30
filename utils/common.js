@@ -37,13 +37,38 @@ function getPrefix() {
 export const rulePrefix = getPrefix()
 
 export function get_name_from_nickname(nickname) {
+    // 读取内建别名
     let buffer = fs.readFileSync(`${_path}/plugins/arknights-plugin/resources/charProfile/nickname.yaml`, 'utf8');
     let nickname_data = YAML.parse(buffer)
 
-    let find_key = (value, inNickname = (a, b) => a.includes(b)) => {
-        return Object.keys(nickname_data).find(k => inNickname(nickname_data[k], value))
+    // 读取自定义别名
+    let custom_nickname_data = {}
+    const customNicknameFile = `${_path}/data/arknights-plugin/custom_nicknames.yaml`
+    try {
+        if (fs.existsSync(customNicknameFile)) {
+            let custom_buffer = fs.readFileSync(customNicknameFile, 'utf8')
+            custom_nickname_data = YAML.parse(custom_buffer) || {}
+        }
+    } catch (error) {
+        if (Bot?.logger?.warn) {
+            Bot.logger.warn(`[别名查询] 读取自定义别名失败: ${error}`)
+        }
     }
-    let full_name = find_key(nickname)
+
+    let find_key = (value, data, inNickname = (a, b) => a.includes(b)) => {
+        return Object.keys(data).find(k => inNickname(data[k], value))
+    }
+
+    // 先从内建别名中查找
+    let full_name = find_key(nickname, nickname_data)
+    
+    // 如果内建别名中没找到，再从自定义别名中查找
+    if (!full_name) {
+        full_name = find_key(nickname, custom_nickname_data, (nicknames, value) => {
+            return Array.isArray(nicknames) && nicknames.includes(value)
+        })
+    }
+
     if (Bot?.logger?.debug) {
         Bot.logger.debug(`别名匹配结果: ${full_name}`)
     } else {

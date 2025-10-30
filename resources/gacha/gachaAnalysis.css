@@ -1,0 +1,239 @@
+@import url('../common/common.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.analysis-body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background-color: #303030;
+    color: white;
+    width: calc(100% + 30px);
+    overflow-x: visible;
+    margin: -20px -15px -10px -15px;
+    padding: 0;
+}
+
+.analysis-container {
+    width: 100%;
+    padding: 20px;
+    background-color: #303030;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #3F3F3F;
+    border-radius: 12px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nickname {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.badges {
+    display: flex;
+    gap: 8px;
+}
+
+.server-badge, .level-badge {
+    min-width: 50px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.server-badge {
+    background-color: rgba(35, 186, 252, 0.8);
+    box-shadow: 0 2px 6px rgba(35, 186, 252, 0.3);
+}
+
+.level-badge {
+    background-color: rgba(48, 182, 62, 0.8);
+    box-shadow: 0 2px 6px rgba(48, 182, 62, 0.3);
+}
+
+/* Stats Container */
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #151515;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.stats-row {
+    display: flex;
+    gap: 16px;
+}
+
+.stat-item {
+    flex: 1;
+    background-color: #333333;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.stat-flex-1 {
+    flex: 1;
+}
+
+.stat-flex-2 {
+    flex: 2;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+}
+
+.stat-value.up-color {
+    color: #FFD700;
+}
+
+.stat-value.evaluation-color {
+    color: #FF6B6B;
+    font-size: 32px;
+}
+
+.unit {
+    font-size: 18px;
+    margin-left: 4px;
+}
+
+/* Characters Section */
+.chars-section {
+    background-color: #3F3F3F;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #5A5A5A;
+}
+
+.chars-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 12px;
+}
+
+.char-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.char-avatar-wrapper {
+    position: relative;
+    width: 90px;
+    height: 90px;
+}
+
+.char-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    background-color: #646464;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.char-count {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    border: 2px solid #303030;
+}
+
+.char-name {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Logo */
+.logo {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    padding: 20px 0;
+    margin-top: 10px;
+}
+

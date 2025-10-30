@@ -1,0 +1,61 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}charStat/charStatCard.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="main-container">
+    <div class="header">
+        <div class="header-left">
+            <h1 class="title">{{filter_info.rarity_name}}{{filter_info.profession_name}}练度面板</h1>
+            <p class="description">共计 {{total_num}} 名干员 | 数据更新时间: {{update_time_str}}</p>
+        </div>
+        <div class="header-right">
+            <p class="user-name">Dr.{{user_info.name}}</p>
+            <p class="user-uid">UID: {{user_info.uid}}</p>
+        </div>
+    </div>
+
+    <div class="char-grid">
+        {{each sorted_char_list char idx}}
+        <div class="char-card rarity-{{char.rarity}}">
+            <div class="char-avatar-container">
+                <img src="{{char.avatar_url}}" alt="{{char.name}}" class="char-avatar">
+                <img src="{{pluResPath}}charProfile/icons/potential_rank_{{char.potentialRank}}.png" alt="潜能" class="potential-icon">
+            </div>
+            
+            <div class="char-name">{{char.name}}</div>
+            
+            <div class="char-level">
+                <img src="{{pluResPath}}charProfile/icons/evolve_phase_{{char.evolvePhase}}.png" alt="精英" class="evolve-icon">
+                <span class="level-text">LV.{{char.level}}</span>
+            </div>
+            
+            <div class="char-skills">
+                {{each char.skill_list skill skill_idx}}
+                <div class="skill-item {{skill.color_class}}">{{skill.text}}</div>
+                {{/each}}
+            </div>
+            
+            <div class="char-equip">
+                {{if char.equip_info.has_equip}}
+                <img src="{{char.equip_info.type_icon_url}}" alt="模组" class="equip-icon">
+                <span class="equip-text">{{char.equip_info.equip_text}}</span>
+                {{else}}
+                <span class="equip-text-none">-</span>
+                {{/if}}
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+    <div class="footer">
+        <p>当前每页最多显示 {{page_size}} 名干员，可以使用 "/{{filter_info.rarity_name}}{{filter_info.profession_name}}练度面板+数字" 进行分页查看</p>
+    </div>
+</div>
+<div class="create-by-text">
+    {{@sys.createdby}}
+</div>
+{{/block}}
+

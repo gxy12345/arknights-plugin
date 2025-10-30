@@ -3,7 +3,7 @@ import SKLandUser from '../model/sklandUser.js'
 import constant from "../components/constant.js";
 import setting from '../utils/setting.js';
 import runtimeRender from '../utils/runtimeRender.js'
-import { getAvatarUrl, getSkinAvatarUrl } from '../model/imgApi.js'
+import { getAvatarUrl, getSkinAvatarUrl, getEquipTypeIconUrl } from '../model/imgApi.js'
 
 const _path = process.cwd();
 
@@ -18,6 +18,10 @@ export class CharStat extends plugin {
                 {
                     reg: `^${rulePrefix}(${constant.charData.rarity_keywords.join('|')})?(${constant.charData.profession_list.join('|')})?练度(列表|统计|查询)([0-9]*)$`,
                     fnc: 'charStat'
+                },
+                {
+                    reg: `^${rulePrefix}(${constant.charData.rarity_keywords.join('|')})?(${constant.charData.profession_list.join('|')})?练度(面板|卡片)([0-9]*)$`,
+                    fnc: 'charStatCard'
                 },
                 {
                     reg: `^${rulePrefix}?(练度|阵容|角色|BOX|Box|box)(分析|总结|报告)$`,
@@ -86,6 +90,63 @@ export class CharStat extends plugin {
             user_info: sklUser,
         }, {
             scale: 1.6
+        })
+        return true
+    }
+
+    async charStatCard() {
+        let uid = this.e.at || this.e.user_id
+        let sklUser = new SKLandUser(uid)
+        if (!await sklUser.getUser()) {
+            return false
+        }
+        await this.reply(`开始获取练度信息，请稍等`)
+        let reg = new RegExp(`^${rulePrefix}(${constant.charData.rarity_keywords.join('|')})?(${constant.charData.profession_list.join('|')})?练度(面板|卡片)([0-9]*)$`)
+        let match = reg.exec(this.e.msg)
+        let filter_info = {
+            profession_filter: null,
+            profession_name: "",
+            rarity_filter: null,
+            rarity_name: ""
+        }
+
+        if (match[4]) {
+            filter_info.rarity_filter = constant.charData.rarity_keywords_map[match[4]]
+            filter_info.rarity_name = match[4]
+        }
+        if (match[5]) {
+            filter_info.profession_filter = constant.charData.profession_map[match[5]]
+            filter_info.profession_name = match[5]
+        }
+        let page_num = match[7] || 1
+        let page_size = this.setting?.char_stat_card_page_size || 35 // 每行5个，最多7行
+
+        let res = await sklUser.getGamePlayerInfo()
+
+        if (!res) {
+            logger.mark(`user info失败，响应:${JSON.stringify(res)}`)
+            await this.reply(`查询失败，请检查cred或稍后再试`)
+            return true
+        }
+        let res_data = res.data
+        let update_time = new Date(Number(res.timestamp) * 1000)
+        let sorted_result = this.getSortedCharListForCard(res_data, filter_info.profession_filter, filter_info.rarity_filter, page_num, page_size)
+        let sorted_char_list = sorted_result.chars
+        if (sorted_result.total == 0) {
+            await this.reply(`查询结果为空，请检查命令`)
+            return true
+        }
+
+        await runtimeRender(this.e, 'charStat/charStatCard.html', {
+            sorted_char_list: sorted_char_list,
+            total_num: sorted_result.total,
+            update_time_str: update_time.toLocaleString(),
+            page_num: page_num,
+            page_size: page_size,
+            filter_info: filter_info,
+            user_info: sklUser,
+        }, {
+            scale: 1.3
         })
         return true
     }
@@ -471,5 +532,125 @@ export class CharStat extends plugin {
             tag_list.splice(index, 1)
         }
         return result_list.reverse()
+    }
+
+    getSortedCharListForCard(data, profession_filter = null, rarity_filter = null, page_num = 1, page_size = 60) {
+        let char_map = data.charInfoMap
+        let char_data = data.chars
+        let equip_map = data.equipmentInfoMap
+
+        let combinedArray = char_data.map(char => {
+            let { charId, defaultEquipId, skills, mainSkillLvl, skinId, ...rest } = char;
+            
+            // 获取角色头像
+            let avatar_url = getSkinAvatarUrl(skinId)
+            
+            // 技能信息处理
+            let skill_list = [
+                { level: 0, text: '-', color_class: 'skill-none' },
+                { level: 0, text: '-', color_class: 'skill-none' },
+                { level: 0, text: '-', color_class: 'skill-none' }
+            ]
+            
+            // 模组信息
+            let equip_info = {
+                has_equip: false,
+                type_icon_url: '',
+                equip_text: '-'
+            }
+
+            if (char_map.hasOwnProperty(charId)) {
+                let { name, profession, ...map_rest } = char_map[charId];
+                
+                // 处理阿米娅特殊情况
+                if (name === '阿米娅') {
+                    if (profession === 'CASTER') name = '阿米娅(术师)'
+                    if (profession === 'WARRIOR') name = '阿米娅(近卫)'
+                    if (profession === 'MEDIC') name = '阿米娅(医疗)'
+                }
+                
+                // 处理技能信息
+                for (var i = 0; i < skills.length; i++) {
+                    if (skills[i].specializeLevel > 0) {
+                        skill_list[i].level = skills[i].specializeLevel
+                        skill_list[i].text = `专精${skills[i].specializeLevel}`
+                        skill_list[i].color_class = `skill-m${skills[i].specializeLevel}`
+                    } else {
+                        skill_list[i].level = mainSkillLvl
+                        skill_list[i].text = `LV.${mainSkillLvl}`
+                        // 根据等级设置颜色
+                        if (mainSkillLvl == 1) {
+                            skill_list[i].color_class = 'skill-lv1'
+                        } else if (mainSkillLvl >= 2 && mainSkillLvl <= 4) {
+                            skill_list[i].color_class = 'skill-lv2-4'
+                        } else if (mainSkillLvl >= 5 && mainSkillLvl <= 7) {
+                            skill_list[i].color_class = 'skill-lv5-7'
+                        }
+                    }
+                }
+                
+                // 处理模组信息
+                if (equip_map.hasOwnProperty(defaultEquipId)) {
+                    const typeIcon = equip_map[defaultEquipId]['typeIcon'].toUpperCase();
+                    if (typeIcon !== 'ORIGINAL') {
+                        let equip_level = char.equip[char.equip.findIndex(item => item.id == char.defaultEquipId)].level
+                        equip_info.has_equip = true
+                        equip_info.type_icon_url = getEquipTypeIconUrl(equip_map[defaultEquipId]['typeIcon'])
+                        equip_info.equip_text = `${typeIcon} LV.${equip_level}`
+                    }
+                }
+                
+                return { 
+                    charId, 
+                    name, 
+                    profession, 
+                    avatar_url,
+                    skill_list,
+                    equip_info,
+                    skills,
+                    mainSkillLvl, 
+                    ...rest, 
+                    ...map_rest 
+                };
+            }
+
+            // 如果找不到角色信息，返回基本结构
+            return {
+                ...char,
+                avatar_url,
+                skill_list,
+                equip_info,
+                skills,
+                mainSkillLvl
+            };
+        });
+
+        // 应用筛选条件
+        if (rarity_filter != null) {
+            combinedArray = combinedArray.filter(char => char.rarity === rarity_filter)
+        }
+
+        if (profession_filter != null) {
+            combinedArray = combinedArray.filter(char => char.profession === profession_filter)
+        }
+        
+        // 排序
+        let sortedArray = combinedArray.sort(this.sortCharList);
+        let length = sortedArray.length
+
+        // 分页处理
+        if (page_num != 0 && page_size != 0) {
+            try {
+                sortedArray = this.paginateArray(sortedArray, page_num, page_size)
+            } catch (error) {
+                logger.mark(`[方舟插件][练度统计卡片]分页失败，msg:${error}`)
+                return { total: 0, chars: [] };
+            }
+        }
+
+        return {
+            total: length,
+            chars: sortedArray
+        };
     }
 }

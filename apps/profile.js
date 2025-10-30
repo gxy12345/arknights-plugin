@@ -32,21 +32,23 @@ export class Profile extends plugin {
 
         // let game_res = await sklUser.sklReq.getData('game_player_info')
         let game_res = await sklUser.getGamePlayerInfo()
-        let user_res = await sklUser.sklReq.getData('user_info')
-        if (game_res?.code === 0 && game_res?.message === 'OK' && user_res?.code === 0 && user_res?.message === 'OK') {
-            return await this.generate_profile_card(game_res.data, user_res.data)
+        let cards_res = await sklUser.sklReq.getData('cards')
+        if (game_res?.code === 0 && game_res?.message === 'OK' && cards_res?.code === 0 && cards_res?.message === 'OK') {
+            return await this.generate_profile_card(game_res.data, cards_res.data)
         }else if (game_res?.code === 0 && game_res?.message === 'OK') {
-            // user info接口405的情况下，展示N/A
+            // cards接口失败的情况下，展示N/A
             let naUserData = {
-                gameStatus: {
-                    furnitureCnt: 'N/A',
-                    charCnt: 'N/A',
-                    skinCnt: 'N/A'
-                }
+                list: [{
+                    arknights: {
+                        furnitureCnt: 'N/A',
+                        charCnt: 'N/A',
+                        skinCnt: 'N/A'
+                    }
+                }]
             }
             return await this.generate_profile_card(game_res.data, naUserData)
         } else {
-            logger.mark(`user info失败，响应:${JSON.stringify(user_res)}`)
+            logger.mark(`cards接口失败，响应:${JSON.stringify(cards_res)}`)
             logger.mark(`game info失败，响应:${JSON.stringify(game_res)}`)
             await this.reply(`查询失败，请检查cred或稍后再试`)
         }
@@ -70,13 +72,13 @@ export class Profile extends plugin {
         user_info.level = game_data.status.level
         user_info.uid = game_data.status.uid
         user_info.reg_date = moment.unix(game_data.status.registerTs).format('YYYY-MM-DD')
-        user_info.days_before_now = moment().diff(moment.unix(game_data.status.registerTs), 'day')
+        user_info.days_before_now = moment().diff(moment.unix(game_data.status.registerTs), 'day') + 1
         user_info.main_progress = game_data.status.mainStageProgress || '全部完成'
 
         // 角色家具皮肤数量
-        user_info.funi_num = user_data.gameStatus.furnitureCnt
-        user_info.char_num = user_data.gameStatus.charCnt
-        user_info.skin_num = user_data.gameStatus.skinCnt
+        user_info.funi_num = user_data.list?.[0]?.arknights?.furnitureCnt || 'N/A'
+        user_info.char_num = user_data.list?.[0]?.arknights?.charCnt || 'N/A'
+        user_info.skin_num = user_data.list?.[0]?.arknights?.skinCnt || 'N/A'
 
         // 理智
         game_info.ap_total = game_data.status.ap.max

@@ -1,0 +1,58 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}rogue/rogue.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="main-container">
+    <div class="header">
+        <h1 class="title">游戏数据 // <span class="subtitle">集成战略</span></h1>
+        <div class="user-info">
+            <p class="description">Dr.{{user_info.name}}</p>
+            <p class="description">UID:{{user_info.uid}}</p>
+            <p class="description small">数据更新时间:{{update_time_str}}</p>
+        </div>
+    </div>
+    
+    <div class="rogue-list">
+        {{each rogueList rogue}}
+        <div class="rogue-item">
+            <div class="rogue-image">
+                <img src="{{rogue.picUrl}}" alt="{{rogue.name}}" onerror="this.style.display='none'">
+            </div>
+            <div class="rogue-stats">
+                <div class="stat-row">
+                    <span class="stat-label">投资系统</span>
+                    <span class="stat-value">{{rogue.bank.current}}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">解锁藏品</span>
+                    <span class="stat-value">{{rogue.relicCnt}}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">通关次数</span>
+                    <span class="stat-value">{{rogue.clearTime}}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">奖励等级</span>
+                    <span class="stat-value">{{rogue.bpLevel}}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">蚀刻章</span>
+                    <span class="stat-value fraction">
+                        <span class="numerator">{{rogue.medal.current}}</span>
+                        <span class="fraction-line">/</span>
+                        <span class="denominator">{{rogue.medal.total}}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+<div class="create-by-text">
+    {{@sys.createdby}}
+</div>
+{{/block}}
+

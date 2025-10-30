@@ -54,6 +54,9 @@ export default class sklandApi {
                     url: `${api_host}api/v1/game/cultivate/player`,
                     query: `uid=${this.uid}`
                 },
+                cards: {
+                    url: `${api_host}api/v1/game/cards`
+                },
             }
         }
 
