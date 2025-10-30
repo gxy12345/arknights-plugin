@@ -1,0 +1,80 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}recruit/recruit.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="recruit-body">
+    <div class="recruit-container">
+        <!-- 顶部标题 -->
+        <div class="header">
+            <div class="title-section">
+                <h1 class="main-title">招募结果</h1>
+            </div>
+        </div>
+
+        <!-- Tag组合卡片列表 -->
+        {{each combinations combo}}
+        <div class="combo-card">
+            <!-- Tag组合 -->
+            <div class="tags-section">
+                {{each combo.tags tag}}
+                <div class="tag-item">{{tag}}</div>
+                {{/each}}
+            </div>
+
+            <!-- 干员列表 -->
+            <div class="operators-section">
+                {{each combo.operators op}}
+                <div class="operator-item">
+                    <!-- 左侧：干员头像 -->
+                    <div class="operator-avatar">
+                        {{if op.charId}}
+                        <img src="https://web.hycdn.cn/arknights/game/assets/char_skin/avatar/{{op.charId}}%231.png" 
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" 
+                             class="avatar-img" />
+                        <div class="avatar-placeholder" style="display:none;">{{op.name}}</div>
+                        {{else}}
+                        <div class="avatar-placeholder">{{op.name}}</div>
+                        {{/if}}
+                    </div>
+                    
+                    <!-- 右侧：干员信息 -->
+                    <div class="operator-info">
+                        <!-- 干员名字 -->
+                        <div class="operator-name">{{op.name}}</div>
+                        
+                        <!-- 星级 + 职业 -->
+                        <div class="operator-meta">
+                            <span class="stars rarity-{{op.level}}">{{op.level}} 星</span>
+                            <span class="profession">{{op.profession}}</span>
+                        </div>
+                        
+                        <!-- 特殊标签（NEW 或 满） -->
+                        {{if op.specialTags && op.specialTags.length > 0}}
+                        <div class="special-tags">
+                            {{each op.specialTags specialTag}}
+                            {{if specialTag === 'NEW'}}
+                            <span class="tag-new">NEW</span>
+                            {{else if specialTag === '满'}}
+                            <span class="tag-max">满</span>
+                            {{/if}}
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+
+        <!-- 底部logo -->
+        <div class="logo">
+            {{@sys.createdby}}
+        </div>
+    </div>
+</div>
+{{/block}}
+
