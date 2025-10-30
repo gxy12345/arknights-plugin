@@ -36,6 +36,10 @@ export const helpList = [
         icon: 2,
         title: '/绑定',
         desc: '绑定森空岛账号'
+      },{
+        icon: 2,
+        title: '/扫码绑定',
+        desc: '通过森空岛APP扫码的方式绑定'
       }, {
         icon: 3,
         title: '/我的cred',
