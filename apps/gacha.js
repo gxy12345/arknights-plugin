@@ -1,7 +1,6 @@
 import moment from 'moment'
 import fs from 'fs'
 import path from 'path'
-import https from 'https'
 import { rulePrefix } from '../utils/common.js'
 import SKLandUser from '../model/sklandUser.js'
 import hypergryphAPI from '../model/hypergryphApi.js'
@@ -51,21 +50,21 @@ export class Gacha extends plugin {
 
         try {
             // 获取grant_code
-            const grantCode = await this.getGrantCode(sklUser.token)
+            const grantCode = await hypergryphAPI.getGrantCode(sklUser.token)
             if (!grantCode) {
                 await this.reply('获取授权码失败，请重新绑定token')
                 return true
             }
 
             // 获取role_token
-            const roleToken = await this.getRoleToken(sklUser.uid, grantCode)
+            const roleToken = await hypergryphAPI.getRoleToken(sklUser.uid, grantCode)
             if (!roleToken) {
                 await this.reply('获取角色令牌失败')
                 return true
             }
 
             // 获取ak_cookie
-            const akCookie = await this.getAkCookie(roleToken)
+            const akCookie = await hypergryphAPI.getAkCookie(roleToken)
             if (!akCookie) {
                 await this.reply('获取cookie失败')
                 return true
@@ -115,7 +114,7 @@ export class Gacha extends plugin {
             
             // 获取配置的天数范围
             const config = setting.getConfig('gacha')
-            const daysRange = config?.gacha?.days_range || 180
+            const daysRange = config?.days_range || 180
 
             // 按时间范围过滤
             const cutoffTimestamp = moment().subtract(daysRange, 'days').valueOf() / 1000
@@ -166,21 +165,21 @@ export class Gacha extends plugin {
             await this.reply('正在获取抽卡分析数据...')
 
             // 获取授权码
-            const grantCode = await this.getGrantCode(sklUser.token)
+            const grantCode = await hypergryphAPI.getGrantCode(sklUser.token)
             if (!grantCode) {
                 await this.reply('获取授权码失败')
                 return true
             }
 
             // 获取roleToken
-            const roleToken = await this.getRoleToken(sklUser.uid, grantCode)
+            const roleToken = await hypergryphAPI.getRoleToken(sklUser.uid, grantCode)
             if (!roleToken) {
                 await this.reply('获取角色令牌失败')
                 return true
             }
 
             // 获取ak_cookie
-            const akCookie = await this.getAkCookie(roleToken)
+            const akCookie = await hypergryphAPI.getAkCookie(roleToken)
             if (!akCookie) {
                 await this.reply('获取cookie失败')
                 return true
@@ -252,202 +251,6 @@ export class Gacha extends plugin {
         }
 
         return true
-    }
-
-    async getGrantCode(token) {
-        try {
-            const response = await fetch('https://as.hypergryph.com/user/oauth2/v2/grant', {
-                method: 'POST',
-                headers: {
-                    'User-Agent': 'Skland/1.21.0 (com.hypergryph.skland; build:102100065; iOS 17.6.0; ) Alamofire/5.7.1',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    appCode: "be36d44aa36bfb5b",
-                    token: token,
-                    type: 1
-                })
-            })
-
-            if (!response.ok) {
-                return null
-            }
-
-            const res = await response.json()
-            if (res.status === 0) {
-                return res.data.token
-            }
-            return null
-        } catch (error) {
-            logger.error(`获取grant_code失败: ${error}`)
-            return null
-        }
-    }
-
-    async getRoleToken(uid, grantCode) {
-        try {
-            const response = await fetch('https://binding-api-account-prod.hypergryph.com/account/binding/v1/u8_token_by_uid', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    uid: uid,
-                    token: grantCode
-                })
-            })
-
-            if (!response.ok) {
-                return null
-            }
-
-            const res = await response.json()
-            if (res.status === 0) {
-                return res.data.token
-            }
-            return null
-        } catch (error) {
-            logger.error(`获取role_token失败: ${error}`)
-            return null
-        }
-    }
-
-    async getAkCookie(roleToken) {
-        try {
-            // 方案1: 先尝试使用fetch
-            const response = await fetch('https://ak.hypergryph.com/user/api/role/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    token: roleToken
-                })
-            })
-
-            if (!response.ok) {
-                logger.error(`[抽卡记录] getAkCookie请求失败: ${response.status} ${response.statusText}`)
-                return null
-            }
-
-            const res = await response.json()
-            // 注意：这个API返回的字段是 code 而不是 status
-            if (res.code === 0) {
-                // 尝试多种方式获取cookie
-                let setCookieHeader = null
-                
-                // 方法1: 使用 getSetCookie() (Node.js 19.7.0+)
-                if (typeof response.headers.getSetCookie === 'function') {
-                    const setCookies = response.headers.getSetCookie()
-                    if (setCookies && setCookies.length > 0) {
-                        setCookieHeader = setCookies.join('; ')
-                    }
-                }
-                
-                // 方法2: 直接获取 set-cookie 头（可能返回null）
-                if (!setCookieHeader) {
-                    setCookieHeader = response.headers.get('set-cookie')
-                }
-                
-                // 方法3: 尝试获取所有相关的cookie头
-                if (!setCookieHeader) {
-                    const allHeaders = []
-                    for (const [key, value] of response.headers.entries()) {
-                        if (key.toLowerCase() === 'set-cookie') {
-                            allHeaders.push(value)
-                        }
-                    }
-                    if (allHeaders.length > 0) {
-                        setCookieHeader = allHeaders.join('; ')
-                    }
-                }
-                
-                if (setCookieHeader) {
-                    const match = setCookieHeader.match(/ak-user-center=([^;]+)/)
-                    if (match) {
-                        return match[1]
-                    } else {
-                        logger.error(`[抽卡记录] 未能从Set-Cookie中匹配到ak-user-center`)
-                    }
-                } else {
-                    logger.warn(`[抽卡记录] fetch方式未能获取到Set-Cookie，尝试使用原生https模块`)
-                    // 方案2: 使用原生https模块作为备选
-                    return await this.getAkCookieByHttps(roleToken)
-                }
-            } else {
-                logger.error(`[抽卡记录] API返回错误状态: code=${res.code}, msg: ${res.msg}`)
-            }
-            return null
-        } catch (error) {
-            logger.error(`[抽卡记录] 获取ak_cookie失败: ${error}`)
-            logger.error(error.stack)
-            return null
-        }
-    }
-
-    async getAkCookieByHttps(roleToken) {
-        return new Promise((resolve, reject) => {
-            const postData = JSON.stringify({ token: roleToken })
-            
-            const options = {
-                hostname: 'ak.hypergryph.com',
-                port: 443,
-                path: '/user/api/role/login',
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Content-Length': Buffer.byteLength(postData)
-                }
-            }
-
-            const req = https.request(options, (res) => {
-                let data = ''
-
-                res.on('data', (chunk) => {
-                    data += chunk
-                })
-
-                res.on('end', () => {
-                    try {
-                        const response = JSON.parse(data)
-                        
-                        // 注意：这个API返回的字段是 code 而不是 status
-                        if (response.code === 0) {
-                            // 从响应头中获取 set-cookie
-                            const setCookieHeaders = res.headers['set-cookie']
-                            
-                            if (setCookieHeaders && setCookieHeaders.length > 0) {
-                                for (const cookie of setCookieHeaders) {
-                                    const match = cookie.match(/ak-user-center=([^;]+)/)
-                                    if (match) {
-                                        resolve(match[1])
-                                        return
-                                    }
-                                }
-                            }
-                            logger.error(`[抽卡记录] https方式未能找到ak-user-center cookie`)
-                            resolve(null)
-                        } else {
-                            logger.error(`[抽卡记录] https方式API返回错误: code=${response.code}, msg=${response.msg}`)
-                            resolve(null)
-                        }
-                    } catch (error) {
-                        logger.error(`[抽卡记录] https方式解析响应失败: ${error}`)
-                        resolve(null)
-                    }
-                })
-            })
-
-            req.on('error', (error) => {
-                logger.error(`[抽卡记录] https请求失败: ${error}`)
-                resolve(null)
-            })
-
-            req.write(postData)
-            req.end()
-        })
     }
 
     async getGachaCategories(uid, roleToken, token, akCookie) {

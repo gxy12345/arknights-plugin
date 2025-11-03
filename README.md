@@ -121,6 +121,7 @@ pnpm install --filter=arknights-plugin
 
 
 </details>
+
 ### MAA远程控制
 该模块需要配合一个[MAA远控API服务](https://github.com/gxy12345/maa_control_api)，在maa.yaml配置文件中修改配置信息后使用
 
