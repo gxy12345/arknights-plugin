@@ -25,10 +25,10 @@ export class SKLandUid extends plugin {
                     reg: `^${rulePrefix}扫码绑定$`,
                     fnc: 'scanQRBind'
                 },
-                {
-                    reg: `^${rulePrefix}信息$`,
-                    fnc: 'getUserInfo'
-                },
+                // {
+                //     reg: `^${rulePrefix}信息$`,
+                //     fnc: 'getUserInfo'
+                // },
                 {
                     reg: `^${rulePrefix}我的cred$`,
                     fnc: 'myCred'
@@ -125,6 +125,14 @@ export class SKLandUid extends plugin {
         if (res?.code == 0 && res?.message === 'OK') {
             let bindingList = res.data.list
             let user = this.e.user_id
+            
+            // 存储所有找到的游戏信息
+            let gameInfos = {
+                arknights: null,
+                endfield: null
+            }
+            
+            // 遍历所有绑定项，分别处理不同的游戏
             for (let bindingItem of bindingList) {
                 if (bindingItem.appCode === 'arknights') {
                     let gameNickname = bindingItem.bindingList[0].nickName
@@ -133,21 +141,65 @@ export class SKLandUid extends plugin {
                         gameUid = bindingItem.bindingList[0].uid
                     }
                     let gameChannel = bindingItem.bindingList[0].channelName
-                    let cached_info = {
-                        cred: cred,
-                        name: gameNickname,
-                        uid: gameUid
+                    gameInfos.arknights = {
+                        nickname: gameNickname,
+                        uid: gameUid,
+                        channel: gameChannel
                     }
-                    if (used_token) {
-                        cached_info.token = used_token
+                } else if (bindingItem.appCode === 'endfield') {
+                    let gameNickname = bindingItem.bindingList[0].nickName
+                    let gameUid = bindingItem.defaultUid
+                    if (!gameUid) {
+                        gameUid = bindingItem.bindingList[0].uid
                     }
-                    await redis.set(`ARKNIGHTS:USER:${user}`, JSON.stringify(cached_info))
-                    await this.reply(`获取信息成功!\n游戏昵称:${gameNickname}\n服务器:${gameChannel}\nUID:${gameUid}`)
-                    return true
+                    let gameChannel = bindingItem.bindingList[0].channelName
+                    gameInfos.endfield = {
+                        nickname: gameNickname,
+                        uid: gameUid,
+                        channel: gameChannel
+                    }
                 }
             }
-            await this.reply(`未找到明日方舟的绑定信息`)
-            return false
+            
+            // 检查是否找到至少一个游戏的绑定信息
+            if (!gameInfos.arknights && !gameInfos.endfield) {
+                await this.reply(`未找到明日方舟或终末地的绑定信息`)
+                return false
+            }
+            
+            // 保存到 Redis 并构建回复消息
+            let replyMsg = '获取信息成功!\n'
+            
+            // 处理明日方舟
+            if (gameInfos.arknights) {
+                let cached_info = {
+                    cred: cred,
+                    name: gameInfos.arknights.nickname,
+                    uid: gameInfos.arknights.uid
+                }
+                if (used_token) {
+                    cached_info.token = used_token
+                }
+                await redis.set(`ARKNIGHTS:USER:${user}`, JSON.stringify(cached_info))
+                replyMsg += `【明日方舟】\n游戏昵称:${gameInfos.arknights.nickname}\n服务器:${gameInfos.arknights.channel}\nUID:${gameInfos.arknights.uid}\n`
+            }
+            
+            // 处理明日方舟终末地
+            if (gameInfos.endfield) {
+                let cached_info = {
+                    cred: cred,
+                    name: gameInfos.endfield.nickname,
+                    uid: gameInfos.endfield.uid
+                }
+                if (used_token) {
+                    cached_info.token = used_token
+                }
+                await redis.set(`ENDFIELD:USER:${user}`, JSON.stringify(cached_info))
+                replyMsg += `【明日方舟终末地】\n游戏昵称:${gameInfos.endfield.nickname}\n服务器:${gameInfos.endfield.channel}\nUID:${gameInfos.endfield.uid}`
+            }
+            
+            await this.reply(replyMsg)
+            return true
 
         } else {
             logger.mark(`绑定失败，响应:${JSON.stringify(res)}`)
