@@ -250,10 +250,10 @@ export class SKLandUid extends plugin {
      * 扫码绑定森空岛账号
      */
     async scanQRBind() {
-        if (this.e.isGroup) {
-            await this.reply('请私聊进行扫码绑定')
-            return
-        }
+        // if (this.e.isGroup) {
+        //     await this.reply('请私聊进行扫码绑定')
+        //     return
+        // }
 
         await this.reply('正在生成二维码，请稍候...')
 
@@ -278,9 +278,7 @@ export class SKLandUid extends plugin {
 
             // 发送二维码和提示信息
             let msg = [
-                '请使用森空岛APP扫描二维码进行绑定。',
-                '二维码有效时间为2分钟。',
-                '⚠️ 请不要扫描他人的登录二维码！',
+                '请使用森空岛APP扫描二维码进行绑定,二维码有效时间为2分钟。\n⚠️ 请不要扫描他人的登录二维码！',
                 segment.image(qrCodeBuffer)
             ]
             await this.reply(msg)
