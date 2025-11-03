@@ -62,6 +62,8 @@ pnpm install --filter=arknights-plugin
   
   </details>
 
+  * `/抽卡记录 不归花火` 查询指定卡池的抽卡记录
+
 * <details><summary><code>/抽卡分析</code> <code>/寻访分析</code> 查询账号整体抽卡分析图</summary>
   
   <img src="https://github.com/user-attachments/assets/782729cd-abb0-4879-99fc-cb088e5bc0e1" width="50%" height="50%">
