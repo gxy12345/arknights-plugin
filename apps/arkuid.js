@@ -61,6 +61,8 @@ export class SKLandUid extends plugin {
             return true
         }
         await sklUser.updateUser()
+        let sklReq = new SKLandRequest(0, sklUser.cred, sklUser.token)
+        await sklReq.refreshToken()
         let res = await sklReq.getData('binding')
         logger.mark(`binding res: ${JSON.stringify(res)}`)
         if (res?.code == 0 && res?.message === 'OK') {
@@ -68,17 +70,8 @@ export class SKLandUid extends plugin {
             for (let bindingItem of bindingList) {
                 if (bindingItem.appCode === 'arknights') {
                     let gameNickname = bindingItem.bindingList[0].nickName
-                    let gameUid = bindingItem.defaultUid
+                    let gameUid = bindingItem.bindingList[0].uid
                     let gameChannel = bindingItem.bindingList[0].channelName
-                    let cached_info = {
-                        cred: cred,
-                        name: gameNickname,
-                        uid: gameUid
-                    }
-                    if (used_token) {
-                        cached_info.token = used_token
-                    }
-                    await redis.set(`ARKNIGHTS:USER:${user}`, JSON.stringify(cached_info))
                     await this.reply(`游戏昵称:${gameNickname}\n服务器:${gameChannel}\nUID:${gameUid}`)
                     return true
                 }
