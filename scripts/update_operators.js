@@ -141,12 +141,12 @@ function createPullRequest() {
             execSync('gh --version', { stdio: 'pipe' });
         } catch (error) {
             console.log('GitHub CLI not available, skipping PR creation');
-            console.log('Please create PR manually from update branch to main');
+            console.log('Please create PR manually from update branch to dev');
             return;
         }
 
         // 创建PR
-        const prCommand = `gh pr create --title "Update Character Info" --body "Automated update of character information from remote source" --base main --head update`;
+        const prCommand = `gh pr create --title "Update Character Info" --body "Automated update of character information from remote source" --base dev --head update`;
         execSync(prCommand, { stdio: 'inherit' });
 
         console.log('Pull request created successfully');
