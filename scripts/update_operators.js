@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 
-const fs = require('fs').promises;
-const path = require('path');
-const { execSync } = require('child_process');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const REMOTE_JSON_URL = 'https://raw.githubusercontent.com/ZOOT-Plus/zoot-plus-frontend/f9ba88b019cf5a671578736038cf522c53d6763b/src/models/generated/operators.json';
 const CHARACTER_INFO_PATH = path.join(__dirname, '..', 'resources', 'gameData', 'character', 'character_info.json');
@@ -187,8 +191,8 @@ async function main() {
     }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main();
 }
 
-module.exports = { main, transformOperator };
+export { main, transformOperator };
