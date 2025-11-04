@@ -109,16 +109,15 @@ async function runGitCommands(hasChanges, targetBranch) {
         const currentBranch = execSync('git branch --show-current', { encoding: 'utf8' }).trim();
         console.log(`Current branch: ${currentBranch}`);
 
-        // 创建新的临时分支
-        const tempBranch = createBranchName();
+        // 创建或切换到固定分支
         try {
-            execSync(`git checkout -b ${tempBranch}`, { stdio: 'inherit' });
-            console.log(`Created and switched to temporary branch: ${tempBranch}`);
+            execSync(`git checkout -b ${BRANCH_NAME}`, { stdio: 'inherit' });
+            console.log(`Created and switched to branch: ${BRANCH_NAME}`);
         } catch (error) {
-            // 分支可能已存在，尝试切换并重置
-            execSync(`git checkout ${tempBranch}`, { stdio: 'inherit' });
-            execSync('git reset --hard HEAD', { stdio: 'inherit' });
-            console.log(`Switched to existing temporary branch: ${tempBranch}`);
+            // 分支可能已存在，尝试切换并重置到dev分支状态
+            execSync(`git checkout ${BRANCH_NAME}`, { stdio: 'inherit' });
+            execSync(`git reset --hard ${targetBranch}`, { stdio: 'inherit' });
+            console.log(`Switched to existing branch: ${BRANCH_NAME} and reset to ${targetBranch}`);
         }
 
         // 添加文件
@@ -156,47 +155,34 @@ async function runGitCommands(hasChanges, targetBranch) {
 
         // 检查分支差异
         try {
-            const diffStat = execSync(`git diff ${targetBranch}..${tempBranch} --stat`, { encoding: 'utf8' });
+            const diffStat = execSync(`git diff ${targetBranch}..${BRANCH_NAME} --stat`, { encoding: 'utf8' });
             console.log('Branch diff stat:', diffStat);
         } catch (e) {
             console.log('Branch diff error:', e.message);
         }
 
         // 推送分支
-        execSync(`git push origin ${tempBranch}`, { stdio: 'inherit' });
+        execSync(`git push origin ${BRANCH_NAME}`, { stdio: 'inherit' });
 
-        console.log(`Successfully pushed changes to temporary branch: ${tempBranch}`);
-
-        // 输出分支名供workflow使用 (使用新的GITHUB_OUTPUT文件)
-        const fs = await import('fs');
-        const outputPath = process.env.GITHUB_OUTPUT;
-        if (outputPath) {
-            fs.appendFileSync(outputPath, `temp_branch=${tempBranch}\n`);
-            fs.appendFileSync(outputPath, `has_changes=true\n`);
-        }
-        // 为了兼容性，同时输出旧格式
-        console.log(`::set-output name=temp_branch::${tempBranch}`);
-        console.log(`::set-output name=has_changes::true`);
+        console.log(`Successfully pushed changes to branch: ${BRANCH_NAME}`);
 
         // 再次检查远程分支差异
         try {
-            const remoteDiff = execSync(`git diff ${targetBranch}..origin/${tempBranch} --stat`, { encoding: 'utf8' });
+            const remoteDiff = execSync(`git diff ${targetBranch}..origin/${BRANCH_NAME} --stat`, { encoding: 'utf8' });
             console.log('Remote branch diff stat:', remoteDiff);
         } catch (e) {
             console.log('Remote branch diff error:', e.message);
         }
 
-        return { success: true, tempBranch };
+        return { success: true, branch: BRANCH_NAME };
     } catch (error) {
         console.error('Git operations failed:', error);
         throw error;
     }
 }
 
-function createBranchName() {
-    const timestamp = new Date().toISOString().slice(0, 10); // YYYY-MM-DD格式
-    return `update-operators-${timestamp}`;
-}
+// 使用固定的分支名，与workflow配置一致
+const BRANCH_NAME = 'scripts/update-operators';
 
 async function main() {
     try {
@@ -219,17 +205,14 @@ async function main() {
             const gitResult = await runGitCommands(hasChanges, 'dev');
 
             if (gitResult.success) {
-                console.log(`Changes committed and pushed to branch: ${gitResult.tempBranch}`);
-                // 输出环境变量供GitHub Actions使用 (使用新的GITHUB_OUTPUT文件)
+                console.log(`Changes committed and pushed to branch: ${gitResult.branch}`);
+                // 输出环境变量供GitHub Actions使用
                 const fs = await import('fs');
                 const outputPath = process.env.GITHUB_OUTPUT;
                 if (outputPath) {
                     fs.appendFileSync(outputPath, `has_changes=true\n`);
-                    fs.appendFileSync(outputPath, `temp_branch=${gitResult.tempBranch}\n`);
                 }
-                // 为了兼容性，同时输出旧格式
                 console.log('::set-output name=has_changes::true');
-                console.log(`::set-output name=temp_branch::${gitResult.tempBranch}`);
             } else {
                 console.log('Git operations failed');
                 const fs = await import('fs');
@@ -266,4 +249,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     main();
 }
 
-export { main, transformOperator, createBranchName };
+export { main, transformOperator };

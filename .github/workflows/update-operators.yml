@@ -6,79 +6,61 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch: # 允许手动触发
 
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  update-operators:
+  update:
+    timeout-minutes: 20
     runs-on: ubuntu-latest
-    outputs:
-      has_changes: ${{ steps.update-script.outputs.has_changes }}
-      temp_branch: ${{ steps.update-script.outputs.temp_branch }}
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        # 获取完整的git历史以便分支操作
-        fetch-depth: 0
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: Configure Git
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Run operator update script
-      id: update-script
-      run: node scripts/update_operators.js
+      - name: Run operator update script
+        id: update-script
+        run: node scripts/update_operators.js
 
-  create-pr:
-    needs: update-operators
-    if: needs.update-operators.outputs.has_changes == 'true'
-    runs-on: ubuntu-latest
+      - name: Create Pull Request
+        id: cpr
+        if: steps.update-script.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: Update character info from remote source [skip ci]'
+          title: 'chore: Update Character Info [skip ci]'
+          body: |
+            Automated update of character information from remote source.
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+            This PR contains updates to the character database based on the latest data from the remote operators JSON.
 
-    - name: Configure Git
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            ## Changes
+            - Added new characters from remote source
+            - Updated character information format
+          branch: scripts/update-operators
+          base: dev
+          delete-branch: true
+          labels: |
+            automated
+            operators-update
 
-    - name: Create Pull Request
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: ${{ needs.update-operators.outputs.temp_branch }}
-      run: |
-        echo "Creating PR from branch: $BRANCH"
-
-        # 检查分支是否存在
-        if git ls-remote --heads origin "$BRANCH" | grep -q "$BRANCH"; then
-          echo "Branch $BRANCH exists, creating PR..."
-
-          # 使用GitHub CLI创建PR
-          if command -v gh &> /dev/null; then
-            gh pr create \
-              --title "chore: Update Character Info" \
-              --body "Automated update of character information from remote source.
-
-This PR contains updates to the character database based on the latest data from the remote operators JSON.
-
-## Changes
-- Added new characters from remote source
-- Updated character information format" \
-              --base dev \
-              --head "$BRANCH" \
-              --label "automated"
-          else
-            echo "GitHub CLI not available, skipping PR creation"
-          fi
-        else
-          echo "Branch $BRANCH does not exist on remote"
-          exit 1
-        fi
+      - name: Print Pull Request URL
+        if: steps.cpr.outputs.pull-request-url
+        run: echo "Created Pull Request at ${{ steps.cpr.outputs.pull-request-url }}"
