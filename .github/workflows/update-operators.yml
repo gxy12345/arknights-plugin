@@ -9,6 +9,9 @@ on:
 jobs:
   update-operators:
     runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.update-script.outputs.has_changes }}
+      temp_branch: ${{ steps.update-script.outputs.temp_branch }}
 
     steps:
     - name: Checkout repository
@@ -30,11 +33,19 @@ jobs:
     - name: Run operator update script
       id: update-script
       run: node scripts/update_operators.js
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  create-pr:
+    needs: update-operators
+    if: needs.update-operators.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Create Pull Request
-      if: steps.update-script.outputs.has_changes == 'true'
       uses: peter-evans/create-pull-request@v7
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -48,6 +59,6 @@ jobs:
           ## Changes
           - Added new characters from remote source
           - Updated character information format
-        branch: update
+        branch: ${{ needs.update-operators.outputs.temp_branch }}
         base: dev
-        delete-branch: false
+        delete-branch: true

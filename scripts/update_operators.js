@@ -92,7 +92,7 @@ async function saveCharacterInfo(data) {
     console.log(`Total characters in file: ${characterCount}`);
 }
 
-function runGitCommands(hasChanges) {
+function runGitCommands(hasChanges, targetBranch) {
     if (!hasChanges) {
         console.log('No changes detected, skipping git operations');
         return false;
@@ -109,14 +109,16 @@ function runGitCommands(hasChanges) {
         const currentBranch = execSync('git branch --show-current', { encoding: 'utf8' }).trim();
         console.log(`Current branch: ${currentBranch}`);
 
-        // 创建或切换到update分支
+        // 创建新的临时分支
+        const tempBranch = createBranchName();
         try {
-            execSync('git checkout -b update', { stdio: 'inherit' });
-            console.log('Created and switched to update branch');
+            execSync(`git checkout -b ${tempBranch}`, { stdio: 'inherit' });
+            console.log(`Created and switched to temporary branch: ${tempBranch}`);
         } catch (error) {
-            // 分支可能已存在，尝试切换
-            execSync('git checkout update', { stdio: 'inherit' });
-            console.log('Switched to existing update branch');
+            // 分支可能已存在，尝试切换并重置
+            execSync(`git checkout ${tempBranch}`, { stdio: 'inherit' });
+            execSync('git reset --hard HEAD', { stdio: 'inherit' });
+            console.log(`Switched to existing temporary branch: ${tempBranch}`);
         }
 
         // 添加文件
@@ -145,54 +147,38 @@ function runGitCommands(hasChanges) {
 
         // 检查分支差异
         try {
-            const diffStat = execSync('git diff dev..update --stat', { encoding: 'utf8' });
+            const diffStat = execSync(`git diff ${targetBranch}..${tempBranch} --stat`, { encoding: 'utf8' });
             console.log('Branch diff stat:', diffStat);
         } catch (e) {
             console.log('Branch diff error:', e.message);
         }
 
         // 推送分支
-        execSync('git push origin update', { stdio: 'inherit' });
+        execSync(`git push origin ${tempBranch}`, { stdio: 'inherit' });
 
-        console.log('Successfully pushed changes to update branch');
+        console.log(`Successfully pushed changes to temporary branch: ${tempBranch}`);
+
+        // 输出分支名供workflow使用
+        console.log(`::set-output name=temp_branch::${tempBranch}`);
 
         // 再次检查远程分支差异
         try {
-            const remoteDiff = execSync('git diff dev..origin/update --stat', { encoding: 'utf8' });
+            const remoteDiff = execSync(`git diff ${targetBranch}..origin/${tempBranch} --stat`, { encoding: 'utf8' });
             console.log('Remote branch diff stat:', remoteDiff);
         } catch (e) {
             console.log('Remote branch diff error:', e.message);
         }
 
-        return true;
+        return { success: true, tempBranch };
     } catch (error) {
         console.error('Git operations failed:', error);
         throw error;
     }
 }
 
-function createPullRequest() {
-    try {
-        console.log('Creating pull request...');
-
-        // 检查是否有gh CLI
-        try {
-            execSync('gh --version', { stdio: 'pipe' });
-        } catch (error) {
-            console.log('GitHub CLI not available, skipping PR creation');
-            console.log('Please create PR manually from update branch to dev');
-            return;
-        }
-
-        // 创建PR
-        const prCommand = `gh pr create --title "Update Character Info" --body "Automated update of character information from remote source" --base dev --head update`;
-        execSync(prCommand, { stdio: 'inherit' });
-
-        console.log('Pull request created successfully');
-    } catch (error) {
-        console.error('Failed to create pull request:', error);
-        console.log('Please create PR manually from update branch to main');
-    }
+function createBranchName() {
+    const timestamp = new Date().toISOString().slice(0, 10); // YYYY-MM-DD格式
+    return `update-operators-${timestamp}`;
 }
 
 async function main() {
@@ -213,24 +199,23 @@ async function main() {
             await saveCharacterInfo(localData);
 
             // 运行git命令
-            const gitSuccess = runGitCommands(hasChanges);
+            const gitResult = runGitCommands(hasChanges, 'dev');
 
-            if (gitSuccess) {
-                // 创建PR
-                createPullRequest();
+            if (gitResult.success) {
+                console.log(`Changes committed and pushed to branch: ${gitResult.tempBranch}`);
+                // 输出环境变量供GitHub Actions使用
+                console.log('::set-output name=has_changes::true');
+                console.log(`::set-output name=temp_branch::${gitResult.tempBranch}`);
+            } else {
+                console.log('Git operations failed');
+                console.log('::set-output name=has_changes::false');
             }
         } else {
             console.log('No updates needed');
+            console.log('::set-output name=has_changes::false');
         }
 
         console.log('Update process completed successfully');
-
-        // 输出环境变量供GitHub Actions使用
-        if (hasChanges) {
-            console.log('::set-output name=has_changes::true');
-        } else {
-            console.log('::set-output name=has_changes::false');
-        }
     } catch (error) {
         console.error('Update process failed:', error);
         console.log('::set-output name=has_changes::false');
@@ -242,4 +227,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     main();
 }
 
-export { main, transformOperator };
+export { main, transformOperator, createBranchName };
