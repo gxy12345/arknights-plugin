@@ -40,8 +40,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
     - name: Create Pull Request
-      id: create-pr
       uses: peter-evans/create-pull-request@v7
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -58,6 +62,3 @@ jobs:
         branch: ${{ needs.update-operators.outputs.temp_branch }}
         base: dev
         delete-branch: true
-
-    - name: Print Pull Request URL
-      run: echo "Created Pull Request at ${{ steps.create-pr.outputs.pull-request-url }}"
