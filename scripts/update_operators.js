@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
-const fs = require('fs').promises;
-const path = require('path');
-const { execSync } = require('child_process');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const REMOTE_JSON_URL = 'https://raw.githubusercontent.com/ZOOT-Plus/zoot-plus-frontend/f9ba88b019cf5a671578736038cf522c53d6763b/src/models/generated/operators.json';
 const CHARACTER_INFO_PATH = path.join(__dirname, '..', 'resources', 'gameData', 'character', 'character_info.json');
@@ -50,7 +53,7 @@ function transformOperator(operator) {
         subProf: operator.subProf,
         name: operator.name,
         rarity: operator.rarity,
-        modules: [""] // 默认空模块，根据实际情况可能需要调整
+        modules: operator.modules || [""] // 使用源数据中的modules字段，如果没有则默认为空数组
     };
 }
 
@@ -78,78 +81,25 @@ async function saveCharacterInfo(data) {
     const content = JSON.stringify(data, null, 4);
     await fs.writeFile(CHARACTER_INFO_PATH, content, 'utf8');
     console.log('File saved successfully');
+
+    // 检查文件大小
+    const stats = await fs.stat(CHARACTER_INFO_PATH);
+    console.log(`File size: ${stats.size} bytes`);
+
+    // 检查角色数量
+    const characterCount = Object.keys(data.character_info).length;
+    console.log(`Total characters in file: ${characterCount}`);
 }
 
-function runGitCommands(hasChanges) {
+// 简化的数据更新函数，只处理数据逻辑
+async function updateDataOnly(hasChanges) {
     if (!hasChanges) {
-        console.log('No changes detected, skipping git operations');
+        console.log('No changes detected');
         return false;
     }
 
-    try {
-        console.log('Running git commands...');
-
-        // 检查当前分支
-        const currentBranch = execSync('git branch --show-current', { encoding: 'utf8' }).trim();
-        console.log(`Current branch: ${currentBranch}`);
-
-        // 创建或切换到update分支
-        try {
-            execSync('git checkout -b update', { stdio: 'inherit' });
-            console.log('Created and switched to update branch');
-        } catch (error) {
-            // 分支可能已存在，尝试切换
-            execSync('git checkout update', { stdio: 'inherit' });
-            console.log('Switched to existing update branch');
-        }
-
-        // 添加文件
-        execSync('git add resources/gameData/character/character_info.json', { stdio: 'inherit' });
-
-        // 检查是否有更改
-        const status = execSync('git status --porcelain', { encoding: 'utf8' });
-        if (!status.trim()) {
-            console.log('No changes to commit');
-            return false;
-        }
-
-        // 提交更改
-        const timestamp = new Date().toISOString();
-        execSync(`git commit -m "Update character info from remote source - ${timestamp}"`, { stdio: 'inherit' });
-
-        // 推送分支
-        execSync('git push origin update', { stdio: 'inherit' });
-
-        console.log('Successfully pushed changes to update branch');
-        return true;
-    } catch (error) {
-        console.error('Git operations failed:', error);
-        throw error;
-    }
-}
-
-function createPullRequest() {
-    try {
-        console.log('Creating pull request...');
-
-        // 检查是否有gh CLI
-        try {
-            execSync('gh --version', { stdio: 'pipe' });
-        } catch (error) {
-            console.log('GitHub CLI not available, skipping PR creation');
-            console.log('Please create PR manually from update branch to main');
-            return;
-        }
-
-        // 创建PR
-        const prCommand = `gh pr create --title "Update Character Info" --body "Automated update of character information from remote source" --base main --head update`;
-        execSync(prCommand, { stdio: 'inherit' });
-
-        console.log('Pull request created successfully');
-    } catch (error) {
-        console.error('Failed to create pull request:', error);
-        console.log('Please create PR manually from update branch to main');
-    }
+    console.log('Data updated successfully, files modified in working directory');
+    return true;
 }
 
 async function main() {
@@ -166,29 +116,44 @@ async function main() {
         const hasChanges = await updateCharacterInfo(remoteData, localData, existingIds);
 
         if (hasChanges) {
-            // 保存文件
+            // 保存文件到工作目录，peter-evans会处理git操作
             await saveCharacterInfo(localData);
 
-            // 运行git命令
-            const gitSuccess = runGitCommands(hasChanges);
+            // 标记有变化，peter-evans会处理后续操作
+            await updateDataOnly(hasChanges);
 
-            if (gitSuccess) {
-                // 创建PR
-                createPullRequest();
+            // 输出环境变量供GitHub Actions使用
+            const fs = await import('fs');
+            const outputPath = process.env.GITHUB_OUTPUT;
+            if (outputPath) {
+                fs.appendFileSync(outputPath, `has_changes=true\n`);
             }
+            console.log('::set-output name=has_changes::true');
         } else {
             console.log('No updates needed');
+            const fs = await import('fs');
+            const outputPath = process.env.GITHUB_OUTPUT;
+            if (outputPath) {
+                fs.appendFileSync(outputPath, `has_changes=false\n`);
+            }
+            console.log('::set-output name=has_changes::false');
         }
 
         console.log('Update process completed successfully');
     } catch (error) {
         console.error('Update process failed:', error);
+        const fs = await import('fs');
+        const outputPath = process.env.GITHUB_OUTPUT;
+        if (outputPath) {
+            fs.appendFileSync(outputPath, `has_changes=false\n`);
+        }
+        console.log('::set-output name=has_changes::false');
         process.exit(1);
     }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main();
 }
 
-module.exports = { main, transformOperator };
+export { main, transformOperator };
