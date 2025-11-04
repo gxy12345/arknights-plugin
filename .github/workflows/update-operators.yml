@@ -50,4 +50,4 @@ jobs:
           - Updated character information format
         branch: update
         base: dev
-        delete-branch: true
+        delete-branch: false

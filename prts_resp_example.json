@@ -1,0 +1,1670 @@
+{
+    "warnings": {
+        "cargoquery": {
+            "*": "The value \"5000\" for parameter \"limit\" must be between 1 and 500."
+        }
+    },
+    "cargoquery": [
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "0",
+                "tag": "支援机械 控场",
+                "cn": "CONFESS-47",
+                "obtainMethod": "公开招募 活动获得",
+                "charId": "char_4188_confes"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "1",
+                "tag": "新手",
+                "cn": "夜刀",
+                "obtainMethod": "公开招募",
+                "charId": "char_502_nblade"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "2",
+                "tag": "费用回复",
+                "cn": "芬",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_123_fang"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "2",
+                "tag": "费用回复",
+                "cn": "香草",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_240_wyvern"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "2",
+                "tag": "输出 费用回复",
+                "cn": "翎羽",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_192_falco"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "费用回复 治疗",
+                "cn": "桃金娘",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_151_myrtle"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "费用回复 输出",
+                "cn": "清道夫",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_149_scave"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "输出 费用回复",
+                "cn": "红豆",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_290_vigna"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "费用回复 控场",
+                "cn": "德克萨斯",
+                "obtainMethod": "公开招募 中坚寻访 常驻赠送",
+                "charId": "char_102_texas"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "费用回复 支援",
+                "cn": "凛冬",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_115_headbr"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "费用回复 支援",
+                "cn": "极境",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_401_elysm"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "费用回复 输出",
+                "cn": "苇草",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_261_sddrag"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "费用回复 输出",
+                "cn": "贾维",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_349_chiave"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "费用回复 输出",
+                "cn": "嵯峨",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_362_saga"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "费用回复 输出",
+                "cn": "推进之王",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_112_siege"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "费用回复 输出",
+                "cn": "风笛",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_222_bpipe"
+            }
+        },
+        {
+            "title": {
+                "profession": "先锋",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "费用回复 召唤",
+                "cn": "豆苗",
+                "obtainMethod": "标准寻访 中坚寻访 公开招募",
+                "charId": "char_452_bstalk"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "0",
+                "tag": "支援机械 治疗",
+                "cn": "Lancet-2",
+                "obtainMethod": "公开招募 主线剧情",
+                "charId": "char_285_medic2"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "2",
+                "tag": "治疗",
+                "cn": "安赛尔",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_212_ansel"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "2",
+                "tag": "治疗",
+                "cn": "芙蓉",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_120_hibisc"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "治疗",
+                "cn": "末药",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_117_myrrh"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "治疗",
+                "cn": "苏苏洛",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_298_susuro"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "治疗",
+                "cn": "调香师",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_181_flower"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "治疗 支援",
+                "cn": "清流",
+                "obtainMethod": "限时礼包 公开招募",
+                "charId": "char_385_finlpp"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "治疗",
+                "cn": "絮雨",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_436_whispr"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "治疗",
+                "cn": "赫默",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_108_silent"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "治疗 支援",
+                "cn": "华法琳",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_171_bldsk"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "治疗 支援",
+                "cn": "白面鸮",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_128_plosis"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "治疗 支援",
+                "cn": "夜莺",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_179_cgbird"
+            }
+        },
+        {
+            "title": {
+                "profession": "医疗",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "治疗 支援",
+                "cn": "闪灵",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_147_shining"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "1",
+                "tag": "新手",
+                "cn": "12F",
+                "obtainMethod": "公开招募 主线剧情",
+                "charId": "char_009_12fce"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "1",
+                "tag": "新手",
+                "cn": "杜林",
+                "obtainMethod": "公开招募 主线剧情",
+                "charId": "char_501_durin"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "2",
+                "tag": "群攻",
+                "cn": "炎熔",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_121_lava"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "2",
+                "tag": "输出",
+                "cn": "史都华德",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_210_stward"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "群攻",
+                "cn": "远山",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_109_fmout"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "群攻 减速",
+                "cn": "格雷伊",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_253_greyy"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "输出 削弱",
+                "cn": "夜烟",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_141_nights"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "输出 控场",
+                "cn": "卡达",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_328_cammou"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "群攻 爆发",
+                "cn": "莱恩哈特",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_373_lionhd"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "群攻 防护",
+                "cn": "蜜蜡",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_344_beewax"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出",
+                "cn": "惊蛰",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_306_leizi"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出",
+                "cn": "爱丽丝",
+                "obtainMethod": "中坚寻访 公开招募",
+                "charId": "char_338_iris"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出 治疗 减速",
+                "cn": "夜魔",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_164_nightm"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "群攻 削弱",
+                "cn": "伊芙利特",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_134_ifrit"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "群攻 支援 控场",
+                "cn": "莫斯提马",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_213_mostma"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "输出",
+                "cn": "异客",
+                "obtainMethod": "中坚寻访 公开招募",
+                "charId": "char_472_pasngr"
+            }
+        },
+        {
+            "title": {
+                "profession": "术师",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "输出 控场",
+                "cn": "刻俄柏",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_2013_cerber"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "0",
+                "tag": "支援机械 爆发",
+                "cn": "THRM-EX",
+                "obtainMethod": "公开招募 主线剧情 活动获得",
+                "charId": "char_376_therex"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "位移",
+                "cn": "暗索",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_236_rope"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "位移",
+                "cn": "阿消",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_277_sqrrel"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "快速复活 输出",
+                "cn": "孑",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_272_strong"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "快速复活 防护",
+                "cn": "砾",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_237_gravel"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "位移 减速",
+                "cn": "食铁兽",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_241_panda"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "位移 输出",
+                "cn": "崖心",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_173_slchan"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "快速复活 削弱",
+                "cn": "槐琥",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_243_waaifu"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "快速复活 控场",
+                "cn": "卡夫卡",
+                "obtainMethod": "中坚寻访 公开招募",
+                "charId": "char_214_kafka"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "快速复活 控场",
+                "cn": "红",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_144_red"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "快速复活 输出",
+                "cn": "乌有",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_455_nothin"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "输出 生存",
+                "cn": "狮蝎",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_215_mantic"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "位移 输出 控场",
+                "cn": "温蒂",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_400_weedy"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "快速复活 控场 输出",
+                "cn": "傀影",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_250_phatom"
+            }
+        },
+        {
+            "title": {
+                "profession": "特种",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "支援 输出",
+                "cn": "阿",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_225_haak"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "0",
+                "tag": "支援机械 支援",
+                "cn": "正义骑士号",
+                "obtainMethod": "公开招募 活动获得",
+                "charId": "char_4000_jnight"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "1",
+                "tag": "新手",
+                "cn": "巡林者",
+                "obtainMethod": "公开招募",
+                "charId": "char_503_rang"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "2",
+                "tag": "群攻",
+                "cn": "空爆",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_282_catap"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "2",
+                "tag": "输出",
+                "cn": "克洛丝",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_124_kroos"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "2",
+                "tag": "输出",
+                "cn": "安德切尔",
+                "obtainMethod": "公开招募 主线剧情",
+                "charId": "char_211_adnach"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "群攻 减速",
+                "cn": "白雪",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_118_yuki"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "群攻 输出",
+                "cn": "松果",
+                "obtainMethod": "标准寻访 中坚寻访 公开招募",
+                "charId": "char_440_pinecn"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "输出",
+                "cn": "红云",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_190_clour"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "输出",
+                "cn": "酸糖",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_366_acdrop"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "输出 减速",
+                "cn": "安比尔",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_302_glaze"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "输出 减速",
+                "cn": "梅",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_133_mm"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "输出 削弱",
+                "cn": "流星",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_126_shotst"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "输出 生存",
+                "cn": "杰西卡",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_235_jesica"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "群攻",
+                "cn": "奥斯塔",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_346_aosta"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "群攻",
+                "cn": "送葬人",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_279_excu"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "群攻 削弱",
+                "cn": "慑砂",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_379_sesa"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "群攻 削弱",
+                "cn": "陨星",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_219_meteo"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出",
+                "cn": "四月",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_365_aprl"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出",
+                "cn": "普罗旺斯",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_145_prove"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出",
+                "cn": "灰喉",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_367_swllow"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出",
+                "cn": "熔泉",
+                "obtainMethod": "中坚寻访 公开招募",
+                "charId": "char_363_toddi"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出",
+                "cn": "白金",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_204_platnm"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出",
+                "cn": "蓝毒",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_129_bluep"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出 减速",
+                "cn": "安哲拉",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_218_cuttle"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "输出 爆发",
+                "cn": "守林人",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_158_milu"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "输出",
+                "cn": "空弦",
+                "obtainMethod": "中坚寻访 公开招募",
+                "charId": "char_332_archet"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "输出",
+                "cn": "能天使",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_103_angel"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "输出",
+                "cn": "黑",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_340_shwaz"
+            }
+        },
+        {
+            "title": {
+                "profession": "狙击",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "输出 控场",
+                "cn": "早露",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_197_poca"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "0",
+                "tag": "支援机械 元素",
+                "cn": "PhonoR-0",
+                "obtainMethod": "公开招募 活动获得",
+                "charId": "char_4136_phonor"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "2",
+                "tag": "减速",
+                "cn": "梓兰",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_278_orchid"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "减速",
+                "cn": "地灵",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_183_skgoat"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "3",
+                "tag": "减速 治疗",
+                "cn": "波登可",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_258_podego"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "减速 控场",
+                "cn": "格劳克斯",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_326_glacus"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "减速 输出",
+                "cn": "真理",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_195_glassb"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "削弱",
+                "cn": "初雪",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_174_slbell"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "削弱",
+                "cn": "巫恋",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_254_vodfox"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "召唤 控场",
+                "cn": "梅尔",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_242_otter"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "4",
+                "tag": "支援 生存",
+                "cn": "月禾",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_343_tknogi"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "减速 支援 输出",
+                "cn": "铃兰",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_358_lisa"
+            }
+        },
+        {
+            "title": {
+                "profession": "辅助",
+                "position": "远程位",
+                "rarity": "5",
+                "tag": "支援 减速 输出",
+                "cn": "麦哲伦",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_248_mgllan"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "0",
+                "tag": "支援机械 支援",
+                "cn": "Castle-3",
+                "obtainMethod": "公开招募",
+                "charId": "char_286_cast3"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "2",
+                "tag": "群攻 生存",
+                "cn": "泡普卡",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_281_popka"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "2",
+                "tag": "输出",
+                "cn": "月见夜",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_283_midn"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "2",
+                "tag": "输出 生存",
+                "cn": "玫兰莎",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_208_melan"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "减速 输出",
+                "cn": "霜叶",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_193_frostl"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "爆发 输出",
+                "cn": "刻刀",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_301_cutter"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "生存 输出",
+                "cn": "缠丸",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_289_gyuki"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "群攻 生存",
+                "cn": "艾丝黛尔",
+                "obtainMethod": "公开招募",
+                "charId": "char_127_estell"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "输出",
+                "cn": "慕斯",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_185_frncat"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "输出",
+                "cn": "杰克",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_347_jaksel"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "输出",
+                "cn": "猎蜂",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_137_brownb"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "输出",
+                "cn": "芳汀",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_271_spikes"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "输出 支援",
+                "cn": "杜宾",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_130_doberm"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "输出 生存",
+                "cn": "宴",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_337_utage"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "群攻 生存",
+                "cn": "布洛卡",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_356_broca"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "群攻 生存",
+                "cn": "幽灵鲨",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_143_ghost"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "输出",
+                "cn": "燧石",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_415_flint"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "输出 支援",
+                "cn": "诗怀雅",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_308_swire"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "输出 生存",
+                "cn": "因陀罗",
+                "obtainMethod": "公开招募",
+                "charId": "char_155_tiger"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "输出 群攻",
+                "cn": "断崖",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_294_ayer"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "输出 防护",
+                "cn": "星极",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_274_astesi"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "爆发 输出",
+                "cn": "陈",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_010_chen"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "输出",
+                "cn": "史尔特尔",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_350_surtr"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "输出 支援",
+                "cn": "银灰",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_172_svrash"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "输出 生存",
+                "cn": "山",
+                "obtainMethod": "中坚寻访 公开招募",
+                "charId": "char_264_f12yin"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "输出 生存",
+                "cn": "斯卡蒂",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_263_skadi"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "输出 生存",
+                "cn": "煌",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_017_huang"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "输出 生存",
+                "cn": "赫拉格",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_188_helage"
+            }
+        },
+        {
+            "title": {
+                "profession": "近卫",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "输出 防护",
+                "cn": "棘刺",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_293_thorns"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "0",
+                "tag": "支援机械 防护",
+                "cn": "Friston-3",
+                "obtainMethod": "公开招募 活动获得",
+                "charId": "char_4093_frston"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "1",
+                "tag": "新手",
+                "cn": "黑角",
+                "obtainMethod": "公开招募",
+                "charId": "char_500_noirc"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "2",
+                "tag": "防护",
+                "cn": "米格鲁",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访 主线剧情",
+                "charId": "char_122_beagle"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "2",
+                "tag": "防护 治疗",
+                "cn": "斑点",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_284_spot"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "防护",
+                "cn": "泡泡",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_381_bubble"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "防护",
+                "cn": "蛇屠箱",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_150_snakek"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "防护",
+                "cn": "角峰",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_199_yak"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "3",
+                "tag": "防护 治疗",
+                "cn": "古米",
+                "obtainMethod": "公开招募 标准寻访 中坚寻访",
+                "charId": "char_196_sunbr"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "生存 防护 输出",
+                "cn": "火神",
+                "obtainMethod": "公开招募",
+                "charId": "char_163_hpsts"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "防护 位移",
+                "cn": "可颂",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_201_moeshd"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "防护 治疗",
+                "cn": "临光",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_148_nearl"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "防护 治疗",
+                "cn": "吽",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_226_hmau"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "防护 输出",
+                "cn": "石棉",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_378_asbest"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "4",
+                "tag": "防护 输出",
+                "cn": "雷蛇",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_107_liskam"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "生存 防护 输出",
+                "cn": "泥岩",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_311_mudrok"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "输出 生存 防护",
+                "cn": "森蚺",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_416_zumama"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "防护 治疗 支援",
+                "cn": "塞雷娅",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_202_demkni"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "防护 治疗 输出",
+                "cn": "瑕光",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_423_blemsh"
+            }
+        },
+        {
+            "title": {
+                "profession": "重装",
+                "position": "近战位",
+                "rarity": "5",
+                "tag": "防护 输出",
+                "cn": "星熊",
+                "obtainMethod": "公开招募 中坚寻访",
+                "charId": "char_136_hsguma"
+            }
+        }
+    ]
+}

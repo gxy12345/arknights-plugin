@@ -82,6 +82,14 @@ async function saveCharacterInfo(data) {
     const content = JSON.stringify(data, null, 4);
     await fs.writeFile(CHARACTER_INFO_PATH, content, 'utf8');
     console.log('File saved successfully');
+
+    // 检查文件大小
+    const stats = await fs.stat(CHARACTER_INFO_PATH);
+    console.log(`File size: ${stats.size} bytes`);
+
+    // 检查角色数量
+    const characterCount = Object.keys(data.character_info).length;
+    console.log(`Total characters in file: ${characterCount}`);
 }
 
 function runGitCommands(hasChanges) {
@@ -92,6 +100,10 @@ function runGitCommands(hasChanges) {
 
     try {
         console.log('Running git commands...');
+
+        // 检查当前工作目录
+        const cwd = process.cwd();
+        console.log(`Current working directory: ${cwd}`);
 
         // 检查当前分支
         const currentBranch = execSync('git branch --show-current', { encoding: 'utf8' }).trim();
@@ -112,6 +124,16 @@ function runGitCommands(hasChanges) {
 
         // 检查是否有更改
         const status = execSync('git status --porcelain', { encoding: 'utf8' });
+        console.log('Git status after add:', status);
+
+        // 检查文件差异
+        try {
+            const diff = execSync('git diff --cached --stat', { encoding: 'utf8' });
+            console.log('Git diff --cached --stat:', diff);
+        } catch (e) {
+            console.log('Git diff error:', e.message);
+        }
+
         if (!status.trim()) {
             console.log('No changes to commit');
             return false;
@@ -121,10 +143,27 @@ function runGitCommands(hasChanges) {
         const timestamp = new Date().toISOString();
         execSync(`git commit -m "Update character info from remote source - ${timestamp}"`, { stdio: 'inherit' });
 
+        // 检查分支差异
+        try {
+            const diffStat = execSync('git diff dev..update --stat', { encoding: 'utf8' });
+            console.log('Branch diff stat:', diffStat);
+        } catch (e) {
+            console.log('Branch diff error:', e.message);
+        }
+
         // 推送分支
         execSync('git push origin update', { stdio: 'inherit' });
 
         console.log('Successfully pushed changes to update branch');
+
+        // 再次检查远程分支差异
+        try {
+            const remoteDiff = execSync('git diff dev..origin/update --stat', { encoding: 'utf8' });
+            console.log('Remote branch diff stat:', remoteDiff);
+        } catch (e) {
+            console.log('Remote branch diff error:', e.message);
+        }
+
         return true;
     } catch (error) {
         console.error('Git operations failed:', error);
