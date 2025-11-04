@@ -33,6 +33,4653 @@
                 "",
                 "X"
             ]
+        },
+        "char_009_12fce": {
+            "id": "char_009_12fce",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "12F",
+            "rarity": 2,
+            "modules": [
+                ""
+            ]
+        },
+        "char_225_haak": {
+            "id": "char_225_haak",
+            "prof": "SPECIAL",
+            "subProf": "geek",
+            "name": "阿",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4178_alanna": {
+            "id": "char_4178_alanna",
+            "prof": "SUPPORT",
+            "subProf": "craftsman",
+            "name": "阿兰娜",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_446_aroma": {
+            "id": "char_446_aroma",
+            "prof": "CASTER",
+            "subProf": "blastcaster",
+            "name": "阿罗玛",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4132_ascln": {
+            "id": "char_4132_ascln",
+            "prof": "SPECIAL",
+            "subProf": "stalker",
+            "name": "阿斯卡纶",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_277_sqrrel": {
+            "id": "char_277_sqrrel",
+            "prof": "SPECIAL",
+            "subProf": "pusher",
+            "name": "阿消",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4123_ela": {
+            "id": "char_4123_ela",
+            "prof": "SPECIAL",
+            "subProf": "traper",
+            "name": "艾拉",
+            "rarity": 6,
+            "modules": [
+                "",
+                "D"
+            ]
+        },
+        "char_4043_erato": {
+            "id": "char_4043_erato",
+            "prof": "SNIPER",
+            "subProf": "siegesniper",
+            "name": "埃拉托",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4009_irene": {
+            "id": "char_4009_irene",
+            "prof": "WARRIOR",
+            "subProf": "sword",
+            "name": "艾丽妮",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_338_iris": {
+            "id": "char_338_iris",
+            "prof": "CASTER",
+            "subProf": "mystic",
+            "name": "爱丽丝",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_127_estell": {
+            "id": "char_127_estell",
+            "prof": "WARRIOR",
+            "subProf": "centurion",
+            "name": "艾丝黛尔",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_180_amgoat": {
+            "id": "char_180_amgoat",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "艾雅法拉",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_302_glaze": {
+            "id": "char_302_glaze",
+            "prof": "SNIPER",
+            "subProf": "longrange",
+            "name": "安比尔",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_211_adnach": {
+            "id": "char_211_adnach",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "安德切尔",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_291_aglina": {
+            "id": "char_291_aglina",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "安洁莉娜",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_212_ansel": {
+            "id": "char_212_ansel",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "安赛尔",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_236_rope": {
+            "id": "char_236_rope",
+            "prof": "SPECIAL",
+            "subProf": "hookmaster",
+            "name": "暗索",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_218_cuttle": {
+            "id": "char_218_cuttle",
+            "prof": "SNIPER",
+            "subProf": "longrange",
+            "name": "安哲拉",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4131_odda": {
+            "id": "char_4131_odda",
+            "prof": "WARRIOR",
+            "subProf": "hammer",
+            "name": "奥达",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_346_aosta": {
+            "id": "char_346_aosta",
+            "prof": "SNIPER",
+            "subProf": "reaperrange",
+            "name": "奥斯塔",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4186_tmoris": {
+            "id": "char_4186_tmoris",
+            "prof": "SPECIAL",
+            "subProf": "stalker",
+            "name": "八幡海铃",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_252_bibeak": {
+            "id": "char_252_bibeak",
+            "prof": "WARRIOR",
+            "subProf": "sword",
+            "name": "柏喙",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_204_platnm": {
+            "id": "char_204_platnm",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "白金",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1026_gvial2": {
+            "id": "char_1026_gvial2",
+            "prof": "WARRIOR",
+            "subProf": "centurion",
+            "name": "百炼嘉维尔",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_128_plosis": {
+            "id": "char_128_plosis",
+            "prof": "MEDIC",
+            "subProf": "ringhealer",
+            "name": "白面鸮",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_325_bison": {
+            "id": "char_325_bison",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "拜松",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4072_ironmn": {
+            "id": "char_4072_ironmn",
+            "prof": "SUPPORT",
+            "subProf": "craftsman",
+            "name": "白铁",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_118_yuki": {
+            "id": "char_118_yuki",
+            "prof": "SNIPER",
+            "subProf": "aoesniper",
+            "name": "白雪",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_284_spot": {
+            "id": "char_284_spot",
+            "prof": "TANK",
+            "subProf": "guardian",
+            "name": "斑点",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_230_savage": {
+            "id": "char_230_savage",
+            "prof": "WARRIOR",
+            "subProf": "centurion",
+            "name": "暴行",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_388_mint": {
+            "id": "char_388_mint",
+            "prof": "CASTER",
+            "subProf": "phalanx",
+            "name": "薄绿",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_304_zebra": {
+            "id": "char_304_zebra",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "暴雨",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_369_bena": {
+            "id": "char_369_bena",
+            "prof": "SPECIAL",
+            "subProf": "dollkeeper",
+            "name": "贝娜",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_265_sophia": {
+            "id": "char_265_sophia",
+            "prof": "WARRIOR",
+            "subProf": "instructor",
+            "name": "鞭刃",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4104_coldst": {
+            "id": "char_4104_coldst",
+            "prof": "SNIPER",
+            "subProf": "hunter",
+            "name": "冰酿",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_487_bobb": {
+            "id": "char_487_bobb",
+            "prof": "SUPPORT",
+            "subProf": "ritualist",
+            "name": "波卜",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_258_podego": {
+            "id": "char_258_podego",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "波登可",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4004_pudd": {
+            "id": "char_4004_pudd",
+            "prof": "CASTER",
+            "subProf": "chain",
+            "name": "布丁",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_356_broca": {
+            "id": "char_356_broca",
+            "prof": "WARRIOR",
+            "subProf": "centurion",
+            "name": "布洛卡",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4155_talr": {
+            "id": "char_4155_talr",
+            "prof": "SPECIAL",
+            "subProf": "merchant",
+            "name": "裁度",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4106_bryota": {
+            "id": "char_4106_bryota",
+            "prof": "WARRIOR",
+            "subProf": "instructor",
+            "name": "苍苔",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_286_cast3": {
+            "id": "char_286_cast3",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "Castle-3",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_289_gyuki": {
+            "id": "char_289_gyuki",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "缠丸",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4047_pianst": {
+            "id": "char_4047_pianst",
+            "prof": "TANK",
+            "subProf": "artsprotector",
+            "name": "车尔尼",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_010_chen": {
+            "id": "char_010_chen",
+            "prof": "WARRIOR",
+            "subProf": "sword",
+            "name": "陈",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_445_wscoot": {
+            "id": "char_445_wscoot",
+            "prof": "WARRIOR",
+            "subProf": "librator",
+            "name": "骋风",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_377_gdglow": {
+            "id": "char_377_gdglow",
+            "prof": "CASTER",
+            "subProf": "funnel",
+            "name": "澄闪",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_1027_greyy2": {
+            "id": "char_1027_greyy2",
+            "prof": "SNIPER",
+            "subProf": "bombarder",
+            "name": "承曦格雷伊",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_475_akafyu": {
+            "id": "char_475_akafyu",
+            "prof": "WARRIOR",
+            "subProf": "musha",
+            "name": "赤冬",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4065_judge": {
+            "id": "char_4065_judge",
+            "prof": "TANK",
+            "subProf": "unyield",
+            "name": "斥罪",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4082_qiubai": {
+            "id": "char_4082_qiubai",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "仇白",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_174_slbell": {
+            "id": "char_174_slbell",
+            "prof": "SUPPORT",
+            "subProf": "underminer",
+            "name": "初雪",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1016_agoat2": {
+            "id": "char_1016_agoat2",
+            "prof": "MEDIC",
+            "subProf": "wandermedic",
+            "name": "纯烬艾雅法拉",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_494_vendla": {
+            "id": "char_494_vendla",
+            "prof": "MEDIC",
+            "subProf": "incantationmedic",
+            "name": "刺玫",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4188_confes": {
+            "id": "char_4188_confes",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "CONFESS-47",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_1031_slent2": {
+            "id": "char_1031_slent2",
+            "prof": "SUPPORT",
+            "subProf": "blessing",
+            "name": "淬羽赫默",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_362_saga": {
+            "id": "char_362_saga",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "嵯峨",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_157_dagda": {
+            "id": "char_157_dagda",
+            "prof": "WARRIOR",
+            "subProf": "fighter",
+            "name": "达格达",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4110_delphn": {
+            "id": "char_4110_delphn",
+            "prof": "CASTER",
+            "subProf": "mystic",
+            "name": "戴菲恩",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4032_provs": {
+            "id": "char_4032_provs",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "但书",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4126_fuze": {
+            "id": "char_4126_fuze",
+            "prof": "WARRIOR",
+            "subProf": "centurion",
+            "name": "导火索",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_102_texas": {
+            "id": "char_102_texas",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "德克萨斯",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4191_tippi": {
+            "id": "char_4191_tippi",
+            "prof": "SPECIAL",
+            "subProf": "skywalker",
+            "name": "蒂比",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_1034_jesca2": {
+            "id": "char_1034_jesca2",
+            "prof": "TANK",
+            "subProf": "shotprotector",
+            "name": "涤火杰西卡",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_183_skgoat": {
+            "id": "char_183_skgoat",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "地灵",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4195_radian": {
+            "id": "char_4195_radian",
+            "prof": "SUPPORT",
+            "subProf": "summoner",
+            "name": "电弧",
+            "rarity": 6,
+            "modules": [
+                "",
+                "A",
+                "B"
+            ]
+        },
+        "char_4208_wintim": {
+            "id": "char_4208_wintim",
+            "prof": "PIONEER",
+            "subProf": "agent",
+            "name": "冬时",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_452_bstalk": {
+            "id": "char_452_bstalk",
+            "prof": "PIONEER",
+            "subProf": "tactician",
+            "name": "豆苗",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_130_doberm": {
+            "id": "char_130_doberm",
+            "prof": "WARRIOR",
+            "subProf": "instructor",
+            "name": "杜宾",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_501_durin": {
+            "id": "char_501_durin",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "杜林",
+            "rarity": 2,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4147_mitm": {
+            "id": "char_4147_mitm",
+            "prof": "PIONEER",
+            "subProf": "tactician",
+            "name": "渡桥",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_294_ayer": {
+            "id": "char_294_ayer",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "断崖",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_159_peacok": {
+            "id": "char_159_peacok",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "断罪者",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4083_chimes": {
+            "id": "char_4083_chimes",
+            "prof": "WARRIOR",
+            "subProf": "crusher",
+            "name": "铎铃",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4048_doroth": {
+            "id": "char_4048_doroth",
+            "prof": "SPECIAL",
+            "subProf": "traper",
+            "name": "多萝西",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_271_spikes": {
+            "id": "char_271_spikes",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "芳汀",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4148_philae": {
+            "id": "char_4148_philae",
+            "prof": "TANK",
+            "subProf": "primprotector",
+            "name": "菲莱",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_300_phenxi": {
+            "id": "char_300_phenxi",
+            "prof": "SNIPER",
+            "subProf": "aoesniper",
+            "name": "菲亚梅塔",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_123_fang": {
+            "id": "char_123_fang",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "芬",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4182_oblvns": {
+            "id": "char_4182_oblvns",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "丰川祥子",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_222_bpipe": {
+            "id": "char_222_bpipe",
+            "prof": "PIONEER",
+            "subProf": "charger",
+            "name": "风笛",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4016_kazema": {
+            "id": "char_4016_kazema",
+            "prof": "SPECIAL",
+            "subProf": "dollkeeper",
+            "name": "风丸",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4093_frston": {
+            "id": "char_4093_frston",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "Friston-3",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_106_franka": {
+            "id": "char_106_franka",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "芙兰卡",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_120_hibisc": {
+            "id": "char_120_hibisc",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "芙蓉",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_220_grani": {
+            "id": "char_220_grani",
+            "prof": "PIONEER",
+            "subProf": "charger",
+            "name": "格拉尼",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_326_glacus": {
+            "id": "char_326_glacus",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "格劳克斯",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_474_glady": {
+            "id": "char_474_glady",
+            "prof": "SPECIAL",
+            "subProf": "hookmaster",
+            "name": "歌蕾蒂娅",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_253_greyy": {
+            "id": "char_253_greyy",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "格雷伊",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_196_sunbr": {
+            "id": "char_196_sunbr",
+            "prof": "TANK",
+            "subProf": "guardian",
+            "name": "古米",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1023_ghost2": {
+            "id": "char_1023_ghost2",
+            "prof": "SPECIAL",
+            "subProf": "dollkeeper",
+            "name": "归溟幽灵鲨",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4163_rosesa": {
+            "id": "char_4163_rosesa",
+            "prof": "MEDIC",
+            "subProf": "ringhealer",
+            "name": "瑰盐",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_394_hadiya": {
+            "id": "char_394_hadiya",
+            "prof": "WARRIOR",
+            "subProf": "mercenary",
+            "name": "哈蒂娅",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4114_harold": {
+            "id": "char_4114_harold",
+            "prof": "MEDIC",
+            "subProf": "wandermedic",
+            "name": "哈洛德",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4045_heidi": {
+            "id": "char_4045_heidi",
+            "prof": "SUPPORT",
+            "subProf": "bard",
+            "name": "海蒂",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4066_highmo": {
+            "id": "char_4066_highmo",
+            "prof": "WARRIOR",
+            "subProf": "reaper",
+            "name": "海沫",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4079_haini": {
+            "id": "char_4079_haini",
+            "prof": "SUPPORT",
+            "subProf": "underminer",
+            "name": "海霓",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1021_kroos2": {
+            "id": "char_1021_kroos2",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "寒芒克洛丝",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_341_sntlla": {
+            "id": "char_341_sntlla",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "寒檀",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4172_xingzh": {
+            "id": "char_4172_xingzh",
+            "prof": "SUPPORT",
+            "subProf": "blessing",
+            "name": "行箸",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4039_horn": {
+            "id": "char_4039_horn",
+            "prof": "TANK",
+            "subProf": "fortress",
+            "name": "号角",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4088_hodrer": {
+            "id": "char_4088_hodrer",
+            "prof": "WARRIOR",
+            "subProf": "crusher",
+            "name": "赫德雷",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4041_chnut": {
+            "id": "char_4041_chnut",
+            "prof": "MEDIC",
+            "subProf": "wandermedic",
+            "name": "褐果",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_188_helage": {
+            "id": "char_188_helage",
+            "prof": "WARRIOR",
+            "subProf": "musha",
+            "name": "赫拉格",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_108_silent": {
+            "id": "char_108_silent",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "赫默",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_297_hamoni": {
+            "id": "char_297_hamoni",
+            "prof": "CASTER",
+            "subProf": "mystic",
+            "name": "和弦",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_340_shwaz": {
+            "id": "char_340_shwaz",
+            "prof": "SNIPER",
+            "subProf": "closerange",
+            "name": "黑",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4046_ebnhlz": {
+            "id": "char_4046_ebnhlz",
+            "prof": "CASTER",
+            "subProf": "mystic",
+            "name": "黑键",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "D"
+            ]
+        },
+        "char_500_noirc": {
+            "id": "char_500_noirc",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "黑角",
+            "rarity": 2,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4140_lasher": {
+            "id": "char_4140_lasher",
+            "prof": "SUPPORT",
+            "subProf": "summoner",
+            "name": "衡沙",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_144_red": {
+            "id": "char_144_red",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "红",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_290_vigna": {
+            "id": "char_290_vigna",
+            "prof": "PIONEER",
+            "subProf": "charger",
+            "name": "红豆",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4023_rfalcn": {
+            "id": "char_4023_rfalcn",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "红隼",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4055_bgsnow": {
+            "id": "char_4055_bgsnow",
+            "prof": "SNIPER",
+            "subProf": "closerange",
+            "name": "鸿雪",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_190_clour": {
+            "id": "char_190_clour",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "红云",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_226_hmau": {
+            "id": "char_226_hmau",
+            "prof": "TANK",
+            "subProf": "guardian",
+            "name": "吽",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_171_bldsk": {
+            "id": "char_171_bldsk",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "华法琳",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_243_waaifu": {
+            "id": "char_243_waaifu",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "槐琥",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_017_huang": {
+            "id": "char_017_huang",
+            "prof": "WARRIOR",
+            "subProf": "centurion",
+            "name": "煌",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_1038_whitw2": {
+            "id": "char_1038_whitw2",
+            "prof": "CASTER",
+            "subProf": "funnel",
+            "name": "荒芜拉普兰德",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_431_ashlok": {
+            "id": "char_431_ashlok",
+            "prof": "TANK",
+            "subProf": "fortress",
+            "name": "灰毫",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_367_swllow": {
+            "id": "char_367_swllow",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "灰喉",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_456_ash": {
+            "id": "char_456_ash",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "灰烬",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4027_heyak": {
+            "id": "char_4027_heyak",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "霍尔海雅",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_1030_noirc2": {
+            "id": "char_1030_noirc2",
+            "prof": "WARRIOR",
+            "subProf": "musha",
+            "name": "火龙S黑角",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_493_firwhl": {
+            "id": "char_493_firwhl",
+            "prof": "TANK",
+            "subProf": "fortress",
+            "name": "火哨",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_163_hpsts": {
+            "id": "char_163_hpsts",
+            "prof": "TANK",
+            "subProf": "unyield",
+            "name": "火神",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_293_thorns": {
+            "id": "char_293_thorns",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "棘刺",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "D"
+            ]
+        },
+        "char_422_aurora": {
+            "id": "char_422_aurora",
+            "prof": "TANK",
+            "subProf": "duelist",
+            "name": "极光",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_401_elysm": {
+            "id": "char_401_elysm",
+            "prof": "PIONEER",
+            "subProf": "bearer",
+            "name": "极境",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4203_kichi": {
+            "id": "char_4203_kichi",
+            "prof": "SNIPER",
+            "subProf": "reaperrange",
+            "name": "吉星",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1013_chen2": {
+            "id": "char_1013_chen2",
+            "prof": "SNIPER",
+            "subProf": "reaperrange",
+            "name": "假日威龙陈",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_349_chiave": {
+            "id": "char_349_chiave",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "贾维",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_187_ccheal": {
+            "id": "char_187_ccheal",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "嘉维尔",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4116_blkkgt": {
+            "id": "char_4116_blkkgt",
+            "prof": "WARRIOR",
+            "subProf": "sword",
+            "name": "锏",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4036_forcer": {
+            "id": "char_4036_forcer",
+            "prof": "SPECIAL",
+            "subProf": "pusher",
+            "name": "见行者",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_260_durnar": {
+            "id": "char_260_durnar",
+            "prof": "TANK",
+            "subProf": "artsprotector",
+            "name": "坚雷",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1028_texas2": {
+            "id": "char_1028_texas2",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "缄默德克萨斯",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_199_yak": {
+            "id": "char_199_yak",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "角峰",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_272_strong": {
+            "id": "char_272_strong",
+            "prof": "SPECIAL",
+            "subProf": "merchant",
+            "name": "孑",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_347_jaksel": {
+            "id": "char_347_jaksel",
+            "prof": "WARRIOR",
+            "subProf": "fighter",
+            "name": "杰克",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_235_jesica": {
+            "id": "char_235_jesica",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "杰西卡",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4078_bdhkgt": {
+            "id": "char_4078_bdhkgt",
+            "prof": "SNIPER",
+            "subProf": "aoesniper",
+            "name": "截云",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_306_leizi": {
+            "id": "char_306_leizi",
+            "prof": "CASTER",
+            "subProf": "chain",
+            "name": "惊蛰",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4019_ncdeer": {
+            "id": "char_4019_ncdeer",
+            "prof": "SUPPORT",
+            "subProf": "blessing",
+            "name": "九色鹿",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1042_phatm2": {
+            "id": "char_1042_phatm2",
+            "prof": "SUPPORT",
+            "subProf": "ritualist",
+            "name": "酒神",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_328_cammou": {
+            "id": "char_328_cammou",
+            "prof": "CASTER",
+            "subProf": "funnel",
+            "name": "卡达",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_214_kafka": {
+            "id": "char_214_kafka",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "卡夫卡",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_426_billro": {
+            "id": "char_426_billro",
+            "prof": "CASTER",
+            "subProf": "phalanx",
+            "name": "卡涅利安",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_209_ardign": {
+            "id": "char_209_ardign",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "卡缇",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_003_kalts": {
+            "id": "char_003_kalts",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "凯尔希",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_4162_cathy": {
+            "id": "char_4162_cathy",
+            "prof": "SUPPORT",
+            "subProf": "craftsman",
+            "name": "凯瑟琳",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_301_cutter": {
+            "id": "char_301_cutter",
+            "prof": "WARRIOR",
+            "subProf": "sword",
+            "name": "刻刀",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_2013_cerber": {
+            "id": "char_2013_cerber",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "刻俄柏",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_124_kroos": {
+            "id": "char_124_kroos",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "克洛丝",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_201_moeshd": {
+            "id": "char_201_moeshd",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "可颂",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_101_sora": {
+            "id": "char_101_sora",
+            "prof": "SUPPORT",
+            "subProf": "bard",
+            "name": "空",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_282_catap": {
+            "id": "char_282_catap",
+            "prof": "SNIPER",
+            "subProf": "aoesniper",
+            "name": "空爆",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4015_spuria": {
+            "id": "char_4015_spuria",
+            "prof": "SPECIAL",
+            "subProf": "geek",
+            "name": "空构",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_332_archet": {
+            "id": "char_332_archet",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "空弦",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_405_absin": {
+            "id": "char_405_absin",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "苦艾",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_250_phatom": {
+            "id": "char_250_phatom",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "傀影",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_140_whitew": {
+            "id": "char_140_whitew",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "拉普兰德",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_373_lionhd": {
+            "id": "char_373_lionhd",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "莱恩哈特",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4142_laios": {
+            "id": "char_4142_laios",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "莱欧斯",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4117_ray": {
+            "id": "char_4117_ray",
+            "prof": "SNIPER",
+            "subProf": "hunter",
+            "name": "莱伊",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_129_bluep": {
+            "id": "char_129_bluep",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "蓝毒",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_285_medic2": {
+            "id": "char_285_medic2",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "Lancet-2",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_322_lmlee": {
+            "id": "char_322_lmlee",
+            "prof": "SPECIAL",
+            "subProf": "merchant",
+            "name": "老鲤",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4193_lemuen": {
+            "id": "char_4193_lemuen",
+            "prof": "SNIPER",
+            "subProf": "longrange",
+            "name": "蕾缪安",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_107_liskam": {
+            "id": "char_107_liskam",
+            "prof": "TANK",
+            "subProf": "shotprotector",
+            "name": "雷蛇",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_237_gravel": {
+            "id": "char_237_gravel",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "砾",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1036_fang2": {
+            "id": "char_1036_fang2",
+            "prof": "PIONEER",
+            "subProf": "charger",
+            "name": "历阵锐枪芬",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_137_brownb": {
+            "id": "char_137_brownb",
+            "prof": "WARRIOR",
+            "subProf": "fighter",
+            "name": "猎蜂",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_194_leto": {
+            "id": "char_194_leto",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "烈夏",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4080_lin": {
+            "id": "char_4080_lin",
+            "prof": "CASTER",
+            "subProf": "phalanx",
+            "name": "林",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_115_headbr": {
+            "id": "char_115_headbr",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "凛冬",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_148_nearl": {
+            "id": "char_148_nearl",
+            "prof": "TANK",
+            "subProf": "guardian",
+            "name": "临光",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1033_swire2": {
+            "id": "char_1033_swire2",
+            "prof": "SPECIAL",
+            "subProf": "merchant",
+            "name": "琳琅诗怀雅",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_4102_threye": {
+            "id": "char_4102_threye",
+            "prof": "SUPPORT",
+            "subProf": "ritualist",
+            "name": "凛视",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1045_svash2": {
+            "id": "char_1045_svash2",
+            "prof": "PIONEER",
+            "subProf": "counsellor",
+            "name": "凛御银灰",
+            "rarity": 6,
+            "modules": [
+                ""
+            ]
+        },
+        "char_2023_ling": {
+            "id": "char_2023_ling",
+            "prof": "SUPPORT",
+            "subProf": "summoner",
+            "name": "令",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_358_lisa": {
+            "id": "char_358_lisa",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "铃兰",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4187_graceb": {
+            "id": "char_4187_graceb",
+            "prof": "WARRIOR",
+            "subProf": "primguard",
+            "name": "聆音",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_192_falco": {
+            "id": "char_192_falco",
+            "prof": "PIONEER",
+            "subProf": "charger",
+            "name": "翎羽",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_206_gnosis": {
+            "id": "char_206_gnosis",
+            "prof": "SUPPORT",
+            "subProf": "underminer",
+            "name": "灵知",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_4042_lumen": {
+            "id": "char_4042_lumen",
+            "prof": "MEDIC",
+            "subProf": "healer",
+            "name": "流明",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_126_shotst": {
+            "id": "char_126_shotst",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "流星",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_486_takila": {
+            "id": "char_486_takila",
+            "prof": "WARRIOR",
+            "subProf": "librator",
+            "name": "龙舌兰",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4130_luton": {
+            "id": "char_4130_luton",
+            "prof": "TANK",
+            "subProf": "unyield",
+            "name": "露托",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4196_reckpr": {
+            "id": "char_4196_reckpr",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "录武官",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_433_windft": {
+            "id": "char_433_windft",
+            "prof": "SUPPORT",
+            "subProf": "craftsman",
+            "name": "掠风",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_484_robrta": {
+            "id": "char_484_robrta",
+            "prof": "SUPPORT",
+            "subProf": "craftsman",
+            "name": "罗比菈塔",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_451_robin": {
+            "id": "char_451_robin",
+            "prof": "SPECIAL",
+            "subProf": "traper",
+            "name": "罗宾",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4133_logos": {
+            "id": "char_4133_logos",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "逻各斯",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y",
+                "D"
+            ]
+        },
+        "char_4040_rockr": {
+            "id": "char_4040_rockr",
+            "prof": "CASTER",
+            "subProf": "funnel",
+            "name": "洛洛",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4067_lolxh": {
+            "id": "char_4067_lolxh",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "罗小黑",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4064_mlynar": {
+            "id": "char_4064_mlynar",
+            "prof": "WARRIOR",
+            "subProf": "librator",
+            "name": "玛恩纳",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4141_marcil": {
+            "id": "char_4141_marcil",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "玛露西尔",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_248_mgllan": {
+            "id": "char_248_mgllan",
+            "prof": "SUPPORT",
+            "subProf": "summoner",
+            "name": "麦哲伦",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_610_acfend": {
+            "id": "char_610_acfend",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "Mechanist",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_133_mm": {
+            "id": "char_133_mm",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "梅",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_242_otter": {
+            "id": "char_242_otter",
+            "prof": "SUPPORT",
+            "subProf": "summoner",
+            "name": "梅尔",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4006_melnte": {
+            "id": "char_4006_melnte",
+            "prof": "SNIPER",
+            "subProf": "closerange",
+            "name": "玫拉",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_208_melan": {
+            "id": "char_208_melan",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "玫兰莎",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_391_rosmon": {
+            "id": "char_391_rosmon",
+            "prof": "SNIPER",
+            "subProf": "bombarder",
+            "name": "迷迭香",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "A"
+            ]
+        },
+        "char_122_beagle": {
+            "id": "char_122_beagle",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "米格鲁",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_344_beewax": {
+            "id": "char_344_beewax",
+            "prof": "CASTER",
+            "subProf": "phalanx",
+            "name": "蜜蜡",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_449_glider": {
+            "id": "char_449_glider",
+            "prof": "MEDIC",
+            "subProf": "wandermedic",
+            "name": "蜜莓",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4017_puzzle": {
+            "id": "char_4017_puzzle",
+            "prof": "PIONEER",
+            "subProf": "agent",
+            "name": "谜图",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4071_peper": {
+            "id": "char_4071_peper",
+            "prof": "MEDIC",
+            "subProf": "chainhealer",
+            "name": "明椒",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_615_acspec": {
+            "id": "char_615_acspec",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "Misery",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4198_christ": {
+            "id": "char_4198_christ",
+            "prof": "CASTER",
+            "subProf": "primcaster",
+            "name": "Miss.Christine",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_154_morgan": {
+            "id": "char_154_morgan",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "摩根",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_213_mostma": {
+            "id": "char_213_mostma",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "莫斯提马",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4134_cetsyr": {
+            "id": "char_4134_cetsyr",
+            "prof": "SUPPORT",
+            "subProf": "bard",
+            "name": "魔王",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_117_myrrh": {
+            "id": "char_117_myrrh",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "末药",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4179_monstr": {
+            "id": "char_4179_monstr",
+            "prof": "MEDIC",
+            "subProf": "chainhealer",
+            "name": "Mon3tr",
+            "rarity": 6,
+            "modules": [
+                ""
+            ]
+        },
+        "char_249_mlyss": {
+            "id": "char_249_mlyss",
+            "prof": "PIONEER",
+            "subProf": "tactician",
+            "name": "缪尔赛思",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4025_aprot2": {
+            "id": "char_4025_aprot2",
+            "prof": "TANK",
+            "subProf": "artsprotector",
+            "name": "暮落",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4171_wulfen": {
+            "id": "char_4171_wulfen",
+            "prof": "SPECIAL",
+            "subProf": "traper",
+            "name": "钼铅",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_185_frncat": {
+            "id": "char_185_frncat",
+            "prof": "WARRIOR",
+            "subProf": "artsfghter",
+            "name": "慕斯",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4138_narant": {
+            "id": "char_4138_narant",
+            "prof": "SNIPER",
+            "subProf": "loopshooter",
+            "name": "娜仁图亚",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_103_angel": {
+            "id": "char_103_angel",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "能天使",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4146_nymph": {
+            "id": "char_4146_nymph",
+            "prof": "CASTER",
+            "subProf": "primcaster",
+            "name": "妮芙",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_311_mudrok": {
+            "id": "char_311_mudrok",
+            "prof": "TANK",
+            "subProf": "unyield",
+            "name": "泥岩",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_2014_nian": {
+            "id": "char_2014_nian",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "年",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4173_nowell": {
+            "id": "char_4173_nowell",
+            "prof": "MEDIC",
+            "subProf": "healer",
+            "name": "诺威尔",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_485_pallas": {
+            "id": "char_485_pallas",
+            "prof": "WARRIOR",
+            "subProf": "instructor",
+            "name": "帕拉斯",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_381_bubble": {
+            "id": "char_381_bubble",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "泡泡",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_281_popka": {
+            "id": "char_281_popka",
+            "prof": "WARRIOR",
+            "subProf": "centurion",
+            "name": "泡普卡",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4058_pepe": {
+            "id": "char_4058_pepe",
+            "prof": "WARRIOR",
+            "subProf": "hammer",
+            "name": "佩佩",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "A"
+            ]
+        },
+        "char_4136_phonor": {
+            "id": "char_4136_phonor",
+            "prof": "SUPPORT",
+            "subProf": "ritualist",
+            "name": "PhonoR-0",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_509_acast": {
+            "id": "char_509_acast",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "Pith",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_612_accast": {
+            "id": "char_612_accast",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "Pith",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_145_prove": {
+            "id": "char_145_prove",
+            "prof": "SNIPER",
+            "subProf": "closerange",
+            "name": "普罗旺斯",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4144_chilc": {
+            "id": "char_4144_chilc",
+            "prof": "PIONEER",
+            "subProf": "agent",
+            "name": "齐尔查克",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_478_kirara": {
+            "id": "char_478_kirara",
+            "prof": "SPECIAL",
+            "subProf": "stalker",
+            "name": "绮良",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1029_yato2": {
+            "id": "char_1029_yato2",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "麒麟R夜刀",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4062_totter": {
+            "id": "char_4062_totter",
+            "prof": "SNIPER",
+            "subProf": "siegesniper",
+            "name": "铅踝",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_479_sleach": {
+            "id": "char_479_sleach",
+            "prof": "PIONEER",
+            "subProf": "bearer",
+            "name": "琴柳",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_149_scave": {
+            "id": "char_149_scave",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "清道夫",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_385_finlpp": {
+            "id": "char_385_finlpp",
+            "prof": "MEDIC",
+            "subProf": "healer",
+            "name": "清流",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_488_buildr": {
+            "id": "char_488_buildr",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "青枳",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_614_acsupo": {
+            "id": "char_614_acsupo",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "Raidian",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4026_vulpis": {
+            "id": "char_4026_vulpis",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "忍冬",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_363_toddi": {
+            "id": "char_363_toddi",
+            "prof": "SNIPER",
+            "subProf": "siegesniper",
+            "name": "熔泉",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4183_mortis": {
+            "id": "char_4183_mortis",
+            "prof": "SPECIAL",
+            "subProf": "dollkeeper",
+            "name": "若叶睦",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_202_demkni": {
+            "id": "char_202_demkni",
+            "prof": "TANK",
+            "subProf": "guardian",
+            "name": "塞雷娅",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4184_dolris": {
+            "id": "char_4184_dolris",
+            "prof": "SUPPORT",
+            "subProf": "bard",
+            "name": "三角初华",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_473_mberry": {
+            "id": "char_473_mberry",
+            "prof": "MEDIC",
+            "subProf": "wandermedic",
+            "name": "桑葚",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_416_zumama": {
+            "id": "char_416_zumama",
+            "prof": "TANK",
+            "subProf": "duelist",
+            "name": "森蚺",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_4143_sensi": {
+            "id": "char_4143_sensi",
+            "prof": "TANK",
+            "subProf": "guardian",
+            "name": "森西",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_264_f12yin": {
+            "id": "char_264_f12yin",
+            "prof": "WARRIOR",
+            "subProf": "fighter",
+            "name": "山",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_457_blitz": {
+            "id": "char_457_blitz",
+            "prof": "TANK",
+            "subProf": "shotprotector",
+            "name": "闪击",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_147_shining": {
+            "id": "char_147_shining",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "闪灵",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_508_aguard": {
+            "id": "char_508_aguard",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "Sharp",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_609_acguad": {
+            "id": "char_609_acguad",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "Sharp",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_379_sesa": {
+            "id": "char_379_sesa",
+            "prof": "SNIPER",
+            "subProf": "aoesniper",
+            "name": "慑砂",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_150_snakek": {
+            "id": "char_150_snakek",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "蛇屠箱",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_469_indigo": {
+            "id": "char_469_indigo",
+            "prof": "CASTER",
+            "subProf": "mystic",
+            "name": "深靛",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_110_deepcl": {
+            "id": "char_110_deepcl",
+            "prof": "SUPPORT",
+            "subProf": "summoner",
+            "name": "深海色",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4109_baslin": {
+            "id": "char_4109_baslin",
+            "prof": "TANK",
+            "subProf": "guardian",
+            "name": "深律",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4137_udflow": {
+            "id": "char_4137_udflow",
+            "prof": "TANK",
+            "subProf": "shotprotector",
+            "name": "深巡",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1046_sbell2": {
+            "id": "char_1046_sbell2",
+            "prof": "CASTER",
+            "subProf": "phalanx",
+            "name": "圣聆初雪",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_1032_excu2": {
+            "id": "char_1032_excu2",
+            "prof": "WARRIOR",
+            "subProf": "reaper",
+            "name": "圣约送葬人",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_210_stward": {
+            "id": "char_210_stward",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "史都华德",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_350_surtr": {
+            "id": "char_350_surtr",
+            "prof": "WARRIOR",
+            "subProf": "artsfghter",
+            "name": "史尔特尔",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_308_swire": {
+            "id": "char_308_swire",
+            "prof": "WARRIOR",
+            "subProf": "instructor",
+            "name": "诗怀雅",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1502_crosly": {
+            "id": "char_1502_crosly",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "弑君者",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_378_asbest": {
+            "id": "char_378_asbest",
+            "prof": "TANK",
+            "subProf": "artsprotector",
+            "name": "石棉",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_489_serum": {
+            "id": "char_489_serum",
+            "prof": "CASTER",
+            "subProf": "blastcaster",
+            "name": "蚀清",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_241_panda": {
+            "id": "char_241_panda",
+            "prof": "SPECIAL",
+            "subProf": "pusher",
+            "name": "食铁兽",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_215_mantic": {
+            "id": "char_215_mantic",
+            "prof": "SPECIAL",
+            "subProf": "stalker",
+            "name": "狮蝎",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4063_quartz": {
+            "id": "char_4063_quartz",
+            "prof": "WARRIOR",
+            "subProf": "crusher",
+            "name": "石英",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_158_milu": {
+            "id": "char_158_milu",
+            "prof": "SNIPER",
+            "subProf": "longrange",
+            "name": "守林人",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_2025_shu": {
+            "id": "char_2025_shu",
+            "prof": "TANK",
+            "subProf": "guardian",
+            "name": "黍",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_458_rfrost": {
+            "id": "char_458_rfrost",
+            "prof": "SPECIAL",
+            "subProf": "traper",
+            "name": "霜华",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_193_frostl": {
+            "id": "char_193_frostl",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "霜叶",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4124_iana": {
+            "id": "char_4124_iana",
+            "prof": "SPECIAL",
+            "subProf": "dollkeeper",
+            "name": "双月",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4177_brigid": {
+            "id": "char_4177_brigid",
+            "prof": "SNIPER",
+            "subProf": "loopshooter",
+            "name": "水灯心",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_437_mizuki": {
+            "id": "char_437_mizuki",
+            "prof": "SPECIAL",
+            "subProf": "stalker",
+            "name": "水月",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_263_skadi": {
+            "id": "char_263_skadi",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "斯卡蒂",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_450_necras": {
+            "id": "char_450_necras",
+            "prof": "CASTER",
+            "subProf": "soulcaster",
+            "name": "死芒",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1043_leizi2": {
+            "id": "char_1043_leizi2",
+            "prof": "WARRIOR",
+            "subProf": "librator",
+            "name": "司霆惊蛰",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_427_vigil": {
+            "id": "char_427_vigil",
+            "prof": "PIONEER",
+            "subProf": "tactician",
+            "name": "伺夜",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_365_aprl": {
+            "id": "char_365_aprl",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "四月",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_440_pinecn": {
+            "id": "char_440_pinecn",
+            "prof": "SNIPER",
+            "subProf": "reaperrange",
+            "name": "松果",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4199_makiri": {
+            "id": "char_4199_makiri",
+            "prof": "PIONEER",
+            "subProf": "counsellor",
+            "name": "松桐",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_279_excu": {
+            "id": "char_279_excu",
+            "prof": "SNIPER",
+            "subProf": "reaperrange",
+            "name": "送葬人",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_511_asnipe": {
+            "id": "char_511_asnipe",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "Stormeye",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_611_acnipe": {
+            "id": "char_611_acnipe",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "Stormeye",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1047_halo2": {
+            "id": "char_1047_halo2",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "溯光星源",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_298_susuro": {
+            "id": "char_298_susuro",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "苏苏洛",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_245_cello": {
+            "id": "char_245_cello",
+            "prof": "SUPPORT",
+            "subProf": "ritualist",
+            "name": "塑心",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_366_acdrop": {
+            "id": "char_366_acdrop",
+            "prof": "SNIPER",
+            "subProf": "closerange",
+            "name": "酸糖",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_415_flint": {
+            "id": "char_415_flint",
+            "prof": "WARRIOR",
+            "subProf": "fighter",
+            "name": "燧石",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4139_papyrs": {
+            "id": "char_4139_papyrs",
+            "prof": "MEDIC",
+            "subProf": "chainhealer",
+            "name": "莎草",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4077_palico": {
+            "id": "char_4077_palico",
+            "prof": "SNIPER",
+            "subProf": "bombarder",
+            "name": "泰拉大陆调查团",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_151_myrtle": {
+            "id": "char_151_myrtle",
+            "prof": "PIONEER",
+            "subProf": "bearer",
+            "name": "桃金娘",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4164_tecno": {
+            "id": "char_4164_tecno",
+            "prof": "CASTER",
+            "subProf": "soulcaster",
+            "name": "特克诺",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_411_tomimi": {
+            "id": "char_411_tomimi",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "特米米",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_376_therex": {
+            "id": "char_376_therex",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "THRM-EX",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_2012_typhon": {
+            "id": "char_2012_typhon",
+            "prof": "SNIPER",
+            "subProf": "siegesniper",
+            "name": "提丰",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_166_skfire": {
+            "id": "char_166_skfire",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "天火",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_181_flower": {
+            "id": "char_181_flower",
+            "prof": "MEDIC",
+            "subProf": "ringhealer",
+            "name": "调香师",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_510_amedic": {
+            "id": "char_510_amedic",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "Touch",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_613_acmedc": {
+            "id": "char_613_acmedc",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "Touch",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_402_tuye": {
+            "id": "char_402_tuye",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "图耶",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_112_siege": {
+            "id": "char_112_siege",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "推进之王",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4091_ulika": {
+            "id": "char_4091_ulika",
+            "prof": "SUPPORT",
+            "subProf": "bard",
+            "name": "U-Official",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_113_cqbw": {
+            "id": "char_113_cqbw",
+            "prof": "SNIPER",
+            "subProf": "aoesniper",
+            "name": "W",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4119_wanqin": {
+            "id": "char_4119_wanqin",
+            "prof": "PIONEER",
+            "subProf": "bearer",
+            "name": "万顷",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_261_sddrag": {
+            "id": "char_261_sddrag",
+            "prof": "PIONEER",
+            "subProf": "charger",
+            "name": "苇草",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4107_vrdant": {
+            "id": "char_4107_vrdant",
+            "prof": "SPECIAL",
+            "subProf": "dollkeeper",
+            "name": "维荻",
+            "rarity": 4,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_275_breeze": {
+            "id": "char_275_breeze",
+            "prof": "MEDIC",
+            "subProf": "ringhealer",
+            "name": "微风",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1019_siege2": {
+            "id": "char_1019_siege2",
+            "prof": "WARRIOR",
+            "subProf": "artsfghter",
+            "name": "维娜·维多利亚",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_1035_wisdel": {
+            "id": "char_1035_wisdel",
+            "prof": "SNIPER",
+            "subProf": "bombarder",
+            "name": "维什戴尔",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4098_vvana": {
+            "id": "char_4098_vvana",
+            "prof": "WARRIOR",
+            "subProf": "artsfghter",
+            "name": "薇薇安娜",
+            "rarity": 6,
+            "modules": [
+                "",
+                "D"
+            ]
+        },
+        "char_400_weedy": {
+            "id": "char_400_weedy",
+            "prof": "SPECIAL",
+            "subProf": "pusher",
+            "name": "温蒂",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4081_warmy": {
+            "id": "char_4081_warmy",
+            "prof": "CASTER",
+            "subProf": "primcaster",
+            "name": "温米",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4145_ulpia": {
+            "id": "char_4145_ulpia",
+            "prof": "WARRIOR",
+            "subProf": "crusher",
+            "name": "乌尔比安",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_254_vodfox": {
+            "id": "char_254_vodfox",
+            "prof": "SUPPORT",
+            "subProf": "underminer",
+            "name": "巫恋",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_455_nothin": {
+            "id": "char_455_nothin",
+            "prof": "SPECIAL",
+            "subProf": "merchant",
+            "name": "乌有",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_2015_dusk": {
+            "id": "char_2015_dusk",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "夕",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y",
+                "A"
+            ]
+        },
+        "char_348_ceylon": {
+            "id": "char_348_ceylon",
+            "prof": "MEDIC",
+            "subProf": "healer",
+            "name": "锡兰",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4151_tinman": {
+            "id": "char_4151_tinman",
+            "prof": "SPECIAL",
+            "subProf": "alchemist",
+            "name": "锡人",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_336_folivo": {
+            "id": "char_336_folivo",
+            "prof": "SUPPORT",
+            "subProf": "summoner",
+            "name": "稀音",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_423_blemsh": {
+            "id": "char_423_blemsh",
+            "prof": "TANK",
+            "subProf": "guardian",
+            "name": "瑕光",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_492_quercu": {
+            "id": "char_492_quercu",
+            "prof": "SUPPORT",
+            "subProf": "blessing",
+            "name": "夏栎",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_240_wyvern": {
+            "id": "char_240_wyvern",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "香草",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_497_ctable": {
+            "id": "char_497_ctable",
+            "prof": "PIONEER",
+            "subProf": "agent",
+            "name": "晓歌",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4122_grabds": {
+            "id": "char_4122_grabds",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "小满",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4051_akkord": {
+            "id": "char_4051_akkord",
+            "prof": "CASTER",
+            "subProf": "blastcaster",
+            "name": "协律",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4194_rmixer": {
+            "id": "char_4194_rmixer",
+            "prof": "TANK",
+            "subProf": "shotprotector",
+            "name": "信仰搅拌机",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1041_angel2": {
+            "id": "char_1041_angel2",
+            "prof": "SPECIAL",
+            "subProf": "geek",
+            "name": "新约能天使",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_274_astesi": {
+            "id": "char_274_astesi",
+            "prof": "WARRIOR",
+            "subProf": "artsfghter",
+            "name": "星极",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4105_almond": {
+            "id": "char_4105_almond",
+            "prof": "SPECIAL",
+            "subProf": "hookmaster",
+            "name": "杏仁",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_136_hsguma": {
+            "id": "char_136_hsguma",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "星熊",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_135_halo": {
+            "id": "char_135_halo",
+            "prof": "CASTER",
+            "subProf": "chain",
+            "name": "星源",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_491_humus": {
+            "id": "char_491_humus",
+            "prof": "WARRIOR",
+            "subProf": "reaper",
+            "name": "休谟斯",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_436_whispr": {
+            "id": "char_436_whispr",
+            "prof": "MEDIC",
+            "subProf": "healer",
+            "name": "絮雨",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4211_snhunt": {
+            "id": "char_4211_snhunt",
+            "prof": "SNIPER",
+            "subProf": "hunter",
+            "name": "雪猎",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_466_qanik": {
+            "id": "char_466_qanik",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "雪绒",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_383_snsant": {
+            "id": "char_383_snsant",
+            "prof": "SPECIAL",
+            "subProf": "hookmaster",
+            "name": "雪雉",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4052_surfer": {
+            "id": "char_4052_surfer",
+            "prof": "PIONEER",
+            "subProf": "agent",
+            "name": "寻澜",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_503_rang": {
+            "id": "char_503_rang",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "巡林者",
+            "rarity": 2,
+            "modules": [
+                ""
+            ]
+        },
+        "char_198_blackd": {
+            "id": "char_198_blackd",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "讯使",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_173_slchan": {
+            "id": "char_173_slchan",
+            "prof": "SPECIAL",
+            "subProf": "hookmaster",
+            "name": "崖心",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_345_folnic": {
+            "id": "char_345_folnic",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "亚叶",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_337_utage": {
+            "id": "char_337_utage",
+            "prof": "WARRIOR",
+            "subProf": "musha",
+            "name": "宴",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_131_flameb": {
+            "id": "char_131_flameb",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "炎客",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_121_lava": {
+            "id": "char_121_lava",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "炎熔",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_420_flamtl": {
+            "id": "char_420_flamtl",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "焰尾",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_1020_reed2": {
+            "id": "char_1020_reed2",
+            "prof": "MEDIC",
+            "subProf": "incantationmedic",
+            "name": "焰影苇草",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1011_lava2": {
+            "id": "char_1011_lava2",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "炎狱炎熔",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_464_cement": {
+            "id": "char_464_cement",
+            "prof": "TANK",
+            "subProf": "duelist",
+            "name": "洋灰",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4202_haruka": {
+            "id": "char_4202_haruka",
+            "prof": "SUPPORT",
+            "subProf": "blessing",
+            "name": "遥",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_1014_nearl2": {
+            "id": "char_1014_nearl2",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "耀骑士临光",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_476_blkngt": {
+            "id": "char_476_blkngt",
+            "prof": "PIONEER",
+            "subProf": "tactician",
+            "name": "夜半",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_502_nblade": {
+            "id": "char_502_nblade",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "夜刀",
+            "rarity": 2,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4013_kjera": {
+            "id": "char_4013_kjera",
+            "prof": "CASTER",
+            "subProf": "funnel",
+            "name": "耶拉",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_164_nightm": {
+            "id": "char_164_nightm",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "夜魔",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_141_nights": {
+            "id": "char_141_nights",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "夜烟",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_179_cgbird": {
+            "id": "char_179_cgbird",
+            "prof": "MEDIC",
+            "subProf": "ringhealer",
+            "name": "夜莺",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_496_wildmn": {
+            "id": "char_496_wildmn",
+            "prof": "PIONEER",
+            "subProf": "charger",
+            "name": "野鬃",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_134_ifrit": {
+            "id": "char_134_ifrit",
+            "prof": "CASTER",
+            "subProf": "blastcaster",
+            "name": "伊芙利特",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "D"
+            ]
+        },
+        "char_472_pasngr": {
+            "id": "char_472_pasngr",
+            "prof": "CASTER",
+            "subProf": "chain",
+            "name": "异客",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_4087_ines": {
+            "id": "char_4087_ines",
+            "prof": "PIONEER",
+            "subProf": "agent",
+            "name": "伊内丝",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_355_ethan": {
+            "id": "char_355_ethan",
+            "prof": "SPECIAL",
+            "subProf": "stalker",
+            "name": "伊桑",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4125_rdoc": {
+            "id": "char_4125_rdoc",
+            "prof": "WARRIOR",
+            "subProf": "instructor",
+            "name": "医生",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4010_etlchi": {
+            "id": "char_4010_etlchi",
+            "prof": "WARRIOR",
+            "subProf": "reaper",
+            "name": "隐德来希",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_172_svrash": {
+            "id": "char_172_svrash",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "银灰",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_155_tiger": {
+            "id": "char_155_tiger",
+            "prof": "WARRIOR",
+            "subProf": "fighter",
+            "name": "因陀罗",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_498_inside": {
+            "id": "char_498_inside",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "隐现",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1039_thorn2": {
+            "id": "char_1039_thorn2",
+            "prof": "SPECIAL",
+            "subProf": "alchemist",
+            "name": "引星棘刺",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_143_ghost": {
+            "id": "char_143_ghost",
+            "prof": "WARRIOR",
+            "subProf": "centurion",
+            "name": "幽灵鲨",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4185_amoris": {
+            "id": "char_4185_amoris",
+            "prof": "WARRIOR",
+            "subProf": "hammer",
+            "name": "祐天寺若麦",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_2026_yu": {
+            "id": "char_2026_yu",
+            "prof": "TANK",
+            "subProf": "primprotector",
+            "name": "余",
+            "rarity": 6,
+            "modules": [
+                ""
+            ]
+        },
+        "char_606_csuppo": {
+            "id": "char_606_csuppo",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "预备干员-辅助",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
+        },
+        "char_506_rmedic": {
+            "id": "char_506_rmedic",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "预备干员-后勤",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_601_cguard": {
+            "id": "char_601_cguard",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "预备干员-近卫",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
+        },
+        "char_504_rguard": {
+            "id": "char_504_rguard",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "预备干员-近战",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_507_rsnipe": {
+            "id": "char_507_rsnipe",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "预备干员-狙击",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_603_csnipe": {
+            "id": "char_603_csnipe",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "预备干员-狙击",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
+        },
+        "char_505_rcast": {
+            "id": "char_505_rcast",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "预备干员-术师",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_604_ccast": {
+            "id": "char_604_ccast",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "预备干员-术师",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
+        },
+        "char_607_cspec": {
+            "id": "char_607_cspec",
+            "prof": "SPECIAL",
+            "subProf": "executor",
+            "name": "预备干员-特种",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
+        },
+        "char_600_cpione": {
+            "id": "char_600_cpione",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "预备干员-先锋",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
+        },
+        "char_605_cmedic": {
+            "id": "char_605_cmedic",
+            "prof": "MEDIC",
+            "subProf": "physician",
+            "name": "预备干员-医疗",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
+        },
+        "char_514_rdfend": {
+            "id": "char_514_rdfend",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "预备干员-重装",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_602_cdfend": {
+            "id": "char_602_cdfend",
+            "prof": "TANK",
+            "subProf": "protector",
+            "name": "预备干员-重装",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
+        },
+        "char_513_apionr": {
+            "id": "char_513_apionr",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "郁金香",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_608_acpion": {
+            "id": "char_608_acpion",
+            "prof": "PIONEER",
+            "subProf": "pioneer",
+            "name": "郁金香",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_421_crow": {
+            "id": "char_421_crow",
+            "prof": "WARRIOR",
+            "subProf": "reaper",
+            "name": "羽毛笔",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_109_fmout": {
+            "id": "char_109_fmout",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "远山",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_430_fartth": {
+            "id": "char_430_fartth",
+            "prof": "SNIPER",
+            "subProf": "longrange",
+            "name": "远牙",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_343_tknogi": {
+            "id": "char_343_tknogi",
+            "prof": "SUPPORT",
+            "subProf": "blessing",
+            "name": "月禾",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_283_midn": {
+            "id": "char_283_midn",
+            "prof": "WARRIOR",
+            "subProf": "lord",
+            "name": "月见夜",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4100_caper": {
+            "id": "char_4100_caper",
+            "prof": "SNIPER",
+            "subProf": "loopshooter",
+            "name": "跃跃",
+            "rarity": 4,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4165_ctrail": {
+            "id": "char_4165_ctrail",
+            "prof": "SPECIAL",
+            "subProf": "skywalker",
+            "name": "云迹",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
+        },
+        "char_219_meteo": {
+            "id": "char_219_meteo",
+            "prof": "SNIPER",
+            "subProf": "aoesniper",
+            "name": "陨星",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_197_poca": {
+            "id": "char_197_poca",
+            "prof": "SNIPER",
+            "subProf": "siegesniper",
+            "name": "早露",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_459_tachak": {
+            "id": "char_459_tachak",
+            "prof": "WARRIOR",
+            "subProf": "sword",
+            "name": "战车",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1044_hsgma2": {
+            "id": "char_1044_hsgma2",
+            "prof": "TANK",
+            "subProf": "artsprotector",
+            "name": "斩业星熊",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_499_kaitou": {
+            "id": "char_499_kaitou",
+            "prof": "CASTER",
+            "subProf": "primcaster",
+            "name": "折光",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4207_branch": {
+            "id": "char_4207_branch",
+            "prof": "TANK",
+            "subProf": "unyield",
+            "name": "折桠",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_195_glassb": {
+            "id": "char_195_glassb",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "真理",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4204_mantra": {
+            "id": "char_4204_mantra",
+            "prof": "CASTER",
+            "subProf": "primcaster",
+            "name": "真言",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4000_jnight": {
+            "id": "char_4000_jnight",
+            "prof": "SNIPER",
+            "subProf": "fastshot",
+            "name": "正义骑士号",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4054_malist": {
+            "id": "char_4054_malist",
+            "prof": "CASTER",
+            "subProf": "funnel",
+            "name": "至简",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4011_lessng": {
+            "id": "char_4011_lessng",
+            "prof": "WARRIOR",
+            "subProf": "fearless",
+            "name": "止颂",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_2024_chyue": {
+            "id": "char_2024_chyue",
+            "prof": "WARRIOR",
+            "subProf": "fighter",
+            "name": "重岳",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_1040_blaze2": {
+            "id": "char_1040_blaze2",
+            "prof": "CASTER",
+            "subProf": "primcaster",
+            "name": "烛煌",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_333_sidero": {
+            "id": "char_333_sidero",
+            "prof": "WARRIOR",
+            "subProf": "artsfghter",
+            "name": "铸铁",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_1024_hbisc2": {
+            "id": "char_1024_hbisc2",
+            "prof": "MEDIC",
+            "subProf": "incantationmedic",
+            "name": "濯尘芙蓉",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1012_skadi2": {
+            "id": "char_1012_skadi2",
+            "prof": "SUPPORT",
+            "subProf": "bard",
+            "name": "浊心斯卡蒂",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_278_orchid": {
+            "id": "char_278_orchid",
+            "prof": "SUPPORT",
+            "subProf": "slower",
+            "name": "梓兰",
+            "rarity": 3,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4014_lunacu": {
+            "id": "char_4014_lunacu",
+            "prof": "SNIPER",
+            "subProf": "longrange",
+            "name": "子月",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4121_zuole": {
+            "id": "char_4121_zuole",
+            "prof": "WARRIOR",
+            "subProf": "musha",
+            "name": "左乐",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
         }
     }
 }
