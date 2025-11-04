@@ -32,11 +32,7 @@ jobs:
 
     - name: Run operator update script
       id: update-script
-      run: |
-        echo "Running operator update script..."
-        node scripts/update_operators.js
-        echo "Script completed with has_changes=${{ steps.update-script.outputs.has_changes }}"
-        echo "Script completed with temp_branch=${{ steps.update-script.outputs.temp_branch }}"
+      run: node scripts/update_operators.js
 
   create-pr:
     needs: update-operators
