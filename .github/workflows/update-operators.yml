@@ -6,51 +6,60 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch: # 允许手动触发
 
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  update-operators:
+  update:
+    timeout-minutes: 20
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        # 获取完整的git历史以便分支操作
-        fetch-depth: 0
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: Run operator update script
-      run: node scripts/update_operators.js
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Check for changes
-      id: verify-changed-files
-      run: |
-        if [ -n "$(git status --porcelain)" ]; then
-          echo "changed=true" >> $GITHUB_OUTPUT
-        else
-          echo "changed=false" >> $GITHUB_OUTPUT
-        fi
+      - name: Run operator update script
+        id: update-script
+        run: node scripts/update_operators.js
 
-    - name: Create Pull Request
-      if: steps.verify-changed-files.outputs.changed == 'true'
-      uses: peter-evans/create-pull-request@v5
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: "chore: Update character info from remote source"
-        title: "chore: Update Character Info"
-        body: |
-          Automated update of character information from remote source.
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: Update character info from remote source [skip ci]'
+          title: 'chore: Update Character Info [skip ci]'
+          body: |
+            Automated update of character information from remote source.
 
-          This PR contains updates to the character database based on the latest data from the remote operators JSON.
+            This PR contains updates to the character database based on the latest data from the remote operators JSON.
 
-          ## Changes
-          - Added new characters from remote source
-          - Updated character information format
-        branch: update
-        base: main
-        delete-branch: true
+            ## Changes
+            - Added new characters from remote source
+            - Updated character information format
+          branch: scripts/update-operators
+          base: main
+          delete-branch: true
+          labels: |
+            automated
+            operators-update
+
+      - name: Print Pull Request URL
+        if: steps.cpr.outputs.pull-request-url
+        run: echo "Created Pull Request at ${{ steps.cpr.outputs.pull-request-url }}"
