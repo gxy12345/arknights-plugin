@@ -44,22 +44,41 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        ref: ${{ needs.update-operators.outputs.temp_branch }}
+
+    - name: Configure Git
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v7
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: "chore: Update character info from remote source"
-        title: "chore: Update Character Info"
-        body: |
-          Automated update of character information from remote source.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: ${{ needs.update-operators.outputs.temp_branch }}
+      run: |
+        echo "Creating PR from branch: $BRANCH"
 
-          This PR contains updates to the character database based on the latest data from the remote operators JSON.
+        # 检查分支是否存在
+        if git ls-remote --heads origin "$BRANCH" | grep -q "$BRANCH"; then
+          echo "Branch $BRANCH exists, creating PR..."
 
-          ## Changes
-          - Added new characters from remote source
-          - Updated character information format
-        branch: ${{ needs.update-operators.outputs.temp_branch }}
-        base: dev
-        delete-branch: true
+          # 使用GitHub CLI创建PR
+          if command -v gh &> /dev/null; then
+            gh pr create \
+              --title "chore: Update Character Info" \
+              --body "Automated update of character information from remote source.
+
+This PR contains updates to the character database based on the latest data from the remote operators JSON.
+
+## Changes
+- Added new characters from remote source
+- Updated character information format" \
+              --base dev \
+              --head "$BRANCH" \
+              --label "automated"
+          else
+            echo "GitHub CLI not available, skipping PR creation"
+          fi
+        else
+          echo "Branch $BRANCH does not exist on remote"
+          exit 1
+        fi
