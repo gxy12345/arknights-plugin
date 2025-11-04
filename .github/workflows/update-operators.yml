@@ -1,0 +1,60 @@
+name: Update Operators
+
+on:
+  schedule:
+    # 每天早上8点运行 (UTC时间)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  update-operators:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # 获取完整的git历史以便分支操作
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run operator update script
+      run: node scripts/update_operators.js
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Check for changes
+      id: verify-changed-files
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Create Pull Request
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "chore: Update character info from remote source"
+        title: "chore: Update Character Info"
+        body: |
+          Automated update of character information from remote source.
+
+          This PR contains updates to the character database based on the latest data from the remote operators JSON.
+
+          ## Changes
+          - Added new characters from remote source
+          - Updated character information format
+        branch: update
+        base: main
+        delete-branch: true

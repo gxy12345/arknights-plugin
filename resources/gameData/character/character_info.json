@@ -1,0 +1,38 @@
+{
+    "character_info": {
+        "char_002_amiya": {
+            "id": "char_002_amiya",
+            "prof": "CASTER",
+            "subProf": "corecaster",
+            "name": "阿米娅",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X",
+                "Y"
+            ]
+        },
+        "char_1001_amiya2": {
+            "id": "char_1001_amiya2",
+            "prof": "WARRIOR",
+            "subProf": "artsfghter",
+            "name": "阿米娅（近卫）",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1037_amiya3": {
+            "id": "char_1037_amiya3",
+            "prof": "MEDIC",
+            "subProf": "incantationmedic",
+            "name": "阿米娅（医疗）",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        }
+    }
+}
