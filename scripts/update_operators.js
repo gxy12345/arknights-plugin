@@ -92,7 +92,7 @@ async function saveCharacterInfo(data) {
     console.log(`Total characters in file: ${characterCount}`);
 }
 
-function runGitCommands(hasChanges, targetBranch) {
+async function runGitCommands(hasChanges, targetBranch) {
     if (!hasChanges) {
         console.log('No changes detected, skipping git operations');
         return false;
@@ -167,8 +167,16 @@ function runGitCommands(hasChanges, targetBranch) {
 
         console.log(`Successfully pushed changes to temporary branch: ${tempBranch}`);
 
-        // 输出分支名供workflow使用
+        // 输出分支名供workflow使用 (使用新的GITHUB_OUTPUT文件)
+        const fs = await import('fs');
+        const outputPath = process.env.GITHUB_OUTPUT;
+        if (outputPath) {
+            fs.appendFileSync(outputPath, `temp_branch=${tempBranch}\n`);
+            fs.appendFileSync(outputPath, `has_changes=true\n`);
+        }
+        // 为了兼容性，同时输出旧格式
         console.log(`::set-output name=temp_branch::${tempBranch}`);
+        console.log(`::set-output name=has_changes::true`);
 
         // 再次检查远程分支差异
         try {
@@ -208,25 +216,47 @@ async function main() {
             await saveCharacterInfo(localData);
 
             // 运行git命令
-            const gitResult = runGitCommands(hasChanges, 'dev');
+            const gitResult = await runGitCommands(hasChanges, 'dev');
 
             if (gitResult.success) {
                 console.log(`Changes committed and pushed to branch: ${gitResult.tempBranch}`);
-                // 输出环境变量供GitHub Actions使用
+                // 输出环境变量供GitHub Actions使用 (使用新的GITHUB_OUTPUT文件)
+                const fs = await import('fs');
+                const outputPath = process.env.GITHUB_OUTPUT;
+                if (outputPath) {
+                    fs.appendFileSync(outputPath, `has_changes=true\n`);
+                    fs.appendFileSync(outputPath, `temp_branch=${gitResult.tempBranch}\n`);
+                }
+                // 为了兼容性，同时输出旧格式
                 console.log('::set-output name=has_changes::true');
                 console.log(`::set-output name=temp_branch::${gitResult.tempBranch}`);
             } else {
                 console.log('Git operations failed');
+                const fs = await import('fs');
+                const outputPath = process.env.GITHUB_OUTPUT;
+                if (outputPath) {
+                    fs.appendFileSync(outputPath, `has_changes=false\n`);
+                }
                 console.log('::set-output name=has_changes::false');
             }
         } else {
             console.log('No updates needed');
+            const fs = await import('fs');
+            const outputPath = process.env.GITHUB_OUTPUT;
+            if (outputPath) {
+                fs.appendFileSync(outputPath, `has_changes=false\n`);
+            }
             console.log('::set-output name=has_changes::false');
         }
 
         console.log('Update process completed successfully');
     } catch (error) {
         console.error('Update process failed:', error);
+        const fs = await import('fs');
+        const outputPath = process.env.GITHUB_OUTPUT;
+        if (outputPath) {
+            fs.appendFileSync(outputPath, `has_changes=false\n`);
+        }
         console.log('::set-output name=has_changes::false');
         process.exit(1);
     }
