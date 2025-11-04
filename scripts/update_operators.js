@@ -54,7 +54,7 @@ function transformOperator(operator) {
         subProf: operator.subProf,
         name: operator.name,
         rarity: operator.rarity,
-        modules: [""] // 默认空模块，根据实际情况可能需要调整
+        modules: operator.modules || [""] // 使用源数据中的modules字段，如果没有则默认为空数组
     };
 }
 
@@ -185,8 +185,16 @@ async function main() {
         }
 
         console.log('Update process completed successfully');
+
+        // 输出环境变量供GitHub Actions使用
+        if (hasChanges) {
+            console.log('::set-output name=has_changes::true');
+        } else {
+            console.log('::set-output name=has_changes::false');
+        }
     } catch (error) {
         console.error('Update process failed:', error);
+        console.log('::set-output name=has_changes::false');
         process.exit(1);
     }
 }
