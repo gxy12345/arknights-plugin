@@ -122,6 +122,7 @@ function runGitCommands(hasChanges, targetBranch) {
         }
 
         // 添加文件
+        console.log('Adding file to git...');
         execSync('git add resources/gameData/character/character_info.json', { stdio: 'inherit' });
 
         // 检查是否有更改
@@ -141,9 +142,17 @@ function runGitCommands(hasChanges, targetBranch) {
             return false;
         }
 
+        console.log('Proceeding with commit...');
+
         // 提交更改
         const timestamp = new Date().toISOString();
+        console.log('Committing changes...');
         execSync(`git commit -m "Update character info from remote source - ${timestamp}"`, { stdio: 'inherit' });
+        console.log('Commit completed');
+
+        // 检查当前提交
+        const currentCommit = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
+        console.log('Current commit after commit:', currentCommit);
 
         // 检查分支差异
         try {

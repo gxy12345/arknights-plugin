@@ -32,7 +32,11 @@ jobs:
 
     - name: Run operator update script
       id: update-script
-      run: node scripts/update_operators.js
+      run: |
+        echo "Running operator update script..."
+        node scripts/update_operators.js
+        echo "Script completed with has_changes=${{ steps.update-script.outputs.has_changes }}"
+        echo "Script completed with temp_branch=${{ steps.update-script.outputs.temp_branch }}"
 
   create-pr:
     needs: update-operators
@@ -44,6 +48,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        ref: ${{ needs.update-operators.outputs.temp_branch }}
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7
