@@ -60,4 +60,4 @@ jobs:
         delete-branch: true
     
     - name: Print Pull Request URL
-        run: echo "Created Pull Request at ${{ steps.cpr.outputs.pull-request-url }}"
+      run: echo "Created Pull Request at ${{ steps.cpr.outputs.pull-request-url }}"
