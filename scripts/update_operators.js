@@ -2,7 +2,6 @@
 
 import { promises as fs } from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -92,97 +91,16 @@ async function saveCharacterInfo(data) {
     console.log(`Total characters in file: ${characterCount}`);
 }
 
-async function runGitCommands(hasChanges, targetBranch) {
+// 简化的数据更新函数，只处理数据逻辑
+async function updateDataOnly(hasChanges) {
     if (!hasChanges) {
-        console.log('No changes detected, skipping git operations');
+        console.log('No changes detected');
         return false;
     }
 
-    try {
-        console.log('Running git commands...');
-
-        // 检查当前工作目录
-        const cwd = process.cwd();
-        console.log(`Current working directory: ${cwd}`);
-
-        // 检查当前分支
-        const currentBranch = execSync('git branch --show-current', { encoding: 'utf8' }).trim();
-        console.log(`Current branch: ${currentBranch}`);
-
-        // 创建或切换到固定分支
-        try {
-            execSync(`git checkout -b ${BRANCH_NAME}`, { stdio: 'inherit' });
-            console.log(`Created and switched to branch: ${BRANCH_NAME}`);
-        } catch (error) {
-            // 分支可能已存在，尝试切换并重置到dev分支状态
-            execSync(`git checkout ${BRANCH_NAME}`, { stdio: 'inherit' });
-            execSync(`git reset --hard ${targetBranch}`, { stdio: 'inherit' });
-            console.log(`Switched to existing branch: ${BRANCH_NAME} and reset to ${targetBranch}`);
-        }
-
-        // 添加文件
-        console.log('Adding file to git...');
-        execSync('git add resources/gameData/character/character_info.json', { stdio: 'inherit' });
-
-        // 检查是否有更改
-        const status = execSync('git status --porcelain', { encoding: 'utf8' });
-        console.log('Git status after add:', status);
-
-        // 检查文件差异
-        try {
-            const diff = execSync('git diff --cached --stat', { encoding: 'utf8' });
-            console.log('Git diff --cached --stat:', diff);
-        } catch (e) {
-            console.log('Git diff error:', e.message);
-        }
-
-        if (!status.trim()) {
-            console.log('No changes to commit');
-            return false;
-        }
-
-        console.log('Proceeding with commit...');
-
-        // 提交更改
-        const timestamp = new Date().toISOString();
-        console.log('Committing changes...');
-        execSync(`git commit -m "Update character info from remote source - ${timestamp}"`, { stdio: 'inherit' });
-        console.log('Commit completed');
-
-        // 检查当前提交
-        const currentCommit = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
-        console.log('Current commit after commit:', currentCommit);
-
-        // 检查分支差异
-        try {
-            const diffStat = execSync(`git diff ${targetBranch}..${BRANCH_NAME} --stat`, { encoding: 'utf8' });
-            console.log('Branch diff stat:', diffStat);
-        } catch (e) {
-            console.log('Branch diff error:', e.message);
-        }
-
-        // 推送分支
-        execSync(`git push origin ${BRANCH_NAME}`, { stdio: 'inherit' });
-
-        console.log(`Successfully pushed changes to branch: ${BRANCH_NAME}`);
-
-        // 再次检查远程分支差异
-        try {
-            const remoteDiff = execSync(`git diff ${targetBranch}..origin/${BRANCH_NAME} --stat`, { encoding: 'utf8' });
-            console.log('Remote branch diff stat:', remoteDiff);
-        } catch (e) {
-            console.log('Remote branch diff error:', e.message);
-        }
-
-        return { success: true, branch: BRANCH_NAME };
-    } catch (error) {
-        console.error('Git operations failed:', error);
-        throw error;
-    }
+    console.log('Data updated successfully, files modified in working directory');
+    return true;
 }
-
-// 使用固定的分支名，与workflow配置一致
-const BRANCH_NAME = 'scripts/update-operators';
 
 async function main() {
     try {
@@ -198,30 +116,19 @@ async function main() {
         const hasChanges = await updateCharacterInfo(remoteData, localData, existingIds);
 
         if (hasChanges) {
-            // 保存文件
+            // 保存文件到工作目录，peter-evans会处理git操作
             await saveCharacterInfo(localData);
 
-            // 运行git命令
-            const gitResult = await runGitCommands(hasChanges, 'dev');
+            // 标记有变化，peter-evans会处理后续操作
+            await updateDataOnly(hasChanges);
 
-            if (gitResult.success) {
-                console.log(`Changes committed and pushed to branch: ${gitResult.branch}`);
-                // 输出环境变量供GitHub Actions使用
-                const fs = await import('fs');
-                const outputPath = process.env.GITHUB_OUTPUT;
-                if (outputPath) {
-                    fs.appendFileSync(outputPath, `has_changes=true\n`);
-                }
-                console.log('::set-output name=has_changes::true');
-            } else {
-                console.log('Git operations failed');
-                const fs = await import('fs');
-                const outputPath = process.env.GITHUB_OUTPUT;
-                if (outputPath) {
-                    fs.appendFileSync(outputPath, `has_changes=false\n`);
-                }
-                console.log('::set-output name=has_changes::false');
+            // 输出环境变量供GitHub Actions使用
+            const fs = await import('fs');
+            const outputPath = process.env.GITHUB_OUTPUT;
+            if (outputPath) {
+                fs.appendFileSync(outputPath, `has_changes=true\n`);
             }
+            console.log('::set-output name=has_changes::true');
         } else {
             console.log('No updates needed');
             const fs = await import('fs');
