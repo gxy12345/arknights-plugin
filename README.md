@@ -121,6 +121,11 @@ pnpm install --filter=arknights-plugin
   
   </details>
 
+* <details><summary><code>/{干员名/别名}养成统计</code> <code>/{干员名/别名}养成推荐</code> 从yituliu获取养成统计</summary>
+
+  <img src="https://github.com/user-attachments/assets/d72c2a6d-0aac-400d-8b4d-6db6f4a312dd" width="50%" height="50%">
+  
+  </details>
 
 </details>
 

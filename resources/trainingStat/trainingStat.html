@@ -1,0 +1,290 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}trainingStat/trainingStat.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="training-stat-container">
+    <!-- Header -->
+    <div class="header-section">
+        <div class="title">养成统计</div>
+        <div class="data-source">
+            数据来源: ark.yituliu.cn
+            <br>
+            数据时间: {{updateTime}}
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- 左侧区域 (30%) -->
+        <div class="left-section">
+            <!-- 干员信息 Container -->
+            <div class="operator-info-container">
+                <div class="operator-avatar">
+                    <img src="https://web.hycdn.cn/arknights/game/assets/char_skin/avatar/{{data.charId}}%231.png" class="avatar-img">
+                </div>
+                <div class="operator-name">{{data.charName}}</div>
+                <div class="operator-meta">
+                    <div class="rarity-badge">
+                        <img src="{{pluResPath}}charProfile/icons/rarity_{{data.rarity-1}}.png" class="rarity-icon">
+                    </div>
+                    <div class="class-badge">
+                        <img src="{{pluResPath}}charProfile/icons/class_{{data.profession}}.png" class="class-icon">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 样本信息 Container -->
+            <div class="sample-info-container">
+                <div class="sample-title">样本信息</div>
+                <div class="sample-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">总样本数</div>
+                        <div class="stat-value">{{data.sampleSize}}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">持有数</div>
+                        <div class="stat-value">{{data.own}}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">持有率</div>
+                        <div class="stat-value">{{data.ownRate}}%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧区域 (70%) -->
+        <div class="right-section">
+            <!-- 上半部分：精英统计 + 技能统计 -->
+            <div class="top-stats-row">
+                <!-- 精英统计 Container -->
+                <div class="stats-container elite-container">
+                    <div class="container-title">精英统计</div>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-label">精英0</div>
+                            <div class="stat-value">{{data.elite['0']}}</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">精英1</div>
+                            <div class="stat-value">{{data.elite['1']}}</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">精英2</div>
+                            <div class="stat-value">{{data.elite['2']}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 技能统计 Container -->
+                <div class="stats-container skill-container">
+                    <div class="container-title">技能统计</div>
+                    <div class="stats-grid skill-grid">
+                        <!-- 技能1 -->
+                        <div class="skill-stat-box">
+                            <div class="skill-title">一技能</div>
+                            {{if data.skill.skill1 === 'N/A'}}
+                            <div class="stat-value na">N/A</div>
+                            {{else}}
+                            <div class="skill-levels">
+                                <div class="level-item">
+                                    <span class="level-label">未专精</span>
+                                    <span class="level-value">{{data.skill.skill1['0']}}</span>
+                                </div>
+                                <div class="level-item">
+                                    <span class="level-label">专精1</span>
+                                    <span class="level-value">{{data.skill.skill1['1']}}</span>
+                                </div>
+                                <div class="level-item">
+                                    <span class="level-label">专精2</span>
+                                    <span class="level-value">{{data.skill.skill1['2']}}</span>
+                                </div>
+                                <div class="level-item">
+                                    <span class="level-label">专精3</span>
+                                    <span class="level-value">{{data.skill.skill1['3']}}</span>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </div>
+
+                        <!-- 技能2 -->
+                        <div class="skill-stat-box">
+                            <div class="skill-title">二技能</div>
+                            {{if data.skill.skill2 === 'N/A'}}
+                            <div class="stat-value na">N/A</div>
+                            {{else}}
+                            <div class="skill-levels">
+                                <div class="level-item">
+                                    <span class="level-label">未专精</span>
+                                    <span class="level-value">{{data.skill.skill2['0']}}</span>
+                                </div>
+                                <div class="level-item">
+                                    <span class="level-label">专精1</span>
+                                    <span class="level-value">{{data.skill.skill2['1']}}</span>
+                                </div>
+                                <div class="level-item">
+                                    <span class="level-label">专精2</span>
+                                    <span class="level-value">{{data.skill.skill2['2']}}</span>
+                                </div>
+                                <div class="level-item">
+                                    <span class="level-label">专精3</span>
+                                    <span class="level-value">{{data.skill.skill2['3']}}</span>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </div>
+
+                        <!-- 技能3 -->
+                        <div class="skill-stat-box">
+                            <div class="skill-title">三技能</div>
+                            {{if data.skill.skill3 === 'N/A'}}
+                            <div class="stat-value na">N/A</div>
+                            {{else}}
+                            <div class="skill-levels">
+                                <div class="level-item">
+                                    <span class="level-label">未专精</span>
+                                    <span class="level-value">{{data.skill.skill3['0']}}</span>
+                                </div>
+                                <div class="level-item">
+                                    <span class="level-label">专精1</span>
+                                    <span class="level-value">{{data.skill.skill3['1']}}</span>
+                                </div>
+                                <div class="level-item">
+                                    <span class="level-label">专精2</span>
+                                    <span class="level-value">{{data.skill.skill3['2']}}</span>
+                                </div>
+                                <div class="level-item">
+                                    <span class="level-label">专精3</span>
+                                    <span class="level-value">{{data.skill.skill3['3']}}</span>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 下半部分：模组统计 -->
+            <div class="stats-container mod-container">
+                <div class="container-title">模组统计</div>
+                <div class="stats-grid mod-grid">
+                    <!-- 模组 X -->
+                    <div class="mod-stat-box">
+                        <div class="mod-title">X模组</div>
+                        {{if data.mod.modX === 'N/A'}}
+                        <div class="stat-value na">N/A</div>
+                        {{else}}
+                        <div class="mod-levels">
+                            <div class="level-item">
+                                <span class="level-label">未开启</span>
+                                <span class="level-value">{{data.mod.modX['0']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">1级</span>
+                                <span class="level-value">{{data.mod.modX['1']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">2级</span>
+                                <span class="level-value">{{data.mod.modX['2']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">3级</span>
+                                <span class="level-value">{{data.mod.modX['3']}}</span>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+
+                    <!-- 模组 Y -->
+                    <div class="mod-stat-box">
+                        <div class="mod-title">Y模组</div>
+                        {{if data.mod.modY === 'N/A'}}
+                        <div class="stat-value na">N/A</div>
+                        {{else}}
+                        <div class="mod-levels">
+                            <div class="level-item">
+                                <span class="level-label">未开启</span>
+                                <span class="level-value">{{data.mod.modY['0']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">1级</span>
+                                <span class="level-value">{{data.mod.modY['1']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">2级</span>
+                                <span class="level-value">{{data.mod.modY['2']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">3级</span>
+                                <span class="level-value">{{data.mod.modY['3']}}</span>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+
+                    <!-- 模组 D -->
+                    <div class="mod-stat-box">
+                        <div class="mod-title">D模组</div>
+                        {{if data.mod.modD === 'N/A'}}
+                        <div class="stat-value na">N/A</div>
+                        {{else}}
+                        <div class="mod-levels">
+                            <div class="level-item">
+                                <span class="level-label">未开启</span>
+                                <span class="level-value">{{data.mod.modD['0']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">1级</span>
+                                <span class="level-value">{{data.mod.modD['1']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">2级</span>
+                                <span class="level-value">{{data.mod.modD['2']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">3级</span>
+                                <span class="level-value">{{data.mod.modD['3']}}</span>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+
+                    <!-- 模组 A (特限模组) -->
+                    <div class="mod-stat-box">
+                        <div class="mod-title">特限模组</div>
+                        {{if data.mod.modA === 'N/A'}}
+                        <div class="stat-value na">N/A</div>
+                        {{else}}
+                        <div class="mod-levels">
+                            <div class="level-item">
+                                <span class="level-label">未开启</span>
+                                <span class="level-value">{{data.mod.modA['0']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">1级</span>
+                                <span class="level-value">{{data.mod.modA['1']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">2级</span>
+                                <span class="level-value">{{data.mod.modA['2']}}</span>
+                            </div>
+                            <div class="level-item">
+                                <span class="level-label">3级</span>
+                                <span class="level-value">{{data.mod.modA['3']}}</span>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-section">
+        {{@sys.createdby}}
+    </div>
+</div>
+{{/block}}
