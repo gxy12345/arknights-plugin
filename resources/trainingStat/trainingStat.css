@@ -1,0 +1,419 @@
+@font-face {
+    font-family: "HYWHHeiBold";
+    src: url("../common/font/HYWH-85W.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "HYWHHei";
+    src: url("../common/font/HYWH-65W.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NZBZ";
+    src: url("../common/font/NZBZ.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "tttgbnumber";
+    src: url("../common/font/tttgbnumber.ttf") format("truetype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "HYWHHei", sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.training-stat-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    font-size: 14px;
+}
+
+/* Header Section */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e5e9f0;
+    position: relative;
+}
+
+.header-section .title {
+    font-family: "HYWHHeiBold";
+    font-size: 32px;
+    color: #1a1f3a;
+    font-weight: bold;
+}
+
+.header-section .data-source {
+    font-size: 12px;
+    color: #6b7280;
+    text-align: right;
+    line-height: 1.6;
+}
+
+/* Content Wrapper - 横版布局 */
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* 左侧区域 (30%) */
+.left-section {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 右侧区域 (70%) */
+.right-section {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 右侧上部区域 - 精英和技能统计 */
+.top-stats-row {
+    display: flex;
+    gap: 20px;
+    height: 50%;
+}
+
+/* 干员信息 Container - 垂直布局 */
+.operator-info-container {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    border: 2px solid #e5e9f0;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+}
+
+.operator-info-container:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: #d0d7e0;
+}
+
+.operator-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid #e5e9f0;
+    background: linear-gradient(135deg, #f0f4f8 0%, #e8ecf1 100%);
+}
+
+.operator-avatar .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.operator-name {
+    font-family: "HYWHHeiBold";
+    font-size: 28px;
+    color: #1a1f3a;
+    font-weight: bold;
+    text-align: center;
+}
+
+.operator-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.rarity-badge, .class-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rarity-icon, .class-icon {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* 样本信息 Container - 垂直布局 */
+.sample-info-container {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    border: 2px solid #e5e9f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    flex: 1;
+}
+
+.sample-title {
+    font-family: "HYWHHeiBold";
+    font-size: 24px;
+    color: #1a1f3a;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.sample-title::before {
+    content: '';
+    width: 4px;
+    height: 16px;
+    background: #3b82f6;
+    border-radius: 2px;
+    margin-right: 8px;
+}
+
+.sample-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sample-stats .stat-item {
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    border: 1px solid #e5e9f0;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.sample-stats .stat-item:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.sample-stats .stat-label {
+    font-size: 18px;
+    color: #6b7280;
+}
+
+.sample-stats .stat-value {
+    font-family: "tttgbnumber";
+    font-size: 20px;
+    color: #3b82f6;
+    font-weight: bold;
+}
+
+/* Stats Container */
+.stats-container {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    border: 2px solid #e5e9f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+}
+
+.container-title {
+    font-family: "HYWHHeiBold";
+    font-size: 24px;
+    color: #1a1f3a;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.container-title::before {
+    content: '';
+    width: 4px;
+    height: 16px;
+    background: #3b82f6;
+    border-radius: 2px;
+    margin-right: 8px;
+}
+
+/* 精英统计 */
+.elite-container {
+    width: 33.33%;
+    min-width: 0;
+}
+
+.elite-container .stats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+.stat-box {
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    border: 2px solid #e5e9f0;
+    border-radius: 8px;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+    transform: translateX(2px);
+}
+
+.stat-box .stat-label {
+    font-size: 18px;
+    color: #6b7280;
+}
+
+.stat-box .stat-value {
+    font-family: "tttgbnumber";
+    font-size: 18px;
+    color: #3b82f6;
+    font-weight: bold;
+}
+
+.stat-value.na {
+    font-size: 16px;
+    text-align: center;
+    color: #9ca3af;
+}
+
+/* 技能统计 */
+.skill-container {
+    width: 66.67%;
+    min-width: 0;
+}
+
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    flex: 1;
+}
+
+.skill-stat-box {
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    border: 2px solid #e5e9f0;
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-stat-box:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+}
+
+.skill-title {
+    font-family: "HYWHHeiBold";
+    font-size: 18px;
+    color: #1a1f3a;
+    font-weight: bold;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.skill-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.level-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 4px 0;
+}
+
+.level-label {
+    color: #6b7280;
+    flex: 1;
+}
+
+.level-value {
+    font-family: "tttgbnumber";
+    color: #3b82f6;
+    font-weight: bold;
+    min-width: 55px;
+    text-align: right;
+}
+
+/* 模组统计 */
+.mod-container {
+    flex: 1;
+}
+
+.mod-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.mod-stat-box {
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    border: 2px solid #e5e9f0;
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.mod-stat-box:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+}
+
+.mod-title {
+    font-family: "HYWHHeiBold";
+    font-size: 18px;
+    color: #1a1f3a;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.mod-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Footer Section */
+.footer-section {
+    text-align: center;
+    font-size: 12px;
+    color: #9ca3af;
+    padding-top: 20px;
+    border-top: 1px solid #e5e9f0;
+    margin-top: 30px;
+}
+

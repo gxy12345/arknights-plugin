@@ -150,6 +150,11 @@ export const helpList = [
         title: '/查看别名',
         desc: '查看干员别名, 例如/查看别名 银灰'
       },
+      {
+        icon: 7,
+        title: '/EW养成统计 /玛恩纳养成推荐',
+        desc: '查看yituliu的养成统计'
+      }
     ]
   }, {
     group: 'MAA远程控制',
