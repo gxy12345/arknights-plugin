@@ -82,7 +82,7 @@ export class TrainingStat extends plugin {
                 
                 // 保存到Redis缓存，设置过期时间为10分钟（600秒）
                 try {
-                    await redis.setex(cacheKey, 600, JSON.stringify(responseData))
+                    await redis.set(cacheKey, JSON.stringify(responseData), { EX: 600 })
                     logger.info('[养成统计] 数据已缓存')
                 } catch (error) {
                     logger.warn('[养成统计] 缓存保存失败:', error)
@@ -106,17 +106,10 @@ export class TrainingStat extends plugin {
             const statsData = this.processStatData(operatorData, charInfo, responseData.data.recordType)
 
             // 渲染图片
-            const img = await runtimeRender(this.e, 'trainingStat/trainingStat', {
+            await runtimeRender(this.e, 'trainingStat/trainingStat', {
                 data: statsData,
                 updateTime: new Date(responseData.data.createTime).toLocaleString('zh-CN')
             }, { e: this.e })
-
-            if (img) {
-                await this.reply(img)
-            } else {
-                await this.reply('渲染失败，请稍后再试')
-            }
-
             return true
         } catch (error) {
             logger.error('[养成统计] 错误:', error)
