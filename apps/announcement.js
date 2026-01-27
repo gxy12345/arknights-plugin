@@ -17,11 +17,11 @@ export class Announcement extends plugin {
             priority: 1000,
             rule: [
                 {
-                    reg: `^${rulePrefix}(公告|通知|活动)(列表|查询)?$`,
+                    reg: `^${rulePrefix}(公告|通知)(列表|查询)?$`,
                     fnc: 'announcementList'
                 },
                 {
-                    reg: `^${rulePrefix}(公告|通知|活动)\\d{1,2}$`,
+                    reg: `^${rulePrefix}(公告|通知)\\d{1,2}$`,
                     fnc: 'announcementDetail'
                 },
             ]

@@ -150,6 +150,32 @@ export function supportGuoba () {
       },
       {
         component: 'Divider',
+        label: '活动推送设置'
+      },
+      {
+        field: 'activity.activity_push_enable',
+        label: '活动推送总开关',
+        bottomHelpMessage: '开启后才能使用活动推送功能，关闭后所有群都不会收到推送',
+        component: 'Switch'
+      },
+      {
+        field: 'activity.activity_push_cron',
+        label: '活动推送crontab配置',
+        bottomHelpMessage: '可修改活动推送执行的时间和频率，默认每天上午10:00执行',
+        component: 'Input',
+        required: true,
+        componentProps: {
+          placeholder: '0 0 10 * * ?'
+        }
+      },
+      {
+        field: 'activity.skip_ongoing_in_push',
+        label: '推送时忽略进行中的活动',
+        bottomHelpMessage: '开启后，定时推送只包含即将开始和即将结束的活动，不包含正在进行中的活动',
+        component: 'Switch'
+      },
+      {
+        component: 'Divider',
         label: 'MAA远程控制设置'
       },
       {

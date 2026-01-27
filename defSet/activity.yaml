@@ -1,0 +1,6 @@
+# 活动推送总开关
+activity_push_enable: true
+# 活动推送cron表达式（默认每天上午10:00）
+activity_push_cron: 0 0 10 * * ?
+# 推送时不包含进行中的活动（开启时只推送即将开始和即将结束的活动）
+skip_ongoing_in_push: true

@@ -1,0 +1,87 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}activity/activity.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="header">
+    <div class="title">活动日历</div>
+    <div class="content-desc-text">当前日期：{{current_time}}</div>
+</div>
+
+{{if ongoing_activities.length > 0}}
+<div class="content-container">
+    <div class="content-container-title">
+        <span class="title-icon ongoing-icon">🎮</span>
+        进行中的活动
+    </div>
+    {{each ongoing_activities activity idx}}
+    <div class="item ongoing {{if activity.isUrgent}}urgent{{/if}}">
+        <div class="item-number ongoing-number">{{idx+1}}</div>
+        <div class="item-info">
+            <div class="activity-name">{{activity.name}}</div>
+            <div class="activity-type">{{activity.displayType}}</div>
+        </div>
+        <div class="item-time {{if activity.isUrgent}}urgent-time{{/if}}">
+            {{activity.remainingText}}
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}}
+
+{{if ending_activities.length > 0}}
+<div class="content-container">
+    <div class="content-container-title">
+        <span class="title-icon ending-icon">⏰</span>
+        即将结束的活动
+    </div>
+    {{each ending_activities activity idx}}
+    <div class="item {{if activity.isUrgent}}urgent{{/if}}">
+        <div class="item-number">{{idx+1}}</div>
+        <div class="item-info">
+            <div class="activity-name">{{activity.name}}</div>
+            <div class="activity-type">{{activity.displayType}}</div>
+        </div>
+        <div class="item-time {{if activity.isUrgent}}urgent-time{{/if}}">
+            {{activity.remainingText}}
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}}
+
+{{if starting_activities.length > 0}}
+<div class="content-container">
+    <div class="content-container-title">
+        <span class="title-icon starting-icon">🎯</span>
+        即将开始的活动
+    </div>
+    {{each starting_activities activity idx}}
+    <div class="item {{if activity.isUrgent}}urgent{{/if}}">
+        <div class="item-number">{{idx+1}}</div>
+        <div class="item-info">
+            <div class="activity-name">{{activity.name}}</div>
+            <div class="activity-type">{{activity.displayType}}</div>
+        </div>
+        <div class="item-time {{if activity.isUrgent}}urgent-time{{/if}}">
+            {{activity.remainingText}}
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}}
+
+{{if ongoing_activities.length === 0 && ending_activities.length === 0 && starting_activities.length === 0}}
+<div class="content-container">
+    <div class="empty-message">当前没有进行中或近期3天内即将开始或结束的活动</div>
+</div>
+{{/if}}
+
+<div class="text-container">
+    <div class="create-by-text">
+        {{@sys.createdby}}
+    </div>
+</div>
+{{/block}}

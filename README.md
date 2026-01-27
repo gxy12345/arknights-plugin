@@ -121,6 +121,10 @@ pnpm install --filter=arknights-plugin
   
   </details>
 
+* `/活动` `/活动列表` 查询近期即将开始或结束的活动（3天内）
+* `/开启活动推送` `/关闭活动推送` (仅限主人) 开启/关闭本群的活动推送功能
+* `/更新活动数据` (仅限主人) 清除缓存并重新获取最新活动数据
+
 * <details><summary><code>/{干员名/别名}养成统计</code> <code>/{干员名/别名}养成推荐</code> 从yituliu获取养成统计</summary>
 
   <img src="https://github.com/user-attachments/assets/d72c2a6d-0aac-400d-8b4d-6db6f4a312dd" width="50%" height="50%">
