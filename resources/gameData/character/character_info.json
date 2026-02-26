@@ -4766,6 +4766,49 @@
                 "",
                 "Y"
             ]
+        },
+        "char_1050_chen3": {
+            "id": "char_1050_chen3",
+            "prof": "WARRIOR",
+            "subProf": "artsfghter",
+            "name": "赤刃明霄陈",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4222_taraxa": {
+            "id": "char_4222_taraxa",
+            "prof": "MEDIC",
+            "subProf": "watchman",
+            "name": "风絮",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4221_ju": {
+            "id": "char_4221_ju",
+            "prof": "SNIPER",
+            "subProf": "siegesniper",
+            "name": "矩",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_2027_wang": {
+            "id": "char_2027_wang",
+            "prof": "SPECIAL",
+            "subProf": "traper",
+            "name": "望",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
         }
     }
 }
