@@ -101,13 +101,27 @@ let Data = {
   },
 
   async importCfg (key) {
-    let sysCfg = await Data.importModule(`config/system/${key}_system.js`)
+    // 系统默认配置
+    let sysCfgDefault = await Data.importModule(`config/system/${key}_system.js`)
+    // 系统自定义配置（如果存在，优先于系统默认配置）
+    let sysCfgCustom = await Data.importModule(`config/system/${key}.js`)
+    // 用户自定义配置（最高优先级）
     let diyCfg = await Data.importModule(`config/${key}.js`)
+    
     if (diyCfg.isSys) {
       console.error(`arknights-plugin: config/${key}.js无效，已忽略`)
       console.error(`如需配置请复制config/${key}_default.js为config/${key}.js，请勿复制config/system下的系统文件`)
       diyCfg = {}
     }
+    
+    // 如果同时存在 help_system 和 help，则使用 help
+    // 优先级：config/help.js > config/system/help.js > config/system/help_system.js
+    let sysCfg = sysCfgCustom
+    // 如果系统自定义配置不存在，使用系统默认配置
+    if (Object.keys(sysCfg).length === 0) {
+      sysCfg = sysCfgDefault
+    }
+    
     return {
       sysCfg,
       diyCfg

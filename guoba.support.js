@@ -41,15 +41,14 @@ export function supportGuoba () {
       {
         field: 'common.prefix_mode',
         label: '插件命令前缀',
-        bottomHelpMessage: '修改插件命令前缀,修改后重启生效',
+        bottomHelpMessage: '修改插件命令前缀,修改后重启生效。关键词：方舟、明日方舟、arknights、方舟插件',
         component: 'Select',
         required: true,
         componentProps: {
           options: [
-            {label: '完整模式(最泛用的匹配模式，支持最多前缀匹配)', value: 1},
-            {label: '兼容模式1(防止和其他方舟相关插件冲突，移除了"#方舟"前缀）', value: 2},
-            {label: '兼容模式2(防止和鸣潮插件冲突，移除了"~"前缀）', value: 3},
-            {label: '兼容模式3(兼容模式1+2）', value: 4},
+            {label: '模式1: 关键词 + 前缀 # 或 / (例如: #方舟绑定、/方舟绑定)', value: 1},
+            {label: '模式2: 仅前缀 ~ 或 ～ (例如: ~帮助、～帮助)', value: 2},
+            {label: '模式3: 关键词+#或/ 或 仅~或～ (例如: #方舟绑定、~帮助)', value: 3},
           ],
           placeholder: '选择模式',
         },

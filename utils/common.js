@@ -21,18 +21,18 @@ function getPrefix() {
     let common_setting = setting.getConfig('common')
     switch (common_setting.prefix_mode) {
         case 1:
-            return '((#|/)?(方舟|明日方舟|arknights|方舟插件)|\/|\\\/|/|~|～)'
+            // Case 1: 关键词（方舟、明日方舟、arknights、方舟插件）+ 前缀（# 或 /）
+            return '((#|/)(方舟|明日方舟|arknights|方舟插件))'
         case 2:
-            return '((#|/)?(方舟插件|明日方舟|arknights)|\/|\\\/|/|~|～)'
+            // Case 2: 仅前缀（~ 和 ～）
+            return '(~|～)'
         case 3:
-            return '((#|/)?(方舟|方舟插件|明日方舟|arknights)|\/|\\\/|/)'
-        case 4:
-            return '((#|/)?(方舟插件|明日方舟|arknights)|\/|\\\/|/)'
-        default:
-            return '((#|/)?(方舟|明日方舟|arknights|方舟插件)|\/|\\\/|/|~|～)'
+            // Case 3: 关键词+前缀(#或/) 和 仅前缀(~和～) 共存
+            return '((#|/)(方舟|明日方舟|arknights|方舟插件)|~|～)'
     }
+    // 默认使用 Case 1
+    return '((#|/)(方舟|明日方舟|arknights|方舟插件))'
 }
-
 
 export const rulePrefix = getPrefix()
 
