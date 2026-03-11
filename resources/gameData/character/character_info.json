@@ -4809,6 +4809,28 @@
                 "",
                 "X"
             ]
+        },
+        "char_4037_demetr": {
+            "id": "char_4037_demetr",
+            "prof": "WARRIOR",
+            "subProf": "fighter",
+            "name": "贝洛内",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4031_liesel": {
+            "id": "char_4031_liesel",
+            "prof": "CASTER",
+            "subProf": "splashcaster",
+            "name": "复奏",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
         }
     }
 }
