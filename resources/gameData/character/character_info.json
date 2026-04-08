@@ -4831,6 +4831,39 @@
                 "",
                 "Y"
             ]
+        },
+        "char_4223_botany": {
+            "id": "char_4223_botany",
+            "prof": "SUPPORT",
+            "subProf": "ritualist",
+            "name": "伯塔尼",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1051_headb2": {
+            "id": "char_1051_headb2",
+            "prof": "WARRIOR",
+            "subProf": "hammer",
+            "name": "怒潮凛冬",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4224_turdus": {
+            "id": "char_4224_turdus",
+            "prof": "MEDIC",
+            "subProf": "chainhealer",
+            "name": "乌啾",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
         }
     }
 }
