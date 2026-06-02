@@ -4917,6 +4917,38 @@
                 "",
                 "Y"
             ]
+        },
+        "char_1049_catap2": {
+            "id": "char_1049_catap2",
+            "prof": "WARRIOR",
+            "subProf": "mercenary",
+            "name": "雷狼龙S空爆",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4215_buddy": {
+            "id": "char_4215_buddy",
+            "prof": "PIONEER",
+            "subProf": "tactician",
+            "name": "罗德岛隐秘队",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_1048_orchd2": {
+            "id": "char_1048_orchd2",
+            "prof": "SNIPER",
+            "subProf": "closerange",
+            "name": "焰狐龙梓兰",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
         }
     }
 }
