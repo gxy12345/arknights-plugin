@@ -4949,6 +4949,27 @@
                 "",
                 "X"
             ]
+        },
+        "char_4229_aphris": {
+            "id": "char_4229_aphris",
+            "prof": "CASTER",
+            "subProf": "blastcaster",
+            "name": "谬因",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4234_pedro": {
+            "id": "char_4234_pedro",
+            "prof": "SUPPORT",
+            "subProf": "supportiveranger",
+            "name": "佩德洛",
+            "rarity": 5,
+            "modules": [
+                ""
+            ]
         }
     }
 }
