@@ -4970,6 +4970,17 @@
             "modules": [
                 ""
             ]
+        },
+        "char_4230_mcnist": {
+            "id": "char_4230_mcnist",
+            "prof": "TANK",
+            "subProf": "shotprotector",
+            "name": "机械师",
+            "rarity": 6,
+            "modules": [
+                "",
+                "A"
+            ]
         }
     }
 }
