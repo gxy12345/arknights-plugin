@@ -4981,6 +4981,49 @@
                 "",
                 "A"
             ]
+        },
+        "char_4237_jcinta": {
+            "id": "char_4237_jcinta",
+            "prof": "PIONEER",
+            "subProf": "bearer",
+            "name": "嘉辛塔",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4235_thumpy": {
+            "id": "char_4235_thumpy",
+            "prof": "TANK",
+            "subProf": "primprotector",
+            "name": "珊比",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4236_tmslot": {
+            "id": "char_4236_tmslot",
+            "prof": "CASTER",
+            "subProf": "funnel",
+            "name": "时隙",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_1015_aglna2": {
+            "id": "char_1015_aglna2",
+            "prof": "SPECIAL",
+            "subProf": "skywalker",
+            "name": "予愿安洁莉娜",
+            "rarity": 6,
+            "modules": [
+                ""
+            ]
         }
     }
 }
