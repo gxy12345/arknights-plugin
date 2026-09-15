@@ -5024,6 +5024,49 @@
             "modules": [
                 ""
             ]
+        },
+        "char_4218_aigis": {
+            "id": "char_4218_aigis",
+            "prof": "SNIPER",
+            "subProf": "skybreaker",
+            "name": "埃癸斯",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4220_kormr": {
+            "id": "char_4220_kormr",
+            "prof": "WARRIOR",
+            "subProf": "sword",
+            "name": "虎狼丸",
+            "rarity": 1,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4217_makoto": {
+            "id": "char_4217_makoto",
+            "prof": "SPECIAL",
+            "subProf": "dollkeeper",
+            "name": "结城理",
+            "rarity": 6,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4219_yukari": {
+            "id": "char_4219_yukari",
+            "prof": "SUPPORT",
+            "subProf": "supportiveranger",
+            "name": "岳羽由加莉",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
         }
     }
 }
