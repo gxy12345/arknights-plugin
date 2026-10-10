@@ -5067,6 +5067,38 @@
                 "",
                 "X"
             ]
+        },
+        "char_393_toledo": {
+            "id": "char_393_toledo",
+            "prof": "SUPPORT",
+            "subProf": "underminer",
+            "name": "德·托莱多",
+            "rarity": 5,
+            "modules": [
+                "",
+                "Y"
+            ]
+        },
+        "char_4231_clemnt": {
+            "id": "char_4231_clemnt",
+            "prof": "WARRIOR",
+            "subProf": "primguard",
+            "name": "克莱门莎",
+            "rarity": 6,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4232_hbound": {
+            "id": "char_4232_hbound",
+            "prof": "SPECIAL",
+            "subProf": "alchemist",
+            "name": "旅骨",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
         }
     }
 }
