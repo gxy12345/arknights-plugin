@@ -115,7 +115,8 @@ export class SupportSearch extends plugin {
 
     async search() {
         const match = this.e.msg.match(new RegExp(`^${rulePrefix}助战(?:检索|查询)?(?:\\s+(.+))?$`))
-        const keyword = match?.[1]?.trim()
+        // rulePrefix 本身包含捕获组，干员关键词始终取最后一个捕获组。
+        const keyword = match?.at(-1)?.trim()
         if (!keyword) {
             await this.reply(`用法：${rulePrefix}助战 <干员名>\n例如：${rulePrefix}助战 森蚺`)
             return true

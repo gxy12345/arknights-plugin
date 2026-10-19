@@ -153,7 +153,8 @@ export class RogueInfo extends plugin {
 
     async rogueCommand() {
         const match = this.e.msg.match(new RegExp(`^${rulePrefix}(?:肉鸽|集成战略)(?:\\s+(.+))?$`))
-        const topicQuery = match?.[1]?.trim()
+        // rulePrefix 本身包含捕获组，主题参数始终取最后一个捕获组。
+        const topicQuery = match?.at(-1)?.trim()
         return topicQuery ? this.rogueDetail(topicQuery) : this.rogueInfo()
     }
 
