@@ -11,6 +11,7 @@ export default class SKLandUser {
         this.token = null
         this.name = ''
         this.level = 1
+        this.sklandUserId = null
         this.sklReq = null
 
         this.option = {
@@ -27,6 +28,7 @@ export default class SKLandUser {
         this.name = user_info.name
         this.uid = user_info.uid
         this.token = user_info?.token || null
+        this.sklandUserId = user_info?.sklandUserId || user_info?.userId || null
         this.sklReq = new SKLandRequest(this.uid, this.cred)
 
         if (this.token) {
@@ -56,6 +58,7 @@ export default class SKLandUser {
         if (new_cred) {
             logger.mark(`刷新cred成功`)
             this.cred = new_cred
+            if (this.sklReq) this.sklReq.cred = new_cred
             await this.saveUser()
             return true
         }
@@ -68,7 +71,7 @@ export default class SKLandUser {
         }
         // let res = await this.sklReq.getData('user_info')
         let res = await this.sklReq.getData('binding')
-        if (res?.code == 0 && res?.message === 'OK') {
+        if (this.sklReq.isSuccess(res)) {
             let bindingList = res.data.list
             for (let bindingItem of bindingList) {
                 if (bindingItem.appCode === 'arknights') {
@@ -77,6 +80,7 @@ export default class SKLandUser {
                     let gameChannel = bindingItem.bindingList[0].channelName
                     this.uid = gameUid
                     this.name = gameNickname
+                    this.sklReq.setUid(gameUid)
                     await this.saveUser()
                     return true
                 }
@@ -95,23 +99,76 @@ export default class SKLandUser {
             // skl_name: skl_user_info.nickname,
             name: this.name,
             uid: this.uid,
-            token: this.token
+            token: this.token,
+            sklandUserId: this.sklandUserId
         }
         await redis.set(`ARKNIGHTS:USER:${this.user_id}`, JSON.stringify(cached_info))
     }
 
+    async getSklandUserId() {
+        if (this.sklandUserId) return this.sklandUserId
+
+        const cacheKey = `ARKNIGHTS:SKLAND_USER_ID:${this.user_id}`
+        const cachedUserId = await redis.get(cacheKey)
+        if (cachedUserId) {
+            this.sklandUserId = cachedUserId
+            return cachedUserId
+        }
+
+        const res = await this.sklReq.getData('user_teenager')
+        const userId = res?.data?.teenager?.userId || res?.data?.userId || res?.data?.user?.userId
+        if (!userId) return null
+
+        this.sklandUserId = String(userId)
+        await redis.set(cacheKey, this.sklandUserId, { EX: 86400 })
+        await this.saveUser()
+        return this.sklandUserId
+    }
+
     async getGamePlayerInfo() {
-        const cached_game_info = await redis.get(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}`)
+        const cached_game_info = await redis.get(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}:${this.uid}`)
         if (cached_game_info) {
             logger.mark(`[方舟插件][GameInfo]使用${this.user_id}的缓存数据`)
             return JSON.parse(cached_game_info)
         }
         let res = await this.sklReq.getData('game_player_info')
-        if (res?.code == 0 && res?.message === 'OK') {
-            await redis.set(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}`, JSON.stringify(res), { EX: 300 })
+        if (this.sklReq.isSuccess(res)) {
+            await redis.set(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}:${this.uid}`, JSON.stringify(res), { EX: 300 })
             return res
         } else {
             return null
         }
+    }
+
+    async getRogueDetail(topicId) {
+        if (!topicId) return null
+        const cacheKey = `ARKNIGHTS:ROGUE_DETAIL:${this.user_id}:${this.uid}:${topicId}`
+        const cached = await redis.get(cacheKey)
+        if (cached) return JSON.parse(cached)
+
+        const targetUserId = await this.getSklandUserId()
+        if (!targetUserId) return null
+
+        const res = await this.sklReq.getData('rogue_detail', {
+            topicId,
+            targetUserId
+        })
+        if (res?.code == 0) {
+            await redis.set(cacheKey, JSON.stringify(res), { EX: 120 })
+            return res
+        }
+        return res || null
+    }
+
+    async getGameFriendList() {
+        const cacheKey = `ARKNIGHTS:GAME_FRIEND_LIST:${this.user_id}:${this.uid}`
+        const cached = await redis.get(cacheKey)
+        if (cached) return JSON.parse(cached)
+
+        const res = await this.sklReq.getData('game_friend_list')
+        if (res?.code == 0) {
+            await redis.set(cacheKey, JSON.stringify(res), { EX: 60 })
+        }
+        return res || null
     }
 }

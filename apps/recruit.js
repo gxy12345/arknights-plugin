@@ -57,7 +57,7 @@ export class CharProfile extends plugin {
         let sklUser = new SKLandUser(this.e.user_id)
         if (await sklUser.getUser()) {
             let res = await sklUser.getGamePlayerInfo()
-            if (res?.code === 0 && res?.message === 'OK') {
+            if (res?.code === 0) {
                 metaInfoList = Object.values(res.data.charInfoMap)
                 charInfoList = res.data.chars
             }

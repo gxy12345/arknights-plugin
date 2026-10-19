@@ -1,0 +1,60 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}rogue/rogue-detail.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="detail-page">
+    <header class="detail-header">
+        <div>
+            <div class="eyebrow">GAME DATA / INTEGRATED STRATEGIES</div>
+            <h1>{{topic.name}}</h1>
+            <p class="topic-id">{{topic.rogueId}}</p>
+        </div>
+        <div class="account">
+            <strong>Dr.{{user_info.name}}</strong>
+            <span>UID {{user_info.uid}}</span>
+            <span>更新于 {{update_time_str}}</span>
+        </div>
+    </header>
+
+    <section class="hero-panel">
+        {{if topic.picUrl}}
+        <img class="hero-image" src="{{topic.picUrl}}" alt="{{topic.name}}">
+        {{/if}}
+        <div class="hero-copy">
+            <span class="hero-kicker">TOPIC DETAIL</span>
+            <h2>{{topic.name}}</h2>
+            <p>以森空岛主题详情接口返回的数据为准，展示当前账号的进度、记录和明细。</p>
+        </div>
+    </section>
+
+    <section class="summary-grid">
+        {{each summaryRows row}}
+        <div class="summary-item">
+            <span>{{row.label}}</span>
+            <strong>{{row.value}}</strong>
+        </div>
+        {{/each}}
+    </section>
+
+    <div class="detail-sections">
+        {{each detailSections section}}
+        <section class="data-section">
+            <div class="section-title">{{section.title}}</div>
+            {{each section.items item}}
+            <div class="data-item">
+                {{each item.rows row}}
+                <div class="data-row">
+                    <span>{{row.label}}</span>
+                    <strong>{{row.value}}</strong>
+                </div>
+                {{/each}}
+            </div>
+            {{/each}}
+        </section>
+        {{/each}}
+    </div>
+</div>
+{{/block}}

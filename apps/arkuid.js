@@ -63,7 +63,7 @@ export class SKLandUid extends plugin {
         await sklUser.updateUser()
         let res = await sklReq.getData('binding')
         logger.mark(`binding res: ${JSON.stringify(res)}`)
-        if (res?.code == 0 && res?.message === 'OK') {
+        if (res?.code == 0) {
             let bindingList = res.data.list
             for (let bindingItem of bindingList) {
                 if (bindingItem.appCode === 'arknights') {
@@ -129,7 +129,7 @@ export class SKLandUid extends plugin {
         // let res = await sklReq.getData('user_info')
         let res = await sklReq.getData('binding')
         logger.debug(`binding res: ${JSON.stringify(res)}`)
-        if (res?.code == 0 && res?.message === 'OK') {
+            if (res?.code == 0) {
             let bindingList = res.data.list
             let user = this.e.user_id
             for (let bindingItem of bindingList) {

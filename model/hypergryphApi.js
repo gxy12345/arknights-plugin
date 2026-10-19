@@ -1,5 +1,23 @@
 import https from 'https'
 import { createDeviceId } from '../utils/common.js'
+import setting from '../utils/setting.js'
+
+function getSklandUserAgent() {
+    const config = setting.getConfig('skland') || {}
+    const version = config.skland_api_version || '2.2.0'
+    const build = config.skland_build || '200200057'
+    return config.skland_user_agent || `Skland/${version} (com.hypergryph.skland; build:${build}; Android; )`
+}
+
+function timeoutSignal(ms) {
+    if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
+        return AbortSignal.timeout(ms)
+    }
+
+    const controller = new AbortController()
+    setTimeout(() => controller.abort(), ms).unref?.()
+    return controller.signal
+}
 
 const BindAPI = {
     OAUTH_API: 'https://as.hypergryph.com/user/oauth2/v2/grant',
@@ -25,7 +43,7 @@ let hypergryphAPI = {
             appCode: APP_CODE
         }
         let param = {
-            timeout: 25000,
+            signal: timeoutSignal(25000),
             method: 'post',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -64,7 +82,7 @@ let hypergryphAPI = {
      */
     async getScanStatus(scanId) {
         let param = {
-            timeout: 25000,
+            signal: timeoutSignal(25000),
             method: 'get'
         }
 
@@ -104,7 +122,7 @@ let hypergryphAPI = {
             scanCode: scanCode
         }
         let param = {
-            timeout: 25000,
+            signal: timeoutSignal(25000),
             method: 'post',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -146,10 +164,10 @@ let hypergryphAPI = {
             token: token
         }
         let param = {
-            timeout: 25000,
+            signal: timeoutSignal(25000),
             method: 'post',
             headers: {
-                'User-Agent': 'Skland/1.21.0 (com.hypergryph.skland; build:102100065; iOS 17.6.0; ) Alamofire/5.7.1',
+                'User-Agent': getSklandUserAgent(),
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(req_body)
@@ -240,7 +258,7 @@ let hypergryphAPI = {
             const response = await fetch(BindAPI.GRANT_CODE_API, {
                 method: 'POST',
                 headers: {
-                    'User-Agent': 'Skland/1.21.0 (com.hypergryph.skland; build:102100065; iOS 17.6.0; ) Alamofire/5.7.1',
+                    'User-Agent': getSklandUserAgent(),
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({

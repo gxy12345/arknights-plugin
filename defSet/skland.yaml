@@ -1,0 +1,16 @@
+# 森空岛 API 客户端配置
+# 版本信息以当前森空岛 Android APK 为默认值，服务端变更时可在 config/skland.yaml 覆盖
+skland_api_version: 2.2.0
+skland_build: 200200057
+
+# 保留现有签名协议的 platform 默认值；若服务端要求切换，可改为对应值
+skland_platform: 1
+skland_language: zh-hans-CN
+
+# 留空时不主动伪造设备号，保持旧协议兼容
+skland_device_id: ''
+skland_user_agent: ''
+
+# 请求超时和 token 缓存时长（秒）
+skland_timeout_ms: 25000
+skland_token_cache_seconds: 300

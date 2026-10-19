@@ -106,6 +106,16 @@ body {
     z-index: 2;
 }
 
+.rogue-topic-id {
+    position: absolute;
+    left: 20px;
+    bottom: 14px;
+    z-index: 3;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'ARK-EN', Arial, sans-serif;
+    font-size: 14px;
+}
+
 .rogue-name {
     font-size: 24px;
     font-weight: bold;

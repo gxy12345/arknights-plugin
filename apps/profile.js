@@ -33,9 +33,9 @@ export class Profile extends plugin {
         // let game_res = await sklUser.sklReq.getData('game_player_info')
         let game_res = await sklUser.getGamePlayerInfo()
         let cards_res = await sklUser.sklReq.getData('cards')
-        if (game_res?.code === 0 && game_res?.message === 'OK' && cards_res?.code === 0 && cards_res?.message === 'OK') {
+        if (game_res?.code === 0 && cards_res?.code === 0) {
             return await this.generate_profile_card(game_res.data, cards_res.data)
-        }else if (game_res?.code === 0 && game_res?.message === 'OK') {
+        }else if (game_res?.code === 0) {
             // cards接口失败的情况下，展示N/A
             let naUserData = {
                 list: [{

@@ -1,0 +1,52 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}support/support.css">
+{{/block}}
+
+{{block 'main'}}
+<div class="support-page">
+    <header class="support-header">
+        <div>
+            <div class="eyebrow">GAME DATA / ASSISTANT SEARCH</div>
+            <h1>助战检索</h1>
+            <p>目标干员：{{keyword}}　·　匹配 {{result_count}} 条</p>
+        </div>
+        <div class="header-mark">SKLAND</div>
+    </header>
+
+    <section class="result-list">
+        {{each results item}}
+        <article class="assist-card">
+            <div class="assist-avatar-wrap">
+                {{if item.avatarUrl}}
+                <img class="assist-avatar" src="{{item.avatarUrl}}" alt="{{item.name}}">
+                {{/if}}
+                <span class="rarity">★{{item.rarity}}</span>
+            </div>
+            <div class="assist-main">
+                <div class="assist-title">
+                    <h2>{{item.name}}</h2>
+                    <span>{{item.charId}}</span>
+                </div>
+                <div class="assist-meta">
+                    <span>{{item.phase}}</span>
+                    <span>LV.{{item.level}}</span>
+                    <span>专精 {{item.specializeLevel}}</span>
+                    {{if item.equip}}<span>模组 {{item.equip}}</span>{{/if}}
+                </div>
+                <div class="owner-line">博士：{{item.ownerName}}　UID：{{item.ownerUid}}</div>
+                {{if item.sklandUrl}}
+                <div class="friend-action">打开森空岛用户页：<a href="{{item.sklandUrl}}">{{item.sklandUrl}}</a></div>
+                {{else}}
+                <div class="friend-action muted">该结果没有可用的森空岛用户 ID</div>
+                {{/if}}
+            </div>
+            {{if item.skillIconUrl}}
+            <img class="skill-icon" src="{{item.skillIconUrl}}" alt="技能">
+            {{/if}}
+        </article>
+        {{/each}}
+    </section>
+</div>
+{{/block}}

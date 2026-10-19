@@ -1,5 +1,22 @@
 import sklandApi from "./sklandApi.js"
 import crypto from "node:crypto"
+import setting from "../utils/setting.js"
+
+const refreshPromises = new Map()
+
+function getLogger() {
+  return globalThis.logger || console
+}
+
+function timeoutSignal(ms) {
+  if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
+    return AbortSignal.timeout(ms)
+  }
+
+  const controller = new AbortController()
+  setTimeout(() => controller.abort(), ms).unref?.()
+  return controller.signal
+}
 
 export default class SKLandRequest {
   constructor(uid, cred, token = '', option = {}) {
@@ -9,7 +26,20 @@ export default class SKLandRequest {
     this.server = 'cn'
     this.sklandApi = new sklandApi(this.uid, this.server)
     this.timestamp = null
-    this.cacheCd = 3
+
+    const config = setting.getConfig('skland') || {}
+    this.config = {
+      apiVersion: config.skland_api_version || '2.2.0',
+      build: config.skland_build || '200200057',
+      platform: Number(config.skland_platform ?? 1),
+      language: config.skland_language || 'zh-hans-CN',
+      deviceId: config.skland_device_id || '',
+      userAgent: config.skland_user_agent || '',
+      timeoutMs: Number(config.skland_timeout_ms || 25000),
+      tokenCacheSeconds: Number(config.skland_token_cache_seconds || 300),
+      ...option
+    }
+    this.cacheCd = this.config.tokenCacheSeconds
 
     this.option = {
       log: true,
@@ -18,180 +48,200 @@ export default class SKLandRequest {
     }
   }
 
+  static isSuccess(res) {
+    return Boolean(res) && Number(res.code) === 0
+  }
+
+  isSuccess(res) {
+    return SKLandRequest.isSuccess(res)
+  }
+
+  setCred(cred) {
+    this.cred = cred
+  }
+
+  setUid(uid) {
+    this.uid = uid
+    this.sklandApi.uid = uid
+  }
+
   getUrl(type, data = {}) {
-    let urlMap = this.sklandApi.getUrlMap({ ...data })
+    const requestData = { ...data }
+    delete requestData.headers
+
+    const urlMap = this.sklandApi.getUrlMap(requestData)
     if (!urlMap[type]) return false
 
-    let { url, query = '', body = '', sign = '' } = urlMap[type]
-
-    let url_obj = new URL(url)
-    let path = url_obj.pathname
-    let query_or_body = ''
+    let { url, query = '', body = '' } = urlMap[type]
+    const urlObj = new URL(url)
+    const path = urlObj.pathname
+    let queryOrBody = ''
 
     if (query) {
       url += `?${query}`
-      query_or_body = query
+      queryOrBody = query
     }
     if (body) {
       body = JSON.stringify(body)
-      query_or_body = body
+      queryOrBody = body
     }
-    let headers = this.getHeaders(path, query_or_body)
-    
-    // 简化日志输出 - 只记录URL，不记录完整的headers
+
+    let headers = this.getHeaders(path, queryOrBody)
+    if (data.headers) headers = { ...headers, ...data.headers }
+
     if (this.option?.debug) {
-      logger.debug(`[森空岛接口][请求] ${type} ${url}`)
+      getLogger().debug?.(`[森空岛接口][请求] ${type} ${url}`)
     }
-    
+
     return { url, headers, body }
   }
 
+  getTokenCacheSeconds(res = {}) {
+    const expiresIn = Number(res?.data?.expiresIn || res?.data?.expireIn || res?.expiresIn)
+    if (Number.isFinite(expiresIn) && expiresIn > 0) {
+      return Math.max(30, Math.min(expiresIn - 15, 86400))
+    }
+    return this.cacheCd
+  }
+
   async refreshToken() {
-    let res = await this.getData('refresh')
-    
-    if (res?.code == 0 && res?.message === 'OK') {
-      this.token = res.data.token
-      this.timestamp = res?.timestamp
-      await redis.set(`ARKNIGHTS:SKL_TOKEN:${this.cred}`, this.token, { EX: this.cacheCd })
-      logger.debug(`[森空岛][Token] 刷新成功`)
-    } else {
-      logger.error(`[森空岛][Token] 刷新失败: ${res?.message || '未知错误'}`)
-    }
+    if (!this.cred) return false
+    if (refreshPromises.has(this.cred)) return refreshPromises.get(this.cred)
+
+    const promise = (async () => {
+      const res = await this.getData('refresh', {}, false, false)
+      if (this.isSuccess(res) && res?.data?.token) {
+        this.token = res.data.token
+        this.timestamp = res?.timestamp || Math.floor(Date.now() / 1000)
+        const cacheSeconds = this.getTokenCacheSeconds(res)
+        await redis.set(`ARKNIGHTS:SKL_TOKEN:${this.cred}`, this.token, { EX: cacheSeconds })
+        getLogger().debug?.(`[森空岛][Token] 刷新成功，缓存 ${cacheSeconds}s`)
+        return this.token
+      }
+
+      getLogger().error?.(`[森空岛][Token] 刷新失败: ${res?.message || '未知错误'}`)
+      return false
+    })().finally(() => {
+      refreshPromises.delete(this.cred)
+    })
+
+    refreshPromises.set(this.cred, promise)
+    return promise
   }
 
-  generateSign(token, path, query_or_body, did) {
-    let t
-    if (this.timestamp) {
-      t = this.timestamp
-    } else {
-      t = Math.floor(Date.now() / 1000)
+  generateSign(token, path, queryOrBody, did) {
+    const timestamp = this.timestamp || Math.floor(Date.now() / 1000)
+    const headerForSign = {
+      platform: String(this.config.platform),
+      timestamp: String(timestamp),
+      dId: this.config.deviceId || '',
+      vName: this.config.apiVersion
     }
-    let header_for_sign = {
-      'platform': '1',
-      'timestamp': t.toString(),
-      'dId': '',
-      'vName': '1.21.0'
-    }
-    let header_ca = JSON.parse(JSON.stringify(header_for_sign));
-    let header_ca_str = JSON.stringify(header_ca);
-    let s = path + query_or_body + t + header_ca_str
-    let hex_s = crypto.createHmac('SHA256', token).update(s, 'utf-8').digest('hex');
-    let md5 = crypto.createHash('MD5').update(hex_s, 'utf-8').digest('hex');
-    
-    if (this.option?.debug) {
-      logger.debug(`[森空岛][签名] md5: ${md5}`)
-    }
-    
-    return {sign: md5, timestamp: t.toString()}
+    const signSource = path + queryOrBody + timestamp + JSON.stringify(headerForSign)
+    const hex = crypto.createHmac('SHA256', token || '').update(signSource, 'utf-8').digest('hex')
+    const sign = crypto.createHash('MD5').update(hex, 'utf-8').digest('hex')
+    return { sign, timestamp: String(timestamp) }
   }
 
-  getHeaders(path, query_or_body) {
-    let did = crypto.randomUUID()
-    let sign_obj = this.generateSign(this.token, path, query_or_body, did)
-    
-    if (this.option?.debug) {
-      logger.debug(`[森空岛][签名] 对象: ${JSON.stringify(sign_obj)}`)
-    }
-    
-    let skl_headers = {
-      'User-Agent': 'Skland/1.21.0 (com.hypergryph.skland; build:102100065; iOS 17.6.0; ) Alamofire/5.7.1',
+  getHeaders(path, queryOrBody) {
+    const signObj = this.generateSign(this.token, path, queryOrBody, this.config.deviceId)
+    const userAgent = this.config.userAgent || `Skland/${this.config.apiVersion} (com.hypergryph.skland; build:${this.config.build}; Android; )`
+
+    return {
+      'User-Agent': userAgent,
       'Accept-Encoding': 'gzip',
       'Content-Type': 'application/json',
-      platform: 1,
+      platform: this.config.platform,
       'Accept-Language': 'zh-Hans-CN;q=1.0',
-      'dId': '',
-      vName: '1.21.0',
-      language: 'zh-hans-CN',
-      sign: sign_obj.sign,
-      timestamp: sign_obj.timestamp
+      dId: this.config.deviceId || '',
+      vName: this.config.apiVersion,
+      language: this.config.language,
+      sign: signObj.sign,
+      timestamp: signObj.timestamp
     }
-    return skl_headers
   }
 
-  async getData(type, data = {}, cached = false) {
+  isAuthFailure(status, errorRes) {
+    if (status === 401) return true
+    if (status !== 403) return false
+    if (Number(errorRes?.code) === 10001) return false
+    return [10002, 10003, 10004, 10005].includes(Number(errorRes?.code))
+  }
+
+  async getData(type, data = {}, cached = false, retryAuth = true) {
     if (type !== 'refresh') {
-      let cached_token = await redis.get(`ARKNIGHTS:SKL_TOKEN:${this.cred}`)
-      if (cached_token) {
-        this.token = cached_token
-        logger.debug(`[森空岛][Token] 使用缓存`)
+      let cachedToken = await redis.get(`ARKNIGHTS:SKL_TOKEN:${this.cred}`)
+      if (cachedToken) {
+        this.token = cachedToken
+        getLogger().debug?.(`[森空岛][Token] 使用缓存`)
       } else {
-        await this.refreshToken()
+        const refreshedToken = await this.refreshToken()
+        if (!refreshedToken) return false
+        this.token = typeof refreshedToken === 'string'
+          ? refreshedToken
+          : await redis.get(`ARKNIGHTS:SKL_TOKEN:${this.cred}`)
       }
     }
 
-    let { url, headers, body } = this.getUrl(type, data)
-    if (!url) return false
+    const request = this.getUrl(type, data)
+    if (!request) return false
 
-    headers.cred = this.cred
-
-    if (data.headers) {
-      headers = { ...headers, ...data.headers }
-      delete data.headers
-    }
-
-    let param = {
+    const headers = { ...request.headers, cred: this.cred }
+    const param = {
+      method: request.body ? 'POST' : 'GET',
       headers,
-      timeout: 25000
+      signal: timeoutSignal(this.config.timeoutMs)
     }
-    if (body) {
-      param.method = 'post'
-      param.body = body
-    } else {
-      param.method = 'get'
-    }
-    
-    let response = {}
-    let start = Date.now()
-    
+    if (request.body) param.body = request.body
+
+    const start = Date.now()
+    let response
     try {
-      response = await fetch(url, param)
+      response = await fetch(request.url, param)
     } catch (error) {
-      logger.error(`[森空岛接口][${type}] 请求失败: ${error.message}`)
+      getLogger().error?.(`[森空岛接口][${type}] 请求失败: ${error.message}`)
       return false
     }
 
-    // 处理响应状态
+    let responseJson = null
+    try {
+      responseJson = await response.json()
+    } catch {
+      responseJson = null
+    }
+
     if (!response.ok) {
-      try {
-        const error_res = await response.json()
-        
-        if (response.status == 403 && error_res.code == 10001) {
-          logger.info(`[森空岛][已签到] 用户 ${this.uid}`)
-          return error_res
-        }
-        
-        logger.error(`[森空岛接口][${type}] ${response.status}: ${error_res.message || response.statusText}`)
-      } catch {
-        logger.error(`[森空岛接口][${type}] ${response.status} ${response.statusText}`)
+      if (retryAuth && type !== 'refresh' && this.isAuthFailure(response.status, responseJson)) {
+        getLogger().debug?.(`[森空岛接口][${type}] token失效，刷新后重试一次`)
+        if (await this.refreshToken()) return this.getData(type, data, cached, false)
       }
-      
+
+      if (response.status === 403 && Number(responseJson?.code) === 10001) {
+        getLogger().info?.(`[森空岛][已签到] 用户 ${this.uid}`)
+        return responseJson
+      }
+
+      getLogger().error?.(`[森空岛接口][${type}] ${response.status}: ${responseJson?.message || response.statusText}`)
       return false
     }
 
-    // 记录响应时间
     if (this.option.log) {
-      logger.debug(`[森空岛接口][${type}] ${Date.now() - start}ms`)
+      getLogger().debug?.(`[森空岛接口][${type}] ${Date.now() - start}ms`)
     }
 
-    const res = await response.json()
-
-    if (!res) {
-      logger.warn(`[森空岛接口][${type}] 响应为空`)
+    if (!responseJson) {
+      getLogger().warn?.(`[森空岛接口][${type}] 响应为空`)
       return false
     }
 
-    // 对refresh类型不输出完整响应
     if (type === 'refresh') {
-      if (res.code === 0) {
-        logger.debug(`[森空岛][Token] 刷新成功 (${Date.now() - start}ms)`)
-      } else {
-        logger.error(`[森空岛][Token] 刷新失败: ${res.message}`)
-      }
-    } else if (res.code !== 0 && this.option.log) {
-      logger.debug(`[森空岛接口][${type}] 请求异常`)
+      if (this.isSuccess(responseJson)) getLogger().debug?.(`[森空岛][Token] 刷新响应成功`)
+      else getLogger().error?.(`[森空岛][Token] 刷新失败: ${responseJson.message || '未知错误'}`)
+    } else if (!this.isSuccess(responseJson) && this.option.log) {
+      getLogger().debug?.(`[森空岛接口][${type}] 请求异常 code=${responseJson.code}`)
     }
 
-    res.api = type
-    return res
+    responseJson.api = type
+    return responseJson
   }
 }
