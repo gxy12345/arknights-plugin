@@ -31,6 +31,8 @@ export default class SKLandRequest {
     this.config = {
       apiVersion: config.skland_api_version || '2.2.0',
       build: config.skland_build || '200200057',
+      // 当前森空岛签名协议仍使用 1.21.0；APK 展示版本不等于签名协议版本。
+      signatureVersion: config.skland_signature_version || '1.21.0',
       platform: Number(config.skland_platform ?? 1),
       language: config.skland_language || 'zh-hans-CN',
       deviceId: config.skland_device_id || '',
@@ -135,7 +137,7 @@ export default class SKLandRequest {
       platform: String(this.config.platform),
       timestamp: String(timestamp),
       dId: this.config.deviceId || '',
-      vName: this.config.apiVersion
+      vName: this.config.signatureVersion
     }
     const signSource = path + queryOrBody + timestamp + JSON.stringify(headerForSign)
     const hex = crypto.createHmac('SHA256', token || '').update(signSource, 'utf-8').digest('hex')
@@ -154,7 +156,7 @@ export default class SKLandRequest {
       platform: this.config.platform,
       'Accept-Language': 'zh-Hans-CN;q=1.0',
       dId: this.config.deviceId || '',
-      vName: this.config.apiVersion,
+      vName: this.config.signatureVersion,
       language: this.config.language,
       sign: signObj.sign,
       timestamp: signObj.timestamp
@@ -186,7 +188,12 @@ export default class SKLandRequest {
     const request = this.getUrl(type, data)
     if (!request) return false
 
-    const headers = { ...request.headers, cred: this.cred }
+    const headers = {
+      ...request.headers,
+      cred: this.cred,
+      // refresh 请求只使用 cred；其余签名请求还必须携带刷新得到的 API token。
+      ...(type === 'refresh' ? {} : { token: this.token })
+    }
     const param = {
       method: request.body ? 'POST' : 'GET',
       headers,
