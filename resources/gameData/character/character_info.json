@@ -5099,6 +5099,69 @@
                 "",
                 "X"
             ]
+        },
+        "char_4245_alga": {
+            "id": "char_4245_alga",
+            "prof": "WARRIOR",
+            "subProf": "instructor",
+            "name": "奥尔佳",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4244_tocka": {
+            "id": "char_4244_tocka",
+            "prof": "SUPPORT",
+            "subProf": "supportiveranger",
+            "name": "冻河",
+            "rarity": 6,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4246_dminon": {
+            "id": "char_4246_dminon",
+            "prof": "SPECIAL",
+            "subProf": "stalker",
+            "name": "国度",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4169_caledo": {
+            "id": "char_4169_caledo",
+            "prof": "TANK",
+            "subProf": "primprotector",
+            "name": "镜匠",
+            "rarity": 5,
+            "modules": [
+                "",
+                "X"
+            ]
+        },
+        "char_4247_oxi": {
+            "id": "char_4247_oxi",
+            "prof": "WARRIOR",
+            "subProf": "primguard",
+            "name": "塔露拉",
+            "rarity": 6,
+            "modules": [
+                ""
+            ]
+        },
+        "char_4170_hdbell": {
+            "id": "char_4170_hdbell",
+            "prof": "SPECIAL",
+            "subProf": "dispatcher",
+            "name": "行铃",
+            "rarity": 4,
+            "modules": [
+                ""
+            ]
         }
     }
 }
