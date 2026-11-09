@@ -1,0 +1,25 @@
+@import url('../operatorAssets/assets.css');
+.skin-summary { padding: 20px 22px; margin-bottom: 22px; background: #252525; }
+.skin-summary-title { display: flex; justify-content: space-between; gap: 20px; align-items: baseline; margin-bottom: 18px; }
+.skin-summary-title h2 { display: flex; align-items: baseline; gap: 14px; font-size: 25px; font-weight: 500; }
+.skin-summary-title h2 strong { font-family: "ARK-EN", sans-serif; font-size: 42px; color: #2bf; font-weight: 500; }
+.skin-summary-title h2 > span, .skin-summary-title p { font-size: 18px; color: #b8b8b8; }
+.skin-series-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 24px; }
+.skin-series { display: flex; align-items: center; gap: 9px; min-width: 0; padding: 5px 0; border-top: 1px solid #3e3e3e; }
+.skin-series-logo { width: 36px; height: 36px; flex-shrink: 0; }
+.skin-series-logo img { width: 100%; height: 100%; object-fit: contain; }
+.skin-series > span { flex: 1; min-width: 0; font-size: 18px; line-height: 1.5; overflow-wrap: anywhere; }
+.skin-series > strong { font-family: "ARK-EN", sans-serif; font-size: 26px; font-weight: 500; }
+.skin-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px 14px; }
+.skin-entry { min-width: 0; }
+.skin-card { position: relative; aspect-ratio: 98 / 212; background: #313131 url('../operatorAssets/portrait-bg.png') center / cover; overflow: hidden; }
+.skin-portrait { position: absolute; inset: 0; width: 100%; height: 100%; padding-top: 10px; box-sizing: border-box; object-fit: cover; }
+.skin-portrait-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #b8b8b8; }
+.skin-card-mask { position: absolute; left: 0; bottom: 0; width: 100%; height: 65%; background: linear-gradient(180deg, transparent, rgba(30,30,30,.8)); }
+.skin-card-info { position: absolute; z-index: 1; bottom: 20px; left: 10px; right: 10px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.skin-brand { width: 105px; height: 105px; object-fit: contain; padding: 10px; box-sizing: border-box; }
+.skin-card-info h2 { font-size: 23px; font-weight: 500; line-height: 1.5; color: #fff; overflow-wrap: anywhere; }
+.skin-card-info p { margin-top: 3px; font-size: 18px; line-height: 1.5; color: #c4c4c4; overflow-wrap: anywhere; }
+.skin-gain-date { margin-top: 7px; color: #b8b8b8; font-family: "ARK-EN", "ARK", sans-serif; font-size: 14px; line-height: 1.6; text-align: center; }
+.skin-empty-summary { color: #b8b8b8; font-size: 16px; line-height: 1.7; }
+.skin-empty-state { padding: 48px 20px; color: #b8b8b8; text-align: center; font-size: 20px; background: #252525; }

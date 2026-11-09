@@ -7,7 +7,7 @@
  * */
 
 export const helpCfg = {
-  title: 'Arknights-Plugin帮助',
+  title: 'Arknights-Plugin 帮助',
   subTitle: 'Yunzai-Bot & Arknights-plugin',
   columnCount: 3,
   colWidth: 275,
@@ -70,12 +70,17 @@ export const helpList = [
       {
         icon: 7,
         title: '#方舟练度统计 #方舟练度统计2',
-        desc: '干员练度统计，支持分页'
+        desc: '干员资产紧凑列表，支持分页'
       },
       {
         icon: 7,
         title: '#方舟练度卡片 #方舟练度面板',
-        desc: '查看干员练度面板'
+        desc: '干员资产卡片，展示全部技能与专精'
+      },
+      {
+        icon: 12,
+        title: '#方舟时装统计',
+        desc: '时装总数与系列统计，默认展示最近 8 套'
       },
       {
         icon: 13,
@@ -93,8 +98,8 @@ export const helpList = [
       },
       {
         icon: 81,
-        title: '#方舟养成计算+[TAG列表]',
-        desc: '例:#方舟养成计算 推王 2 90 7 10 7'
+        title: '#方舟养成计算 干员名 精英 等级',
+        desc: '可追加三个技能和模组等级，计算消耗与缺料'
       },
       {
         icon: 81,
@@ -115,11 +120,27 @@ export const helpList = [
         icon: 10,
         title: '#方舟肉鸽 #方舟集成战略',
         desc: '查看肉鸽完成情况'
-      }
+      },
+      { icon: 5, title: '#方舟理智 #方舟剿灭', desc: '查看理智与剿灭周常进度' },
+      { icon: 5, title: '#方舟日常 #方舟周常', desc: '查看每日、每周任务完成情况' },
+      { icon: 15, title: '#方舟活动 #方舟活动列表', desc: '查询账号的活动关卡完成进度' },
+      { icon: 15, title: '#方舟活动 完整名称或ID', desc: '查询单个活动的各区域完成情况' }
+    ]
+  }, {
+    group: '卫戍协议（需要绑定账号）',
+    list: [
+      { icon: 10, title: '#方舟卫戍帮助', desc: '查看命令用法，卫戍也可写为卫戍协议' },
+      { icon: 10, title: '#方舟卫戍攻略 [关键词]', desc: '搜索社区攻略' },
+      { icon: 10, title: '#方舟卫戍攻略下一页', desc: '继续当前攻略搜索' },
+      { icon: 10, title: '#方舟卫戍攻略详情1', desc: '查看攻略阵容与思路，支持空格及攻略ID' },
+      { icon: 10, title: '#方舟卫戍战绩 [页码] [赛季ID]', desc: '查询逐局历史战绩' },
+      { icon: 10, title: '#方舟卫戍战绩详情1', desc: '查看上次列表中的对局，支持空格' },
+      { icon: 10, title: '#方舟卫戍赛季', desc: '查看官方可查询赛季' }
     ]
   }, {
     group: '其他信息查询(不需要绑定账号)',
     list: [
+      { icon: 15, title: '#方舟活动日历', desc: '查看近期活动时间，与账号关卡进度分开查询' },
       {
         icon: 15,
         title: '#方舟公告 #方舟公告列表',
@@ -138,7 +159,7 @@ export const helpList = [
       {
         icon: 15,
         title: '#方舟公招查询+[TAG列表]',
-        desc: '从一图流获取材料掉率图'
+        desc: '按公招标签查询，绑定后标记干员持有情况'
       },
       {
         icon: 21,
@@ -155,6 +176,14 @@ export const helpList = [
         title: '#方舟EW养成统计 #方舟玛恩纳养成推荐',
         desc: '查看yituliu的养成统计'
       }
+    ]
+  }, {
+    group: '活动推送管理（仅主人）',
+    auth: 'master',
+    list: [
+      { icon: 15, title: '#方舟开启活动推送', desc: '开启本群活动提醒' },
+      { icon: 15, title: '#方舟关闭活动推送', desc: '关闭本群活动提醒' },
+      { icon: 15, title: '#方舟更新活动数据', desc: '清除活动时间缓存并重新获取' }
     ]
   }, {
     group: 'MAA远程控制',

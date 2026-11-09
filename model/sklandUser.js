@@ -56,6 +56,7 @@ export default class SKLandUser {
         if (new_cred) {
             logger.mark(`刷新cred成功`)
             this.cred = new_cred
+            if (this.sklReq) this.sklReq.cred = new_cred
             await this.saveUser()
             return true
         }
@@ -68,7 +69,7 @@ export default class SKLandUser {
         }
         // let res = await this.sklReq.getData('user_info')
         let res = await this.sklReq.getData('binding')
-        if (res?.code == 0 && res?.message === 'OK') {
+        if (this.sklReq.isSuccess(res)) {
             let bindingList = res.data.list
             for (let bindingItem of bindingList) {
                 if (bindingItem.appCode === 'arknights') {
@@ -77,6 +78,7 @@ export default class SKLandUser {
                     let gameChannel = bindingItem.bindingList[0].channelName
                     this.uid = gameUid
                     this.name = gameNickname
+                    this.sklReq.setUid(gameUid)
                     await this.saveUser()
                     return true
                 }
@@ -101,14 +103,14 @@ export default class SKLandUser {
     }
 
     async getGamePlayerInfo() {
-        const cached_game_info = await redis.get(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}`)
+        const cached_game_info = await redis.get(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}:${this.uid}`)
         if (cached_game_info) {
             logger.mark(`[方舟插件][GameInfo]使用${this.user_id}的缓存数据`)
             return JSON.parse(cached_game_info)
         }
         let res = await this.sklReq.getData('game_player_info')
-        if (res?.code == 0 && res?.message === 'OK') {
-            await redis.set(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}`, JSON.stringify(res), { EX: 300 })
+        if (this.sklReq.isSuccess(res)) {
+            await redis.set(`ARKNIGHTS:GAMEPLAYERINFO:${this.user_id}:${this.uid}`, JSON.stringify(res), { EX: 300 })
             return res
         } else {
             return null

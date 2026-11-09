@@ -1,0 +1,44 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}activity/progress.css">
+{{/block}}
+
+{{block 'main'}}
+<main class="activity-progress">
+    <header class="progress-header">
+        <h1>活动进度</h1>
+        <div class="player"><span>Dr.{{user_info.name}}</span><span class="uid">UID {{user_info.uid}}</span></div>
+    </header>
+
+    <div class="progress-list">
+        {{each activities activity}}
+        <section class="activity-row {{if activity.completed}}complete{{/if}}">
+            {{if activity.picUrl}}<img class="activity-banner" src="{{activity.picUrl}}" alt="{{activity.name}}" onload="this.closest('.activity-row').classList.add('has-banner')" onerror="this.closest('.activity-row').classList.remove('has-banner');this.style.display='none'">{{/if}}
+            <div class="banner-shade"></div>
+            <div class="activity-title"><h2>{{activity.name}}</h2><span>{{activity.type}}</span></div>
+            <div class="activity-value">
+                <div class="activity-status">{{activity.status}}{{if activity.known && activity.total > 0 && !activity.completed}}：{{/if}}</div>
+                {{if activity.known && activity.total > 0}}
+                <div class="activity-fraction"><span>{{activity.current}}</span><small>/ {{activity.total}}</small></div>
+                <div class="progress-track"><div class="progress-fill" style="width:{{activity.progress}}%"></div></div>
+                {{/if}}
+            </div>
+        </section>
+        {{if detail && activity.zones.length}}
+        <section class="zone-section">
+            <h3>关卡完成情况</h3>
+            {{each activity.zones zone}}
+            <div class="zone-row"><span>{{zone.name}}</span><span class="zone-count">{{if zone.known}}{{zone.current}} <small>/ {{zone.total}}</small>{{else}}暂未提供{{/if}}</span></div>
+            {{/each}}
+        </section>
+        {{/if}}
+        {{/each}}
+        {{if !activities.length}}
+        <div class="progress-empty"><h2>暂无活动进度</h2><p>森空岛暂未返回可展示的 SideStory 或插曲记录。</p></div>
+        {{/if}}
+    </div>
+
+    <footer><p>数据更新时间：{{updated_at}}</p><p>发送「活动 完整名称」查看区域进度 · 活动时间请查看「活动日历」</p><p>{{@sys.createdby}}</p></footer>
+</main>
+{{/block}}

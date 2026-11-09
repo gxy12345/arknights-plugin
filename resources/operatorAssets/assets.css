@@ -1,0 +1,34 @@
+body, .container { width: 1120px; color: #f5f5f5; background: #161616; font-family: "ARK", sans-serif; }
+.container { padding: 0; }
+.assets-page { padding: 30px 32px 24px; }
+.assets-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; padding-bottom: 22px; }
+.assets-header h1 { font-size: 34px; line-height: 1.35; font-weight: 600; }
+.assets-header p { color: #b8b8b8; font-size: 16px; line-height: 1.6; margin-top: 8px; }
+.assets-user { display: flex; flex-direction: column; gap: 8px; text-align: right; min-width: 0; }
+.assets-user strong { font-size: 20px; font-weight: 500; overflow-wrap: anywhere; }
+.assets-user > span { color: #b8b8b8; font-family: "ARK-EN", sans-serif; font-size: 16px; }
+.assets-toolbar { display: flex; justify-content: space-between; gap: 20px; padding: 12px 0; border-top: 1px solid #484848; color: #b8b8b8; font-size: 15px; line-height: 1.5; }
+.assets-footer { margin-top: 22px; color: #b8b8b8; font-size: 14px; line-height: 1.7; }
+.assets-footer p + p { margin-top: 5px; }
+.assets-footer p:last-child { margin-top: 12px; color: #9e9e9e; }
+.asset-muted { color: #b8b8b8; font-size: 12px; }
+.asset-skills, .asset-modules { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; min-width: 0; }
+.asset-skill { position: relative; width: 34px; height: 34px; flex-shrink: 0; background: #313131; border: 1px solid #727272; }
+.asset-skill.selected { border-color: #2bf; }
+.skill-picture { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.skill-fallback { display: flex; align-items: center; justify-content: center; height: 100%; color: #b8b8b8; font-size: 11px; }
+.skill-rank, .skill-mastery { position: absolute; top: -3px; left: -3px; width: 17px; height: 17px; box-sizing: border-box; }
+.skill-rank { display: flex; align-items: center; justify-content: center; background: #313131; color: #fff; font-family: "ARK-EN", sans-serif; font-size: 13px; line-height: 1; }
+.skill-locked { font-family: "ARK", sans-serif; font-size: 11px; }
+.asset-skill.locked .skill-picture, .asset-module.locked img { opacity: .35; filter: grayscale(1); }
+.asset-module { position: relative; width: 28px; height: 28px; flex-shrink: 0; background: #252525; border: 1px solid transparent; }
+.asset-module.selected { border-color: #2bf; }
+.asset-module > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.module-fallback { color: #b8b8b8; font-size: 12px; display: flex; align-items: center; justify-content: center; height: 100%; }
+.module-level { position: absolute; bottom: 0; right: 0; min-width: 12px; padding: 1px 2px; text-align: center; background: #313131; color: #fff; font-family: "ARK-EN", sans-serif; font-size: 11px; line-height: 1; }
+::selection { background: #2bf; color: #161616; }
+
+.has-icon > .skill-fallback, .has-icon > .module-fallback { visibility: hidden; }
+
+.asset-rarity, .asset-card-rarity { filter: brightness(0) invert(1); }
+.has-portrait > .portrait-fallback, .has-portrait > .skin-portrait-fallback { visibility: hidden; }

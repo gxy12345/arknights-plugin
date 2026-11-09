@@ -30,7 +30,7 @@ export class RogueInfo extends plugin {
 
         let res = await sklUser.getGamePlayerInfo()
 
-        if (res?.code === 0 && res?.message === 'OK') {
+        if (res?.code === 0) {
             let rogueData = res.data.rogue
             let rogueInfoMap = res.data.rogueInfoMap
 
@@ -73,4 +73,3 @@ export class RogueInfo extends plugin {
         return true
     }
 }
-

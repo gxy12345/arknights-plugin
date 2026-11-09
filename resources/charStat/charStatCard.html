@@ -1,61 +1,27 @@
 {{extend defaultLayout}}
-
-{{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{pluResPath}}charStat/charStatCard.css">
-{{/block}}
-
+{{block 'css'}}<link rel="stylesheet" href="{{pluResPath}}charStat/charStatCard.css">{{/block}}
 {{block 'main'}}
-<div class="main-container">
-    <div class="header">
-        <div class="header-left">
-            <h1 class="title">{{filter_info.rarity_name}}{{filter_info.profession_name}}练度面板</h1>
-            <p class="description">共计 {{total_num}} 名干员 | 数据更新时间: {{update_time_str}}</p>
-        </div>
-        <div class="header-right">
-            <p class="user-name">Dr.{{user_info.name}}</p>
-            <p class="user-uid">UID: {{user_info.uid}}</p>
-        </div>
-    </div>
-
-    <div class="char-grid">
-        {{each sorted_char_list char idx}}
-        <div class="char-card rarity-{{char.rarity}}">
-            <div class="char-avatar-container">
-                <img src="{{char.avatar_url}}" alt="{{char.name}}" class="char-avatar">
-                <img src="{{pluResPath}}charProfile/icons/potential_rank_{{char.potentialRank}}.png" alt="潜能" class="potential-icon">
+<main class="assets-page">
+    <header class="assets-header"><div><h1>{{filter_info.rarity_name}}{{filter_info.profession_name}}练度卡片</h1><p>干员资产 · 共 {{total_num}} 名</p></div><div class="assets-user"><strong>Dr.{{user_info.name}}</strong><span>UID {{user_info.uid}}</span></div></header>
+    <div class="assets-toolbar"><span>全部技能 · 普通等级 1–7 / 专精图标 1–3</span><span>第 {{page_num}} / {{pages}} 页</span></div>
+    <div class="asset-card-grid">
+        {{each sorted_char_list char}}
+        <article class="asset-operator-card rarity-{{char.rarity}}">
+            <div class="asset-portrait {{if char.portrait_url}}has-portrait{{/if}}">
+                <span class="portrait-fallback">暂无立绘</span><img class="asset-portrait-image" src="{{char.portrait_url}}" data-fallback="{{char.fallback_portrait_url}}" alt="{{char.name}}" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback}else{this.style.display='none';this.parentNode.classList.remove('has-portrait')}">
             </div>
-            
-            <div class="char-name">{{char.name}}</div>
-            
-            <div class="char-level">
-                <img src="{{pluResPath}}charProfile/icons/evolve_phase_{{char.evolvePhase}}.png" alt="精英" class="evolve-icon">
-                <span class="level-text">LV.{{char.level}}</span>
+            <div class="asset-card-details">
+                <div class="asset-card-heading"><h2>{{char.name}}</h2><img class="asset-card-potential" src="{{pluResPath}}charProfile/icons/potential_rank_{{char.potentialRank}}.png" alt="潜能{{char.potentialRank + 1}}"></div>
+                <div class="asset-card-metadata">
+                    <div class="asset-card-top">{{if char.profession_icon}}<img class="asset-card-profession" src="{{pluResPath}}operatorAssets/{{char.profession_icon}}" alt="{{char.profession_name}}">{{/if}}<img class="asset-card-rarity" src="{{pluResPath}}charProfile/icons/rarity_{{char.rarity}}.png" alt="{{char.rarity + 1}}星"></div>
+                    <div class="asset-card-level"><img src="{{pluResPath}}charProfile/icons/evolve_phase_{{char.evolvePhase}}.png" alt="精英{{char.evolvePhase}}"><span>{{char.level}}</span></div>
+                </div>
             </div>
-            
-            <div class="char-skills">
-                {{each char.skill_list skill skill_idx}}
-                <div class="skill-item {{skill.color_class}}">{{skill.text}}</div>
-                {{/each}}
-            </div>
-            
-            <div class="char-equip">
-                {{if char.equip_info.has_equip}}
-                <img src="{{char.equip_info.type_icon_url}}" alt="模组" class="equip-icon">
-                <span class="equip-text">{{char.equip_info.equip_text}}</span>
-                {{else}}
-                <span class="equip-text-none">-</span>
-                {{/if}}
-            </div>
-        </div>
+            {{@include(_layout_path + '../../operatorAssets/skills.html', {skills: char.skill_list, pluResPath: pluResPath})}}
+            <div class="asset-card-bottom"><span class="asset-card-trust">信赖 {{char.favorPercent}}%</span>{{@include(_layout_path + '../../operatorAssets/modules.html', {modules: char.modules, pluResPath: pluResPath})}}</div>
+        </article>
         {{/each}}
     </div>
-
-    <div class="footer">
-        <p>当前每页最多显示 {{page_size}} 名干员，可以使用 "/{{filter_info.rarity_name}}{{filter_info.profession_name}}练度面板+数字" 进行分页查看</p>
-    </div>
-</div>
-<div class="create-by-text">
-    {{@sys.createdby}}
-</div>
+    <footer class="assets-footer"><p>每页 {{page_size}} 名 · 发送「{{filter_info.rarity_name}}{{filter_info.profession_name}}练度卡片2」查看第 2 页（需添加插件前缀）</p><p>数据更新：{{update_time_str}}</p><p>{{@sys.createdby}}</p></footer>
+</main>
 {{/block}}
-

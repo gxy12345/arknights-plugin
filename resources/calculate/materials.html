@@ -1,0 +1,15 @@
+<div class="material-grid">
+    {{each materials item}}
+    <div class="material-row">
+        <div class="material-info">
+            <span class="material-icon {{if !item.iconUrl}}icon-missing{{/if}}">
+                {{if item.backgroundUrl}}<img class="material-background" src="{{item.backgroundUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
+                <span class="material-placeholder">材料</span>
+                {{if item.iconUrl}}<img class="material-image" src="{{item.iconUrl}}" {{if item.fallbackIcon}}data-fallback="{{pluResPath}}{{item.fallbackIcon}}"{{/if}} alt="" onerror="if(this.dataset.fallback&&!this.dataset.fallbackUsed){this.dataset.fallbackUsed='1';this.src=this.dataset.fallback}else{this.style.display='none';this.parentNode.classList.add('icon-missing')}">{{/if}}
+            </span>
+            <span class="material-name">{{item.name}}</span>
+        </div>
+        <span class="material-count">× {{item.count}}</span>
+    </div>
+    {{/each}}
+</div>

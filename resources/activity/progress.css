@@ -1,0 +1,33 @@
+body { width: 1000px; color: #fff; font-family: "ARK", sans-serif; }
+.container { width: 1000px; padding: 0; background: #101010; }
+.activity-progress { padding: 48px 40px 28px; }
+.progress-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; padding-bottom: 30px; }
+.progress-header h1 { margin: 0; font-size: 36px; font-weight: 600; line-height: 1.4; }
+.player { display: flex; flex-direction: column; gap: 5px; text-align: right; font-size: 18px; overflow-wrap: anywhere; }
+.uid { font-family: "ARK-EN", sans-serif; color: #b8b8b8; font-size: 17px; }
+.progress-list { display: flex; flex-direction: column; gap: 16px; }
+.activity-row { position: relative; display: flex; min-height: 144px; align-items: center; overflow: hidden; background: #1e1e1e; }
+.activity-banner { position: absolute; top: 0; left: 0; height: 100%; width: 68%; object-fit: contain; object-position: left center; }
+.banner-shade { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 25%, rgba(30,30,30,.5) 51%, #1e1e1e 75%); }
+.activity-title { position: relative; margin: 0 270px 0 28px; padding: 18px 0; max-width: 540px; text-shadow: 0 2px 8px #000; }
+.activity-title h2 { font-size: 25px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+.activity-title > span { display: block; margin-top: 7px; font-size: 16px; color: #d0d0d0; }
+.has-banner .activity-title { visibility: hidden; }
+.activity-value { position: absolute; right: 24px; width: 212px; padding: 12px 0 12px 18px; }
+.activity-status { font-size: 18px; line-height: 26px; }
+.activity-fraction { font-family: "ARK-EN", sans-serif; font-variant-numeric: tabular-nums; font-size: 36px; line-height: 42px; margin: 4px 0 10px; }
+.activity-fraction small { margin-left: 8px; color: rgba(255,255,255,.45); font-size: 22px; }
+.progress-track { width: 100%; height: 2px; background: rgba(255,255,255,.15); }
+.progress-fill { height: 2px; background: #fff; }
+.complete .activity-value { color: rgba(255,255,255,.45); }
+.complete .progress-fill { background: rgba(255,255,255,.45); }
+.zone-section { padding: 24px 28px; background: #1e1e1e; }
+.zone-section h3 { margin: 0 0 14px; font-size: 22px; font-weight: 500; }
+.zone-row { display: flex; justify-content: space-between; gap: 24px; padding: 13px 0; border-top: 1px solid #383838; color: #ddd; font-size: 19px; }
+.zone-count { font-family: "ARK-EN", "ARK", sans-serif; font-size: 23px; font-variant-numeric: tabular-nums; }
+.zone-count small { color: #aaa; font-size: 18px; }
+.progress-empty { padding: 70px 20px; text-align: center; background: #1e1e1e; }
+.progress-empty h2 { font-size: 26px; font-weight: 500; margin: 0 0 16px; }
+.progress-empty p { font-size: 18px; color: #b8b8b8; line-height: 1.7; }
+footer { margin-top: 30px; color: #b8b8b8; font-size: 15px; line-height: 1.9; }
+footer p:last-child { margin-top: 12px; color: #929292; }

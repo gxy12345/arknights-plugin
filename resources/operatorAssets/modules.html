@@ -1,0 +1,9 @@
+<div class="asset-modules">
+    {{each modules module}}
+    <div class="asset-module {{if module.type_icon_url}}has-icon{{/if}} {{if module.selected}}selected{{/if}} {{if module.locked}}locked{{/if}}" title="{{module.name}} · {{module.locked ? '未解锁' : module.level + '级'}}">
+        <span class="module-fallback">模</span>{{if module.type_icon_url}}<img src="{{module.type_icon_url}}" alt="{{module.name}}" onerror="this.style.display='none';this.parentNode.classList.remove('has-icon')">{{/if}}
+        <span class="module-level">{{module.locked ? '—' : module.level}}</span>
+    </div>
+    {{/each}}
+    {{if !modules.length}}<span class="asset-muted">无模组</span>{{/if}}
+</div>

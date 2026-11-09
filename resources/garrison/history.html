@@ -1,0 +1,32 @@
+{{extend defaultLayout}}
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}garrison/garrison.css">
+{{/block}}
+{{block 'main'}}
+<main class="garrison-page">
+    <header class="garrison-header">
+        {{if backgroundUrl}}<img class="season-background" src="{{backgroundUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
+        <div class="header-content"><h1>卫戍协议战绩</h1><p>{{seasonName || '历史战绩'}} · 第 {{page || 1}}{{if pages}} / {{pages}}{{/if}} 页{{if total !== undefined && total !== null}} · 共 {{total}} 条{{/if}}</p><div class="user-line">Dr.{{user_info.name}}<span>UID {{user_info.uid}}</span></div></div>
+    </header>
+    <div class="history-list">
+        {{each records record}}
+        <article class="history-entry {{if record.statusUnknown}}unknown-result{{else if record.success}}success{{else}}interrupted{{/if}}">
+            <div class="record-status-stripe"></div>
+            <div class="history-information">
+                <div class="entry-order">战绩 {{record.index}}</div>
+                <div class="result-line"><span class="round-number">{{record.passRound}}</span><span class="round-unit">轮</span><h2>{{record.resultLabel || (record.statusUnknown ? '结果未知' : record.success ? '模拟成功' : '模拟中断')}}</h2></div>
+                <div class="record-labels"><span>{{record.mode}}</span><span>{{record.difficulty}}</span><span>{{record.strategy.name || record.strategy.id || '小队暂未提供'}}</span></div>
+                <div class="record-date">{{record.date || '日期暂未提供'}}</div>
+                <div class="entry-id">战绩 ID：{{record.id}}</div>
+            </div>
+            <div class="history-operators">
+                {{each record.operators.slice(0, 10) operator}}<div class="history-operator"><div class="portrait"><span class="avatar-fallback">暂无头像</span>{{if operator.avatarUrl}}<img src="{{operator.avatarUrl}}" alt="" onerror="this.style.display='none'">{{/if}}</div><span>{{operator.name || operator.id}}</span></div>{{/each}}
+                {{if !record.operators.length}}<p class="section-empty">暂无干员记录</p>{{/if}}
+            </div>
+        </article>
+        {{/each}}
+        {{if !records.length}}<section class="empty-state"><h2>暂无历史战绩</h2><p>官方暂未返回该账号的历史记录，完成一局模拟后可稍后重试。</p></section>{{/if}}
+    </div>
+    <footer class="garrison-footer"><p>历史记录由官方攻略工具返回，可查范围以官方接口为准。</p><p>发送「卫戍战绩详情 序号」查询完整阵容。</p>{{if hasMore}}<p>下一页：卫戍战绩 {{page + 1}}{{if seasonId}} {{seasonId}}{{/if}}</p>{{/if}}{{if updated_at}}<p>数据更新时间：{{updated_at}}</p>{{/if}}<p>{{@sys.createdby}}</p></footer>
+</main>
+{{/block}}

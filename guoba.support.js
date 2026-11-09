@@ -66,6 +66,25 @@ export function supportGuoba () {
         }
       },
       {
+        field: 'game_info.char_stat_card_page_size',
+        label: '练度卡片每页数量',
+        bottomHelpMessage: '干员资产卡片每行 5 名干员',
+        component: 'InputNumber',
+        required: true,
+        componentProps: { min: 5, max: 100, step: 5 }
+      },
+      {
+        field: 'game_info.skin_stat_count',
+        label: '时装统计展示数量',
+        bottomHelpMessage: '仅展示最近获得的时装卡片，统计数量包含全部已拥有时装',
+        component: 'Select',
+        required: true,
+        componentProps: {
+          options: [4, 8, 12, 16].map(value => ({ label: `${value} 套`, value })),
+          placeholder: '默认 8 套'
+        }
+      },
+      {
         field: 'game_info.max_announce',
         label: '公告显示数量上限',
         bottomHelpMessage: '/公告列表 显示公告数量上限',
