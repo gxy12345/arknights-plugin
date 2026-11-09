@@ -70,6 +70,21 @@ body {
     top: 12px;
     transform: scale(0.85);
   }
+  .help-icon.has-app-icon {
+    background-image: none;
+    border-radius: 0;
+    transform: none;
+  }
+  .help-app-icon {
+    display: block;
+    width: 34px;
+    height: 34px;
+    margin: 3px;
+    object-fit: contain;
+    filter: url(#help-app-icon-filter);
+  }
+  .help-app-icon.is-color { filter: none; }
+  .help-icon-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
   .help-title {
     display: block;
     color: #d3bc8e;

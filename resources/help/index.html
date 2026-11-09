@@ -8,6 +8,8 @@
 
 {{block 'main'}}
 
+<svg class="help-icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><filter id="help-app-icon-filter" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 7 0"/></filter></defs></svg>
+
 <div class="info-box">
   <div class="head-box type{{bgType}}">
     <div class="title">{{helpCfg.title||"方舟插件帮助"}}</div>
@@ -24,7 +26,7 @@
     <div class="tr">
       {{each group.list help idx}}
       <div class="td">
-        <span class="help-icon" style="{{help.css}}"></span>
+        <span class="help-icon {{if help.appIcon}}has-app-icon{{/if}}" style="{{help.css}}">{{if help.appIcon}}<img class="help-app-icon {{if help.appIconColor}}is-color{{/if}}" src="{{pluResPath}}help/skland/{{help.appIcon}}" alt="" onerror="this.style.display='none';this.parentNode.classList.remove('has-app-icon')">{{/if}}</span>
         <strong class="help-title">{{help.title}}</strong>
         <span class="help-desc">{{help.desc}}</span>
       </div>

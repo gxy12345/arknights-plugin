@@ -30,7 +30,7 @@ export const helpList = [
     list: [
       {
         icon: 1,
-        title: '#方舟cred帮助',
+        title: '#方舟cred帮助', appIcon: 'help.svg',
         desc: '绑定帮助'
       }, {
         icon: 2,
@@ -38,7 +38,7 @@ export const helpList = [
         desc: '绑定森空岛账号'
       },{
         icon: 2,
-        title: '#方舟扫码绑定',
+        title: '#方舟扫码绑定', appIcon: 'scan.svg',
         desc: '通过森空岛APP扫码的方式绑定'
       }, {
         icon: 3,
@@ -50,7 +50,7 @@ export const helpList = [
         desc: '查看已绑定的token'
       }, {
         icon: 4,
-        title: '#方舟删除cred',
+        title: '#方舟删除cred', appIcon: 'delete.svg',
         desc: '删除cred和token（解绑）'
       }
     ]
@@ -59,27 +59,27 @@ export const helpList = [
     list: [
       {
         icon: 5,
-        title: '#方舟便签 #方舟博士卡片',
+        title: '#方舟便签 #方舟博士卡片', appIcon: 'toolbox-data.png', appIconColor: true,
         desc: '角色资料卡片'
       },
       {
         icon: 12,
-        title: '#方舟玛恩纳 #方舟叔叔',
+        title: '#方舟玛恩纳 #方舟叔叔', appIcon: 'toolbox-operator.png', appIconColor: true,
         desc: '干员练度卡片'
       },
       {
         icon: 7,
-        title: '#方舟练度统计 #方舟练度统计2',
+        title: '#方舟练度统计 #方舟练度统计2', appIcon: 'toolbox-operator.png', appIconColor: true,
         desc: '干员资产紧凑列表，支持分页'
       },
       {
         icon: 7,
-        title: '#方舟练度卡片 #方舟练度面板',
+        title: '#方舟练度卡片 #方舟练度面板', appIcon: 'toolbox-operator.png', appIconColor: true,
         desc: '干员资产卡片，展示全部技能与专精'
       },
       {
         icon: 12,
-        title: '#方舟时装统计',
+        title: '#方舟时装统计', appIcon: 'skin.png',
         desc: '时装总数与系列统计，默认展示最近 8 套'
       },
       {
@@ -89,21 +89,21 @@ export const helpList = [
       },
       {
         icon: 8,
-        title: '#方舟先锋练度统计 #方舟六星练度统计',
+        title: '#方舟先锋练度统计 #方舟六星练度统计', appIcon: 'toolbox-operator.png', appIconColor: true,
         desc: '筛选后的练度统计，支持分页'
       }, {
         icon: 9,
-        title: '#方舟签到',
+        title: '#方舟签到', appIcon: 'toolbox-signin.png', appIconColor: true,
         desc: '手动进行森空岛签到'
       },
       {
         icon: 81,
-        title: '#方舟养成计算 干员名 精英 等级',
+        title: '#方舟养成计算 干员名 精英 等级', appIcon: 'toolbox-cultivate.png', appIconColor: true,
         desc: '可追加三个技能和模组等级，计算消耗与缺料'
       },
       {
         icon: 81,
-        title: '#方舟养成计算',
+        title: '#方舟养成计算', appIcon: 'toolbox-cultivate.png', appIconColor: true,
         desc: '不输入tag时可以获取命令帮助'
       },
       {
@@ -118,29 +118,29 @@ export const helpList = [
       },
       {
         icon: 10,
-        title: '#方舟肉鸽 #方舟集成战略',
+        title: '#方舟肉鸽 #方舟集成战略', appIcon: 'toolbox-rogue.png', appIconColor: true,
         desc: '查看肉鸽完成情况'
       },
-      { icon: 5, title: '#方舟理智 #方舟剿灭', desc: '查看理智与剿灭周常进度' },
-      { icon: 5, title: '#方舟日常 #方舟周常', desc: '查看每日、每周任务完成情况' },
-      { icon: 15, title: '#方舟活动 #方舟活动列表', desc: '查询账号的活动关卡完成进度' },
-      { icon: 15, title: '#方舟活动 完整名称或ID', desc: '查询单个活动的各区域完成情况' }
+      { icon: 5, title: '#方舟理智 #方舟剿灭', appIcon: 'sanity.png', desc: '查看理智与剿灭周常进度' },
+      { icon: 5, title: '#方舟日常 #方舟周常', appIcon: 'daily.png', desc: '查看每日、每周任务完成情况' },
+      { icon: 15, title: '#方舟活动 #方舟活动列表', appIcon: 'activity.svg', desc: '查询账号的活动关卡完成进度' },
+      { icon: 15, title: '#方舟活动 完整名称或ID', appIcon: 'activity.svg', desc: '查询单个活动的各区域完成情况' }
     ]
   }, {
     group: '卫戍协议（需要绑定账号）',
     list: [
-      { icon: 10, title: '#方舟卫戍帮助', desc: '查看命令用法，卫戍也可写为卫戍协议' },
-      { icon: 10, title: '#方舟卫戍攻略 [关键词]', desc: '搜索社区攻略' },
-      { icon: 10, title: '#方舟卫戍攻略下一页', desc: '继续当前攻略搜索' },
-      { icon: 10, title: '#方舟卫戍攻略详情1', desc: '查看攻略阵容与思路，支持空格及攻略ID' },
-      { icon: 10, title: '#方舟卫戍战绩 [页码] [赛季ID]', desc: '查询逐局历史战绩' },
-      { icon: 10, title: '#方舟卫戍战绩详情1', desc: '查看上次列表中的对局，支持空格' },
-      { icon: 10, title: '#方舟卫戍赛季', desc: '查看官方可查询赛季' }
+      { icon: 10, title: '#方舟卫戍帮助', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查看命令用法，卫戍也可写为卫戍协议' },
+      { icon: 10, title: '#方舟卫戍攻略 [关键词]', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '搜索社区攻略' },
+      { icon: 10, title: '#方舟卫戍攻略下一页', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '继续当前攻略搜索' },
+      { icon: 10, title: '#方舟卫戍攻略详情1', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查看攻略阵容与思路，支持空格及攻略ID' },
+      { icon: 10, title: '#方舟卫戍战绩 [页码] [赛季ID]', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查询逐局历史战绩' },
+      { icon: 10, title: '#方舟卫戍战绩详情1', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查看上次列表中的对局，支持空格' },
+      { icon: 10, title: '#方舟卫戍赛季', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查看官方可查询赛季' }
     ]
   }, {
     group: '其他信息查询(不需要绑定账号)',
     list: [
-      { icon: 15, title: '#方舟活动日历', desc: '查看近期活动时间，与账号关卡进度分开查询' },
+      { icon: 15, title: '#方舟活动日历', appIcon: 'calendar.webp', appIconColor: true, desc: '查看近期活动时间，与账号关卡进度分开查询' },
       {
         icon: 15,
         title: '#方舟公告 #方舟公告列表',
@@ -158,7 +158,7 @@ export const helpList = [
       },
       {
         icon: 15,
-        title: '#方舟公招查询+[TAG列表]',
+        title: '#方舟公招查询+[TAG列表]', appIcon: 'toolbox-recruit.png', appIconColor: true,
         desc: '按公招标签查询，绑定后标记干员持有情况'
       },
       {
@@ -183,7 +183,7 @@ export const helpList = [
     list: [
       { icon: 15, title: '#方舟开启活动推送', desc: '开启本群活动提醒' },
       { icon: 15, title: '#方舟关闭活动推送', desc: '关闭本群活动提醒' },
-      { icon: 15, title: '#方舟更新活动数据', desc: '清除活动时间缓存并重新获取' }
+      { icon: 15, title: '#方舟更新活动数据', appIcon: 'refresh.svg', desc: '清除活动时间缓存并重新获取' }
     ]
   }, {
     group: 'MAA远程控制',
