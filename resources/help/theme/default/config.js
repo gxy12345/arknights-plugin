@@ -1,4 +1,5 @@
 export const style = {
+  bgColor: '#fcfdfb', // 底图未覆盖区域延续插画的浅色背景
   fontColor: '#ffffff', // 主文字颜色
   descColor: '#e7e7e7', // 描述文字颜色
   contBgColor: 'rgba(43, 52, 61, 0.6)', // 面板整体底色，颜色过透明可能导致阅读困难

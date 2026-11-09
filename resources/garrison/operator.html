@@ -1,0 +1,34 @@
+<article class="operator">
+    <div class="operator-card {{if operator.portraitIsAvatar}}avatar-only{{/if}} tier-{{operator.tier}}">
+        <div class="operator-art {{if operator.portraitUrl || operator.avatarUrl}}has-image{{/if}}">
+            <span class="avatar-fallback">暂无立绘</span>
+            {{if operator.portraitUrl || operator.avatarUrl}}<img src="{{operator.portraitUrl || operator.avatarUrl}}" alt="{{operator.name}}" onerror="this.style.display='none';this.parentNode.classList.remove('has-image')">{{/if}}
+        </div>
+        <div class="operator-badges">
+            {{if operator.tierIcon}}<img class="operator-tier" src="{{pluResPath}}garrison/assets/{{operator.tierIcon}}" alt="阶级 {{operator.tier}}">{{else if operator.tier > 0}}<span class="operator-tier-fallback">{{operator.tier}}</span>{{/if}}
+            {{if operator.level !== null && operator.level !== undefined}}
+            <div class="operator-level {{if operator.mergeLevel >= 1}}merged{{/if}}" title="精英 {{operator.evolvePhase}} · 合并等级 {{operator.mergeLevel}}">
+                {{if operator.eliteIcon}}<img src="{{pluResPath}}garrison/assets/{{operator.eliteIcon}}" alt="精英 {{operator.evolvePhase}}{{if operator.mergeLevel >= 1}}（已合并）{{/if}}">{{/if}}
+                <span>{{operator.level}}</span>
+            </div>
+            {{/if}}
+        </div>
+        <div class="operator-loadout">
+            <div class="loadout-slot {{if operator.skillIconUrl}}has-icon{{/if}}" title="技能：{{operator.skillName || '未选择'}}">
+                <span class="loadout-fallback">{{if operator.skillId}}技能{{else}}未选{{/if}}</span>
+                {{if operator.skillIconUrl}}<img src="{{operator.skillIconUrl}}" alt="{{operator.skillName}}" onerror="this.style.display='none';this.parentNode.classList.remove('has-icon');this.closest('.operator').classList.add('skill-icon-missing')">{{/if}}
+            </div>
+            <div class="loadout-slot module-slot {{if operator.moduleIconUrl}}has-icon{{/if}}" title="模组：{{operator.moduleName || '未选择'}}">
+                <span class="loadout-fallback">{{if operator.moduleId}}模组{{else}}未选{{/if}}</span>
+                {{if operator.moduleShiningUrl}}<img class="module-shining" src="{{operator.moduleShiningUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
+                {{if operator.moduleIconUrl}}<img src="{{operator.moduleIconUrl}}" alt="{{operator.moduleName}}" onerror="this.style.display='none';this.parentNode.classList.remove('has-icon');this.closest('.operator').classList.add('module-icon-missing')">{{/if}}
+            </div>
+        </div>
+    </div>
+    <h4 class="operator-name">{{operator.name || operator.id}}</h4>
+    {{if operator.skillId}}<p class="operator-resource-fallback skill-name-fallback {{if operator.skillIconUrl}}icon-available{{/if}}">技能：{{operator.skillName || operator.skillId}}</p>{{/if}}
+    {{if operator.moduleId}}<p class="operator-resource-fallback module-name-fallback {{if operator.moduleIconUrl}}icon-available{{/if}}">模组：{{operator.moduleName || operator.moduleId}}</p>{{/if}}
+    {{if operator.equips && operator.equips.length}}
+    <div class="operator-equips">{{each operator.equips equip}}<span class="operator-equip {{if equip.iconUrl}}has-icon{{/if}}" title="{{equip.name || equip.id}}"><span>装备</span>{{if equip.iconUrl}}<img src="{{equip.iconUrl}}" alt="{{equip.name || equip.id}}" onerror="this.style.display='none';this.parentNode.classList.remove('has-icon')">{{/if}}</span>{{if !equip.iconUrl}}<span class="operator-resource-fallback">{{equip.name || equip.id}}</span>{{/if}}{{/each}}</div>
+    {{/if}}
+</article>

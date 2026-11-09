@@ -1,0 +1,45 @@
+{{extend defaultLayout}}
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}garrison/garrison.css">
+{{/block}}
+{{block 'main'}}
+<main class="garrison-page">
+    <header class="garrison-header">
+        {{if backgroundUrl}}<img class="season-background" src="{{backgroundUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
+        <div class="header-content"><h1>卫戍协议战绩</h1><div class="user-line">Dr.{{user_info.name}}<span>UID {{user_info.uid}}</span></div></div>
+    </header>
+    <article class="record-summary {{if record.statusUnknown}}unknown-result{{else if record.success}}success{{else}}interrupted{{/if}}">
+        <div class="record-status-stripe"></div>
+        {{if record.index}}<div class="entry-order">战绩 {{record.index}}</div>{{/if}}
+        <div class="result-line"><span class="round-number">{{record.passRound}}</span><span class="round-unit">轮</span><h2>{{record.resultLabel || (record.statusUnknown ? '结果未知' : record.success ? '模拟成功' : '模拟中断')}}</h2></div>
+        <div class="record-labels"><span>{{record.mode}}</span><span>{{record.difficulty}}</span>{{if record.strategy.iconUrl}}<img class="strategy-icon" src="{{record.strategy.iconUrl}}" alt="" onerror="this.style.display='none'">{{/if}}<span>{{record.strategy.name || record.strategy.id || '小队暂未提供'}}</span></div>
+        <p class="record-date">{{record.date || '日期暂未提供'}}</p>
+        <p class="entry-id">战绩 ID：{{record.id}} · 赛季 {{record.seasonId || '暂未提供'}}{{if record.versionId}} · 版本 {{record.versionId}}{{/if}}</p>
+        {{if (record.killCnt !== undefined && record.killCnt !== null) || (record.trophyBefore !== undefined && record.trophyBefore !== null && record.trophyAfter !== undefined && record.trophyAfter !== null)}}
+        <dl class="record-statistics">
+            {{if record.killCnt !== undefined && record.killCnt !== null}}<div><dt>击杀数</dt><dd>{{record.killCnt}}</dd></div>{{/if}}
+            {{if record.trophyBefore !== undefined && record.trophyBefore !== null && record.trophyAfter !== undefined && record.trophyAfter !== null}}<div><dt>奖杯变化</dt><dd>{{record.trophyBefore}} <span>→</span> {{record.trophyAfter}}</dd></div>{{/if}}
+        </dl>
+        {{/if}}
+    </article>
+    {{if record.resourceUnavailable}}<p class="resource-note">部分旧版本资源暂未提供，以下保留官方记录中的原始 ID。</p>{{/if}}
+    {{if record.bonds && record.bonds.length}}
+    <section class="formation-section">
+        <div class="section-heading"><h2>盟约</h2></div>
+        <div class="record-bonds">{{each record.bonds bond}}<article class="record-bond {{if !bond.active}}inactive{{/if}}">{{if bond.iconUrl}}<img src="{{bond.iconUrl}}" alt="" onerror="this.style.display='none'">{{/if}}<div><h3>{{bond.name || bond.id}}</h3><p>层数 {{bond.layer}}{{if bond.active !== undefined && bond.active !== null}} · {{if bond.active}}已激活{{else}}未激活{{/if}}{{/if}}</p></div></article>{{/each}}</div>
+    </section>
+    {{/if}}
+    <section class="formation-section">
+        <div class="section-heading"><h2>最终阵容</h2><span>{{record.operators.length}} 名干员</span></div>
+        <div class="operator-grid">
+            {{each record.operators operator}}
+            {{@include(_layout_path + '../../garrison/operator.html', {operator: operator, pluResPath: pluResPath})}}
+            {{/each}}
+            {{if !record.operators.length}}<p class="section-empty">官方记录暂未提供干员阵容。</p>{{/if}}
+        </div>
+        <h3 class="subsection-title">装备</h3>
+        <div class="item-list">{{each record.items item}}<article class="item"><div class="item-icon">{{if item.iconUrl}}<img src="{{item.iconUrl}}" alt="" onerror="this.style.display='none'">{{/if}}</div><div><h4>{{item.name || item.id}}</h4>{{if item.description}}<p>{{item.description}}</p>{{/if}}</div></article>{{/each}}{{if !record.items.length}}<p class="section-empty">官方记录暂未提供独立装备列表。</p>{{/if}}</div>
+    </section>
+    <footer class="garrison-footer">{{if updated_at}}<p>数据更新时间：{{updated_at}}</p>{{/if}}<p>{{@sys.createdby}}</p></footer>
+</main>
+{{/block}}

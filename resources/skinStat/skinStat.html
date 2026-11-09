@@ -1,0 +1,31 @@
+{{extend defaultLayout}}
+{{block 'css'}}<link rel="stylesheet" href="{{pluResPath}}skinStat/skinStat.css">{{/block}}
+{{block 'main'}}
+<main class="assets-page">
+    <header class="assets-header"><div><h1>时装统计</h1><p>时装资产</p></div><div class="assets-user"><strong>Dr.{{user_info.name}}</strong><span>UID {{user_info.uid}}</span></div></header>
+    <section class="skin-summary">
+        <div class="skin-summary-title"><h2>已拥有时装 <strong>{{total}}</strong><span>套</span></h2><p>共 {{series.length}} 个系列</p></div>
+        <div class="skin-series-list">
+            {{each series brand}}
+            <div class="skin-series"><div class="skin-series-logo">{{if brand.iconUrl}}<img src="{{brand.iconUrl}}" alt="" onerror="this.style.display='none'">{{/if}}</div><span>{{brand.name}}</span><strong>{{brand.count}}</strong></div>
+            {{/each}}
+        </div>
+        {{if !total}}<p class="skin-empty-summary">森空岛尚未记录已拥有时装。</p>{{/if}}
+    </section>
+    <div class="assets-toolbar"><span>最近获得 {{skins.length}} 套</span><span>按获得时间倒序 · 展示上限 {{displayCount}} 套</span></div>
+    <div class="skin-grid">
+        {{each skins skin}}
+        <article class="skin-entry">
+            <div class="skin-card {{if skin.portraitUrl}}has-portrait{{/if}}">
+                <span class="skin-portrait-fallback">暂无立绘</span><img class="skin-portrait" src="{{skin.portraitUrl}}" alt="{{skin.name}}" onerror="this.style.display='none';this.parentNode.classList.remove('has-portrait')">
+                <div class="skin-card-mask"></div>
+                <div class="skin-card-info">{{if skin.brandIconUrl}}<img class="skin-brand" src="{{skin.brandIconUrl}}" alt="{{skin.brandName}}" onerror="this.style.display='none'">{{/if}}<h2>{{skin.name}}</h2><p>{{skin.charName}}</p></div>
+            </div>
+            <p class="skin-gain-date">{{if skin.gainTime}}获得于 {{/if}}{{skin.date}}</p>
+        </article>
+        {{/each}}
+    </div>
+    {{if !skins.length}}<div class="skin-empty-state">暂无可展示的时装</div>{{/if}}
+    <footer class="assets-footer"><p>总数及系列数量统计全部已拥有时装，卡片仅展示最近获得的 {{displayCount}} 套。</p>{{if unknownTimeCount}}<p>{{unknownTimeCount}} 套时装的获得时间未知，已排在列表末尾。</p>{{/if}}<p>数据更新：{{updated_at}}</p><p>{{@sys.createdby}}</p></footer>
+</main>
+{{/block}}

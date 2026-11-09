@@ -135,3 +135,6 @@ dist
 .config/
 .DS_Store
 .resources/help/theme
+
+# Local development notes and references
+/docs/

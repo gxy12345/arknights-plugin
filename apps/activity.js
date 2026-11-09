@@ -2,6 +2,8 @@ import { rulePrefix } from '../utils/common.js'
 import setting from '../utils/setting.js'
 import runtimeRender from '../utils/runtimeRender.js'
 import puppeteer from '../../../lib/puppeteer/puppeteer.js'
+import SKLandUser from '../model/sklandUser.js'
+import { normalizeActivityProgress, findActivities } from '../model/activityView.js'
 
 const cache_key = 'ARKNIGHTS:WEB_DATA:ACTIVITY'
 const group_push_key = 'ARKNIGHTS:ACTIVITY:GROUP_PUSH:'
@@ -16,8 +18,12 @@ export class Activity extends plugin {
             priority: 1000,
             rule: [
                 {
-                    reg: `^${rulePrefix}(活动|活动)(列表|查询)?$`,
+                    reg: `^${rulePrefix}活动(?:列表|查询|进度)?(?:\\s+(.+))?$`,
                     fnc: 'activityList'
+                },
+                {
+                    reg: `^${rulePrefix}活动日历$`,
+                    fnc: 'activityCalendar'
                 },
                 {
                     reg: `^${rulePrefix}开启活动推送$`,
@@ -47,9 +53,55 @@ export class Activity extends plugin {
     }
 
     /**
-     * 查询活动列表
+     * 森空岛活动关卡进度，与 APP 的游戏数据活动列表使用同一数据源。
      */
     async activityList() {
+        const query = this.e.msg.match(new RegExp(`^${rulePrefix}活动(?:列表|查询|进度)?(?:\\s+(.+))?$`))?.at(-1)?.trim() || ''
+        const user = new SKLandUser(this.e.at || this.e.user_id)
+        try {
+            if (!await user.getUser()) {
+                await this.reply('未绑定森空岛账号，请先绑定 cred 后查询活动进度；活动时间可发送「活动日历」查看。')
+                return true
+            }
+            const response = await user.getGamePlayerInfo()
+            if (Number(response?.code) !== 0 || !response?.data) {
+                await this.reply('获取活动进度失败，请检查森空岛绑定状态或稍后重试。')
+                return true
+            }
+            const activities = normalizeActivityProgress(response.data)
+            const matches = query ? findActivities(activities, query) : activities
+            if (query && !matches.length) {
+                await this.reply(`未找到「${query}」的活动进度。发送「活动列表」查看可查询的活动。`)
+                return true
+            }
+            if (query && matches.length > 1) {
+                await this.reply(`找到多个活动，请使用完整活动名称查询：\n${matches.map(activity => activity.name).join('\n')}`)
+                return true
+            }
+            const timestamp = Number(response.timestamp)
+            const updatedAt = Number.isFinite(timestamp) && timestamp > 0
+                ? new Date(timestamp * (timestamp > 1e12 ? 1 : 1000)).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false })
+                : '暂未提供'
+            await runtimeRender(this.e, 'activity/progress.html', {
+                activities: matches,
+                detail: Boolean(query),
+                user_info: {
+                    name: response.data.status?.name || user.name,
+                    uid: response.data.status?.uid || user.uid
+                },
+                updated_at: updatedAt
+            }, { scale: 1.0 })
+        } catch (error) {
+            logger.error('[方舟插件][活动进度]获取或渲染失败')
+            await this.reply('活动进度查询失败，请稍后重试。')
+        }
+        return true
+    }
+
+    /**
+     * 原活动日历及推送继续使用公开活动时间表。
+     */
+    async activityCalendar() {
         let activity_data = await this.getActivityData()
         if (!activity_data) {
             await this.reply('获取活动数据失败，请稍后再试')

@@ -51,6 +51,7 @@ let HelpTheme = {
       }
       ret.push(`${sel}{${css}:${val}}`)
     }
+    css('.container', 'background-color', 'bgColor', 'transparent')
     css('.help-title,.help-group', 'color', 'fontColor', '#ceb78b')
     css('.help-title,.help-group', 'text-shadow', 'fontShadow', 'none')
     css('.help-desc', 'color', 'descColor', '#eee')

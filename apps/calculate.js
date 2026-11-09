@@ -2,6 +2,7 @@ import fs from "fs";
 import { rulePrefix, get_name_from_nickname, profession_eng_to_name } from '../utils/common.js'
 import SKLandUser from '../model/sklandUser.js'
 import { getAvatarUrl, getSkinAvatarUrl } from '../model/imgApi.js'
+import { createMaterialCatalog, calculateMissingMaterials } from '../model/cultivateMaterials.js'
 import runtimeRender from '../utils/runtimeRender.js'
 import constant from "../components/constant.js";
 
@@ -32,8 +33,7 @@ export class CharProfile extends plugin {
         }
         let res = await sklUser.getGamePlayerInfo()
 
-        if (!res) {
-            logger.mark(`user info失败，响应:${JSON.stringify(res)}`)
+        if (!res?.data || !Array.isArray(res.data.chars)) {
             await this.reply(`查询失败，请检查cred或稍后再试`)
             return true
         }
@@ -58,6 +58,9 @@ export class CharProfile extends plugin {
         }
         let char_name = get_name_from_nickname(calculate_params[0])
         let cal_meta_info = await sklUser.sklReq.getData('cal_info')
+        if (!cal_meta_info?.data || !Array.isArray(cal_meta_info.data.characters)) {
+            await this.reply('未能获取养成资料，请稍后重试'); return true
+        }
 
         let target_char_info
         if (char_name.includes('阿米娅')) {
@@ -66,24 +69,32 @@ export class CharProfile extends plugin {
         } else {
             target_char_info = cal_meta_info.data.characters.filter(obj => obj.name === char_name);
         }
-        const skl_item_info = cal_meta_info.data.items
+        const materials = createMaterialCatalog(cal_meta_info.data.items)
         if (target_char_info.length < 1) {
             await this.reply(`未找到干员【${char_name}】`)
             return false
         }
         let char_id = target_char_info[0].id
-        let char_skin_id = res.data.chars[res.data.chars.findIndex(item => item.charId == char_id)].skinId
-        let char_avatar_url = getSkinAvatarUrl(char_skin_id)
+        const ownedChar = res.data.chars.find(item => item.charId === char_id)
+        if (!ownedChar) { await this.reply(`尚未持有干员【${char_name}】，暂不支持计算`); return true }
+        let char_avatar_url = ownedChar.skinId ? getSkinAvatarUrl(ownedChar.skinId) : getAvatarUrl(char_id)
 
         let cal_player_res = await sklUser.sklReq.getData('cal_player')
+        if (!cal_player_res?.data || !Array.isArray(cal_player_res.data.characters) || !Array.isArray(cal_player_res.data.items)) {
+            await this.reply('未能获取养成库存，请稍后重试'); return true
+        }
         let player_item_data = cal_player_res.data.items
         let player_char_data = cal_player_res.data.characters
         let target_char_data = player_char_data.filter(obj => obj.id === char_id)[0]
+        if (!target_char_data) { await this.reply('未能获取该干员的养成数据，请稍后重试'); return true }
+        target_char_data = { ...target_char_data }
         target_char_data.rarity = target_char_info[0].rarity
         target_char_data.name = target_char_info[0].name
         target_char_data.profession = profession_eng_to_name(target_char_info[0].profession)
         target_char_data.avatar_url = char_avatar_url
         let cal_char_info = await sklUser.sklReq.getData('cal_character', { characterId: char_id })
+
+        if (!cal_char_info?.data) { await this.reply('未能获取干员消耗资料，请稍后重试'); return true }
 
         let target = this.getTarget(calculate_params, target_char_data, cal_char_info.data)
         let cal_result = await this.calculateRequire(calculate_params, target_char_data, cal_char_info.data)
@@ -94,21 +105,21 @@ export class CharProfile extends plugin {
             return true
         }
 
-        // 用森空岛数据给item列表添加rarity，便于后续渲染图片
-        this.addItemRarity(cal_result.evo_materials, skl_item_info)
-        this.addItemRarity(cal_result.mod_materials, skl_item_info)
-        this.addItemRarity(cal_result.skill_materials, skl_item_info)
-        this.addItemRarity(cal_result.total_materials, skl_item_info)
-
-        let lack_result = this.calculateLackItemList(cal_result.total_materials, cal_result.cash, cal_result.exp, player_item_data)
-        // 用森空岛数据给item列表添加rarity，便于后续渲染图片
-        this.addItemRarity(lack_result.materials, skl_item_info)
+        for (const key of ['evo_materials', 'mod_materials', 'skill_materials', 'total_materials']) {
+            cal_result[key] = materials.decorate(cal_result[key])
+        }
+        const lack_result = calculateMissingMaterials(cal_result.total_materials, cal_result.cash, cal_result.exp, player_item_data, materials)
+        // EXP is an aggregate value, not a count of battle records.
+        const base_materials = cal_result.cash > 0 ? [{ ...materials.resolve('4001'), count: cal_result.cash }] : []
+        const lack_materials = [...(lack_result.cash > 0 ? [{ ...materials.resolve('4001'), count: lack_result.cash }] : []),
+            ...lack_result.materials.map(item => ({ ...item, count: item.lackCount }))]
 
         await runtimeRender(this.e, 'calculate/calculate.html', {
             char_data: target_char_data,
             target: target,
             cal_result: cal_result,
             lack_result: lack_result,
+            base_materials, lack_materials,
         }, {
             scale: 1.0
         })
@@ -320,45 +331,14 @@ export class CharProfile extends plugin {
     }
 
     async mergeMaterials(arr1, arr2) {
-        let mergedArray = JSON.parse(JSON.stringify(arr1))
-
-        for (const obj2 of arr2) {
-            const existingObj = mergedArray.find(obj1 => obj1.id == obj2.id);
-            if (existingObj) {
-                existingObj.count += obj2.count;
-            } else {
-                mergedArray.push(JSON.parse(JSON.stringify(obj2)));
-            }
+        const merged = new Map()
+        for (const item of [...arr1, ...arr2]) {
+            const id = String(item.id)
+            const current = merged.get(id)
+            if (current) current.count += Number(item.count)
+            else merged.set(id, { ...item, id, count: Number(item.count) })
         }
-
-
-        await this.addItemInfo(mergedArray)
-        mergedArray.sort((a, b) => a.sortId - b.sortId)
-
-        return mergedArray;
-    }
-
-    async addItemInfo(materials) {
-        const json_data_path = `${_path}/plugins/arknights-plugin/resources/calculate/item_meta.json`
-        let item_meta_data = await fs.promises
-            .readFile(json_data_path, 'utf8')
-            .then((data) => {
-                return JSON.parse(data)
-            })
-            .catch((err) => {
-                logger.error(err)
-                return false
-            })
-
-        for (let item of materials) {
-            if (item_meta_data.hasOwnProperty(item.id)) {
-                item.name = item_meta_data[item.id].name
-                item.sortId = item_meta_data[item.id].sortId
-            } else {
-                item.name = `未知材料${item.id}`
-                item.sortId = 9999999
-            }
-        }
+        return [...merged.values()]
     }
 
     getTarget(cal_params, char_data, char_info) {
@@ -415,62 +395,6 @@ export class CharProfile extends plugin {
         }
 
         return targetList
-    }
-
-    addItemRarity(materials, skl_item_info) {
-        const color_map = {
-            0: 'blue-grey',
-            1: 'green',
-            2: 'blue',
-            3: 'deep-purple',
-            4: 'amber'
-        }
-        for (const item of materials) {
-            const skl_item = skl_item_info.find(obj1 => obj1.id == item.id);
-            if (skl_item) {
-                item.rarity = skl_item.rarity;
-            } else {
-                item.rarity = 0
-            }
-            item.rarity_color = color_map[item.rarity]
-        }
-    }
-
-
-    calculateLackItemList(target_materials, target_cash, target_exp, player_item_data) {
-        let result = {
-            cash: 0,
-            exp: 0,
-            materials: []
-        }
-        const exp_map = {
-            '2001': 200,
-            '2002': 400,
-            '2003': 1000,
-            '2004': 2000
-        }
-
-        let total_exp = 0;
-        let total_cash = 0
-        for (let obj of player_item_data) {
-            if (Object.keys(exp_map).indexOf(obj.id) != -1) {
-                total_exp += exp_map[obj.id] * Number(obj.count);
-            }
-            if (obj.id === '4001') {
-                total_cash += Number(obj.count)
-            }
-        }
-        if (target_cash > total_cash) result.cash = target_cash - total_cash
-        if (target_exp > total_exp) result.exp = target_exp - total_exp
-
-        for (let targetItem of target_materials) {
-            const boxItem = player_item_data.find(obj => obj.id === targetItem.id);
-            if (boxItem && Number(targetItem.count) > Number(boxItem.count)) {
-                targetItem.lackCount = Number(targetItem.count) - Number(boxItem.count)
-                result.materials.push(targetItem);
-            }
-        }
-        return result;
     }
 
 }

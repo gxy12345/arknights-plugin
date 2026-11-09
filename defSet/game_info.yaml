@@ -2,5 +2,7 @@
 char_stat_page_size: 30
 # 练度面板分页数量（每行5个，建议35为7行）
 char_stat_card_page_size: 35
+# 时装统计最近获得展示数量（4、8、12、16）
+skin_stat_count: 8
 # 获取公告数量上限
 max_announce: 5

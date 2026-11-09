@@ -1,0 +1,30 @@
+{{extend defaultLayout}}
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}garrison/garrison.css">
+{{/block}}
+{{block 'main'}}
+<main class="garrison-page">
+    <header class="garrison-header">
+        {{if backgroundUrl}}<img class="season-background" src="{{backgroundUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
+        <div class="header-content"><h1>卫戍协议攻略</h1><p>{{seasonName || '卫戍协议'}} · 第 {{page || 1}}{{if pages}} / {{pages}}{{/if}} 页{{if total !== undefined && total !== null}} · 共 {{total}} 条{{/if}}</p>{{if keyword}}<p class="search-summary">关键词：{{keyword}}</p>{{/if}}</div>
+    </header>
+    <div class="guide-list">
+        {{each guides guide}}
+        <article class="guide-entry">
+            <div class="guide-title-row"><div class="guide-title-main"><span class="entry-order">攻略 {{guide.index}}</span><h2>{{guide.title || '未命名攻略'}}</h2></div>{{if guide.invalid}}<span class="invalid-label">版本已失效</span>{{/if}}</div>
+            <div class="guide-context"><span>{{guide.seasonName || guide.seasonId || '赛季暂未提供'}}</span>{{if guide.phaseName}}<span>{{guide.phaseName}}</span>{{/if}}{{if guide.versionId}}<span>版本 {{guide.versionId}}</span>{{/if}}</div>
+            {{if guide.strategies && guide.strategies.length}}
+            <div class="strategy-line">{{each guide.strategies strategy}}<span class="strategy">{{if strategy.iconUrl}}<img src="{{strategy.iconUrl}}" alt="" onerror="this.style.display='none'">{{/if}}{{strategy.name || strategy.id}}</span>{{/each}}</div>
+            {{/if}}
+            {{if guide.tabs && guide.tabs.length && guide.tabs[0].operators.length}}
+            <div class="guide-preview">{{each guide.tabs[0].operators.slice(0, 10) operator}}<div class="preview-operator"><div class="portrait"><span class="avatar-fallback">暂无头像</span>{{if operator.avatarUrl}}<img src="{{operator.avatarUrl}}" alt="" onerror="this.style.display='none'">{{/if}}</div><span>{{operator.name || operator.id}}</span></div>{{/each}}</div>
+            {{/if}}
+            <div class="guide-byline"><span>{{guide.author || '作者暂未提供'}}{{if guide.publishedAt}} · {{guide.publishedAt}}{{/if}}</span>{{if guide.stats}}<span>浏览 {{guide.stats.viewed}} · 赞 {{guide.stats.liked}} · 收藏 {{guide.stats.collected}}</span>{{/if}}</div>
+            <div class="entry-id">攻略 ID：{{guide.id}}</div>
+        </article>
+        {{/each}}
+        {{if !guides.length}}<section class="empty-state"><h2>暂无攻略</h2><p>当前查询条件下没有可展示的攻略，请更换关键词或赛季后重试。</p></section>{{/if}}
+    </div>
+    <footer class="garrison-footer"><p>发送「卫戍攻略详情 序号或ID」查询完整阵容与操作思路。</p>{{if hasMore}}<p>发送「卫戍攻略下一页」继续查看当前查询结果。</p>{{/if}}{{if updated_at}}<p>数据更新时间：{{updated_at}}</p>{{/if}}<p>{{@sys.createdby}}</p></footer>
+</main>
+{{/block}}

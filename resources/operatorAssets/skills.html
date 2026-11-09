@@ -1,0 +1,10 @@
+<div class="asset-skills">
+    {{each skills skill idx}}
+    <div class="asset-skill {{if skill.icon_url}}has-icon{{/if}} {{if skill.selected}}selected{{/if}} {{if skill.locked}}locked{{/if}}" title="{{skill.name}} · {{skill.label}}">
+        <span class="skill-fallback">S{{idx + 1}}</span>
+        {{if skill.icon_url}}<img class="skill-picture" src="{{skill.icon_url}}" alt="{{skill.name}}" onerror="this.style.display='none';this.parentNode.classList.remove('has-icon')">{{/if}}
+        {{if skill.locked}}<span class="skill-rank skill-locked">锁</span>{{else if skill.mastery_icon}}<img class="skill-mastery" src="{{pluResPath}}operatorAssets/{{skill.mastery_icon}}" alt="{{skill.label}}">{{else}}<span class="skill-rank">{{skill.level === null ? '—' : skill.level}}</span>{{/if}}
+    </div>
+    {{/each}}
+    {{if !skills.length}}<span class="asset-muted">无技能</span>{{/if}}
+</div>

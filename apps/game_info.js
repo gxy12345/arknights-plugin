@@ -44,7 +44,7 @@ export class SKLandGameInfo extends plugin {
 
         // let res = await sklUser.sklReq.getData('game_player_info')
         let res = await sklUser.getGamePlayerInfo()
-        if (res?.code === 0 && res?.message === 'OK') {
+        if (res?.code === 0) {
             let ap_status = res.data.status.ap
             ap_status.ap_current = ap_status.max - Math.ceil((ap_status.completeRecoveryTime - Date.now() / 1000) / 360)
             ap_status.ap_current = ap_status.ap_current > ap_status.max ? ap_status.max : ap_status.ap_current
@@ -86,7 +86,7 @@ export class SKLandGameInfo extends plugin {
 
         // let res = await sklUser.sklReq.getData('game_player_info')
         let res = await sklUser.getGamePlayerInfo()
-        if (res?.code === 0 && res?.message === 'OK') {
+        if (res?.code === 0) {
             let campaign_status = res.data.campaign
 
             await this.reply(`本周剿灭合成玉: ${campaign_status.reward.current}/${campaign_status.reward.total}`)
@@ -106,7 +106,7 @@ export class SKLandGameInfo extends plugin {
 
         // let res = await sklUser.sklReq.getData('game_player_info')
         let res = await sklUser.getGamePlayerInfo()
-        if (res?.code === 0 && res?.message === 'OK') {
+        if (res?.code === 0) {
             let routine_status = res.data.routine
 
             await this.reply(`日常/周常完成情况:\n每日任务：${routine_status.daily.current}/${routine_status.daily.total}\n每周任务：${routine_status.weekly.current}/${routine_status.weekly.total}\n`)

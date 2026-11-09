@@ -1,5 +1,4 @@
 import lodash from 'lodash'
-import fs from 'fs'
 import HelpTheme from './help/HelpTheme.js'
 import { rulePrefix } from '../utils/common.js'
 import {  Data } from '../components/index.js'
@@ -40,13 +39,17 @@ async help (e) {
   let helpList = diyCfg.helpList || custom.helpList || sysCfg.helpList
 
   let helpGroup = []
+  const prefix = e.msg?.replace(/帮助$/, '') || '#方舟'
 
-  lodash.forEach(helpList, (group) => {
+  lodash.forEach(helpList, (sourceGroup) => {
+    const group = { ...sourceGroup, list: (sourceGroup.list || []).map(item => ({ ...item })) }
     if (group.auth && group.auth === 'master' && !e.isMaster) {
       return true
     }
 
     lodash.forEach(group.list, (help) => {
+      help.title = help.title?.replaceAll('#方舟', prefix)
+      help.desc = help.desc?.replaceAll('#方舟', prefix)
       let icon = help.icon * 1
       if (!icon) {
         help.css = 'display:none'

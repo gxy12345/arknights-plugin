@@ -2,7 +2,6 @@
 
 {{block 'css'}}
 <link rel="stylesheet" type="text/css" href="{{pluResPath}}calculate/calculate.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 {{/block}}
 
 {{block 'main'}}
@@ -15,9 +14,9 @@
                 <div class="char-info">
                     <h2>{{char_data.name}}</h2>
                     <div class="char-info-container">
-                        <div class="w3-tag w3-round w3-large w3-indigo" style="margin:10px">{{char_data.profession}}
+                        <div class="char-badge">{{char_data.profession}}
                         </div>
-                        <div class="w3-tag w3-round w3-large w3-purple" style="margin:10px">{{char_data.rarity + 1}}星
+                        <div class="char-badge">{{char_data.rarity + 1}}星
                         </div>
                     </div>
                 </div>
@@ -132,51 +131,34 @@
     {{if cal_result.total_materials.length == 0 && cal_result.exp == 0 && cal_result.cash == 0}}
     <h2>当前已完成养成目标！</h2>
     {{else}}
-    <h2>养成资源统计</h2>
+    <h2>资源消耗明细</h2>
 
     {{if cal_result.exp > 0 || cal_result.cash > 0 }}
     <div class="sub-container">
         <h3>基础资源消耗</h3>
-        <div class="tag-list">
-            <span class="w3-tag w3-round w3-xlarge w3-purple w3-padding-large">龙门币 × {{cal_result.cash}}</span>
-            <span class="w3-tag w3-round w3-xlarge w3-purple w3-padding-large">经验值 × {{cal_result.exp}}</span>
-        </div>
+        {{@include(_layout_path + '../../calculate/materials.html', {materials: base_materials, pluResPath: pluResPath})}}
+        {{if cal_result.exp > 0}}<p class="exp-summary">所需经验值 <strong>{{cal_result.exp}}</strong></p>{{/if}}
     </div>
     {{/if}}
 
     {{if cal_result.evo_materials.length > 0 }}
     <div class="sub-container">
         <h3>精英化材料</h3>
-        <div class="tag-list">
-            {{each cal_result.evo_materials item idx}}
-            <span class="w3-tag w3-round w3-xlarge w3-{{item.rarity_color}} w3-padding-large">{{item.name}} ×
-                {{item.count}}</span>
-            {{/each}}
-        </div>
+        {{@include(_layout_path + '../../calculate/materials.html', {materials: cal_result.evo_materials, pluResPath: pluResPath})}}
     </div>
     {{/if}}
 
     {{if cal_result.skill_materials.length > 0 }}
     <div class="sub-container">
         <h3>技能养成材料</h3>
-        <div class="tag-list">
-            {{each cal_result.skill_materials item idx}}
-            <span class="w3-tag w3-round w3-xlarge w3-{{item.rarity_color}} w3-padding-large">{{item.name}} ×
-                {{item.count}}</span>
-            {{/each}}
-        </div>
+        {{@include(_layout_path + '../../calculate/materials.html', {materials: cal_result.skill_materials, pluResPath: pluResPath})}}
     </div>
     {{/if}}
 
     {{if cal_result.mod_materials.length > 0 }}
     <div class="sub-container">
         <h3>模组养成材料</h3>
-        <div class="tag-list">
-            {{each cal_result.mod_materials item idx}}
-            <span class="w3-tag w3-round w3-xlarge w3-{{item.rarity_color}} w3-padding-large">{{item.name}} ×
-                {{item.count}}</span>
-            {{/each}}
-        </div>
+        {{@include(_layout_path + '../../calculate/materials.html', {materials: cal_result.mod_materials, pluResPath: pluResPath})}}
     </div>
     {{/if}}
     {{/if}}
@@ -187,18 +169,8 @@
     <h2>缺少资源统计</h2>
 
     <div class="sub-container">
-        <div class="tag-list">
-            {{if lack_result.cash > 0}}
-            <span class="w3-tag w3-round w3-xlarge w3-purple w3-padding-large">龙门币 × {{lack_result.cash}}</span>
-            {{/if}}
-            {{if lack_result.exp > 0}}
-            <span class="w3-tag w3-round w3-xlarge w3-purple w3-padding-large">经验值 × {{lack_result.exp}}</span>
-            {{/if}}
-            {{each lack_result.materials item idx}}
-            <span class="w3-tag w3-round w3-xlarge w3-{{item.rarity_color}} w3-padding-large">{{item.name}} ×
-                {{item.lackCount}}</span>
-            {{/each}}
-        </div>
+        <div class="missing-materials">{{@include(_layout_path + '../../calculate/materials.html', {materials: lack_materials, pluResPath: pluResPath})}}</div>
+        {{if lack_result.exp > 0}}<p class="exp-summary missing-exp">缺少经验值 <strong>{{lack_result.exp}}</strong></p>{{/if}}
     </div>
 </div>
 {{/if}}
@@ -206,4 +178,4 @@
 <div class="create-by-text">
     {{@sys.createdby}}
 </div>
-{{/block}} 
+{{/block}}
