@@ -1,192 +1,30 @@
 {{extend defaultLayout}}
-
-{{block 'css'}}
-<link rel="stylesheet" type="text/css" href="{{pluResPath}}profileCard/profileCard.css">
-{{/block}}
-
+{{block 'css'}}<link rel="stylesheet" href="{{pluResPath}}profileCard/profileCard.css">{{/block}}
 {{block 'main'}}
-<div class="body">
-    <!-- 背景图容器 -->
-    <div class="background">
-        <!-- 表格容器 -->
-        <div class="table-container">
-            <!-- 自定义表格样式 -->
-            <table class="custom-table">
-                <!-- 列宽度设置 -->
-                <colgroup>
-                    <col style="width: 33.33%;">
-                    <col style="width: 33.33%;">
-                    <col style="width: 33.33%;">
-                </colgroup>
-                <tbody>
-                    <!-- 第一行 -->
-                    <tr class="row-38.2">
-                        <td colspan="3" class="center-content">
-                            <!-- 内嵌表格用于显示图片、博士名和等级 -->
-                            <table>
-                                <tr>
-                                    <!-- 图片显示 -->
-                                    <td style="vertical-align: middle; text-align: center;">
-                                        <img src="{{user_info.avatar_url}}" alt="Logo" class="avatar custom-avatar">
-                                    </td>
-                                    <td style="vertical-align: top; text-align: left; padding-left: 10px;">
-                                        <!-- 博士名和等级显示 -->
-                                        <div><span class="title-text">{{user_info.name}}</span></div>
-                                        <div><span class="level-text">Lv.{{user_info.level}}</span><span
-                                                class="uid-text">UID:{{user_info.uid}}</span></div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <!-- 第二行 -->
-                    <tr class="row-12.36">
-                        <!-- 入职时间显示 -->
-                        <td class="constant-text">入职时间<br><span class="custom-text">{{user_info.reg_date}}</span></td>
-                        <!-- 已苏醒天数和时间显示 -->
-                        <td class="constant-text">已苏醒天数<br><span
-                                class="custom-text">{{user_info.days_before_now}}天</span></td>
-                        <!-- 作战进度显示 -->
-                        <td class="constant-text">作战进度<br><span class="custom-text">{{user_info.main_progress}}</span>
-                        </td>
-                    </tr>
-                    <!-- 第三行 -->
-                    <tr>
-                        <!-- 显示家具保有量 -->
-                        <td class="constant-text">家具保有量<br><span class="custom-text">{{user_info.funi_num}}</span></td>
-                        <!-- 显示干员招募数 -->
-                        <td class="constant-text">干员招募数<br><span class="custom-text">{{user_info.char_num}}</span></td>
-                        <!-- 显示时装拥有数 -->
-                        <td class="constant-text">时装拥有数<br><span class="custom-text">{{user_info.skin_num}}</span></td>
-                    </tr>
-                    <!-- 第四行 -->
-                    <tr class="row-12.36">
-                        <!-- 显示理智和进度条 -->
-                        <td class="constant-text">
-                            <div>
-                                理智<br><span class="custom-text">{{game_info.ap_current}}/{{game_info.ap_total}}</span>
-                            </div>
-                            <div class="progress-container-wrapper">
-                                <div class="progress-container">
-                                    <div class="progress-bar" style="width: {{game_info.ap_rate}}%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <!-- 显示无人机和进度条 -->
-                        <td class="constant-text">
-                            <div>
-                                无人机<br><span
-                                    class="custom-text">{{game_info.uav_current}}/{{game_info.uav_total}}</span>
-                            </div>
-                            <div class="progress-container-wrapper">
-                                <div class="progress-container">
-                                    <div class="progress-bar" style="width: {{game_info.uav_rate}}%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <!-- 显示线索和进度条 -->
-                        <td class="constant-text">
-                            <div>
-                                线索<br>
-                                <!-- <span class="custom-text">①</span>
-                                <span class="custom-text">②</span>
-                                <span class="custom-text">③</span>
-                                <span class="custom-text">④</span>
-                                <span class="custom-text">⑤</span>
-                                <span class="custom-text">⑥</span>
-                                <span class="custom-text">⑦</span> -->
-                                {{@cule_status}}
-                            </div>
-                            <div class="progress-container-wrapper">
-                                <div class="progress-container">
-                                    <div class="progress-bar" style="width: {{game_info.clue_rate}}%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- 第五行 -->
-                    <tr class="row-12.36">
-                        <!-- 显示日常任务进度 -->
-                        <td class="constant-text">
-                            <div>
-                                日常<br><span
-                                    class="custom-text">{{game_info.daily_current}}/{{game_info.daily_total}}</span>
-                            </div>
-                            <div class="progress-container-wrapper">
-                                <div class="progress-container">
-                                    <div class="progress-bar" style="width: {{game_info.daily_rate}}%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <!-- 显示周常任务进度 -->
-                        <td class="constant-text">
-                            <div>
-                                周常<br><span
-                                    class="custom-text">{{game_info.weekly_current}}/{{game_info.weekly_total}}</span>
-                            </div>
-                            <div class="progress-container-wrapper">
-                                <div class="progress-container">
-                                    <div class="progress-bar" style="width: {{game_info.weekly_rate}}%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <!-- 显示公招进度 -->
-                        <td class="constant-text">
-                            <div>
-                                公开招募<br><span
-                                    class="custom-text">{{game_info.recruit_finish}}/{{game_info.recruit_total}}</span>
-                            </div>
-                            <div class="progress-container-wrapper">
-                                <div class="progress-container">
-                                    <div class="progress-bar" style="width: {{game_info.recruit_rate}}%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- 第六行 -->
-                    <tr>
-                        <!-- 显示保全派驻和进度条 -->
-                        <td class="constant-text">
-                            <div>
-                                保全-增补条<br><span
-                                    class="custom-text">{{game_info.tower_lower_current}}/{{game_info.tower_lower_total}}</span>
-                            </div>
-                            <div class="progress-container-wrapper">
-                                <div class="progress-container">
-                                    <div class="progress-bar" style="width: {{game_info.tower_lower_rate}}%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="constant-text">
-                            <div>
-                                保全-增补仪<br><span
-                                    class="custom-text">{{game_info.tower_higher_current}}/{{game_info.tower_higher_total}}</span>
-                            </div>
-                            <div class="progress-container-wrapper">
-                                <div class="progress-container">
-                                    <div class="progress-bar" style="width: {{game_info.tower_higher_rate}}%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <!-- 显示剿灭作战进度 -->
-                        <td class="constant-text">
-                            <div>
-                                剿灭作战<br><span
-                                    class="custom-text">{{game_info.campaign_current}}/{{game_info.campaign_total}}</span>
-                            </div>
-                            <div class="progress-container-wrapper">
-                                <div class="progress-container">
-                                    <div class="progress-bar" style="width: {{game_info.campaign_rate}}%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="logo">
-                {{@sys.createdby}}
-            </div>
+<main class="doctor-sheet">
+    <header class="doctor-header">
+        <div class="doctor-avatar"><img src="{{profile.user.avatar}}" onerror="this.onerror=null;this.src='{{pluResPath}}profileCard/img/default_avatar.png'"><span>Lv.{{profile.user.level}}</span></div>
+        <div class="doctor-identity"><h1>Dr.{{profile.user.name}}</h1><p>UID {{profile.user.uid}}{{if profile.user.server}} · {{profile.user.server}}{{/if}}</p><span>入职 {{profile.user.registered}}{{if profile.user.days !== null}} · 已苏醒 {{profile.user.days}} 天{{/if}}</span></div>
+        <div class="sheet-title"><h2>博士便签</h2><p>{{profile.user.queriedAt}}</p></div>
+    </header>
+    <div class="doctor-body">
+        <aside class="secretary-panel">
+            <div class="secretary-art"><div class="secretary-placeholder">助理干员肖像暂不可用</div><img src="{{profile.user.secretary.portrait}}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='{{profile.user.secretary.fallback}}'}else{this.style.display='none';this.previousElementSibling.style.visibility='visible'}"></div>
+            <div class="secretary-name"><span>助理干员</span><h2>{{profile.user.secretary.name}}</h2></div>
+        </aside>
+        <div class="doctor-information">
+            <div class="account-progress"><span>作战进度</span><strong>{{profile.user.mainStage}}</strong><span class="sync-label">游戏同步 {{profile.user.syncedAt}}</span></div>
+            <section class="collection-strip">{{each profile.assets item}}<div><span>{{item.label}}</span><strong>{{item.value}}</strong></div>{{/each}}</section>
+            <section class="live-resources">
+                <article class="live-resource ap"><header><h3>理智</h3><span>{{profile.ap.note}}</span></header><div class="resource-value"><strong>{{profile.ap.text}}</strong><span>/ {{profile.ap.maxText}}</span></div><div class="player-progress"><i style="width:{{profile.ap.percent}}%"></i></div></article>
+                <article class="live-resource drones"><header><h3>无人机</h3><span>{{profile.drones.note}}</span></header><div class="resource-value"><strong>{{profile.drones.text}}</strong><span>/ {{profile.drones.maxText}}</span></div><div class="player-progress"><i style="width:{{profile.drones.percent}}%"></i></div></article>
+            </section>
+            <section class="task-section"><div class="section-title"><h3>日常与每周</h3></div><div class="task-grid">{{each profile.tasks task}}<article><h4>{{task.label}}</h4><p><strong>{{task.text}}</strong><span>/ {{task.maxText}}</span></p><div class="player-progress"><i style="width:{{task.percent}}%"></i></div>{{if task.note}}<small>{{task.note}}</small>{{/if}}</article>{{/each}}</div></section>
+            <section class="recruit-section"><div class="section-title"><h3>公开招募</h3><span>可聘用 {{profile.recruitReady}} / {{profile.recruitTotal}} · 联络次数 {{profile.refreshCount}}</span></div><div class="recruit-slots">{{each profile.recruits slot}}<article class="recruit-slot {{if slot.ready}}ready{{/if}}"><div><b>{{slot.index}}</b><strong>{{slot.state}}</strong></div><p>{{slot.note || '等待下一次招募'}}</p><div class="player-progress"><i style="width:{{slot.percent}}%"></i></div></article>{{/each}}</div>{{if !profile.recruits.length}}<p class="player-empty">暂无公开招募数据</p>{{/if}}</section>
+            <section class="base-brief"><div class="clue-brief"><h3>线索交流</h3><div class="clue-board">{{each profile.clues.board clue}}<span class="{{if clue.owned}}owned{{/if}}" title="{{clue.name}}">{{clue.number}}</span>{{/each}}</div><p>{{profile.clues.state}} · 自有 {{profile.clues.own}} · 接收 {{profile.clues.received}}</p></div><div class="training-brief"><h3>专精训练</h3><strong>{{profile.training.state}}</strong><p>{{profile.training.name}}{{if profile.training.skill}} · {{profile.training.skill}}{{/if}}</p>{{if profile.training.note}}<p>{{profile.training.note}}</p>{{/if}}</div></section>
+            <section class="assist-section"><div class="section-title"><h3>助战干员</h3><span>完整基建详情：发送“基建”（需添加插件前缀）</span></div><div class="assist-grid">{{each profile.assists char}}<article class="assist-char">{{if char.empty}}<p class="player-empty">未设置助战</p>{{else}}<div class="assist-avatar"><img src="{{char.avatar}}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='{{char.fallback}}'}else{this.style.display='none'}"></div><div class="assist-information"><h4>{{char.name}}</h4><p>精{{char.elite}} · Lv.{{char.level}}</p><div class="assist-skill"><img src="{{char.skill}}" onerror="this.style.display='none'"><span>{{char.skillName}} · {{char.skillLevel}}</span></div><small>{{char.module}}</small></div>{{/if}}</article>{{/each}}</div>{{if !profile.assists.length}}<p class="player-empty">暂无助战干员</p>{{/if}}</section>
         </div>
     </div>
-</div>
+    <footer class="player-footer"><span>森空岛 · 游戏同步 {{profile.user.syncedAt}}</span><span>Arknights-plugin · 博士便签</span></footer>
+</main>
 {{/block}}

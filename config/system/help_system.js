@@ -60,8 +60,9 @@ export const helpList = [
       {
         icon: 5,
         title: '#方舟便签 #方舟博士卡片', appIcon: 'toolbox-data.png', appIconColor: true,
-        desc: '角色资料卡片'
+        desc: '个人资料、理智、任务、招募与助战干员'
       },
+      { icon: 5, title: '#方舟基建 #方舟基建查询', appIcon: 'toolbox-data.png', appIconColor: true, desc: '查看房间进驻、心情、生产、订单与专精训练' },
       {
         icon: 12,
         title: '#方舟玛恩纳 #方舟叔叔', appIcon: 'toolbox-operator.png', appIconColor: true,

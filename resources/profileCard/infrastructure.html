@@ -1,0 +1,14 @@
+{{extend defaultLayout}}
+{{block 'css'}}<link rel="stylesheet" href="{{pluResPath}}profileCard/profileCard.css">{{/block}}
+{{block 'main'}}
+<main class="infrastructure-sheet">
+    <header class="doctor-header base-header"><div class="doctor-avatar"><img src="{{base.user.avatar}}" onerror="this.onerror=null;this.src='{{pluResPath}}profileCard/img/default_avatar.png'"><span>Lv.{{base.user.level}}</span></div><div class="doctor-identity"><h1>Dr.{{base.user.name}}</h1><p>UID {{base.user.uid}}{{if base.user.server}} · {{base.user.server}}{{/if}}</p></div><div class="sheet-title"><h2>基建总览</h2><p>游戏同步 {{base.user.syncedAt}}</p></div></header>
+    <section class="base-summary"><div><span>基建设施</span><strong>{{base.roomCount}}<small>间</small></strong></div><div><span>进驻干员</span><strong>{{base.residentCount}}<small>名</small></strong></div><div><span>疲劳干员</span><strong>{{base.tiredCount}}<small>名</small></strong></div><div class="summary-drone"><span>无人机 <b>{{base.drones.text}} / {{base.drones.maxText}}</b></span><div class="player-progress"><i style="width:{{base.drones.percent}}%"></i></div><small>{{base.drones.note}}</small></div></section>
+    {{if base.control}}<section class="control-section">{{@include(_layout_path + '../../profileCard/baseRoom.html', {room:base.control,pluResPath:pluResPath})}}</section>{{/if}}
+    <section class="production-section"><div class="section-title"><h3>生产设施</h3><span>制造、贸易与发电</span></div><div class="production-grid">{{each base.production room}}{{@include(_layout_path + '../../profileCard/baseRoom.html', {room:room,pluResPath:pluResPath})}}{{/each}}</div>{{if !base.production.length}}<p class="player-empty">暂无生产设施数据</p>{{/if}}</section>
+    <section class="service-section"><div class="section-title"><h3>辅助设施</h3><span>会客、联络与专精训练</span></div><div class="service-grid">{{each base.services room}}{{@include(_layout_path + '../../profileCard/baseRoom.html', {room:room,pluResPath:pluResPath})}}{{/each}}</div></section>
+    <section class="dormitory-section"><div class="section-title"><h3>宿舍</h3><span>进驻与心情</span></div><div class="dormitory-grid">{{each base.dormitories room}}{{@include(_layout_path + '../../profileCard/baseRoom.html', {room:room,pluResPath:pluResPath})}}{{/each}}</div>{{if !base.dormitories.length}}<p class="player-empty">暂无宿舍数据</p>{{/if}}</section>
+    {{if base.unknown}}<p class="player-empty">暂无已同步的基建房间，请进入游戏后重试。</p>{{/if}}
+    <footer class="player-footer"><span>进驻、心情与库存以最近游戏同步为准 · 查询 {{base.user.queriedAt}}</span><span>Arknights-plugin · 基建</span></footer>
+</main>
+{{/block}}

@@ -1,0 +1,12 @@
+<article class="base-room room-{{room.kind}} {{if room.locked}}room-locked{{/if}}">
+    <header class="room-header"><h4>{{room.name}}{{if room.kind === 'dormitory'}} {{room.number}}{{/if}} <small>Lv.{{room.level}}</small></h4><span>{{room.status}}</span></header>
+    {{if !room.locked}}
+    {{if room.product}}<div class="room-product">{{if room.product.icon}}<img src="{{room.product.icon}}" onerror="this.style.display='none'">{{/if}}<strong>{{room.product.name}}</strong></div>{{/if}}
+    <div class="room-metrics">{{each room.metrics metric}}<div><span>{{metric.label}}</span><b>{{metric.value}}</b></div>{{/each}}</div>
+    {{if room.stock}}<div class="player-progress room-stock"><i style="width:{{room.stock.percent}}%"></i></div>{{/if}}
+    {{if room.clues}}<div class="clue-board">{{each room.clues.board clue}}<span class="{{if clue.owned}}owned{{/if}}" title="{{clue.name}}">{{clue.number}}</span>{{/each}}</div>{{/if}}
+    {{if room.details.length}}<div class="order-details">{{each room.details order}}<p><span>{{order.delivery}}</span><b>{{order.gain}}</b></p>{{/each}}</div>{{/if}}
+    {{each room.notes note}}<p class="room-note">{{note}}</p>{{/each}}
+    <div class="room-residents">{{each room.residents char}}<div class="resident {{if char.empty}}vacant{{/if}}">{{if char.role}}<span class="resident-role">{{char.role}}</span>{{/if}}<div class="resident-body">{{if !char.empty}}<div class="resident-avatar"><img src="{{char.avatar}}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='{{char.fallback}}'}else{this.style.display='none'}"></div><div class="resident-information"><strong>{{char.name}}</strong><div class="mood-value">心情 {{char.mood}}<span>/24</span></div><div class="mood-bar {{char.moodTone}}"><i style="width:{{char.percent}}%"></i></div></div>{{else}}<div class="vacant-slot"></div><span>空闲位置</span>{{/if}}</div></div>{{/each}}</div>
+    {{else}}<p class="player-empty">设施尚未建造</p>{{/if}}
+</article>
