@@ -1,0 +1,81 @@
+{{extend defaultLayout}}
+{{block 'css'}}
+<link rel="stylesheet" href="{{pluResPath}}encyclopedia/operator.css">
+{{/block}}
+{{block 'main'}}
+<main class="encyclopedia {{operator.view}}">
+    <aside class="operator-portrait">
+        <div class="identity">
+            <div class="identity-top"><img class="profession-icon" src="{{pluResPath}}operatorAssets/{{operator.professionIcon}}" onerror="this.style.display='none'"><span>{{operator.profession}} / {{operator.subProfession}}</span><div class="rarity-stars" role="img" aria-label="{{operator.stars}}星">{{each operator.rarityStars star}}<img src="{{pluResPath}}encyclopedia/rarity-star.png" alt="" onerror="this.style.display='none';this.parentElement.classList.add('stars-missing')">{{/each}}<span class="rarity-fallback">{{operator.stars}}星</span></div></div>
+            <h1>{{operator.name}}</h1><p class="appellation">{{operator.appellation}}</p>
+            <div class="operator-tags"><span>{{operator.position}}</span>{{each operator.tags tag}}<span>{{tag}}</span>{{/each}}</div>
+        </div>
+        <div class="illustration-wrap">
+            <div class="illustration-missing">{{operator.name}}<small>立绘暂不可用</small></div>
+            <img class="illustration" src="{{operator.illustration}}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='{{operator.fallbackIllustration}}'}else{this.style.display='none';this.previousElementSibling.style.visibility='visible'}">
+        </div>
+        <div class="portrait-caption"><span>{{operator.viewName}}</span><span>RHODES ISLAND</span></div>
+    </aside>
+    <section class="operator-content">
+        <header class="page-heading"><h2>{{operator.viewName}}</h2><span>{{operator.pageLabel}}</span></header>
+        {{if operator.view === 'overview'}}
+        <section class="overview-stats">
+            <div class="section-heading"><h3>干员属性</h3><span>{{operator.statLabel}}</span></div>
+            <div class="stats-grid">{{each operator.stats stat}}<div><span>{{stat.label}}</span><strong>{{stat.value}}<small>{{stat.unit}}</small></strong></div>{{/each}}</div>
+            <div class="phase-trait">
+                <div class="trait"><b>特性</b><p>{{operator.trait}}</p></div>
+                <div class="range-wrap"><span>攻击范围</span><div class="attack-range">{{each operator.range row}}<div class="range-row">{{each row cell}}<i class="{{cell}}"></i>{{/each}}</div>{{/each}}</div></div>
+            </div>
+        </section>
+        <div class="overview-columns {{if !operator.skills.length}}no-skills{{/if}}">
+            <div>
+                <section class="talents"><div class="section-heading"><h3>天赋</h3><span>最高精英阶段 · 标注潜能解锁条件</span></div>
+                    {{each operator.talents talent}}<div class="talent-group">{{each talent.candidates candidate}}<div class="talent-row"><div><b>{{candidate.name}}</b><span>{{candidate.condition}}</span></div><p>{{candidate.description}}</p></div>{{/each}}</div>{{/each}}
+                    {{if !operator.talents.length}}<p class="empty">该干员暂无天赋</p>{{/if}}
+                </section>
+                <section class="potentials"><div class="section-heading"><h3>潜能</h3><span>属性加成未计入上方数值</span></div>
+                    {{each operator.potentials potential}}<div class="potential-row"><b>潜{{potential.rank}}</b><div><p>{{potential.description}}</p>{{each potential.talents text}}<small>{{text}}</small>{{/each}}</div></div>{{/each}}
+                    {{if !operator.potentials.length}}<p class="empty">该干员暂无潜能提升资料</p>{{/if}}
+                </section>
+            </div>
+            <div>
+                <section class="skill-overview"><div class="section-heading"><h3>技能速览</h3><span>各技能最高等级 · 发送「干员名技能」查看详情</span></div>
+                    {{each operator.skills skill}}<article class="skill-summary"><div class="skill-heading"><img src="{{skill.icon}}" onerror="this.style.display='none'"><div><h4>{{skill.name}}</h4><span>{{skill.recovery}} / {{skill.trigger}}</span></div><b>{{skill.summary.label}}</b></div><div class="sp-line">初始 {{skill.summary.initSp}} / 消耗 {{skill.summary.spCost}} / 持续 {{skill.summary.duration}}</div><p>{{skill.summary.description}}</p></article>{{/each}}
+                    {{if !operator.skills.length}}<p class="empty">该干员无技能</p>{{/if}}
+                </section>
+                <section class="module-summary"><div class="section-heading"><h3>模组</h3><span>发送「干员名模组」查看各阶段效果</span></div>{{each operator.modules module}}<div class="module-summary-row"><b>{{module.type}}</b><span>{{module.name}}</span><small>{{module.unlock}}</small></div>{{/each}}{{if !operator.modules.length}}<p class="empty">该干员暂无模组</p>{{/if}}</section>
+            </div>
+        </div>
+        {{else if operator.view === 'skills'}}
+        <div class="view-intro"><p>技能等级独立展示，数值不叠加天赋、潜能或模组。</p><span>默认7级、专1–3；追加 1–10、专1–3 或「全等级」查询</span></div>
+        <div class="skill-columns" style="--columns:{{operator.skills.length || 1}}">
+            {{each operator.skills skill}}<section class="skill-detail">
+                <div class="skill-heading"><img src="{{skill.icon}}" onerror="this.style.display='none'"><div><h3>{{skill.name}}</h3><span>{{skill.recovery}} / {{skill.trigger}}</span></div><b>S{{skill.index}}</b></div>
+                {{if skill.commonRange.length}}<div class="skill-range shared-range"><span>所示等级范围</span><div class="attack-range">{{each skill.commonRange row}}<div class="range-row">{{each row cell}}<i class="{{cell}}"></i>{{/each}}</div>{{/each}}</div></div>{{/if}}
+                {{each skill.levels level}}<article class="skill-level"><header><h4>{{level.label}}</h4><span>初始 {{level.initSp}} / 消耗 {{level.spCost}}</span></header><p>{{level.description}}</p><div class="duration">持续 {{level.duration}}</div>{{if level.range.length && !skill.commonRange.length}}<div class="skill-range"><span>范围</span><div class="attack-range">{{each level.range row}}<div class="range-row">{{each row cell}}<i class="{{cell}}"></i>{{/each}}</div>{{/each}}</div></div>{{/if}}</article>{{/each}}
+                {{if !skill.levels.length}}<p class="empty">该技能没有所选等级的数据（共{{skill.totalLevels}}级）</p>{{/if}}
+            </section>{{/each}}
+        </div>
+        {{if !operator.skills.length}}<p class="empty large-empty">该干员无技能</p>{{/if}}
+        {{else if operator.view === 'modules'}}
+        <div class="view-intro"><p>各级属性为总加成，不累加；未列出的特性、天赋沿用前级。</p><span>特性与天赋按官方升级文本展示</span></div>
+        <div class="module-list">
+        {{each operator.modules module}}<section class="module-detail">
+            <header class="module-heading"><img src="{{module.icon}}" onerror="this.style.display='none'"><div><h3>{{module.name}}</h3><span>{{module.type}}</span></div><p>解锁：{{module.unlock}}</p></header>
+            <div class="module-phases">{{each module.phases phase}}<article class="module-phase"><header><h4>Lv.{{phase.level}}</h4><b>{{phase.attributes}}</b></header>
+                {{if phase.trait}}<div><span>{{phase.traitType}}</span><p>{{phase.trait}}</p></div>{{/if}}
+                {{if phase.range.length}}<div class="skill-range"><span>范围</span><div class="attack-range">{{each phase.range row}}<div class="range-row">{{each row cell}}<i class="{{cell}}"></i>{{/each}}</div>{{/each}}</div></div>{{/if}}
+                {{if phase.talent}}<div><span>天赋升级 · {{phase.talentName}}</span><p>{{phase.talent}}</p></div>{{/if}}
+                {{if !phase.trait && !phase.talent}}<p class="empty">本级未提供特性或天赋变更</p>{{/if}}
+                <small>信赖要求 {{phase.favour}}%</small>
+            </article>{{/each}}</div>
+            {{if module.missions.length}}<div class="module-missions"><b>解锁任务</b>{{each module.missions mission}}<p>{{mission}}</p>{{/each}}</div>{{/if}}
+        </section>{{/each}}
+        </div>
+        {{if !operator.modules.length}}<p class="empty large-empty">该干员暂无模组</p>{{/if}}
+        {{/if}}
+        {{if operator.terms.length && operator.view !== 'overview'}}<section class="glossary"><h3>术语说明</h3><div>{{each operator.terms term}}<p><b>{{term.name}}</b> {{term.description}}</p>{{/each}}</div></section>{{/if}}
+        <footer><span>数据：森空岛干员图鉴 · {{operator.fetchedAt}}{{if operator.stale}} · 接口暂不可用，使用上次成功缓存{{/if}}</span><span>名称或别名 + 图鉴 / 技能 / 模组（需添加插件前缀）</span></footer>
+    </section>
+</main>
+{{/block}}

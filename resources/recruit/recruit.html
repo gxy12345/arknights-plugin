@@ -11,6 +11,7 @@
         <div class="header">
             <div class="title-section">
                 <h1 class="main-title">招募结果</h1>
+                <div class="source">森空岛当前公招池 · {{source.fetchedAt}}{{if source.stale}} · 使用缓存{{/if}} · {{page}}/{{pages}}</div>
             </div>
         </div>
 
@@ -25,6 +26,7 @@
             </div>
 
             <!-- 干员列表 -->
+            <div class="combo-note">{{combo.note}}</div>
             <div class="operators-section">
                 {{each combo.operators op}}
                 <div class="operator-item">
@@ -72,6 +74,7 @@
 
         <!-- 底部logo -->
         <div class="logo">
+            <p>展示保底四星及以上与含支援机械的组合；高级资深干员标签保留时才可招募六星。结果以游戏实际标签与招募时长为准。</p>
             {{@sys.createdby}}
         </div>
     </div>

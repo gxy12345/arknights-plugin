@@ -20,7 +20,7 @@ test('帮助包含新增资产、活动、卫戍命令，使用当前前缀并�
         await app.help({ msg: prefix + '帮助', isMaster: master })
         const groups = renders.at(-1).helpGroup
         const titles = groups.flatMap(group => group.list.map(item => item.title)).join('\n')
-        for (const command of ['时装统计', '练度卡片', '活动列表', '活动日历', '卫戍攻略', '卫戍攻略下一页', '卫戍攻略详情1', '卫戍战绩', '卫戍战绩详情1', '卫戍赛季']) assert.ok(titles.includes(prefix + command), command)
+        for (const command of ['时装统计', '练度卡片', '活动列表', '活动日历', '卫戍攻略', '卫戍攻略下一页', '卫戍攻略详情1', '卫戍战绩', '卫戍战绩详情1', '卫戍赛季', '维什戴尔图鉴', '维什戴尔技能', '维什戴尔模组']) assert.ok(titles.includes(prefix + command), command)
         assert.equal(titles.includes(prefix + '开启活动推送'), master)
         assert.equal(titles.includes(prefix + '更新活动数据'), master)
         if (prefix !== '#方舟') assert.equal(titles.includes('#方舟'), false)
