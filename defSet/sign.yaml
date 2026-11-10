@@ -1,4 +1,6 @@
 # 自动签到开关
 auto_sign: true
+# 自动及批量签到时，同时为同一森空岛账号下的终末地角色签到
+auto_sign_endfield: true
 # 自动签到cron表达式
 auto_sign_cron: 0 2 0 * * ?

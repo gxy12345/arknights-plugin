@@ -95,7 +95,7 @@ export const helpList = [
       }, {
         icon: 9,
         title: '#方舟签到', appIcon: 'toolbox-signin.png', appIconColor: true,
-        desc: '手动进行森空岛签到'
+        desc: '签到明日方舟及同账号下的终末地角色'
       },
       {
         icon: 81,

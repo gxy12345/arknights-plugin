@@ -157,6 +157,12 @@ export function supportGuoba () {
         component: 'Switch'
       },
       {
+        field: 'sign.auto_sign_endfield',
+        label: '自动签到终末地',
+        bottomHelpMessage: '默认开启；定时和全部签到时，发现终末地角色后一起签到。关闭不影响手动“签到”命令。',
+        component: 'Switch'
+      },
+      {
         field: 'sign.auto_sign_cron',
         label: '自动签到crontab配置',
         bottomHelpMessage: '可修改自动签到执行的时间和频率',
@@ -238,7 +244,7 @@ export function supportGuoba () {
         for (let [keyPath, value] of Object.entries(data)) {
           lodash.set(config, keyPath, value)
         }
-        config = lodash.merge({}, setting.merge, config)
+        config = lodash.merge({}, setting.merge(), config)
         setting.analysis(config)
         return Result.ok({}, '保存成功~')
       }
