@@ -58,6 +58,12 @@ export default class sklandApi {
                     url: `${api_host}api/v1/game/attendance`,
                     query: query({ uid: this.uid, gameId: 1 })
                 },
+                /* 终末地签到：空请求体 POST，使用独立签名配置。 */
+                endfield_attendance: {
+                    url: `${api_host}web/v1/game/endfield/attendance`,
+                    method: 'POST',
+                    signProfile: { platform: 3, signatureVersion: '1.0.0', deviceId: '' }
+                },
                 /* 刷新token */
                 refresh: {
                     url: `${api_host}api/v1/auth/refresh`,

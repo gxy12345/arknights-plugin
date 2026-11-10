@@ -74,7 +74,7 @@ export default class SKLandRequest {
     const urlMap = this.sklandApi.getUrlMap(requestData)
     if (!urlMap[type]) return false
 
-    let { url, query = '', body = '' } = urlMap[type]
+    let { url, query = '', body = '', method, signProfile } = urlMap[type]
     const urlObj = new URL(url)
     const path = urlObj.pathname
     let queryOrBody = ''
@@ -88,14 +88,14 @@ export default class SKLandRequest {
       queryOrBody = body
     }
 
-    let headers = this.getHeaders(path, queryOrBody)
+    let headers = this.getHeaders(path, queryOrBody, signProfile)
     if (data.headers) headers = { ...headers, ...data.headers }
 
     if (this.option?.debug) {
       getLogger().debug?.(`[森空岛接口][请求] ${type} ${url}`)
     }
 
-    return { url, headers, body }
+    return { url, headers, body, method: method || (body ? 'POST' : 'GET') }
   }
 
   getTokenCacheSeconds(res = {}) {
@@ -131,13 +131,13 @@ export default class SKLandRequest {
     return promise
   }
 
-  generateSign(token, path, queryOrBody, did) {
+  generateSign(token, path, queryOrBody, did, profile = this.config) {
     const timestamp = this.timestamp || Math.floor(Date.now() / 1000)
     const headerForSign = {
-      platform: String(this.config.platform),
+      platform: String(profile.platform),
       timestamp: String(timestamp),
-      dId: this.config.deviceId || '',
-      vName: this.config.signatureVersion
+      dId: profile.deviceId || '',
+      vName: profile.signatureVersion
     }
     const signSource = path + queryOrBody + timestamp + JSON.stringify(headerForSign)
     const hex = crypto.createHmac('SHA256', token || '').update(signSource, 'utf-8').digest('hex')
@@ -145,18 +145,19 @@ export default class SKLandRequest {
     return { sign, timestamp: String(timestamp) }
   }
 
-  getHeaders(path, queryOrBody) {
-    const signObj = this.generateSign(this.token, path, queryOrBody, this.config.deviceId)
+  getHeaders(path, queryOrBody, signProfile = {}) {
+    const profile = { ...this.config, ...signProfile }
+    const signObj = this.generateSign(this.token, path, queryOrBody, profile.deviceId, profile)
     const userAgent = this.config.userAgent || `Skland/${this.config.apiVersion} (com.hypergryph.skland; build:${this.config.build}; Android; )`
 
     return {
       'User-Agent': userAgent,
       'Accept-Encoding': 'gzip',
       'Content-Type': 'application/json',
-      platform: this.config.platform,
+      platform: profile.platform,
       'Accept-Language': 'zh-Hans-CN;q=1.0',
-      dId: this.config.deviceId || '',
-      vName: this.config.signatureVersion,
+      dId: profile.deviceId || '',
+      vName: profile.signatureVersion,
       language: this.config.language,
       sign: signObj.sign,
       timestamp: signObj.timestamp
@@ -195,7 +196,7 @@ export default class SKLandRequest {
       ...(type === 'refresh' ? {} : { token: this.token })
     }
     const param = {
-      method: request.body ? 'POST' : 'GET',
+      method: request.method,
       headers,
       signal: timeoutSignal(this.config.timeoutMs)
     }
@@ -223,8 +224,10 @@ export default class SKLandRequest {
         if (await this.refreshToken()) return this.getData(type, data, cached, false)
       }
 
-      if (response.status === 403 && Number(responseJson?.code) === 10001) {
-        getLogger().info?.(`[森空岛][已签到] 用户 ${this.uid}`)
+      // Attendance errors need game-specific classification: Endfield 10001 is not always a duplicate.
+      if (['attendance', 'endfield_attendance'].includes(type) && [400, 403].includes(response.status)
+          && responseJson?.code != null && Number(responseJson.code) !== 0) {
+        responseJson.api = type
         return responseJson
       }
 
