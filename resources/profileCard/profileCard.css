@@ -1,186 +1,141 @@
-/* style.css */
-/* 修改头像样式 */
-.avatar.custom-avatar {
-  border: 1px solid rgb(0, 0, 0); /* 添加5px宽度的边框，并设置边框颜色 */
-  padding: 1px; /* 添加内边距，增加边框与图像之间的距离 */
-  width: 130px; /* 设置图像宽度为130px */
-  height: 130px; /* 设置图像高度为130px */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果，可以根据需要调整阴影的颜色和模糊程度 */
-}
-
-/* 新增样式用于背景图容器 */
-.background {
-  background: url('./img/arknights_bg1.jpg');
-  background-size: cover;
-  backdrop-filter: blur(10px); /* 添加毛玻璃效果，可以根据需要调整模糊程度 */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* 将背景图置于底层 */
-}
-
-.body {
-  width: 1256px;
-  height: 837px;
-}
-
-/* 设置表格容器的宽度为100% */
-.table-container {
-  width: 100%;
-  margin-top: 10px;
-  margin-left: 10px;
-  background-color: rgba(34, 41, 57, 0.75); /* 背景色的透明度可以根据需要调整 */
-  color: rgba(189, 188, 191, 1);
-  padding: 20px;
-  border-radius: 8px;
-  width: 1256px;
-  height: 837px;
-}
-
-/* 定义自定义表格样式 */
-.custom-table {
-  width: 100%;
-  table-layout: fixed;
-  font-family: Arial, sans-serif;
-  border-collapse: collapse;
-  border-radius: 8px;
-}
-
-/* 自定义行高样式 */
-.row-38.2 {
-  height: 38.2%;
-}
-
-.row-12.36 {
-  height: 12.36%;
-}
-
-/* 控制表格中的行高为第一个行高的二分之一 */
-.custom-table tbody tr:not(:first-child) {
-  height: 50%;
-}
-
-/* 样式表中新增样式用于包装进度条的div */
-.progress-container-wrapper {
-  display: flex; /* 使用 Flex 布局 */
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
-  height: 100%; /* 设置高度为100%以撑开表格单元格 */
-}
-
-/* 新增样式用于进度条容器 */
-.progress-container {
-  width: 80%; /* 进度条长度与单元格列宽占比百分比 */
-  height: 5px;
-  background-color: rgba(63, 75, 91, 1);
-  position: relative;
-  border-radius: 8px;
-  margin-top: 5px;
-}
-
-/* 设置进度条样式 */
-.progress-bar {
-  height: 100%;
-  background-color: rgba(136, 190, 203, 1);
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
-}
-
-/* 设置进度条文本的样式 */
-.progress-text {
-  margin-top: 5px;
-}
-
-/* 新增样式用于显示当前时间 */
-.current-time {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-/* 对图片进行样式修饰，添加边框 */
-.custom-table img {
-  border: 1px solid rgba(136, 190, 203, 1);
-  border-radius: 0%;
-  padding: 5px;
-}
-
-/* 调整表格单元格内文字的对齐方式 */
-.custom-table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 10px;
-}
-
-/* 修改常量的文本样式的class */
-.constant-text {
-  font-size: 30px; /* 修改字体高度为27px */
-  color: rgba(188, 190, 192, 1); /* 修改字体颜色为rgba(188, 188, 188, 0.8) */
-  font-family: "ARK", sans-serif; /* 设置字体 */
-}
-
-/* 修改变量的文本样式的class */
-.custom-text {
-  font-size: 36px; /* 修改字体高度为27px */
-  color: rgba(141, 208, 255, 1); /* 修改字体颜色为rgba(200, 200, 200, 1) */
-  font-family: "ARK-EN", "ARK", sans-serif; /* 设置字体 */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
-}
-
-/* 修改线索的文本样式的class */
-.clue-text {
-  font-size: 28px; /* 修改字体高度为27px */
-  line-height: 44px; /* 设置行高为33px，保持行间距不变 */
-  color: rgba(141, 208, 250, 1); /* 修改字体颜色为rgba(200, 200, 200, 1) */
-  font-family: "ARK", sans-serif; /* 设置字体 */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
-}
-
-/* 修改第一行的内容放大一倍 */
-.table-container .custom-table tbody tr:first-child td {
-  font-size: 1.2em;
-}
-
-/* 给博士名字体高度添加注释并修改字体颜色和字体 */
-.title-text {
-  font-weight: bold; /* 增加字体粗度 */
-  font-size: 55px; /* 修改字体高度为45px */
-  color: rgba(255, 255, 255, 1); /* 修改字体颜色为rgba(189, 188, 191, 1) */
-  text-align: left; /* 左对齐文本 */
-  font-family: "ARK-Title", sans-serif; /* 设置字体 */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
-}
-
-/* 修改等级文本字体高度和颜色以及字体 */
-.level-text {
-  font-size: 35px; /* 修改字体高度为20px */
-  color: rgba(252, 196, 200, 0.88); /* 修改字体颜色为#99CCFF */
-  text-align: left; /* 左对齐文本 */
-  font-family: "ARK-EN", serif; /* 设置字体 */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
-  margin-right: 10px; /* 在 "Lv.120" 的右侧添加 10px 的右边距 */
-}
-
-/* 修改UID文本字体高度和颜色以及字体 */
-.uid-text {
-  font-size: 25px; /* 修改字体高度为20px */
-  color: #A8A8A8; /* 修改字体颜色为#A8A8A8 */
-  text-align: left; /* 左对齐文本 */
-  font-family: "ARK-EN", sans-serif; /* 设置字体 */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 阴影效果设置[水平偏移] [垂直偏移] [模糊半径] [扩展半径] [颜色] */
-  margin-left: 10px; /* 在 "UID:1919810" 的左侧添加 10px 的左边距 */
-}
-
-/* 在现有的CSS中添加以下样式 */
-.center-content {
-  text-align: center; /* 水平居中对齐 */
-  vertical-align: middle; /* 垂直居中对齐 */
-}
-.logo {
-  font-size: 24px;
-  font-family: 'Arial';
-  /* color: #f0eaca; */
-  text-align: center;
-  margin-top: 40px;
-  padding-bottom: 15px;
-}
+body { width: 1500px; color: #edf0eb; background: #191d20; font-family: "ARK", sans-serif; font-size: 18px; }
+.container { width: 1500px; padding: 24px; background: #191d20; }
+.doctor-sheet, .infrastructure-sheet { width: 100%; }
+.doctor-header { display: flex; align-items: center; gap: 22px; padding: 2px 0 24px; border-bottom: 1px solid #505b5c; }
+.doctor-avatar { position: relative; flex-shrink: 0; width: 94px; height: 94px; border: 1px solid #d3dcd2; background: #30393c; }
+.doctor-avatar > img { width: 100%; height: 100%; object-fit: contain; }
+.doctor-avatar > span { position: absolute; right: -10px; bottom: -8px; padding: 4px 8px; background: #e7d64b; color: #1b2224; font-family: "ARK-EN", sans-serif; font-size: 21px; }
+.doctor-identity { min-width: 0; }
+.doctor-identity h1 { font-family: "ARK-Title", serif; font-weight: 400; font-size: 38px; line-height: 1.35; overflow-wrap: anywhere; }
+.doctor-identity p { font-family: "ARK-EN", "ARK", sans-serif; font-size: 18px; color: #c1ceca; margin-top: 5px; }
+.doctor-identity > span { display: block; color: #c1ceca; font-size: 16px; margin-top: 8px; }
+.sheet-title { text-align: right; margin-left: auto; flex-shrink: 0; }
+.sheet-title h2 { font-family: "ARK-Title", serif; font-size: 31px; font-weight: 400; }
+.sheet-title p { font-size: 14px; color: #b8c6c1; margin-top: 7px; }
+.doctor-body { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px; margin-top: 22px; }
+.secretary-panel { position: relative; display: flex; flex-direction: column; overflow: hidden; min-height: 740px; background: #2a3235 url('../operatorAssets/portrait-bg.png') center / cover; }
+.secretary-art { flex: 1; position: relative; min-height: 600px; overflow: hidden; }
+.secretary-art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.secretary-placeholder { visibility: hidden; color: #bcc9c2; font-size: 16px; position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; }
+.secretary-name { position: relative; padding: 16px 20px; background: #252d30; }
+.secretary-name > span { font-size: 14px; color: #b8c6c1; }
+.secretary-name h2 { font-family: "ARK-Title", serif; font-size: 29px; margin-top: 4px; font-weight: 400; overflow-wrap: anywhere; }
+.doctor-information { min-width: 0; }
+.account-progress { display: flex; gap: 16px; align-items: baseline; padding: 3px 0 14px; }
+.account-progress > span { font-size: 15px; color: #c1ceca; }
+.account-progress > strong { font-family: "ARK-EN", "ARK", sans-serif; font-size: 25px; color: #f3e58e; font-weight: 400; }
+.account-progress .sync-label { margin-left: auto; font-size: 12px; }
+.collection-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 15px 0; background: #30393b; }
+.collection-strip > div { padding: 0 20px; border-right: 1px solid #53605e; }
+.collection-strip > div:last-child { border-right: 0; }
+.collection-strip span { display: block; font-size: 15px; color: #c9d4cc; }
+.collection-strip strong { display: block; font-family: "ARK-EN", sans-serif; font-size: 36px; font-weight: 400; margin-top: 7px; }
+.live-resources { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid #455251; }
+.live-resource header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.live-resource h3 { font-size: 20px; font-weight: 500; }
+.live-resource header span { font-size: 13px; color: #c1ceca; }
+.resource-value { display: flex; align-items: baseline; gap: 9px; margin: 7px 0 9px; }
+.resource-value strong { font-family: "ARK-EN", sans-serif; font-size: 39px; font-weight: 400; color: #ffe500; }
+.resource-value > span { font-family: "ARK-EN", sans-serif; color: #bdccc6; font-size: 22px; }
+.drones .resource-value strong { color: #9cd1de; }
+.player-progress { height: 4px; background: #4b5858; overflow: hidden; }
+.player-progress > i { display: block; height: 100%; background: #dfcf50; }
+.drones .player-progress > i, .summary-drone .player-progress > i { background: #8fcbdc; }
+.section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 18px 0 12px; }
+.section-title h3 { font-size: 21px; font-weight: 500; }
+.section-title > span { color: #b9c8c2; font-size: 13px; }
+.task-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.task-grid article { min-width: 0; }
+.task-grid h4 { color: #c8d4cc; font-size: 15px; font-weight: 400; }
+.task-grid p { display: flex; gap: 5px; align-items: baseline; margin: 8px 0; }
+.task-grid strong { font-family: "ARK-EN", sans-serif; font-size: 26px; font-weight: 400; }
+.task-grid p > span { color: #bac9c2; font-size: 14px; }
+.task-grid small { font-size: 12px; color: #c7cfa8; display: block; margin-top: 6px; }
+.recruit-slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.recruit-slot { padding: 12px; background: #293235; min-width: 0; }
+.recruit-slot > div:first-child { display: flex; align-items: center; gap: 10px; }
+.recruit-slot b { display: inline-flex; align-items: center; justify-content: center; width: 25px; height: 25px; background: #424f52; font-family: "ARK-EN", sans-serif; font-size: 18px; font-weight: 400; }
+.recruit-slot strong { font-size: 17px; font-weight: 500; }
+.recruit-slot p { color: #bdccc5; font-size: 12px; margin: 7px 0 9px; }
+.recruit-slot.ready strong { color: #b9d69d; }
+.recruit-slot.ready .player-progress > i { background: #a1c47e; }
+.base-brief { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; padding: 17px 0; border-bottom: 1px solid #455251; }
+.base-brief h3 { font-size: 17px; font-weight: 500; margin-bottom: 8px; }
+.base-brief p { color: #bdccc5; font-size: 13px; margin-top: 6px; }
+.training-brief > strong { color: #ecd97e; font-size: 19px; font-weight: 400; }
+.clue-board { display: flex; gap: 6px; }
+.clue-board > span { display: flex; width: 25px; height: 25px; align-items: center; justify-content: center; font-family: "ARK-EN", sans-serif; font-size: 16px; background: #333d40; color: #bcc8c2; }
+.clue-board > .owned { background: #cbd69c; color: #20282a; }
+.assist-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.assist-char { display: flex; gap: 11px; min-width: 0; padding: 11px; background: #293235; }
+.assist-avatar { width: 65px; height: 80px; overflow: hidden; background: #414c4e; flex-shrink: 0; }
+.assist-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.assist-information { min-width: 0; }
+.assist-information h4 { font-size: 17px; font-weight: 500; overflow-wrap: anywhere; }
+.assist-information p { color: #c3d1c8; font-size: 12px; margin-top: 3px; }
+.assist-skill { display: flex; align-items: center; gap: 5px; margin-top: 6px; }
+.assist-skill img { width: 25px; height: 25px; object-fit: contain; }
+.assist-skill span { font-size: 13px; color: #f1df91; }
+.assist-information small { display: block; color: #c1cec6; font-size: 11px; line-height: 1.5; margin-top: 4px; overflow-wrap: anywhere; }
+.player-footer { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-top: 22px; padding-top: 12px; border-top: 1px solid #465350; font-size: 12px; color: #bac8c1; }
+.player-empty { font-size: 15px; padding: 16px 0; color: #bccbc4; }
+.base-header { padding-bottom: 20px; }
+.base-summary { display: grid; grid-template-columns: repeat(3, 1fr) 1.7fr; padding: 20px 0; margin-bottom: 4px; }
+.base-summary > div { padding: 0 22px; border-right: 1px solid #465350; }
+.base-summary > div:first-child { padding-left: 0; }
+.base-summary > div:last-child { border-right: 0; padding-right: 0; }
+.base-summary > div > span { display: block; color: #c1cec6; font-size: 15px; }
+.base-summary strong { font-family: "ARK-EN", sans-serif; font-size: 35px; font-weight: 400; display: block; margin-top: 6px; }
+.base-summary strong small { font-family: "ARK", sans-serif; font-size: 14px; margin-left: 7px; color: #c1cec6; }
+.summary-drone > span { display: flex !important; justify-content: space-between; align-items: baseline; }
+.summary-drone b { color: #b7dce7; font-family: "ARK-EN", sans-serif; font-size: 25px; font-weight: 400; }
+.summary-drone .player-progress { margin-top: 12px; }
+.summary-drone > small { display: block; color: #bccbc4; font-size: 12px; margin-top: 8px; }
+.production-grid, .service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.dormitory-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.base-room { min-width: 0; display: flex; flex-direction: column; background: #283134; padding: 10px 12px; }
+.room-header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid #485754; }
+.room-header h4 { font-size: 18px; font-weight: 500; }
+.room-header h4 > small { font-family: "ARK-EN", sans-serif; font-size: 15px; margin-left: 5px; color: #bacac1; }
+.room-header > span { font-size: 12px; color: #d8cf95; text-align: right; }
+.room-product { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+.room-product > img { width: 22px; height: 22px; object-fit: contain; }
+.room-product > strong { font-size: 16px; font-weight: 500; color: #ece3aa; overflow-wrap: anywhere; }
+.room-metrics { display: flex; flex-wrap: wrap; gap: 4px 12px; justify-content: space-between; margin: 7px 0; }
+.room-metrics > div { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
+.room-metrics span { flex-shrink: 0; color: #bacac1; font-size: 12px; }
+.room-metrics b { font-family: "ARK-EN", "ARK", sans-serif; font-size: 17px; font-weight: 400; overflow-wrap: anywhere; }
+.room-stock { height: 3px; margin-bottom: 2px; }
+.room-trading .room-stock > i { background: #80b9ce; }
+.room-power .room-metrics b { color: #bdcf92; }
+.room-note { margin: 4px 0; font-size: 12px; color: #d1d6b5; line-height: 1.3; }
+.order-details { margin: 4px 0; }
+.order-details p { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; line-height: 1.35; color: #c2d0c7; }
+.order-details b { font-weight: 400; color: #b7d5e0; text-align: right; }
+.room-residents { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: auto; padding-top: 8px; }
+.room-control .room-residents, .room-dormitory .room-residents { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.room-power .room-residents, .room-hire .room-residents { grid-template-columns: 1fr; }
+.room-meeting .room-residents, .room-training .room-residents { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.resident { min-width: 0; }
+.resident-body { display: flex; align-items: center; gap: 5px; min-width: 0; }
+.resident-avatar { width: 34px; height: 39px; background: #414d50; flex-shrink: 0; overflow: hidden; }
+.resident-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.resident-information { flex: 1; min-width: 0; }
+.resident-information > strong { display: block; font-size: 13px; font-weight: 400; overflow-wrap: anywhere; line-height: 1.2; }
+.mood-value { font-family: "ARK-EN", "ARK", sans-serif; color: #c0cfc5; font-size: 11px; margin: 2px 0 3px; white-space: nowrap; }
+.mood-value span { color: #b0c1b7; }
+.mood-bar { height: 3px; background: #4c5957; }
+.mood-bar > i { display: block; height: 100%; background: #9fbb85; }
+.mood-bar.low > i, .mood-bar.exhausted > i { background: #e9ae73; }
+.mood-bar.unknown > i { background: #a8b8b2; }
+.resident-role { display: block; font-size: 12px; color: #c6d0a4; margin-bottom: 4px; }
+.vacant .resident-body > span { color: #b1c2b8; font-size: 12px; }
+.vacant-slot { flex-shrink: 0; width: 30px; height: 35px; border: 1px dashed #66776f; }
+.room-control { padding: 10px 12px; }
+.room-control .room-metrics { display: none; }
+.room-control .resident-avatar { width: 38px; height: 42px; }
+.room-control .resident-information > strong { font-size: 15px; }
+.room-dormitory .room-metrics { margin-bottom: 4px; }
+.room-dormitory .room-header > span { color: #b9cfa1; }
+.room-meeting .clue-board { margin: 1px 0 4px; }
+.room-locked { color: #b6c5bc; }

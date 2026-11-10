@@ -1,153 +1,43 @@
-import moment from 'moment'
 import { rulePrefix } from '../utils/common.js'
 import SKLandUser from '../model/sklandUser.js'
-import { getAvatarUrl , getSkinAvatarUrl } from '../model/imgApi.js'
+import { buildProfileView, buildInfrastructureView } from '../model/playerView.js'
 import runtimeRender from '../utils/runtimeRender.js'
 
-const _path = process.cwd();
 export class Profile extends plugin {
     constructor() {
-        super({
-            name: '[arknights-plugin]游戏角色卡片',
-            dsc: '明日方舟角色卡片',
-            event: 'message',
-            priority: 100,
+        super({ name: '[arknights-plugin]便签与基建', dsc: '博士便签和基建状态', event: 'message', priority: 100,
             rule: [
-                {
-                    reg: `^${rulePrefix}(博士卡片|便签|卡片)$`,
-                    fnc: 'profileCard'
-                },
-            ]
-        })
-        this.bindUser = {}
+                { reg: `^${rulePrefix}(博士卡片|便签|卡片)$`, fnc: 'profileCard' },
+                { reg: `^${rulePrefix}基建(查询)?$`, fnc: 'infrastructure' }
+            ] })
     }
 
-    async profileCard() {
-        let uid = this.e.at || this.e.user_id
-        let sklUser = new SKLandUser(uid)
-        if (!await sklUser.getUser()) {
-            await this.reply('未绑定森空岛cred，请先绑定后再使用功能。可发送 /cred帮助 查看获取方法')
-            return true
-        }
+    async profileCard() { return this.renderPlayer('profile') }
+    async infrastructure() { return this.renderPlayer('infrastructure') }
 
-        // let game_res = await sklUser.sklReq.getData('game_player_info')
-        let game_res = await sklUser.getGamePlayerInfo()
-        let cards_res = await sklUser.sklReq.getData('cards')
-        if (game_res?.code === 0 && cards_res?.code === 0) {
-            return await this.generate_profile_card(game_res.data, cards_res.data)
-        }else if (game_res?.code === 0) {
-            // cards接口失败的情况下，展示N/A
-            let naUserData = {
-                list: [{
-                    arknights: {
-                        furnitureCnt: 'N/A',
-                        charCnt: 'N/A',
-                        skinCnt: 'N/A'
-                    }
-                }]
+    async renderPlayer(view) {
+        try {
+            const user = new SKLandUser(this.e.at || this.e.user_id)
+            if (!await user.getUser()) {
+                await this.reply('尚未绑定森空岛账号，请先发送“绑定”或“扫码绑定”（需添加插件前缀）。')
+                return true
             }
-            return await this.generate_profile_card(game_res.data, naUserData)
-        } else {
-            logger.mark(`cards接口失败，响应:${JSON.stringify(cards_res)}`)
-            logger.mark(`game info失败，响应:${JSON.stringify(game_res)}`)
-            await this.reply(`查询失败，请检查cred或稍后再试`)
+            const response = await user.getGamePlayerInfo()
+            if (response?.code !== 0 || !response.data?.status) {
+                await this.reply('未能获取游戏资料，请检查绑定或稍后重试。')
+                return true
+            }
+            if (view === 'infrastructure' && !response.data.building) {
+                await this.reply('未能获取基建资料，请进入游戏同步后重试。')
+                return true
+            }
+            const now = Math.floor(Date.now() / 1000)
+            const data = view === 'infrastructure' ? { base: buildInfrastructureView(response.data, { now }) } : { profile: buildProfileView(response.data, { now }) }
+            await runtimeRender(this.e, view === 'infrastructure' ? 'profileCard/infrastructure.html' : 'profileCard/profileCard.html', data, { scale: 1, timeout: 120000 })
+        } catch {
+            globalThis.logger?.error?.(`[方舟插件][${view === 'infrastructure' ? '基建' : '便签'}]查询或图片渲染失败`)
+            await this.reply(`${view === 'infrastructure' ? '基建' : '便签'}查询失败，请稍后重试。`)
         }
         return true
-
     }
-
-    async generate_profile_card(game_data, user_data) {
-        let user_info = {}
-        let game_info = {}
-        // 角色信息
-        let avatar_type = game_data.status.avatar.type
-        let avatar_id = game_data.status.avatar.id
-
-        if (avatar_type && avatar_id) {
-            user_info.avatar_url = avatar_type == "ICON" ? getAvatarUrl(game_data.status.avatar.id) : getSkinAvatarUrl(game_data.status.avatar.id)
-        } else {
-            user_info.avatar_url = `../../../../../plugins/arknights-plugin/resources/profileCard/img/default_avatar.png`
-        }
-        user_info.name = game_data.status.name
-        user_info.level = game_data.status.level
-        user_info.uid = game_data.status.uid
-        user_info.reg_date = moment.unix(game_data.status.registerTs).format('YYYY-MM-DD')
-        user_info.days_before_now = moment().diff(moment.unix(game_data.status.registerTs), 'day') + 1
-        user_info.main_progress = game_data.status.mainStageProgress || '全部完成'
-
-        // 角色家具皮肤数量
-        user_info.funi_num = user_data.list?.[0]?.arknights?.furnitureCnt || 'N/A'
-        user_info.char_num = user_data.list?.[0]?.arknights?.charCnt || 'N/A'
-        user_info.skin_num = user_data.list?.[0]?.arknights?.skinCnt || 'N/A'
-
-        // 理智
-        game_info.ap_total = game_data.status.ap.max
-        game_info.ap_current = game_data.status.ap.max - Math.ceil((game_data.status.ap.completeRecoveryTime - Date.now() / 1000) / 360)
-        game_info.ap_current = game_info.ap_current > game_data.status.ap.max ? game_data.status.ap.max : game_data.status.ap.current
-        game_info.ap_rate = Math.round(game_info.ap_current / game_info.ap_total * 100)
-        // 无人机
-        game_info.uav_total = game_data.building.labor.maxValue
-        game_info.uav_current = Math.min(Math.round((Date.now() / 1000 - game_data.building.labor.lastUpdateTime) / 360 + game_data.building.labor.value), game_info.uav_total)
-        game_info.uav_rate = Math.round(game_info.uav_current / game_info.uav_total * 100)
-        // 线索
-        const findClue = (clue) => {
-            return game_data.building.meeting.clue.board.find(item => item == clue) ? '100' : '60';
-        };
-        let cule_status = `<span class="custom-text" style="filter: brightness(${findClue('RHINE')}%)">①</span>
-        <span class="custom-text" style="filter: brightness(${findClue('PENGUIN')}%)">②</span>
-        <span class="custom-text" style="filter: brightness(${findClue('BLACKSTEEL')}%)">③</span>
-        <span class="custom-text" style="filter: brightness(${findClue('URSUS')}%)">④</span>
-        <span class="custom-text" style="filter: brightness(${findClue('GLASGOW')}%)">⑤</span>
-        <span class="custom-text" style="filter: brightness(${findClue('KJERAG')}%)">⑥</span>
-        <span class="custom-text" style="filter: brightness(${findClue('RHODES')}%)">⑦</span>
-        `
-        game_info.clue_rate = Math.round(game_data.building.meeting.clue.board.length / 7 * 100)
-        // 日常
-        game_info.daily_current = game_data.routine.daily.current
-        game_info.daily_total = game_data.routine.daily.total
-        game_info.daily_rate = Math.round(game_info.daily_current / game_info.daily_total * 100)
-        game_info.weekly_current = game_data.routine.weekly.current
-        game_info.weekly_total = game_data.routine.weekly.total
-        game_info.weekly_rate = Math.round(game_info.weekly_current / game_info.weekly_total * 100)
-        // 公招
-        const isRecruitFinish = (recruit_item) => {
-            if (recruit_item.state != 2) return false
-            let current_ts = moment().valueOf()
-            logger.debug(`current_ts: ${current_ts} finish_ts: ${recruit_item.finishTs}`)
-            return recruit_item.finishTs < current_ts && recruit_item.finishTs > 0
-        };
-        game_info.recruit_finish = game_data.recruit.filter(function (recruit_item) {
-            if (recruit_item.state != 2) return false
-            let current_ts = moment().valueOf()
-            logger.debug(`current_ts: ${current_ts} finish_ts: ${recruit_item.finishTs}`)
-            return recruit_item.finishTs < current_ts && recruit_item.finishTs > 0
-        }).length
-        game_info.recruit_total = game_data.recruit.filter(function (item) { return item.state != 0 }).length
-        game_info.recruit_rate = Math.round(game_info.recruit_finish / game_info.recruit_total * 100)
-        // 保全
-        game_info.tower_lower_current = game_data.tower.reward.lowerItem.current
-        game_info.tower_lower_total = game_data.tower.reward.lowerItem.total
-        game_info.tower_lower_rate = Math.round(game_info.tower_lower_current / game_info.tower_lower_total * 100)
-        game_info.tower_higher_current = game_data.tower.reward.higherItem.current
-        game_info.tower_higher_total = game_data.tower.reward.higherItem.total
-        game_info.tower_higher_rate = Math.round(game_info.tower_higher_current / game_info.tower_higher_total * 100)
-        // 剿灭
-        game_info.campaign_current = game_data.campaign.reward.current
-        game_info.campaign_total = game_data.campaign.reward.total
-        game_info.campaign_rate = Math.round(game_info.campaign_current / game_info.campaign_total * 100)
-
-        logger.debug(`user_info: ${JSON.stringify(user_info)}`)
-        logger.debug(`game_info: ${JSON.stringify(game_info)}`)
-        logger.debug(`clue: ${cule_status}`)
-
-        await runtimeRender(this.e, 'profileCard/profileCard.html', {
-            user_info: user_info,
-            game_info: game_info,
-            cule_status: cule_status
-        }, {
-            scale: 1.6
-        })
-
-    }
-
 }
