@@ -1,0 +1,117 @@
+body { width: 1800px; font-family: "ARK", sans-serif; color: #f3f3ec; background: #171b1e; font-size: 18px; }
+.container { width: 1800px; padding: 20px; background: #171b1e; }
+.encyclopedia { display: grid; grid-template-columns: 400px minmax(0, 1fr); gap: 24px; min-height: 940px; }
+.operator-portrait { position: relative; display: flex; flex-direction: column; min-width: 0; overflow: hidden; background: #23292d url('../operatorAssets/portrait-bg.png') center / cover; }
+.identity { position: relative; z-index: 2; padding: 22px 20px 0; background: linear-gradient(#23292d 65%, transparent); }
+.identity-top { display: flex; gap: 8px; align-items: center; font-size: 17px; color: #e1e4df; }
+.identity-top .profession-icon { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
+.rarity-stars { display: flex; align-items: center; flex-shrink: 0; margin-left: auto; }
+.rarity-stars img { width: 26px; height: 26px; object-fit: contain; margin-right: -10px; }
+.rarity-stars img:last-of-type { margin-right: 0; }
+.rarity-stars .rarity-fallback { display: none; }
+.rarity-stars.stars-missing img { display: none; }
+.rarity-stars.stars-missing .rarity-fallback { display: inline; color: #f3f3ec; }
+h1 { font-family: "ARK-Title", serif; font-size: 48px; line-height: 1.35; margin: 18px 0 4px; overflow-wrap: anywhere; }
+.appellation { font-family: "ARK-EN", sans-serif; font-size: 22px; color: #c6cfce; overflow-wrap: anywhere; }
+.operator-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.operator-tags span { padding: 3px 8px; background: #3c4549; color: #ebefeb; font-size: 15px; }
+.illustration-wrap { position: relative; flex: 1; min-height: 620px; max-height: 1000px; overflow: hidden; }
+.illustration { position: absolute; top: -39%; left: -50%; width: 200%; height: 150%; max-width: none; object-fit: cover; object-position: center top; }
+.illustration-missing { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #a9b3b5; font-size: 24px; visibility: hidden; }
+.illustration-missing small { font-size: 16px; margin-top: 10px; }
+.portrait-caption { display: flex; justify-content: space-between; gap: 8px; padding: 16px 20px; border-top: 1px solid #536065; font-size: 17px; color: #dee3dc; margin-top: auto; }
+.portrait-caption span:last-child { font-family: "ARK-EN", sans-serif; color: #aeb9b9; }
+.operator-content { min-width: 0; display: flex; flex-direction: column; }
+.page-heading { display: flex; gap: 14px; align-items: baseline; border-bottom: 1px solid #606966; padding: 2px 0 12px; margin-bottom: 16px; }
+.page-heading h2 { font-family: "ARK-Title", serif; font-size: 32px; font-weight: 400; }
+.page-heading span { color: #ffe500; margin-left: auto; }
+.section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+h3 { font-size: 22px; font-weight: 600; }
+.section-heading span { font-size: 14px; color: #b8c3c1; }
+.stats-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 1px; background: #495352; }
+.stats-grid > div { padding: 12px 9px; background: #293135; }
+.stats-grid span { display: block; font-size: 15px; color: #c0cbc6; white-space: nowrap; }
+.stats-grid strong { display: block; font-family: "ARK-EN", sans-serif; font-weight: 400; font-size: 32px; color: #ffe500; margin-top: 5px; }
+.stats-grid small { font-family: "ARK", sans-serif; font-size: 13px; padding-left: 3px; color: #e2e6dd; }
+.phase-trait { display: flex; gap: 20px; align-items: center; padding: 14px 0; border-bottom: 1px solid #46514f; }
+.trait { display: flex; flex: 1; align-items: baseline; gap: 18px; }
+.trait b { color: #c6d3cc; white-space: nowrap; }
+p { line-height: 1.55; white-space: pre-line; overflow-wrap: anywhere; }
+.range-wrap { display: flex; align-items: center; gap: 12px; font-size: 14px; color: #bcc8c1; }
+.attack-range { display: inline-flex; flex-direction: column; gap: 3px; }
+.range-row { display: flex; gap: 3px; }
+.range-row i { display: block; width: 13px; height: 13px; background: transparent; }
+.range-row .hit { border: 1px solid #e3e8df; background: #b8c5b61a; }
+.range-row .origin { background: #ffe500; }
+.overview-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 18px; }
+.overview-columns > div { min-width: 0; }
+.overview-columns.no-skills { align-items: start; }
+.no-skills > div { display: contents; }
+.no-skills .talents { grid-column: 1; grid-row: 1 / 4; }
+.no-skills .potentials { grid-column: 2; grid-row: 1; margin-top: 0; }
+.no-skills .skill-overview { grid-column: 2; grid-row: 2; }
+.no-skills .module-summary { grid-column: 2; grid-row: 3; }
+.overview-columns section + section { margin-top: 22px; }
+.talent-group + .talent-group { margin-top: 12px; }
+.talent-row { padding: 8px 10px; background: #252e31; border-bottom: 1px solid #43504f; }
+.talent-row > div { display: flex; gap: 10px; align-items: baseline; margin-bottom: 4px; }
+.talent-row b { font-size: 18px; color: #f3e99e; }
+.talent-row span { font-size: 14px; color: #b9c6be; }
+.talent-row p { font-size: 16px; }
+.potential-row { display: flex; gap: 13px; padding: 9px 0; border-bottom: 1px solid #3a4645; }
+.potential-row > b { font-size: 17px; color: #f3e99e; flex-shrink: 0; }
+.potential-row p { font-size: 17px; }
+.potential-row small { display: block; color: #c4cfc8; font-size: 15px; line-height: 1.5; }
+.skill-summary { padding: 10px 0 12px; border-bottom: 1px solid #45524e; }
+.skill-heading { display: flex; align-items: center; gap: 11px; min-width: 0; }
+.skill-heading img { width: 46px; height: 46px; object-fit: contain; }
+.skill-heading > div { min-width: 0; }
+.skill-heading h3, .skill-heading h4 { font-size: 21px; overflow-wrap: anywhere; }
+.skill-heading span { display: block; font-size: 14px; color: #c0cbc5; margin-top: 4px; }
+.skill-heading > b { margin-left: auto; color: #ffe500; font-family: "ARK-EN", "ARK", sans-serif; font-weight: 400; white-space: nowrap; }
+.sp-line { color: #c0cbc5; font-size: 14px; margin: 8px 0 5px; }
+.skill-summary > p { font-size: 16px; }
+.module-summary-row { display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid #46524e; }
+.module-summary-row b { color: #f3e99e; font-family: "ARK-EN", sans-serif; }
+.module-summary-row small { margin-left: auto; color: #c0cbc5; white-space: nowrap; }
+.view-intro { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; color: #c5cfc8; font-size: 16px; }
+.view-intro span { color: #e8df9c; }
+.skill-columns { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, 1fr)); gap: 18px; }
+.skill-detail { min-width: 0; }
+.skill-detail > .skill-heading { background: #303b3c; padding: 12px; min-height: 83px; }
+.skill-level { position: relative; border-bottom: 1px solid #4a5953; padding: 14px 10px; }
+.skill-level > header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
+.skill-level h4 { color: #ffe500; font-size: 19px; }
+.skill-level > header span { font-size: 14px; color: #c9d3cb; }
+.skill-level p { font-size: 17px; line-height: 1.6; }
+.duration { color: #d5decf; font-size: 14px; margin-top: 8px; }
+.skill-range { display: flex; gap: 10px; align-items: center; font-size: 13px; color: #c3cfc5; margin-top: 10px; }
+.skill-range .range-row i { width: 10px; height: 10px; }
+.shared-range { padding: 10px; margin-top: 0; border-bottom: 1px solid #4a5953; }
+.module-detail { margin-bottom: 22px; }
+.module-heading { display: flex; align-items: center; gap: 14px; background: #303b3c; padding: 10px 14px; }
+.module-heading img { width: 60px; height: 60px; object-fit: contain; }
+.module-heading h3 { font-family: "ARK-Title", serif; font-size: 24px; }
+.module-heading span { font-family: "ARK-EN", sans-serif; color: #ffe500; display: block; margin-top: 4px; }
+.module-heading > p { margin-left: auto; font-size: 16px; color: #d4ddd1; }
+.module-phases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.module-phase { padding: 14px 0 8px; min-width: 0; }
+.module-phase header { padding-bottom: 10px; border-bottom: 1px solid #536052; margin-bottom: 12px; }
+.module-phase h4 { font-family: "ARK-EN", sans-serif; font-weight: 400; font-size: 28px; color: #ffe500; }
+.module-phase header b { font-size: 16px; font-weight: 400; display: block; margin-top: 4px; }
+.module-phase > div + div { margin-top: 12px; }
+.module-phase > div > span { display: block; font-size: 14px; color: #e7dd9e; margin-bottom: 6px; }
+.module-phase p { font-size: 17px; }
+.module-phase > small { display: block; font-size: 13px; color: #bcc8bd; margin-top: 12px; }
+.module-missions { padding: 12px 14px; background: #252e31; display: grid; grid-template-columns: 90px 1fr; gap: 5px 10px; }
+.module-missions b { grid-row: span 5; color: #d6dfd1; font-size: 16px; }
+.module-missions p { font-size: 15px; }
+.glossary { margin-top: 24px; padding-top: 12px; border-top: 1px solid #526051; }
+.glossary h3 { font-size: 17px; margin-bottom: 8px; color: #d5dfcd; }
+.glossary > div { columns: 2; column-gap: 24px; }
+.glossary p { break-inside: avoid; font-size: 14px; color: #c0cebf; margin-bottom: 8px; }
+.glossary b { color: #e7e5c8; }
+.empty { color: #b5c3b8; font-size: 16px; padding: 14px 0; }
+.large-empty { padding: 100px 0; text-align: center; font-size: 24px; }
+footer { display: flex; justify-content: space-between; gap: 12px; padding-top: 16px; margin-top: auto; font-size: 13px; color: #bdc8bb; }
+footer span { padding-top: 12px; }

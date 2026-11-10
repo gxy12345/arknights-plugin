@@ -140,6 +140,9 @@ export const helpList = [
   }, {
     group: '其他信息查询(不需要绑定账号)',
     list: [
+      { icon: 12, title: '#方舟维什戴尔图鉴', appIcon: 'toolbox-operator.png', appIconColor: true, desc: '横版立绘、属性、天赋、潜能和技能速览；支持别名' },
+      { icon: 12, title: '#方舟维什戴尔技能', appIcon: 'toolbox-operator.png', appIconColor: true, desc: '7级与专精；可追加1–10、专1–3或全等级' },
+      { icon: 12, title: '#方舟维什戴尔模组', appIcon: 'toolbox-operator.png', appIconColor: true, desc: '全部模组各级属性、特性、天赋与解锁任务' },
       { icon: 15, title: '#方舟活动日历', appIcon: 'calendar.webp', appIconColor: true, desc: '查看近期活动时间，与账号关卡进度分开查询' },
       {
         icon: 15,
@@ -158,8 +161,8 @@ export const helpList = [
       },
       {
         icon: 15,
-        title: '#方舟公招查询+[TAG列表]', appIcon: 'toolbox-recruit.png', appIconColor: true,
-        desc: '按公招标签查询，绑定后标记干员持有情况'
+        title: '#方舟公招查询 支援 远程位', appIcon: 'toolbox-recruit.png', appIconColor: true,
+        desc: '官方实时公招池，绑定后标记持有和满潜'
       },
       {
         icon: 21,
