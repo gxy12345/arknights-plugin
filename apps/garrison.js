@@ -1,6 +1,7 @@
 import { rulePrefix } from '../utils/common.js'
 import SKLandUser from '../model/sklandUser.js'
 import GarrisonService from '../model/garrisonService.js'
+import { garrisonRecordLabels } from '../model/garrisonView.js'
 import runtimeRender from '../utils/runtimeRender.js'
 
 const pageSize = 10
@@ -28,6 +29,7 @@ export class Garrison extends plugin {
                 { reg: `^${rulePrefix}(?:卫戍协议|卫戍)攻略详情\\s*\\S+$`, fnc: 'guideDetail' },
                 { reg: `^${rulePrefix}(?:卫戍协议|卫戍)(?:历史)?战绩(?:\\s+.*)?$`, fnc: 'history' },
                 { reg: `^${rulePrefix}(?:卫戍协议|卫戍)战绩详情\\s*\\d+$`, fnc: 'recordDetail' },
+                { reg: `^${rulePrefix}(?:卫戍协议|卫戍)统计(?:\\s+[\\w-]{1,100})?$`, fnc: 'statistics' },
                 { reg: `^${rulePrefix}(?:卫戍协议|卫戍)赛季$`, fnc: 'seasons' }
             ]
         })
@@ -41,6 +43,7 @@ export class Garrison extends plugin {
             '卫戍攻略详情 序号或ID：查看阵容、盟约、装备和思路',
             '卫戍战绩 [页码] [赛季ID]：查看历史对局',
             '卫戍战绩详情 序号：查看上次战绩列表中的对局',
+            '卫戍统计 [赛季ID]：查看本地累计通关、击败及最近奖杯数',
             '卫戍赛季：查看官方可查询赛季',
             '以上命令均需添加当前插件前缀，例如「~卫戍战绩」。'
         ].join('\n'))
@@ -55,9 +58,11 @@ export class Garrison extends plugin {
                 return true
             }
             return await work(new GarrisonService(user), user)
-        } catch {
+        } catch (error) {
             logger.error('[方舟插件][卫戍协议]查询或渲染失败')
-            await this.reply('卫戍协议查询失败，请检查森空岛绑定状态或稍后重试。')
+            await this.reply(error?.code === 'GARRISON_STATISTICS_STORAGE'
+                ? '卫戍统计本地存储读取或写入失败，请检查云崽数据目录。'
+                : '卫戍协议查询失败，请检查森空岛绑定状态或稍后重试。')
             return true
         }
     }
@@ -83,6 +88,12 @@ export class Garrison extends plugin {
         return { seasonName: season?.name || id || '当前赛季', backgroundUrl: safeImage(image?.backgroundPc || image?.backgroundMobile), updated_at: nowText() }
     }
 
+    async renderPage(service, path, data, resource, seasonId) {
+        const doctor = await service.getDoctor()
+        await runtimeRender(this.e, path, { ...data, doctor, ...this.presentation(resource, seasonId) }, { scale: 1.0 })
+        return true
+    }
+
     async guides() {
         const keyword = argument(this.e, '攻略')
         if (keyword.length > 100) { await this.reply('攻略关键词请控制在 100 字以内。'); return true }
@@ -103,11 +114,10 @@ export class Garrison extends plugin {
             const result = await service.getGuides(options)
             const guides = result.guides.map((guide, index) => ({ ...guide, index: index + 1 }))
             await this.saveState('GUIDES', user, { keyword: options.keyword || '', page: options.page, pageToken: result.pageToken, hasMore: result.hasMore, ids: guides.map(guide => guide.id) })
-            await runtimeRender(this.e, 'garrison/list.html', {
+            return this.renderPage(service, 'garrison/list.html', {
                 guides, page: options.page, hasMore: result.hasMore,
-                keyword: options.keyword || '', ...this.presentation(result.resource)
-            }, { scale: 1.0 })
-            return true
+                keyword: options.keyword || ''
+            }, result.resource)
         }
         return existingService ? run(existingService, existingUser) : this.withService(run)
     }
@@ -119,8 +129,7 @@ export class Garrison extends plugin {
             const state = await this.readState('GUIDES', user)
             const id = /^\d{1,2}$/.test(value) && state?.ids?.[Number(value) - 1] ? state.ids[Number(value) - 1] : value
             const result = await service.getGuide(id)
-            await runtimeRender(this.e, 'garrison/guide.html', { guide: result.guide, ...this.presentation(result.resource, result.guide.seasonId) }, { scale: 1.0 })
-            return true
+            return this.renderPage(service, 'garrison/guide.html', { guide: result.guide }, result.resource, result.guide.seasonId)
         })
     }
 
@@ -138,13 +147,10 @@ export class Garrison extends plugin {
             const pages = Math.max(1, Math.ceil(records.length / pageSize))
             if (page > pages) { await this.reply(`战绩共 ${pages} 页，请输入有效页码。`); return true }
             await this.saveState('HISTORY', user, { records, seasonId: result.seasonId })
-            await runtimeRender(this.e, 'garrison/history.html', {
+            return this.renderPage(service, 'garrison/history.html', {
                 records: records.slice((page - 1) * pageSize, page * pageSize),
-                page, pages, hasMore: page < pages, total: records.length, seasonId: result.seasonId,
-                user_info: { name: user.name || '', uid: user.uid },
-                ...this.presentation(result.resource, result.seasonId)
-            }, { scale: 1.0 })
-            return true
+                page, pages, hasMore: page < pages, total: records.length, seasonId: result.seasonId
+            }, result.resource, result.seasonId)
         })
     }
 
@@ -155,11 +161,18 @@ export class Garrison extends plugin {
             const record = Number.isSafeInteger(index) && index > 0 ? state?.records?.[index - 1] : null
             if (!record) { await this.reply('请先查询「卫戍战绩」，再使用列表中的序号查看详情。列表保留 5 分钟。'); return true }
             const resource = await service.getResources(state.seasonId)
-            await runtimeRender(this.e, 'garrison/record.html', {
-                record, user_info: { name: user.name || '', uid: user.uid },
-                ...this.presentation(resource, state.seasonId)
-            }, { scale: 1.0 })
-            return true
+            return this.renderPage(service, 'garrison/record.html', {
+                record: { ...record, ...garrisonRecordLabels(record) }
+            }, resource, state.seasonId)
+        })
+    }
+
+    async statistics() {
+        return this.withService(async service => {
+            const result = await service.getStatistics(argument(this.e, '统计'))
+            return this.renderPage(service, 'garrison/statistics.html', {
+                history: result.history
+            }, result.resource, result.seasonId)
         })
     }
 

@@ -1,0 +1,11 @@
+<div class="garrison-doctor">
+    <div class="doctor-avatar">
+        <span>博士</span>
+        {{if doctor.avatar}}<img src="{{doctor.avatar}}" alt="" onerror="this.style.display='none'">{{/if}}
+        {{if doctor.level && doctor.level !== '—'}}<div class="doctor-level"><strong>{{doctor.level}}</strong><span>LV</span></div>{{/if}}
+    </div>
+    <div class="doctor-info">
+        <div class="doctor-name">Dr.{{doctor.name}}</div>
+        <div class="doctor-meta"><span class="doctor-uid">UID {{doctor.uid}}</span>{{if doctor.registered && doctor.registered !== '暂无入职记录'}}<span>入职 {{doctor.registered}}</span>{{/if}}</div>
+    </div>
+</div>

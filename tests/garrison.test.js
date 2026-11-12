@@ -1,6 +1,10 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import GarrisonService from '../model/garrisonService.js'
+import { GarrisonStatisticsStore } from '../model/garrisonStatistics.js'
 import SklandApi from '../model/sklandApi.js'
 import { normalizeGarrisonGuide, normalizeGarrisonRecord, formatGarrisonDate, garrisonImageUrl, plainGarrisonText } from '../model/garrisonView.js'
 
@@ -22,6 +26,75 @@ const record = {
     chessSquad: [{ charId: 'char_a', skillId: 'skill_a', moduleId: 'module_a', mergeLevel: 1, chessInfo: { chessLevel: 4 }, equips: [{ equipId: 'item_a' }] }]
 }
 
+async function statisticsStore(t) {
+    const directory = await mkdtemp(join(tmpdir(), 'garrison-statistics-'))
+    t.after(() => rm(directory, { recursive: true, force: true }))
+    return new GarrisonStatisticsStore(directory)
+}
+
+test('统计跨接口窗口累计，区分模式与难度，去重并保留真实零值', async t => {
+    const store = await statisticsStore(t)
+    const base = { activityId: 'act3autochess', versionId: 'V3_1', modeType: 'MULTI', modeDifficulty: 'HARD' }
+    const recent = { ...base, id: 'new', gameEndTs: '1704067201000', trophyAfter: 0, killCnt: 0, completeState: 1 }
+    const old = { ...base, id: 'old', gameEndTs: '1704067200', trophyAfter: 8, completeState: 0 }
+    const solo = { ...base, id: 'solo', modeType: 'SINGLE', gameEndTs: '1704067199', trophyAfter: 100, killCnt: 12, chessSquad: record.chessSquad }
+    await store.sync('1234', base.activityId, [old, recent, recent])
+
+    const reopened = new GarrisonStatisticsStore(store.directory)
+    const history = await reopened.sync('1234', base.activityId, [recent, solo, { ...base, killCnt: 999 }])
+    assert.deepEqual([history.total, history.wins, history.trophies, history.kills, history.killsReported], [3, 1, 0, 12, 2])
+    assert.deepEqual(history.difficulties.map(row => [row.label, row.total, row.wins]), [['规程等级 9–14', 1, 0], ['绝境模拟', 2, 1]])
+    assert.deepEqual(await reopened.sync('1234', base.activityId, []), history)
+    const snapshot = JSON.parse(await readFile(join(store.directory, 'uid-1234', `${base.activityId}.json`), 'utf8'))
+    assert.deepEqual(snapshot.recordIds, ['old', 'new', 'solo'])
+    assert.doesNotMatch(JSON.stringify(snapshot), /chessSquad|char_a/)
+})
+
+test('同账号同赛季并发同步合并更新，其他账号和赛季独立累计', async t => {
+    const store = await statisticsStore(t)
+    const another = new GarrisonStatisticsStore(store.directory)
+    await Promise.all([
+        store.sync('1234', 'season', [record, { ...record, id: 'first' }]),
+        another.sync('1234', 'season', [record, { ...record, id: 'second' }]),
+        store.sync('2345', 'season', [record]),
+        store.sync('1234', 'next-season', [{ ...record, activityId: 'next-season' }])
+    ])
+    assert.equal((await store.sync('1234', 'season', [])).total, 3)
+    assert.equal((await store.sync('2345', 'season', [])).total, 1)
+    assert.equal((await store.sync('1234', 'next-season', [])).total, 1)
+})
+
+test('本地统计文件读取失败时保留原文件', async t => {
+    const store = await statisticsStore(t)
+    await store.sync('1234', 'season', [record])
+    const file = join(store.directory, 'uid-1234', 'season.json')
+    await writeFile(file, '{', 'utf8')
+    await assert.rejects(store.sync('1234', 'season', [record]), { code: 'GARRISON_STATISTICS_STORAGE' })
+    assert.equal(await readFile(file, 'utf8'), '{')
+})
+
+test('卫戍统计只读取赛季资料与战绩，博士资料缺失时可继续出图', async t => {
+    const calls = []
+    const user = { name: '测试博士', uid: '1234', getGamePlayerInfo: async () => { throw Error('profile offline') }, sklReq: {
+        getData: async type => {
+            calls.push(type)
+            if (type === 'garrison_resource') return { code: 0, data: resource }
+            if (type === 'garrison_history') return { code: 0, data: { records: [record] } }
+            throw Error('unexpected request')
+        }
+    } }
+    const service = new GarrisonService(user, await statisticsStore(t))
+    const stats = await service.getStatistics()
+    assert.equal(stats.history.total, 1)
+    assert.deepEqual(calls, ['garrison_resource', 'garrison_history'])
+    assert.deepEqual(await service.getDoctor(), { name: '测试博士', uid: '1234', level: '—', avatar: '', registered: '' })
+    user.getGamePlayerInfo = async () => ({ code: 0, data: { status: { name: '测试博士', level: 120, avatar: { type: 'ICON', id: 'test-avatar' } } } })
+    const doctor = await service.getDoctor()
+    assert.equal(doctor.uid, '1234')
+    assert.equal(doctor.level, '120')
+    assert.match(doctor.avatar, /\/avatar\/test-avatar\.png$/)
+})
+
 test('逐局战绩映射技能、模组、装备和盟约；时间按上海时区展示', () => {
     const result = normalizeGarrisonRecord(record, resource)
     assert.equal(result.resourceUnavailable, false)
@@ -31,9 +104,29 @@ test('逐局战绩映射技能、模组、装备和盟约；时间按上海时�
     assert.equal(result.items[0].description, '攻击力+15%')
     assert.equal(result.bonds[0].layer, 5)
     assert.equal(result.bonds[0].active, true)
-    assert.equal(result.difficulty, '险境')
+    assert.equal(result.difficulty, '终极模拟')
     assert.match(result.date, /08:00/)
     assert.equal(formatGarrisonDate('not-a-date'), '时间未知')
+})
+
+test('按规程赛季的模式分别解释难度枚举', () => {
+    const season = { activityId: 'act3autochess' }
+    const tiers = [
+        ['TRAINING', '入门协议', 'training', '入门协议'],
+        ['FUNNY', '标准模拟', 'standard', '规程等级 1–4'],
+        ['NORMAL', '险境模拟', 'risk', '规程等级 5–8'],
+        ['HARD', '绝境模拟', 'extreme', '规程等级 9–14'],
+        ['ABYSS', '终极模拟', 'ultimate', '规程等级 15–20']
+    ]
+    for (const [code, label, tone, soloLabel] of tiers) {
+        const team = normalizeGarrisonRecord({ ...season, modeType: 'MULTI', modeDifficulty: code })
+        assert.deepEqual([team.mode, team.modeTone, team.difficulty, team.difficultyTone], ['协同模拟', 'team', label, tone])
+        const solo = normalizeGarrisonRecord({ ...season, modeType: 'SINGLE', modeDifficulty: code })
+        assert.deepEqual([solo.mode, solo.modeTone, solo.difficulty, solo.difficultyTone], ['单人模拟', 'solo', soloLabel, tone])
+    }
+    assert.equal(normalizeGarrisonRecord({ modeType: 'LOCAL' }).difficulty, '入门协议')
+    assert.equal(normalizeGarrisonRecord({ ...season, modeType: 'SINGLE', modeDifficulty: 'FAST' }).difficulty, '极速模拟')
+    assert.equal(normalizeGarrisonRecord({ modeType: 'MULTI', modeDifficulty: 'UNRECOGNIZED' }).difficultyTone, 'neutral')
 })
 
 test('不同版本不借用当前元数据；可从对应版本资料恢复名称', () => {
@@ -72,20 +165,23 @@ test('官方颜色和状态标记可移除，作者尖括号条件正文保留',
     assert.equal(plainGarrisonText('<$ba.stun>眩晕</> <b>升级</b>'), '眩晕 升级')
 })
 
-test('服务合并资料请求，逐次附加角色头并保留同赛季所有版本战绩', async () => {
+test('服务合并资料请求，逐次附加角色头并累计同赛季所有版本战绩', async t => {
     const calls = []
+    let records = [{ ...record, id: 'older', versionId: 'v0', gameEndTs: '1704067100' }, record, { ...record, id: 'other', activityId: 'other-season' }]
     const user = { uid: '1234', sklReq: { getData: async (type, params) => {
         calls.push({ type, params })
         if (type === 'garrison_resource') return { code: 0, data: resource }
-        if (type === 'garrison_history') return { code: 0, data: { records: [{ ...record, id: 'older', versionId: 'v0', gameEndTs: '1704067100' }, record, { ...record, id: 'other', activityId: 'other-season' }] } }
+        if (type === 'garrison_history') return { code: 0, data: { records } }
         throw Error('unexpected request')
     } } }
-    const service = new GarrisonService(user)
+    const service = new GarrisonService(user, await statisticsStore(t))
     await Promise.all([service.getResources(), service.getResources()])
     assert.equal(calls.length, 1)
     const result = await service.getHistory()
     assert.deepEqual(result.records.map(item => item.id), ['record_a', 'older'])
     assert.equal(result.records[1].resourceUnavailable, true)
+    records = []
+    assert.equal((await service.getStatistics()).history.total, 2)
     assert.ok(calls.every(call => call.params.headers['sk-game-role'] === '1_1234_0'))
 })
 

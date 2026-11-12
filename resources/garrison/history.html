@@ -6,7 +6,9 @@
 <main class="garrison-page">
     <header class="garrison-header">
         {{if backgroundUrl}}<img class="season-background" src="{{backgroundUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
-        <div class="header-content"><h1>卫戍协议战绩</h1><p>{{seasonName || '历史战绩'}} · 第 {{page || 1}}{{if pages}} / {{pages}}{{/if}} 页{{if total !== undefined && total !== null}} · 共 {{total}} 条{{/if}}</p><div class="user-line">Dr.{{user_info.name}}<span>UID {{user_info.uid}}</span></div></div>
+        <div class="header-content"><h1>卫戍协议战绩</h1><p>{{seasonName || '历史战绩'}} · 第 {{page || 1}}{{if pages}} / {{pages}}{{/if}} 页{{if total !== undefined && total !== null}} · 共 {{total}} 条{{/if}}</p>
+            {{@include(_layout_path + '../../garrison/doctor.html', {doctor: doctor})}}
+        </div>
     </header>
     <div class="history-list">
         {{each records record}}
@@ -15,7 +17,7 @@
             <div class="history-information">
                 <div class="entry-order">战绩 {{record.index}}</div>
                 <div class="result-line"><span class="round-number">{{record.passRound}}</span><span class="round-unit">轮</span><h2>{{record.resultLabel || (record.statusUnknown ? '结果未知' : record.success ? '模拟成功' : '模拟中断')}}</h2></div>
-                <div class="record-labels"><span>{{record.mode}}</span><span>{{record.difficulty}}</span><span>{{record.strategy.name || record.strategy.id || '小队暂未提供'}}</span></div>
+                {{@include(_layout_path + '../../garrison/record-labels.html', {record: record})}}
                 <div class="record-date">{{record.date || '日期暂未提供'}}</div>
                 <div class="entry-id">战绩 ID：{{record.id}}</div>
             </div>

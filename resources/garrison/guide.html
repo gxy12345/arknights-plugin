@@ -6,7 +6,9 @@
 <main class="garrison-page">
     <header class="garrison-header">
         {{if backgroundUrl}}<img class="season-background" src="{{backgroundUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
-        <div class="header-content"><h1>卫戍协议攻略</h1><p>{{guide.seasonName || guide.seasonId || '赛季暂未提供'}}{{if guide.phaseName}} · {{guide.phaseName}}{{/if}}</p></div>
+        <div class="header-content"><h1>卫戍协议攻略</h1><p>{{guide.seasonName || guide.seasonId || '赛季暂未提供'}}{{if guide.phaseName}} · {{guide.phaseName}}{{/if}}</p>
+            {{@include(_layout_path + '../../garrison/doctor.html', {doctor: doctor})}}
+        </div>
     </header>
     <article class="guide-detail-intro">
         <h2>{{guide.title || '未命名攻略'}}</h2>

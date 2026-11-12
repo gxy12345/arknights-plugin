@@ -1,0 +1,8 @@
+<div class="record-labels">
+    <span class="record-mode" data-tone="{{record.modeTone}}">{{record.mode}}</span>
+    <span class="record-difficulty" data-tone="{{record.difficultyTone}}">{{record.difficulty}}</span>
+    <span class="record-strategy">
+        {{if record.strategy.iconUrl}}<img class="strategy-icon" src="{{record.strategy.iconUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
+        <span>{{record.strategy.name || record.strategy.id || '小队暂未提供'}}</span>
+    </span>
+</div>
