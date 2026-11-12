@@ -16,14 +16,53 @@
         <dl class="statistics-metrics">
             <div><dt>累计通关</dt><dd>{{history.wins}}<small> / {{history.total}}</small></dd></div>
             {{if history.trophies !== null}}<div><dt>最近记录奖杯</dt><dd>{{history.trophies}}</dd></div>{{/if}}
-            {{if history.kills !== null}}<div><dt>累计击败</dt><dd>{{history.kills}}</dd>{{if history.killsReported < history.total}}<dd class="statistics-coverage">{{history.killsReported}} 局有击败数据</dd>{{/if}}</div>{{/if}}
+            {{if history.kills !== null}}<div><dt>累计击败</dt><dd>{{history.kills}}</dd></div>{{/if}}
         </dl>
+        <div class="statistics-cards">
+            <section class="statistics-card">
+                <h3>Boss 击杀</h3>
+                <strong>{{history.boss.reported ? history.boss.total : '暂无数据'}}</strong>
+                <p>普通 {{history.boss.normal === null ? '—' : history.boss.normal}} · 隐秘 {{history.boss.hidden === null ? '—' : history.boss.hidden}}</p>
+                <p class="statistics-note">数据覆盖 {{history.boss.reported}} / {{history.total}} 局</p>
+            </section>
+            <section class="statistics-card">
+                <h3>累计耗时</h3>
+                <strong>{{history.duration.reported ? duration.total : '暂无数据'}}</strong>
+                <p>平均 {{duration.average}}</p>
+                <p>最短 {{duration.shortest}} · 最长 {{duration.longest}}</p>
+                <p class="statistics-note">数据覆盖 {{history.duration.reported}} / {{history.total}} 局</p>
+            </section>
+        </div>
+        <section class="statistics-preferences">
+            <h3>偏好统计</h3>
+            {{each rankings ranking}}
+            <section class="statistics-ranking" data-kind="{{ranking.kind}}">
+                <h4>{{ranking.title}}</h4>
+                {{if ranking.entries.length}}
+                <ul class="statistics-rank-list">
+                    {{each ranking.entries entry}}
+                    <li>
+                        <span class="statistics-rank-icon" aria-hidden="true"><span>◇</span>{{if entry.iconUrl}}<img src="{{entry.iconUrl}}" alt="" onerror="this.remove()">{{/if}}</span>
+                        <p class="statistics-rank-count"><strong>{{entry.games}}</strong> 场</p>
+                        <p class="statistics-rank-name">{{entry.name}}</p>
+                        <p class="statistics-rank-metric">{{ranking.metricLabel}} {{entry.metric}}{{if ranking.kind === 'bond' && entry.metric !== '—'}}层{{/if}}</p>
+                    </li>
+                    {{/each}}
+                </ul>
+                {{else}}<p class="statistics-note">{{ranking.emptyLabel || '暂无数据'}}</p>{{/if}}
+            </section>
+            {{/each}}
+        </section>
         {{if history.difficulties.length}}
         <table class="statistics-table">
             <thead><tr><th scope="col">模式</th><th scope="col">难度</th><th scope="col">通关</th><th scope="col">记录</th></tr></thead>
             <tbody>{{each history.difficulties row}}<tr><td class="record-mode" data-tone="{{row.modeTone}}">{{row.mode}}</td><th scope="row" class="record-difficulty" data-tone="{{row.tone}}">{{row.label}}</th><td>{{row.wins}}</td><td>{{row.total}}</td></tr>{{/each}}</tbody>
         </table>
         {{else}}<p class="statistics-note">该赛季暂未收录对局。</p>{{/if}}
+        <div class="statistics-source">
+            <p class="statistics-note">按云崽已收录的对局累计。首次同步仅覆盖森空岛当前返回的战绩。</p>
+            <p class="statistics-note">数据覆盖 · 普通击败 {{history.killsReported}} / {{history.total}} 局 · 策略 {{history.coverage.strategyReported}} / {{history.total}} 局 · 盟约 {{history.coverage.bondsReported}} / {{history.total}} 局</p>
+        </div>
     </section>
     <footer class="garrison-footer">{{if updated_at}}<p>数据更新时间：{{updated_at}}</p>{{/if}}<p>{{@sys.createdby}}</p></footer>
 </main>

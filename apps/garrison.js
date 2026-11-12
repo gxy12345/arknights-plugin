@@ -1,7 +1,7 @@
 import { rulePrefix } from '../utils/common.js'
 import SKLandUser from '../model/sklandUser.js'
 import GarrisonService from '../model/garrisonService.js'
-import { garrisonRecordLabels } from '../model/garrisonView.js'
+import { formatGarrisonDuration, garrisonRecordLabels } from '../model/garrisonView.js'
 import runtimeRender from '../utils/runtimeRender.js'
 
 const pageSize = 10
@@ -43,7 +43,7 @@ export class Garrison extends plugin {
             '卫戍攻略详情 序号或ID：查看阵容、盟约、装备和思路',
             '卫戍战绩 [页码] [赛季ID]：查看历史对局',
             '卫戍战绩详情 序号：查看上次战绩列表中的对局',
-            '卫戍统计 [赛季ID]：查看本地累计通关、击败及最近奖杯数',
+            '卫戍统计 [赛季ID]：查看本地累计战绩、常用策略与盟约、Boss 击杀和耗时',
             '卫戍赛季：查看官方可查询赛季',
             '以上命令均需添加当前插件前缀，例如「~卫戍战绩」。'
         ].join('\n'))
@@ -162,7 +162,7 @@ export class Garrison extends plugin {
             if (!record) { await this.reply('请先查询「卫戍战绩」，再使用列表中的序号查看详情。列表保留 5 分钟。'); return true }
             const resource = await service.getResources(state.seasonId)
             return this.renderPage(service, 'garrison/record.html', {
-                record: { ...record, ...garrisonRecordLabels(record) }
+                record: { ...record, ...garrisonRecordLabels(record), durationText: formatGarrisonDuration(record.durationSec) }
             }, resource, state.seasonId)
         })
     }
@@ -170,8 +170,21 @@ export class Garrison extends plugin {
     async statistics() {
         return this.withService(async service => {
             const result = await service.getStatistics(argument(this.e, '统计'))
+            const { history } = result
+            const { totalSec, avgSec, minSec, maxSec } = history.duration
             return this.renderPage(service, 'garrison/statistics.html', {
-                history: result.history
+                history,
+                duration: {
+                    total: formatGarrisonDuration(totalSec), average: formatGarrisonDuration(avgSec),
+                    shortest: formatGarrisonDuration(minSec), longest: formatGarrisonDuration(maxSec)
+                },
+                rankings: [
+                    { kind: 'strategy', title: '常用策略', metricLabel: '胜率',
+                        entries: history.strategies.slice(0, 5).map(row => ({ ...row, metric: row.winRate === null ? '—' : row.winRate + '%' })) },
+                    { kind: 'bond', title: '常用盟约', metricLabel: '最高',
+                        emptyLabel: history.coverage.bondsReported ? '激活场次 0' : '暂无数据',
+                        entries: history.bonds.slice(0, 5).map(row => ({ ...row, metric: row.maxLayer ?? '—' })) }
+                ]
             }, result.resource, result.seasonId)
         })
     }

@@ -1,4 +1,4 @@
-import { normalizeGarrisonGuide, normalizeGarrisonRecord } from './garrisonView.js'
+import { garrisonMetricRecord, garrisonStatisticsAssets, normalizeGarrisonGuide, normalizeGarrisonRecord } from './garrisonView.js'
 import garrisonStatistics from './garrisonStatistics.js'
 import { buildPlayerIdentity } from './playerView.js'
 
@@ -104,28 +104,37 @@ export default class GarrisonService {
 
     async getStatistics(seasonId = '') {
         const { records, resource, seasonId: selectedSeason } = await this.getHistoryData(seasonId)
-        const history = await this.statisticsStore.sync(this.user.uid, selectedSeason, records)
+        const versionResources = await this.getHistoryResources(selectedSeason, records, resource)
+        const assets = garrisonStatisticsAssets(selectedSeason, records.map(garrisonMetricRecord), resource, versionResources)
+        const history = await this.statisticsStore.sync(this.user.uid, selectedSeason, records, assets)
         return { history, resource, seasonId: selectedSeason }
+    }
+
+    async getHistoryResources(seasonId, records, resource) {
+        const versionResourceMap = Object.create(null)
+        const versions = [...new Set(records.map(record => String(record.versionId ?? '').trim()).filter(Boolean))]
+            .filter(versionId => versionId !== String(resource.versionInfo?.versionId))
+        await Promise.all(versions.map(async versionId => {
+            try {
+                const previous = await this.getResourceVersion(seasonId, versionId)
+                // A server that silently returns current metadata must not label old records.
+                if (String(previous.versionInfo?.seasonId) === seasonId && String(previous.versionInfo?.versionId) === versionId) {
+                    versionResourceMap[versionId] = previous
+                }
+            } catch {
+                // Records remain queryable as IDs when historical metadata is unavailable.
+            }
+        }))
+        return { [seasonId]: { versionResourceMap } }
     }
 
     async getHistory(seasonId = '') {
         const { records, resource, seasonId: selectedSeason } = await this.getHistoryData(seasonId)
-        const versionResources = {}
-        const sync = this.statisticsStore.sync(this.user.uid, selectedSeason, records).catch(() => {
+        const versionResources = await this.getHistoryResources(selectedSeason, records, resource)
+        const assets = garrisonStatisticsAssets(selectedSeason, records.map(garrisonMetricRecord), resource, versionResources)
+        await this.statisticsStore.sync(this.user.uid, selectedSeason, records, assets).catch(() => {
             globalThis.logger?.error('[方舟插件][卫戍协议]同步本地统计失败')
         })
-        const versions = [...new Set(records.map(record => String(record.versionId || '')))].map(async versionId => {
-            try {
-                const previous = await this.getResourceVersion(selectedSeason, versionId)
-                // A server that silently returns current metadata must not label old records.
-                if (String(previous.versionInfo?.seasonId) !== String(selectedSeason) || String(previous.versionInfo?.versionId) !== versionId) return
-                versionResources[selectedSeason] ||= { versionResourceMap: {} }
-                versionResources[selectedSeason].versionResourceMap[versionId] = previous
-            } catch {
-                // Records remain queryable as IDs when historical metadata is unavailable.
-            }
-        })
-        await Promise.all([sync, ...versions])
         return {
             records: records.map(record => normalizeGarrisonRecord(record, resource, versionResources))
                 .sort((a, b) => (Number(b.timestamp) || 0) - (Number(a.timestamp) || 0)),

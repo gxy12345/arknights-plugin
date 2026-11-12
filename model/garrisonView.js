@@ -158,16 +158,140 @@ export function normalizeGarrisonGuide(raw = {}, resource = {}, seasonResourceMa
     }
 }
 
-export function garrisonRecordStatistics(raw) {
+const metricNumber = value => {
+    if (typeof value !== 'number' && (typeof value !== 'string' || !value.trim())) return null
+    const parsed = Number(value)
+    return Number.isFinite(parsed) ? parsed : null
+}
+const metricCount = value => {
+    const parsed = metricNumber(value)
+    return Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : null
+}
+const metricId = value => typeof value === 'string' && value.trim() ? value.trim()
+    : Number.isSafeInteger(value) && value >= 0 ? String(value) : null
+
+function activation(value) {
+    if (typeof value === 'boolean') return value
+    const parsed = metricNumber(value)
+    return parsed === null || parsed < 0 ? null : parsed > 0
+}
+
+function readBonds(value) {
+    if (!Array.isArray(value)) return null
+    const bonds = new Map()
+    for (const entry of value) {
+        const id = metricId(entry?.bondId)
+        const active = activation(entry?.activate)
+        if (id === null || active === null) return null
+        if (!active) continue
+        const layer = metricCount(entry.layer)
+        const previous = bonds.get(id)
+        if (previous == null || (layer !== null && layer > previous)) bonds.set(id, layer)
+    }
+    return [...bonds].map(([id, layer]) => ({ id, layer }))
+}
+
+function readBossEntries(value) {
+    if (Array.isArray(value)) return value
+    if (Object.hasOwn(object(value), 'isKilled')) return [value]
+    return null
+}
+
+function bossFlag(value) {
+    if (value === true || value === 1 || value === '1') return true
+    if (value === false || value === 0 || value === '0') return false
+    return null
+}
+
+function readBossKills(value) {
+    const entries = readBossEntries(value)
+    if (!entries) return null
+    const kills = { normal: 0, hidden: 0 }
+    for (const entry of entries) {
+        const killed = bossFlag(entry?.isKilled)
+        if (killed === null) return null
+        if (!killed) continue
+        const hidden = bossFlag(entry.isHidden)
+        if (hidden === null) return null
+        kills[hidden ? 'hidden' : 'normal']++
+    }
+    return kills
+}
+
+function timestampMs(value) {
+    const time = metricNumber(value)
+    if (time === null || time <= 0) return null
+    const milliseconds = time < 1e12 ? time * 1000 : time
+    return Number.isSafeInteger(milliseconds) ? milliseconds : null
+}
+
+function durationSeconds(start, end) {
+    start = metricCount(start)
+    end = metricCount(end)
+    return start > 0 && end !== null && end >= start && end < 1e12 ? end - start : null
+}
+
+export function formatGarrisonDuration(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) return '—'
+    const rounded = Math.round(seconds)
+    const hours = Math.floor(rounded / 3600)
+    const minutes = Math.floor(rounded / 60) % 60
+    return [hours && hours + '小时', (hours || minutes) && minutes + '分钟', (rounded % 60) + '秒'].filter(Boolean).join('')
+}
+
+export function garrisonMetricRecord(raw) {
     raw = object(raw)
-    const result = typeof raw.completeState === 'boolean' ? raw.completeState
-        : raw.completeState != null && raw.completeState !== '' && Number.isFinite(Number(raw.completeState))
-            ? Number(raw.completeState) !== 0 : null
+    const result = typeof raw.completeState === 'boolean' ? raw.completeState : metricNumber(raw.completeState)
     return {
-        id: string(raw.id), modeCode: string(raw.modeType), difficultyCode: string(raw.modeDifficulty),
-        success: result === true, statusUnknown: result === null,
+        id: metricId(raw.id), versionId: metricId(raw.versionId) ?? '',
+        modeCode: metricId(raw.modeType) ?? '', difficultyCode: metricId(raw.modeDifficulty) ?? '',
+        result: result === null ? null : Boolean(result),
+        endTimeMs: timestampMs(raw.gameEndTs), killCnt: metricCount(raw.killCnt), trophyAfter: metricCount(raw.trophyAfter),
+        strategyId: metricId(raw.bandId), bonds: readBonds(raw.bondInfo),
+        bossKills: readBossKills(raw.acBossInfo), durationSec: durationSeconds(raw.gameStartTs, raw.gameEndTs)
+    }
+}
+
+export function garrisonStatisticsIcon(value) {
+    const safe = garrisonImageUrl(value)
+    if (!safe) return ''
+    const url = new URL(safe)
+    if (url.username || url.password) return ''
+    url.search = ''
+    url.hash = ''
+    return url.href
+}
+
+export function garrisonStatisticsAssets(seasonId, records, resource, versionResources) {
+    const assets = new Map()
+    const resourcesByVersion = new Map()
+    for (const record of records) {
+        const { id, versionId, strategyId, bonds } = record
+        if (!id || !versionId || (!strategyId && !bonds?.length)) continue
+        if (!resourcesByVersion.has(versionId)) {
+            resourcesByVersion.set(versionId, selectGarrisonResource(resource, seasonId, versionId, versionResources))
+        }
+        const sources = resourcesByVersion.get(versionId)
+        if (strategyId) addAsset('strategy', strategyId, versionId, sources.strategies)
+        for (const { id } of bonds || []) addAsset('bond', id, versionId, sources.bonds)
+    }
+    return [...assets.values()]
+
+    function addAsset(kind, id, versionId, source) {
+        if (!Object.hasOwn(source, id)) return
+        const entry = source[id]
+        const name = plainGarrisonText(entry?.name)
+        const iconUrl = garrisonStatisticsIcon(entry?.iconUrl)
+        if (name || iconUrl) assets.set(JSON.stringify([kind, id, versionId]), { kind, id, versionId, name, iconUrl })
+    }
+}
+
+export function garrisonRecordStatistics(raw) {
+    const { id, modeCode, difficultyCode, result, killCnt, trophyAfter, bossKills, durationSec } = garrisonMetricRecord(raw)
+    return {
+        id: id ?? '', modeCode, difficultyCode, success: result === true, statusUnknown: result === null,
         resultLabel: result === null ? '结果未知' : result ? '模拟成功' : '模拟中断',
-        timestamp: string(raw.gameEndTs), killCnt: optionalNumber(raw.killCnt), trophyAfter: optionalNumber(raw.trophyAfter)
+        timestamp: string(raw?.gameEndTs), killCnt, trophyAfter, bossKills, durationSec
     }
 }
 
@@ -187,7 +311,7 @@ export function normalizeGarrisonRecord(raw = {}, resource = {}, seasonResourceM
         items: itemIds.map(id => normalizeItem(id, resources)),
         bonds: list(raw.bondInfo).map(bond => ({
             ...namedAsset(bond?.bondId, resources.bonds), layer: number(bond?.layer),
-            active: bond?.activate === true || Number(bond?.activate) > 0
+            active: activation(bond?.activate)
         })),
         trophyBefore: optionalNumber(raw.trophyBefore),
         coinCost: optionalNumber(raw.coinCost), syncCnt: optionalNumber(raw.syncCnt),
