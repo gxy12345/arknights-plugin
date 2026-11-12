@@ -9,6 +9,7 @@ const nullable = (value, valid) => value === null || valid(value)
 const keyOfGroup = ({ modeCode, difficultyCode }) => JSON.stringify([modeCode, difficultyCode])
 const keyOfAsset = ({ kind, id, versionId }) => JSON.stringify([kind, id, versionId])
 const difficultyOrder = ['training', 'standard', 'risk', 'extreme', 'ultimate', 'neutral']
+const excludedBondIds = new Set(['suntShip', 'soloShip', 'emptyShip']) // 绝技、独行、协防干员
 const assert = condition => {
     if (!condition) throw new Error('Invalid garrison statistics snapshot')
 }
@@ -174,6 +175,7 @@ export function buildStatisticsSummary(seasonId, snapshot) {
         if (record.bonds !== null) {
             coverage.bondsReported++
             for (const { id, layer } of record.bonds) {
+                if (excludedBondIds.has(id)) continue
                 const entry = rankEntry(bonds, 'bond', id, record, { maxLayer: null })
                 if (layer !== null) entry.maxLayer = Math.max(entry.maxLayer ?? 0, layer)
             }

@@ -95,3 +95,16 @@ test('rankings use version-matched assets, then fall back to the most recent kno
         { id: '1', bandId: 'constructor' }, { id: '2', bandId: '__proto__' }, { id: '3', bandId: 'Z' }
     ]).summary.strategies.map(entry => entry.id), ['Z', '__proto__', 'constructor'])
 })
+
+test('the three fixed zero-layer bonds stay in records but are excluded from the ranking', () => {
+    const bondInfo = ['suntShip', 'soloShip', 'emptyShip', 'maniShip', 'preciShip'].map(bondId => ({
+        bondId, activate: true, layer: 0
+    }))
+    const saved = merge(undefined, [{ id: 'bond-rank', bondInfo }]).snapshot
+    const { summary } = merge(saved, [])
+    assert.equal(saved.records[0].bonds.length, 5)
+    assert.equal(summary.coverage.bondsReported, 1)
+    assert.deepEqual(summary.bonds.map(({ id, games, maxLayer }) => [id, games, maxLayer]), [
+        ['maniShip', 1, 0], ['preciShip', 1, 0]
+    ])
+})

@@ -182,7 +182,7 @@ export class Garrison extends plugin {
                     { kind: 'strategy', title: '常用策略', metricLabel: '胜率',
                         entries: history.strategies.slice(0, 5).map(row => ({ ...row, metric: row.winRate === null ? '—' : row.winRate + '%' })) },
                     { kind: 'bond', title: '常用盟约', metricLabel: '最高',
-                        emptyLabel: history.coverage.bondsReported ? '激活场次 0' : '暂无数据',
+                        emptyLabel: history.coverage.bondsReported ? '暂无上榜盟约' : '暂无数据',
                         entries: history.bonds.slice(0, 5).map(row => ({ ...row, metric: row.maxLayer ?? '—' })) }
                 ]
             }, result.resource, result.seasonId)
