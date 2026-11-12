@@ -96,7 +96,7 @@ test('rankings use version-matched assets, then fall back to the most recent kno
     ]).summary.strategies.map(entry => entry.id), ['Z', '__proto__', 'constructor'])
 })
 
-test('the three fixed zero-layer bonds stay in records but are excluded from the ranking', () => {
+test('the four excluded bonds stay in records and other zero-layer bonds can rank', () => {
     const bondInfo = ['suntShip', 'soloShip', 'emptyShip', 'maniShip', 'preciShip'].map(bondId => ({
         bondId, activate: true, layer: 0
     }))
@@ -105,6 +105,6 @@ test('the three fixed zero-layer bonds stay in records but are excluded from the
     assert.equal(saved.records[0].bonds.length, 5)
     assert.equal(summary.coverage.bondsReported, 1)
     assert.deepEqual(summary.bonds.map(({ id, games, maxLayer }) => [id, games, maxLayer]), [
-        ['maniShip', 1, 0], ['preciShip', 1, 0]
+        ['preciShip', 1, 0]
     ])
 })
