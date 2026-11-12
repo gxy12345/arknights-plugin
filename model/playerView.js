@@ -71,7 +71,7 @@ function reward(value, storedAt, now, period) {
     return meter(expired && current !== null ? 0 : current, max, expired ? '已进入新周期' : '')
 }
 
-function identity(data, now) {
+export function buildPlayerIdentity(data, now = Math.floor(Date.now() / 1000)) {
     const status = data.status || {}, avatar = status.avatar || {}, secretary = status.secretary || {}, metadata = data.charInfoMap || {}
     const registered = timestamp(status.registerTs), stored = timestamp(status.storeTs)
     const safeAvatar = /^https:\/\/(?:web|bbs)\.hycdn\.cn\//.test(text(avatar.url)) ? avatar.url : ''
@@ -142,7 +142,7 @@ function assistOperators(data) {
 }
 
 export function buildProfileView(data = {}, { now = Math.floor(Date.now() / 1000) } = {}) {
-    const user = identity(data, now), building = data.building || {}, status = data.status || {}
+    const user = buildPlayerIdentity(data, now), building = data.building || {}, status = data.status || {}
     const charCount = Array.isArray(data.chars) ? new Set(data.chars.filter(c => c?.charId && (c.charId === 'char_002_amiya' || !c.charId.includes('_amiya'))).map(c => c.charId)).size : positive(status.charCnt)
     const assets = [{ label: '雇佣干员', value: charCount }, { label: '时装收藏', value: Array.isArray(data.skins) ? new Set(data.skins.map(s => s.id)).size : positive(status.skinCnt) },
         { label: '家具保有', value: positive(building.furniture?.total) ?? positive(status.furnitureCnt) }, { label: '蚀刻章', value: positive(data.medal?.total) }]
@@ -250,7 +250,7 @@ export function buildInfrastructureView(data = {}, { now = Math.floor(Date.now()
     const control = room('control', building.control), services = ['meeting', 'hire', 'training'].map(kind => room(kind, building[kind])).filter(Boolean)
     const all = [control, ...production, ...services, ...dormitories].filter(Boolean)
     const tired = Array.isArray(building.tiredChars) ? new Set(building.tiredChars.map(c => text(c?.charId || c))).size : null
-    return { user: identity(data, now), control, production, services, dormitories, drones: playerDrones(building.labor, now),
+    return { user: buildPlayerIdentity(data, now), control, production, services, dormitories, drones: playerDrones(building.labor, now),
         roomCount: all.filter(r => !r.locked).length, residentCount: new Set(all.flatMap(r => r.residents.filter(c => !c.empty).map(c => c.id))).size,
         tiredCount: show(tired), unknown: !data.building || !all.length }
 }

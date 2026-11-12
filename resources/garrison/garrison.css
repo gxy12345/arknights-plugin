@@ -8,8 +8,16 @@ body { width: 1000px; color: #dbdfdf; font-family: "ARK", sans-serif; }
 .header-content h1 { color: #f3f4f4; font-size: 38px; font-weight: 600; line-height: 1.4; }
 .header-content > p { margin-top: 9px; font-size: 18px; line-height: 1.5; color: #adb3b2; }
 .search-summary { overflow-wrap: anywhere; }
-.user-line { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 16px; font-size: 19px; overflow-wrap: anywhere; }
-.user-line > span { color: #adb3b2; font-family: "ARK-EN", sans-serif; font-variant-numeric: tabular-nums; }
+.garrison-doctor { display: flex; align-items: center; gap: 26px; margin-top: 26px; }
+.doctor-avatar { position: relative; display: grid; place-items: center; flex: 0 0 82px; height: 82px; background: #242d2a; color: #adb3b2; border: 1px solid #49544e; font-size: 16px; }
+.doctor-avatar > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #242d2a; }
+.doctor-level { position: absolute; top: -10px; right: -12px; width: 43px; height: 43px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid #cdbb80; border-radius: 50%; background: #202523; color: #f3e4b8; font-family: "ARK-EN", sans-serif; line-height: 1; }
+.doctor-level strong { font-size: 21px; font-weight: 600; }
+.doctor-level span { font-size: 10px; }
+.doctor-info { min-width: 0; overflow-wrap: anywhere; }
+.doctor-name { font-size: 24px; font-weight: 600; line-height: 1.4; color: #f3f4f4; }
+.doctor-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; color: #adb3b2; font-size: 16px; line-height: 1.5; }
+.doctor-uid { font-family: "ARK-EN", sans-serif; font-variant-numeric: tabular-nums; }
 .guide-list, .history-list { display: flex; flex-direction: column; gap: 18px; }
 .guide-entry { background: #252727; padding: 24px; }
 .guide-title-row { display: flex; align-items: flex-start; gap: 20px; justify-content: space-between; }
@@ -93,7 +101,17 @@ body { width: 1000px; color: #dbdfdf; font-family: "ARK", sans-serif; }
 .round-unit { font-size: 15px; line-height: 1.5; margin-right: 12px; }
 .result-line h2 { font-size: 25px; line-height: 1.5; font-weight: 600; }
 .record-labels { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; font-size: 15px; line-height: 1.6; margin-top: 12px; color: #dbdfdf; }
-.record-labels > span + span { border-left: 1px solid #65706b; padding-left: 14px; }
+.record-labels > span { min-width: 0; overflow-wrap: anywhere; }
+.record-labels > span + span { border-left: 1px solid #58615e; padding-left: 14px; }
+.record-mode[data-tone="solo"] { color: #8bcbb0; }
+.record-mode[data-tone="team"] { color: #9abfe6; }
+.record-difficulty[data-tone="training"] { color: #9dd8a7; }
+.record-difficulty[data-tone="standard"] { color: #d8cd8a; }
+.record-difficulty[data-tone="risk"] { color: #e7ae70; }
+.record-difficulty[data-tone="extreme"] { color: #ea9479; }
+.record-difficulty[data-tone="ultimate"] { color: #f28691; }
+.record-strategy { display: inline-flex; align-items: center; gap: 7px; }
+.record-strategy .strategy-icon { flex: 0 0 30px; }
 .record-date { margin-top: 11px; color: #adb3b2; font-size: 14px; line-height: 1.6; }
 .history-operators { flex-shrink: 0; width: 318px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 9px 7px; }
 .history-operator { min-width: 0; }
@@ -118,6 +136,20 @@ body { width: 1000px; color: #dbdfdf; font-family: "ARK", sans-serif; }
 .record-bond p { font-size: 14px; line-height: 1.7; color: #00ffc4; }
 .record-bond.inactive p { color: #adb3b2; }
 .resource-note { margin-top: 18px; font-size: 16px; line-height: 1.7; color: #adb3b2; }
+.statistics-section { padding: 24px; margin-bottom: 20px; background: #252727; }
+.statistics-section h2 { font-size: 25px; font-weight: 600; color: #f3f4f4; }
+.statistics-note { margin-top: 9px; color: #adb3b2; font-size: 16px; line-height: 1.65; }
+.statistics-metrics { display: flex; flex-wrap: wrap; gap: 14px 32px; margin-top: 19px; padding: 16px 0; border-block: 1px solid #48504e; }
+.statistics-metrics > div { min-width: 126px; }
+.statistics-metrics dt { font-size: 16px; color: #adb3b2; }
+.statistics-metrics dd { margin-top: 4px; font: 600 32px/1.2 "ARK-EN", sans-serif; color: #00ffc4; font-variant-numeric: tabular-nums; }
+.statistics-metrics dd small { font-size: 19px; font-weight: 400; color: #adb3b2; }
+.statistics-metrics .statistics-coverage { font: 400 14px/1.5 "ARK", sans-serif; color: #adb3b2; }
+.statistics-table { width: 100%; margin-top: 16px; border-collapse: collapse; font-size: 16px; }
+.statistics-table th, .statistics-table td { padding: 11px 10px; text-align: left; border-bottom: 1px solid #3d4542; font-weight: 400; }
+.statistics-table thead { color: #adb3b2; }
+.statistics-table td:nth-last-child(-n+2), .statistics-table thead th:nth-last-child(-n+2) { text-align: right; }
+.statistics-table td:nth-last-child(-n+2) { font-family: "ARK-EN", sans-serif; font-size: 19px; font-variant-numeric: tabular-nums; }
 .empty-state { padding: 65px 28px; text-align: center; background: #252727; }
 .empty-state h2 { font-size: 25px; font-weight: 500; color: #f3f4f4; margin-bottom: 13px; }
 .empty-state p { color: #adb3b2; font-size: 17px; line-height: 1.8; }

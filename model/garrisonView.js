@@ -4,8 +4,28 @@ const object = value => value && typeof value === 'object' && !Array.isArray(val
 const string = value => value == null ? '' : String(value)
 const number = value => Number.isFinite(Number(value)) ? Number(value) : 0
 const optionalNumber = value => value == null || value === '' || !Number.isFinite(Number(value)) ? null : Number(value)
-const modeLabels = { LOCAL: '教学模式', SINGLE: '单人模拟', MULTI: '协同模拟' }
-const difficultyLabels = { FUNNY: '休闲', NORMAL: '标准', HARD: '困难', ABYSS: '险境' }
+const modeLabels = new Map([
+    ['LOCAL', ['教学模式', 'tutorial']],
+    ['SINGLE', ['单人模拟', 'solo']],
+    ['MULTI', ['协同模拟', 'team']]
+])
+// The game configuration reuses these difficulty codes for several solo levels.
+const difficulties = new Map([
+    ['TRAINING', ['入门协议', 'training']],
+    ['FUNNY', ['标准模拟', 'standard', '1–4']],
+    ['NORMAL', ['险境模拟', 'risk', '5–8']],
+    ['HARD', ['绝境模拟', 'extreme', '9–14']],
+    ['ABYSS', ['终极模拟', 'ultimate', '15–20']],
+    ['FAST', ['极速模拟', 'risk']]
+])
+export function garrisonRecordLabels({ modeCode, difficultyCode, seasonId }) {
+    const [mode, modeTone] = modeLabels.get(modeCode) || [modeCode || '未知模式', 'neutral']
+    const code = modeCode === 'LOCAL' ? 'TRAINING' : difficultyCode
+    const [label, difficultyTone, soloRange] = difficulties.get(code) || [code || '未知难度', 'neutral']
+    const difficulty = modeCode === 'SINGLE' && seasonId === 'act3autochess' && soloRange
+        ? `规程等级 ${soloRange}` : label
+    return { mode, modeTone, difficulty, difficultyTone }
+}
 
 export function plainGarrisonText(value) {
     if (value && typeof value === 'object') return ''
@@ -138,6 +158,19 @@ export function normalizeGarrisonGuide(raw = {}, resource = {}, seasonResourceMa
     }
 }
 
+export function garrisonRecordStatistics(raw) {
+    raw = object(raw)
+    const result = typeof raw.completeState === 'boolean' ? raw.completeState
+        : raw.completeState != null && raw.completeState !== '' && Number.isFinite(Number(raw.completeState))
+            ? Number(raw.completeState) !== 0 : null
+    return {
+        id: string(raw.id), modeCode: string(raw.modeType), difficultyCode: string(raw.modeDifficulty),
+        success: result === true, statusUnknown: result === null,
+        resultLabel: result === null ? '结果未知' : result ? '模拟成功' : '模拟中断',
+        timestamp: string(raw.gameEndTs), killCnt: optionalNumber(raw.killCnt), trophyAfter: optionalNumber(raw.trophyAfter)
+    }
+}
+
 export function normalizeGarrisonRecord(raw = {}, resource = {}, seasonResourceMap = {}) {
     raw = object(raw)
     const seasonId = string(raw.activityId)
@@ -145,16 +178,10 @@ export function normalizeGarrisonRecord(raw = {}, resource = {}, seasonResourceM
     const resources = selectGarrisonResource(resource, seasonId, versionId, seasonResourceMap)
     const operators = list(raw.chessSquad).map(item => normalizeOperator(item, resources))
     const itemIds = [...new Set(operators.flatMap(operator => operator.equips.map(item => item.id)).filter(Boolean))]
-    const modeCode = string(raw.modeType), difficultyCode = string(raw.modeDifficulty)
-    const result = typeof raw.completeState === 'boolean' ? raw.completeState
-        : raw.completeState != null && raw.completeState !== '' && Number.isFinite(Number(raw.completeState))
-            ? Number(raw.completeState) !== 0 : null
+    const stats = garrisonRecordStatistics(raw)
     return {
-        id: string(raw.id), mode: modeLabels[modeCode] || modeCode || '未知模式', modeCode,
-        difficulty: difficultyLabels[difficultyCode] || difficultyCode || '未知难度', difficultyCode,
-        success: result === true, statusUnknown: result === null,
-        resultLabel: result === null ? '结果未知' : result ? '模拟成功' : '模拟中断',
-        passRound: number(raw.passRound), timestamp: string(raw.gameEndTs), date: formatGarrisonDate(raw.gameEndTs),
+        ...stats, ...garrisonRecordLabels({ ...stats, seasonId }),
+        passRound: number(raw.passRound), date: formatGarrisonDate(raw.gameEndTs),
         seasonId, seasonName: seasonName(resource, seasonId), versionId,
         strategy: namedAsset(raw.bandId, resources.strategies), operators,
         items: itemIds.map(id => normalizeItem(id, resources)),
@@ -162,7 +189,7 @@ export function normalizeGarrisonRecord(raw = {}, resource = {}, seasonResourceM
             ...namedAsset(bond?.bondId, resources.bonds), layer: number(bond?.layer),
             active: bond?.activate === true || Number(bond?.activate) > 0
         })),
-        killCnt: optionalNumber(raw.killCnt), trophyBefore: optionalNumber(raw.trophyBefore), trophyAfter: optionalNumber(raw.trophyAfter),
+        trophyBefore: optionalNumber(raw.trophyBefore),
         coinCost: optionalNumber(raw.coinCost), syncCnt: optionalNumber(raw.syncCnt),
         resourceUnavailable: !resources.available
     }

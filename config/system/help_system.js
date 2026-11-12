@@ -136,6 +136,7 @@ export const helpList = [
       { icon: 10, title: '#方舟卫戍攻略详情1', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查看攻略阵容与思路，支持空格及攻略ID' },
       { icon: 10, title: '#方舟卫戍战绩 [页码] [赛季ID]', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查询逐局历史战绩' },
       { icon: 10, title: '#方舟卫戍战绩详情1', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查看上次列表中的对局，支持空格' },
+      { icon: 10, title: '#方舟卫戍统计', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查看累计通关、击败和最近奖杯' },
       { icon: 10, title: '#方舟卫戍赛季', appIcon: 'toolbox-garrison.png', appIconColor: true, desc: '查看官方可查询赛季' }
     ]
   }, {

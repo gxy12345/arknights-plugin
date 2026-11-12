@@ -6,7 +6,9 @@
 <main class="garrison-page">
     <header class="garrison-header">
         {{if backgroundUrl}}<img class="season-background" src="{{backgroundUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
-        <div class="header-content"><h1>卫戍协议攻略</h1><p>{{seasonName || '卫戍协议'}} · 第 {{page || 1}}{{if pages}} / {{pages}}{{/if}} 页{{if total !== undefined && total !== null}} · 共 {{total}} 条{{/if}}</p>{{if keyword}}<p class="search-summary">关键词：{{keyword}}</p>{{/if}}</div>
+        <div class="header-content"><h1>卫戍协议攻略</h1><p>{{seasonName || '卫戍协议'}} · 第 {{page || 1}}{{if pages}} / {{pages}}{{/if}} 页{{if total !== undefined && total !== null}} · 共 {{total}} 条{{/if}}</p>{{if keyword}}<p class="search-summary">关键词：{{keyword}}</p>{{/if}}
+            {{@include(_layout_path + '../../garrison/doctor.html', {doctor: doctor})}}
+        </div>
     </header>
     <div class="guide-list">
         {{each guides guide}}

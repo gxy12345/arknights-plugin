@@ -1,0 +1,30 @@
+{{extend defaultLayout}}
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{pluResPath}}garrison/garrison.css">
+{{/block}}
+{{block 'main'}}
+<main class="garrison-page">
+    <header class="garrison-header">
+        {{if backgroundUrl}}<img class="season-background" src="{{backgroundUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
+        <div class="header-content"><h1>卫戍统计</h1><p>{{seasonName}}</p>
+            {{@include(_layout_path + '../../garrison/doctor.html', {doctor: doctor})}}
+        </div>
+    </header>
+    <section class="statistics-section">
+        <h2>赛季战绩</h2>
+        <p class="statistics-note">本地累计收录 {{history.total}} 局，查询战绩或统计时同步。</p>
+        <dl class="statistics-metrics">
+            <div><dt>累计通关</dt><dd>{{history.wins}}<small> / {{history.total}}</small></dd></div>
+            {{if history.trophies !== null}}<div><dt>最近记录奖杯</dt><dd>{{history.trophies}}</dd></div>{{/if}}
+            {{if history.kills !== null}}<div><dt>累计击败</dt><dd>{{history.kills}}</dd>{{if history.killsReported < history.total}}<dd class="statistics-coverage">{{history.killsReported}} 局有击败数据</dd>{{/if}}</div>{{/if}}
+        </dl>
+        {{if history.difficulties.length}}
+        <table class="statistics-table">
+            <thead><tr><th scope="col">模式</th><th scope="col">难度</th><th scope="col">通关</th><th scope="col">记录</th></tr></thead>
+            <tbody>{{each history.difficulties row}}<tr><td class="record-mode" data-tone="{{row.modeTone}}">{{row.mode}}</td><th scope="row" class="record-difficulty" data-tone="{{row.tone}}">{{row.label}}</th><td>{{row.wins}}</td><td>{{row.total}}</td></tr>{{/each}}</tbody>
+        </table>
+        {{else}}<p class="statistics-note">该赛季暂未收录对局。</p>{{/if}}
+    </section>
+    <footer class="garrison-footer">{{if updated_at}}<p>数据更新时间：{{updated_at}}</p>{{/if}}<p>{{@sys.createdby}}</p></footer>
+</main>
+{{/block}}
