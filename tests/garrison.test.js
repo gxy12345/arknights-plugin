@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import GarrisonService from '../model/garrisonService.js'
@@ -46,7 +46,8 @@ test('统计跨接口窗口累计，区分模式与难度，去重并保留真�
     assert.deepEqual(history.difficulties.map(row => [row.label, row.total, row.wins]), [['规程等级 9–14', 1, 0], ['绝境模拟', 2, 1]])
     assert.deepEqual(await reopened.sync('1234', base.activityId, []), history)
     const snapshot = JSON.parse(await readFile(join(store.directory, 'uid-1234', `${base.activityId}.json`), 'utf8'))
-    assert.deepEqual(snapshot.recordIds, ['old', 'new', 'solo'])
+    assert.equal(snapshot.version, 2)
+    assert.deepEqual(snapshot.records.map(record => record.id), ['new', 'old', 'solo'])
     assert.doesNotMatch(JSON.stringify(snapshot), /chessSquad|char_a/)
 })
 
@@ -71,6 +72,25 @@ test('本地统计文件读取失败时保留原文件', async t => {
     await writeFile(file, '{', 'utf8')
     await assert.rejects(store.sync('1234', 'season', [record]), { code: 'GARRISON_STATISTICS_STORAGE' })
     assert.equal(await readFile(file, 'utf8'), '{')
+})
+
+test('旧统计备份原文件，补录不重计，重复输入不重写', async t => {
+    const store = await statisticsStore(t)
+    const dir = join(store.directory, 'uid-1234')
+    const file = join(dir, 's.json')
+    await mkdir(dir)
+    const fixture = JSON.parse(await readFile(new URL('./fixtures/garrison-statistics-v2.json', import.meta.url), 'utf8'))
+    const original = JSON.stringify(fixture.legacy, null, 2)
+    await writeFile(file, original, 'utf8')
+    const history = await store.sync('1234', 's', fixture.records.slice(0, 1))
+    assert.deepEqual([history.total, history.kills, history.boss.reported], [2, 17, 1])
+    const files = await readdir(dir)
+    const backup = files.find(name => /^s\.v1\.\d+\..+\.bak$/.test(name))
+    assert.ok(backup)
+    assert.equal(await readFile(join(dir, backup), 'utf8'), original)
+    assert.equal(JSON.parse(await readFile(file, 'utf8')).version, 2)
+    assert.deepEqual(await store.sync('1234', 's', fixture.records.slice(0, 1)), history)
+    assert.deepEqual(await readdir(dir), files)
 })
 
 test('卫戍统计只读取赛季资料与战绩，博士资料缺失时可继续出图', async t => {

@@ -17,9 +17,11 @@
         {{@include(_layout_path + '../../garrison/record-labels.html', {record: record})}}
         <p class="record-date">{{record.date || '日期暂未提供'}}</p>
         <p class="entry-id">战绩 ID：{{record.id}} · 赛季 {{record.seasonId || '暂未提供'}}{{if record.versionId}} · 版本 {{record.versionId}}{{/if}}</p>
-        {{if (record.killCnt !== undefined && record.killCnt !== null) || (record.trophyBefore !== undefined && record.trophyBefore !== null && record.trophyAfter !== undefined && record.trophyAfter !== null)}}
+        {{if record.bossKills || record.durationSec != null || record.killCnt != null || (record.trophyBefore != null && record.trophyAfter != null)}}
         <dl class="record-statistics">
             {{if record.killCnt !== undefined && record.killCnt !== null}}<div><dt>击杀数</dt><dd>{{record.killCnt}}</dd></div>{{/if}}
+            {{if record.bossKills}}<div><dt>普通 Boss</dt><dd>{{record.bossKills.normal}}</dd></div><div><dt>隐秘 Boss</dt><dd>{{record.bossKills.hidden}}</dd></div>{{/if}}
+            {{if record.durationSec !== undefined && record.durationSec !== null}}<div><dt>耗时</dt><dd>{{record.durationText}}</dd></div>{{/if}}
             {{if record.trophyBefore !== undefined && record.trophyBefore !== null && record.trophyAfter !== undefined && record.trophyAfter !== null}}<div><dt>奖杯变化</dt><dd>{{record.trophyBefore}} <span>→</span> {{record.trophyAfter}}</dd></div>{{/if}}
         </dl>
         {{/if}}

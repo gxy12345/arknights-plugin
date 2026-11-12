@@ -1,0 +1,160 @@
+{
+  "records": [
+    {
+      "id": "r1",
+      "activityId": "s",
+      "versionId": "v1",
+      "modeType": "SINGLE",
+      "modeDifficulty": "HARD",
+      "completeState": 1,
+      "bandId": "a",
+      "killCnt": 8,
+      "trophyAfter": 12,
+      "gameStartTs": "1704065400",
+      "gameEndTs": "1704067200",
+      "bondInfo": [
+        {
+          "bondId": "x",
+          "activate": "1",
+          "layer": 3
+        },
+        {
+          "bondId": "x",
+          "activate": false,
+          "layer": 99
+        },
+        {
+          "bondId": "y",
+          "activate": 0,
+          "layer": 1
+        }
+      ],
+      "acBossInfo": [
+        {
+          "isKilled": true,
+          "isHidden": false
+        },
+        {
+          "isKilled": "1",
+          "isHidden": "1"
+        },
+        {
+          "isKilled": "0"
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "activityId": "s",
+      "versionId": "v2",
+      "modeType": "MULTI",
+      "modeDifficulty": "FAST",
+      "completeState": false,
+      "bandId": "a",
+      "killCnt": 0,
+      "trophyAfter": 0,
+      "gameStartTs": 1704067200,
+      "gameEndTs": 1704067800,
+      "bondInfo": [
+        {
+          "bondId": "x",
+          "activate": true,
+          "layer": "7"
+        },
+        {
+          "bondId": "x",
+          "activate": 2,
+          "layer": 5
+        }
+      ],
+      "acBossInfo": {
+        "isKilled": 1,
+        "isHidden": "0"
+      }
+    },
+    {
+      "id": "r3",
+      "activityId": "s",
+      "versionId": "v2",
+      "modeType": "LOCAL",
+      "completeState": "  ",
+      "bandId": "b",
+      "gameStartTs": 1704067800000,
+      "gameEndTs": 1704067800000,
+      "bondInfo": [],
+      "acBossInfo": []
+    }
+  ],
+  "legacy": {
+    "version": 1,
+    "recordIds": [
+      "r1",
+      "out-of-window"
+    ],
+    "difficulties": [
+      {
+        "modeCode": "SINGLE",
+        "difficultyCode": "HARD",
+        "total": 2,
+        "wins": 1
+      }
+    ],
+    "kills": 17,
+    "killsReported": 2,
+    "latestTrophy": {
+      "timeMs": 1704067200000,
+      "value": 12
+    }
+  },
+  "expected": {
+    "strategies": [
+      {
+        "id": "a",
+        "name": "a",
+        "iconUrl": "",
+        "games": 2,
+        "wins": 1,
+        "resultKnown": 2,
+        "winRate": 50
+      },
+      {
+        "id": "b",
+        "name": "b",
+        "iconUrl": "",
+        "games": 1,
+        "wins": 0,
+        "resultKnown": 0,
+        "winRate": null
+      }
+    ],
+    "bonds": [
+      {
+        "id": "x",
+        "name": "x",
+        "iconUrl": "",
+        "games": 2,
+        "maxLayer": 7
+      }
+    ],
+    "boss": {
+      "total": 3,
+      "normal": 2,
+      "hidden": 1,
+      "reported": 3
+    },
+    "duration": {
+      "totalSec": 2400,
+      "avgSec": 1200,
+      "minSec": 600,
+      "maxSec": 1800,
+      "reported": 2
+    },
+    "coverage": {
+      "total": 3,
+      "strategyReported": 3,
+      "bondsReported": 3,
+      "bossReported": 3,
+      "durationReported": 2
+    }
+  }
+}

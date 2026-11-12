@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import vm from 'node:vm'
-import { garrisonRecordLabels } from '../model/garrisonView.js'
+import { formatGarrisonDuration, garrisonRecordLabels } from '../model/garrisonView.js'
 
 test('详情命令带空格或紧接序号都分发到正确详情，并兼容长名称、前缀和攻略ID', async () => {
     const cache = new Map(), renders = [], requested = []
@@ -17,18 +17,23 @@ test('详情命令带空格或紧接序号都分发到正确详情，并兼容�
         async getGuides() { return { guides: [{ id: 'guide-123' }], resource } }
         async getGuide(id) { requested.push(id); return { guide: { id }, resource } }
         async getHistory() {
-            return { records: [{ id: 'record-123', modeCode: 'MULTI', difficultyCode: 'HARD', difficulty: '困难' }], seasonId: 'season', resource }
+            return { records: [{ id: 'record-123', modeCode: 'MULTI', difficultyCode: 'HARD',
+                bossKills: { normal: 1, hidden: 0 }, durationSec: 0 }], seasonId: 'season', resource }
         }
         async getStatistics(seasonId) {
             requested.push(seasonId)
-            return { history: { total: 1 }, seasonId, resource }
+            const strategies = Array.from({ length: 6 }, (_, index) => ({ id: String(index), winRate: index === 0 ? null : 50 }))
+            return { history: {
+                total: 1, strategies, bonds: [{ maxLayer: 0 }], coverage: { bondsReported: 1 },
+                duration: { totalSec: 60, avgSec: 60, minSec: 60, maxSec: 60 }
+            }, seasonId, resource }
         }
     }
     const context = vm.createContext({
         URL, Date,
         rulePrefix: '((#|/)(方舟|明日方舟|arknights|方舟插件)|~|～)',
         plugin: class { constructor(config) { Object.assign(this, config) } },
-        SKLandUser: User, GarrisonService: Service, garrisonRecordLabels,
+        SKLandUser: User, GarrisonService: Service, garrisonRecordLabels, formatGarrisonDuration,
         redis: { get: async key => cache.get(key), set: async (key, value) => cache.set(key, value) },
         runtimeRender: async (_event, path, data) => renders.push({ path, data })
     })
@@ -58,6 +63,8 @@ test('详情命令带空格或紧接序号都分发到正确详情，并兼容�
                 assert.equal(renders.at(-1).path, 'garrison/record.html')
                 assert.equal(renders.at(-1).data.record.id, 'record-123')
                 assert.equal(renders.at(-1).data.record.difficulty, '绝境模拟')
+                assert.equal(renders.at(-1).data.record.bossKills.normal, 1)
+                assert.equal(renders.at(-1).data.record.durationText, '0秒')
             }
         }
     }
@@ -68,6 +75,10 @@ test('详情命令带空格或紧接序号都分发到正确详情，并兼容�
     assert.equal(requested.at(-1), 'act3autochess')
     assert.equal(renders.at(-1).path, 'garrison/statistics.html')
     assert.equal(renders.at(-1).data.history.total, 1)
+    assert.equal(renders.at(-1).data.duration.average, '1分钟0秒')
+    assert.equal(renders.at(-1).data.rankings[0].entries.length, 5)
+    assert.equal(renders.at(-1).data.rankings[0].entries[0].metric, '—')
+    assert.equal(renders.at(-1).data.rankings[1].entries[0].metric, 0)
     assert.equal(renders.at(-1).data.doctor.uid, 'test-uid')
     for (const msg of ['~卫戍攻略详情', '~卫戍战绩详情', '~卫戍战绩详情x', '~卫戍战绩详情1abc']) {
         assert.equal(app.rule.find(rule => new RegExp(rule.reg).test(msg)), undefined, msg)
