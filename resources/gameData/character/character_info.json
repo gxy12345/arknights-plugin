@@ -5162,6 +5162,17 @@
             "modules": [
                 ""
             ]
+        },
+        "char_618_acrbot": {
+            "id": "char_618_acrbot",
+            "prof": "TANK",
+            "subProf": "unyield",
+            "name": "“暴躁铁皮”",
+            "rarity": 6,
+            "modules": [
+                "",
+                "X"
+            ]
         }
     }
 }
