@@ -82,6 +82,29 @@ function namedAsset(id, map) {
     return { id: string(id), name: string(item.name) || string(id) || '未知', iconUrl: garrisonImageUrl(item.iconUrl) }
 }
 
+// V3_1 client activity config provides noStack, which the guide resource omits.
+const regulationNoStackBonds = new Set(['maniShip', 'emptyShip', 'soloShip', 'suntShip'])
+
+function normalizeBonds(raw, resources, seasonId, versionId) {
+    const regulations = seasonId === 'act3autochess' && versionId === 'V3_1'
+    return list(raw).flatMap(bond => {
+        const id = metricId(bond?.bondId)
+        if (id === null) return []
+        const info = object(resources.bonds[id])
+        const layer = metricCount(bond.layer)
+        const noStack = info.noStack ?? (regulations && regulationNoStackBonds.has(id))
+        const required = optionalNumber(info.activeCount)
+        const category = Number(info.bondType) === 1 ? '核心盟约' : Number(info.bondType) === 2 ? '附加盟约' : ''
+        const requirement = Number.isSafeInteger(required) && required > 0 ? `激活所需人数 ${required}` : ''
+        const description = [[category, requirement].filter(Boolean).join(' · '), plainGarrisonText(info.effect)].filter(Boolean).join('\n')
+        return [{
+            ...namedAsset(id, resources.bonds), layer, showLayer: !noStack || layer > 0, description,
+            frameUrl: requirement ? `https://bbs.hycdn.cn/skland-fe-static/assets/arknights/auto_chess/bond_require/${required}.png` : '',
+            active: activation(bond.activate)
+        }]
+    }).sort((a, b) => (b.layer ?? -1) - (a.layer ?? -1))
+}
+
 function normalizeItem(item, resources) {
     const id = string(typeof item === 'object' ? item?.itemId ?? item?.equipId : item)
     const data = resources.items[id] || {}
@@ -309,10 +332,7 @@ export function normalizeGarrisonRecord(raw = {}, resource = {}, seasonResourceM
         seasonId, seasonName: seasonName(resource, seasonId), versionId,
         strategy: namedAsset(raw.bandId, resources.strategies), operators,
         items: itemIds.map(id => normalizeItem(id, resources)),
-        bonds: list(raw.bondInfo).map(bond => ({
-            ...namedAsset(bond?.bondId, resources.bonds), layer: number(bond?.layer),
-            active: activation(bond?.activate)
-        })),
+        bonds: normalizeBonds(raw.bondInfo, resources, seasonId, versionId),
         trophyBefore: optionalNumber(raw.trophyBefore),
         coinCost: optionalNumber(raw.coinCost), syncCnt: optionalNumber(raw.syncCnt),
         resourceUnavailable: !resources.available

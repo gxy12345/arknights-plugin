@@ -128,12 +128,18 @@ body { width: 1000px; color: #dbdfdf; font-family: "ARK", sans-serif; }
 .record-statistics dt { font-size: 16px; color: #adb3b2; }
 .record-statistics dd { font-family: "ARK-EN", sans-serif; font-size: 24px; color: #dbdfdf; }
 .record-statistics dd span { color: #adb3b2; font-size: 18px; margin: 0 5px; }
-.record-bonds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 22px; margin-top: 20px; }
-.record-bond { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.record-bond > img { flex-shrink: 0; width: 40px; height: 40px; object-fit: contain; }
-.record-bond h3 { font-size: 17px; line-height: 1.6; font-weight: 500; color: #f3f4f4; overflow-wrap: anywhere; }
-.record-bond p { font-size: 14px; line-height: 1.7; color: #00ffc4; }
-.record-bond.inactive p { color: #adb3b2; }
+.record-bonds { display: grid; grid-template-columns: repeat(6, minmax(0, 78px)); gap: 14px 16px; margin-top: 16px; list-style: none; }
+.record-bond { position: relative; display: grid; justify-items: center; align-content: start; min-width: 0; text-align: center; }
+.record-bond:focus-visible { outline: 1px solid #00ffc4; outline-offset: 2px; }
+.record-bond-icon { position: relative; display: grid; place-items: center; width: min(60px, 100%); aspect-ratio: 1; font-size: 13px; line-height: 1.25; overflow-wrap: anywhere; }
+.record-bond-icon > span { z-index: 1; }
+.record-bond-icon.has-icon > span { visibility: hidden; }
+.record-bond-icon > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.record-bond-icon > .record-bond-art { inset: 13%; width: 74%; height: 74%; }
+.record-bond-layer { color: #f3f4f4; font: 600 19px/1.2 "ARK-EN", sans-serif; font-variant-numeric: tabular-nums; }
+.record-bond-tip { display: none; position: absolute; z-index: 3; top: 100%; left: 0; width: 260px; max-height: 220px; overflow: auto; padding: 10px 12px; border: 1px solid #48504e; background: #171b19; color: #f3f4f4; font-size: 14px; text-align: left; overflow-wrap: anywhere; }
+.record-bond-tip p { margin-top: 4px; color: #adb3b2; white-space: pre-wrap; }
+.record-bond:is(:hover, :focus-visible) .record-bond-tip { display: block; }
 .resource-note { margin-top: 18px; font-size: 16px; line-height: 1.7; color: #adb3b2; }
 .statistics-section { padding: 24px; margin-bottom: 20px; background: #252727; }
 .statistics-section h2 { font-size: 25px; font-weight: 600; color: #f3f4f4; }
@@ -186,6 +192,35 @@ body { width: 1000px; color: #dbdfdf; font-family: "ARK", sans-serif; }
 .statistics-table thead { color: #adb3b2; }
 .statistics-table td:nth-last-child(-n+2), .statistics-table thead th:nth-last-child(-n+2) { text-align: right; }
 .statistics-table td:nth-last-child(-n+2) { font-family: "ARK-EN", sans-serif; font-size: 19px; font-variant-numeric: tabular-nums; }
+.career-badge-list, .career-title-list { margin: 0; padding: 0; list-style: none; }
+.career-badge-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 20px; margin-top: 16px; }
+.career-badge-list li { display: grid; grid-template-columns: 50px minmax(0, 1fr); align-items: center; gap: 10px; overflow-wrap: anywhere; }
+.career-band-icon { position: relative; display: grid; place-items: center; width: 50px; aspect-ratio: 1; background: #202423; border: 1px solid #48504e; }
+.career-band-icon img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+.career-band-icon .career-badge-mark { position: absolute; top: -5px; right: -5px; width: 23px; }
+.career-band-plating { display: block; color: #f3e4b8; font-size: 14px; }
+.career-title-columns { display: grid; gap: 18px; }
+.career-titles h3 { margin-bottom: 6px; font-size: 18px; }
+.career-title-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 14px; }
+.career-title-list li { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 7px; min-height: 36px; padding-block: 4px; border-bottom: 1px solid #3d4542; font-size: 15px; line-height: 1.35; overflow-wrap: anywhere; }
+.career-title-icon { display: block; width: 24px; }
+.career-title-icon img { display: block; width: 100%; }
+.career-title-list strong { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.title-radar { max-width: 500px; margin: 0 auto 20px; text-align: center; }
+.title-radar svg { display: block; width: 100%; height: auto; }
+.title-radar-track { fill: #29332f; stroke: #52615a; stroke-width: 1; }
+.title-radar-fill { fill: #00ffc4; }
+.title-radar-label { fill: #adb3b2; font-size: 16px; }
+.title-radar-count { fill: #f3f4f4; font-size: 18px; font-weight: 650; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 720px) {
+    body:has(.garrison-statistics-page) { width: 100%; transform: none !important; }
+    .container:has(.garrison-statistics-page) { width: 100%; }
+    .garrison-statistics-page { padding-inline: 12px; }
+    .garrison-statistics-page .garrison-header { margin-inline: -12px; padding-inline: 12px; }
+    .garrison-statistics-page .statistics-section { padding-inline: 12px; }
+    .garrison-statistics-page .career-badge-list, .career-title-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .empty-state { padding: 65px 28px; text-align: center; background: #252727; }
 .empty-state h2 { font-size: 25px; font-weight: 500; color: #f3f4f4; margin-bottom: 13px; }
 .empty-state p { color: #adb3b2; font-size: 17px; line-height: 1.8; }

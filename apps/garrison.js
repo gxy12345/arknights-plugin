@@ -43,7 +43,7 @@ export class Garrison extends plugin {
             '卫戍攻略详情 序号或ID：查看阵容、盟约、装备和思路',
             '卫戍战绩 [页码] [赛季ID]：查看历史对局',
             '卫戍战绩详情 序号：查看上次战绩列表中的对局',
-            '卫戍统计 [赛季ID]：查看本地累计战绩、常用策略与盟约、Boss 击杀和耗时',
+            '卫戍统计 [赛季ID]：查看累计战绩、策略与盟约偏好、Boss 击杀、耗时和官方履历',
             '卫戍赛季：查看官方可查询赛季',
             '以上命令均需添加当前插件前缀，例如「~卫戍战绩」。'
         ].join('\n'))
@@ -173,7 +173,7 @@ export class Garrison extends plugin {
             const { history } = result
             const { totalSec, avgSec, minSec, maxSec } = history.duration
             return this.renderPage(service, 'garrison/statistics.html', {
-                history,
+                history, career: result.career,
                 duration: {
                     total: formatGarrisonDuration(totalSec), average: formatGarrisonDuration(avgSec),
                     shortest: formatGarrisonDuration(minSec), longest: formatGarrisonDuration(maxSec)

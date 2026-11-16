@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{{pluResPath}}garrison/garrison.css">
 {{/block}}
 {{block 'main'}}
-<main class="garrison-page">
+<main class="garrison-page garrison-statistics-page">
     <header class="garrison-header">
         {{if backgroundUrl}}<img class="season-background" src="{{backgroundUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
         <div class="header-content"><h1>卫戍统计</h1><p>{{seasonName}}</p>
@@ -64,6 +64,61 @@
             <p class="statistics-note">数据覆盖 · 普通击败 {{history.killsReported}} / {{history.total}} 局 · 策略 {{history.coverage.strategyReported}} / {{history.total}} 局 · 盟约 {{history.coverage.bondsReported}} / {{history.total}} 局</p>
         </div>
     </section>
+    {{if career}}
+    <section class="statistics-section">
+        <h2>已获得特殊标识的策略</h2>
+        {{if career.badges && career.badges.length}}
+        <ul class="career-badge-list">
+            {{each career.badges badge}}
+            <li>
+                <span class="career-band-icon">
+                    {{if badge.iconUrl}}<img src="{{badge.iconUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
+                    <img class="career-badge-mark" src="{{badge.badgeUrl}}" alt="" onerror="this.style.display='none'">
+                </span>
+                <span>{{badge.name}}{{if badge.plated}}<small class="career-band-plating">镀层</small>{{/if}}</span>
+            </li>
+            {{/each}}
+        </ul>
+        {{else}}<p class="statistics-note">{{if career.badges}}本赛季暂无特殊标识策略。{{else}}森空岛暂未提供特殊标识策略。{{/if}}</p>{{/if}}
+    </section>
+    <section class="statistics-section">
+        <h2>已获得称号</h2>
+        {{if career.chart}}
+        <figure class="title-radar">
+            <svg viewBox="0 0 400 280" role="img" aria-label="已获得称号六维图">
+                <desc>{{each career.chart.axes axis}}{{axis.name}} {{axis.count}} 次。{{/each}}</desc>
+                {{each career.chart.axes axis}}
+                <g transform="rotate({{axis.rotation}} 200 140)">
+                    <polygon class="title-radar-track" points="{{career.chart.track}}"/>
+                    {{if axis.fill}}<polygon class="title-radar-fill" points="{{axis.fill}}"/>{{/if}}
+                </g>
+                <text class="title-radar-label" x="{{axis.label.x}}" y="{{axis.label.y - 3}}" text-anchor="{{axis.anchor}}">{{axis.name}}</text>
+                <text class="title-radar-count" x="{{axis.label.x}}" y="{{axis.label.y + 17}}" text-anchor="{{axis.anchor}}">{{axis.count}}</text>
+                {{/each}}
+            </svg>
+            <figcaption class="statistics-note">六类合计 {{career.chart.total}} 次</figcaption>
+        </figure>
+        {{else}}<p class="statistics-note">森空岛暂未提供称号维度。</p>{{/if}}
+        <div class="career-title-columns">
+            {{each career.titleLists group}}
+            <section class="career-titles">
+                <h3>{{group.name}}</h3>
+                {{if group.entries && group.entries.length}}
+                <ul class="career-title-list">
+                    {{each group.entries entry}}
+                    <li>
+                        <span class="career-title-icon">{{if entry.iconUrl}}<img src="{{entry.iconUrl}}" alt="" onerror="this.style.display='none'">{{/if}}</span>
+                        <span>{{entry.name}}</span>
+                        <strong>{{if entry.count === null}}—{{else if entry.count > 999}}999+{{else}}{{entry.count}}{{/if}}</strong>
+                    </li>
+                    {{/each}}
+                </ul>
+                {{else}}<p class="statistics-note">{{if group.entries}}暂无称号。{{else}}森空岛暂未提供该列表。{{/if}}</p>{{/if}}
+            </section>
+            {{/each}}
+        </div>
+    </section>
+    {{else}}<p class="statistics-note">森空岛赛季履历暂不可用。</p>{{/if}}
     <footer class="garrison-footer">{{if updated_at}}<p>数据更新时间：{{updated_at}}</p>{{/if}}<p>{{@sys.createdby}}</p></footer>
 </main>
 {{/block}}

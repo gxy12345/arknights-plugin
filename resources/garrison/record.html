@@ -30,7 +30,23 @@
     {{if record.bonds && record.bonds.length}}
     <section class="formation-section">
         <div class="section-heading"><h2>盟约</h2></div>
-        <div class="record-bonds">{{each record.bonds bond}}<article class="record-bond {{if !bond.active}}inactive{{/if}}">{{if bond.iconUrl}}<img src="{{bond.iconUrl}}" alt="" onerror="this.style.display='none'">{{/if}}<div><h3>{{bond.name || bond.id}}</h3><p>层数 {{bond.layer}}{{if bond.active !== undefined && bond.active !== null}} · {{if bond.active}}已激活{{else}}未激活{{/if}}{{/if}}</p></div></article>{{/each}}</div>
+        <ul class="record-bonds">
+            {{each record.bonds bond index}}
+            <li class="record-bond" tabindex="0" aria-label="{{bond.name || bond.id}}" aria-describedby="record-bond-tip-{{index}}">
+                <span class="record-bond-icon{{if bond.iconUrl}} has-icon{{/if}}">
+                    {{if bond.frameUrl}}<img src="{{bond.frameUrl}}" alt="" onerror="this.style.display='none'">{{/if}}
+                    <span>{{bond.name || bond.id}}</span>
+                    {{if bond.iconUrl}}<img class="record-bond-art" src="{{bond.iconUrl}}" alt="" onerror="this.style.display='none';this.parentElement.classList.remove('has-icon')">{{/if}}
+                </span>
+                {{if bond.showLayer !== false}}<span class="record-bond-layer">{{if bond.layer == null}}—{{else}}{{bond.layer}}{{/if}}</span>{{/if}}
+                <div class="record-bond-tip" id="record-bond-tip-{{index}}" role="tooltip">
+                    <strong>{{bond.name || bond.id}}</strong>
+                    {{if bond.active != null}}<p>{{if bond.active}}已激活{{else}}未激活{{/if}}</p>{{/if}}
+                    {{if bond.description}}<p>{{bond.description}}</p>{{/if}}
+                </div>
+            </li>
+            {{/each}}
+        </ul>
     </section>
     {{/if}}
     <section class="formation-section">
