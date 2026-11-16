@@ -93,20 +93,39 @@ test('旧统计备份原文件，补录不重计，重复输入不重写', async
     assert.deepEqual(await readdir(dir), files)
 })
 
-test('卫戍统计只读取赛季资料与战绩，博士资料缺失时可继续出图', async t => {
+test('卫戍统计解码正式履历，履历和博士资料请求失败时仍有本地统计', async t => {
     const calls = []
+    let hasCareer = true
+    const payload = { career: {
+        bandBadges: [{ id: 'band_a', masterVictor: true }], titleTypeCnt: { COIN: 5, KILL: 5 },
+        normalTitles: [{ name: '测试常规称号', count: 5, picId: 'comment_1' }], specialTitles: []
+    } }
     const user = { name: '测试博士', uid: '1234', getGamePlayerInfo: async () => { throw Error('profile offline') }, sklReq: {
-        getData: async type => {
+        getData: async (type, params) => {
             calls.push(type)
             if (type === 'garrison_resource') return { code: 0, data: resource }
             if (type === 'garrison_history') return { code: 0, data: { records: [record] } }
-            throw Error('unexpected request')
+            assert.equal(type, 'garrison_career')
+            assert.deepEqual(params, { seasonId: 'season', headers: { 'x-transformed': 'base64' } })
+            return { code: 0, data: { content: hasCareer ? Buffer.from(JSON.stringify(payload)).toString('base64') : 'invalid!' } }
         }
     } }
     const service = new GarrisonService(user, await statisticsStore(t))
     const stats = await service.getStatistics()
     assert.equal(stats.history.total, 1)
-    assert.deepEqual(calls, ['garrison_resource', 'garrison_history'])
+    assert.deepEqual(calls, ['garrison_resource', 'garrison_history', 'garrison_career'])
+    assert.equal(stats.career.badges[0].name, '测试小队')
+    assert.equal(stats.career.badges[0].plated, true)
+    assert.deepEqual(stats.career.chart.axes.map(axis => axis.count), [5, 5, 0, 0, 0, 0])
+    assert.equal(stats.career.chart.total, 10)
+    assert.match(stats.career.chart.axes[0].fill, /^[\d.]+,93\.50 /)
+    assert.equal(stats.career.chart.axes[2].fill, '')
+    assert.equal(stats.career.titleLists[0].entries[0].name, '测试常规称号')
+    assert.deepEqual(stats.career.titleLists[1].entries, [])
+    hasCareer = false
+    const fallback = await service.getStatistics()
+    assert.equal(fallback.history.total, 1)
+    assert.equal(fallback.career, null)
     assert.deepEqual(await service.getDoctor(), { name: '测试博士', uid: '1234', level: '—', avatar: '', registered: '' })
     user.getGamePlayerInfo = async () => ({ code: 0, data: { status: { name: '测试博士', level: 120, avatar: { type: 'ICON', id: 'test-avatar' } } } })
     const doctor = await service.getDoctor()
@@ -127,6 +146,25 @@ test('逐局战绩映射技能、模组、装备和盟约；时间按上海时�
     assert.equal(result.difficulty, '终极模拟')
     assert.match(result.date, /08:00/)
     assert.equal(formatGarrisonDate('not-a-date'), '时间未知')
+})
+
+test('对局盟约按层数降序，保留可叠层零值并隐藏明确不可叠层的零值', () => {
+    const current = { activityId: 'act3autochess', versionId: 'V3_1', bondInfo: [
+        { bondId: 'maniShip', layer: 0, activate: 1 }, { bondId: 'missing' },
+        { bondId: 'regular', layer: 0 }, { bondId: 'core', layer: '12', activate: true }
+    ] }
+    const data = { versionInfo: { seasonId: 'act3autochess', versionId: 'V3_1' }, bonds: [
+        { bondId: 'core', activeCount: 3, bondType: 1, effect: '获得<@ba.vup>攻击力</>' }
+    ] }
+    const { bonds } = normalizeGarrisonRecord(current, data)
+    assert.deepEqual(bonds.map(bond => [bond.id, bond.layer, bond.showLayer]), [
+        ['core', 12, true], ['maniShip', 0, false], ['regular', 0, true], ['missing', null, true]
+    ])
+    assert.equal(bonds[0].description, '核心盟约 · 激活所需人数 3\n获得攻击力')
+    assert.match(bonds[0].frameUrl, /bond_require\/3\.png$/)
+    const historical = normalizeGarrisonRecord({ ...current, versionId: 'old' }, data)
+    assert.equal(historical.bonds[1].showLayer, true)
+    assert.equal(historical.bonds[0].description, '')
 })
 
 test('按规程赛季的模式分别解释难度枚举', () => {
@@ -202,7 +240,7 @@ test('服务合并资料请求，逐次附加角色头并累计同赛季所有�
     assert.equal(result.records[1].resourceUnavailable, true)
     records = []
     assert.equal((await service.getStatistics()).history.total, 2)
-    assert.ok(calls.every(call => call.params.headers['sk-game-role'] === '1_1234_0'))
+    assert.ok(calls.filter(call => call.type !== 'garrison_career').every(call => call.params.headers['sk-game-role'] === '1_1234_0'))
 })
 
 test('攻略游标、关键词正确编码；服务错误不会泄漏后端响应', async () => {
@@ -211,6 +249,9 @@ test('攻略游标、关键词正确编码；服务错误不会泄漏后端响�
     assert.equal(new URLSearchParams(query).get('source'), 'COMMUNITY')
     assert.equal(new URLSearchParams(query).get('pageToken'), 'cursor+/=&')
     assert.equal(new URLSearchParams(query).get('titleKeyword'), '炎 & 装备')
+    const { url: careerUrl, query: careerQuery } = api.getUrlMap({ seasonId: 's1' }).garrison_career
+    assert.equal(new URL(careerUrl).pathname, '/api/ms/game/arknights/garrison/info')
+    assert.deepEqual(Object.fromEntries(new URLSearchParams(careerQuery)), { uid: '1234', activityId: 's1' })
     const service = new GarrisonService({ uid: '1234', sklReq: { getData: async () => { throw Error('backend private response') } } })
     await assert.rejects(service.getResources(), error => !error.message.includes('private') && error.message.includes('资料失败'))
 })

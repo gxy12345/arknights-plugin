@@ -1,6 +1,7 @@
 import { garrisonMetricRecord, garrisonStatisticsAssets, normalizeGarrisonGuide, normalizeGarrisonRecord } from './garrisonView.js'
 import garrisonStatistics from './garrisonStatistics.js'
 import { buildPlayerIdentity } from './playerView.js'
+import { decodeGarrisonCareer, normalizeGarrisonCareer } from './garrisonCareer.js'
 
 const errors = {
     garrison_resource: '获取卫戍协议资料失败，请稍后再试',
@@ -16,11 +17,9 @@ export default class GarrisonService {
         this.pending = new Map()
     }
 
-    async request(type, params = {}) {
+    async request(type, params = {}, headers = { 'sk-game-role': `1_${this.user.uid}_0` }) {
         try {
-            const result = await this.user.sklReq.getData(type, {
-                ...params, headers: { 'sk-game-role': `1_${this.user.uid}_0` }
-            })
+            const result = await this.user.sklReq.getData(type, { ...params, headers })
             if (!result || Number(result.code) !== 0 || !result.data || typeof result.data !== 'object') throw new Error()
             return result.data
         } catch {
@@ -104,10 +103,12 @@ export default class GarrisonService {
 
     async getStatistics(seasonId = '') {
         const { records, resource, seasonId: selectedSeason } = await this.getHistoryData(seasonId)
+        const career = this.request('garrison_career', { seasonId: selectedSeason }, { 'x-transformed': 'base64' })
+            .then(decodeGarrisonCareer).then(data => normalizeGarrisonCareer(data, resource)).catch(() => null)
         const versionResources = await this.getHistoryResources(selectedSeason, records, resource)
         const assets = garrisonStatisticsAssets(selectedSeason, records.map(garrisonMetricRecord), resource, versionResources)
         const history = await this.statisticsStore.sync(this.user.uid, selectedSeason, records, assets)
-        return { history, resource, seasonId: selectedSeason }
+        return { history, career: await career, resource, seasonId: selectedSeason }
     }
 
     async getHistoryResources(seasonId, records, resource) {

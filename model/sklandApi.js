@@ -48,6 +48,10 @@ export default class sklandApi {
                     url: `${api_host}api/v1/game/garrison/guide/history-log`,
                     query: query({ seasonId: data.seasonId })
                 },
+                garrison_career: {
+                    url: `${api_host}api/ms/game/arknights/garrison/info`,
+                    query: query({ uid: this.uid, activityId: data.seasonId })
+                },
                 /* 签到 */
                 attendance: {
                     url: `${api_host}api/v1/game/attendance`,
